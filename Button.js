@@ -1,16 +1,21 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
 
-class InputButton extends CommonMixin(LitElement) {
+
+class Button extends CommonMixin(LitElement) {
 
   static get properties() {
     return {}
   }
 
+  get noReflectionList(){
+    return ['data']
+  }
+
   render() {
-    return html`<input type="button" id="_el">
+    return html`<button id="_el">
                   <slot></slot>
                 </button>`
   }
 }
-customElements.define('nn-input-button', InputButton)
+customElements.define('nn-button', Button)

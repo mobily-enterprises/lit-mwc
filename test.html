@@ -1,14 +1,28 @@
 <head>
   <script type="module" src="./InputButton.js"></script>
+  <script type="module" src="./InputCheckbox.js"></script>
+  <script type="module" src="./InputText.js"></script>
+  <script type="module" src="./Button.js"></script>
+
 </head>
 
 
 <html>
-  <div>A PAGE</div>
-  <nn-input-button id="button" value="The button2"></nn-input-button>
+  <h1>Elements test page</h1>
+
+  <h2>Input Button</h2>
+  <nn-input-button id="input-button" value="Input button"></nn-input-button>
+
+  <h2>Checkbox</h2>
+  <nn-input-checkbox id="input-checkbox">Checkbox</nn-input-checkbox>
+
+  <h2>Text</h2>
+  <nn-input-text id="input-text"></nn-input-text>
+
+  <h2>Button</h2>
+  <nn-button id="button" me="something">Button</nn-button>
 
   <script>
-
     var button = document.getElementById('button')
     button.addEventListener('click', function(e) {
       debugger

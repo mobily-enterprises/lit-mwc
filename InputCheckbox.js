@@ -1,16 +1,16 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
 
-class InputButton extends CommonMixin(LitElement) {
+class InputCheckbox extends CommonMixin(LitElement) {
 
   static get properties() {
     return {}
   }
 
   render() {
-    return html`<input type="button" id="_el">
+    return html`<input type="checkbox" id="_el">
                   <slot></slot>
                 </button>`
   }
 }
-customElements.define('nn-input-button', InputButton)
+customElements.define('nn-input-checkbox', InputCheckbox)
