@@ -1,0 +1,29 @@
+{
+  "name": "nn",
+  "version": "0.0.1",
+  "description": "Nearly Native HTML elements",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mobily-enterprises/nn.git"
+  },
+  "keywords": [
+    "lit-html",
+    "web-components",
+    "elements",
+    "theme"
+  ],
+  "author": "Raphael Mattos, Tony Mobily",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/mobily-enterprises/nn/issues"
+  },
+  "homepage": "https://github.com/mobily-enterprises/nn#readme",
+  "dependencies": {
+    "lit-element": "^2.1.0"
+  }
+}
