@@ -1,0 +1,20 @@
+<head>
+  <script src="./test.js" type="module"></script>
+  <script type="module" src="./InputButton.js"></script>
+</head>
+
+
+<html>
+  <div>A PAGE</div>
+  <nn-input-button id="button" value="The button2"></nn-input-button>
+
+  <script>
+
+    var button = document.getElementById('button')
+    button.addEventListener('click', function(e) {
+      debugger
+      button.setAttribute('autocomplete', 'something')
+    } )
+
+  </script>
+</html>
