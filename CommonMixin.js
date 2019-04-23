@@ -23,8 +23,9 @@ export const CommonMixin = (base) => {
 
         // Assign all starting attributes to the destination element
         for (let attr of this.attributes) {
-          attr = attr.name
-          if (attr !== 'id' && noMap.indexOf(attr) === -1) dst.setAttribute(attr, this.getAttribute(attr))
+          let nativeAttr
+          nativeAttr = attr.name.split('native:')[1]
+          if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(attr.name))
         }
 
         // Observe changes in attribute from the source element, and reflect
@@ -32,8 +33,10 @@ export const CommonMixin = (base) => {
         var observer = new MutationObserver( (mutations) =>  {
           mutations.forEach((mutation) => {
             if (mutation.type == "attributes") {
-              var attr = mutation.attributeName
-              dst.setAttribute(attr, this.getAttribute(attr))
+              let nativeAttr
+              nativeAttr = mutation.attributeName.split('native:')[1]
+
+              if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(mutation.attributeName))
             }
           });
         });

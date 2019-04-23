@@ -20,13 +20,13 @@
   <nn-input-text id="input-text"></nn-input-text>
 
   <h2>Button</h2>
-  <nn-button id="button" me="something">Button</nn-button>
+  <nn-button id="button" me="me" native:me="native:me">Button</nn-button>
 
   <script>
     var button = document.getElementById('button')
     button.addEventListener('click', function(e) {
       debugger
-      button.setAttribute('autocomplete', 'something')
+      button.setAttribute('native:autocomplete', 'native:autocomplete')
     } )
 
   </script>
