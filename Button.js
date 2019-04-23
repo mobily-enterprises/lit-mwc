@@ -8,10 +8,6 @@ class Button extends CommonMixin(LitElement) {
     return {}
   }
 
-  get notReflectedAttributes(){
-    return ['']
-  }
-
   render() {
     return html`<button id="_el">
                   <slot></slot>

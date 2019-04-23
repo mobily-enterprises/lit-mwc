@@ -7,10 +7,6 @@ export const CommonMixin = (base) => {
       this._reflectAttributesAndProperties(this.noReflectionList)
     }
 
-    get notReflectedAttributes() {
-      return []
-    }
-
     get reflectedProperties() {
       return []
     }
