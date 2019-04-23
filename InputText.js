@@ -7,6 +7,14 @@ class InputText extends CommonMixin(LitElement) {
     return {}
   }
 
+  get notReflectedAttributes(){
+    return ['list', 'label']
+  }
+
+  get reflectedProperties() {
+    return ['value']
+  }
+
   render() {
     return html`<input type="text" id="_el">
                   <slot></slot>

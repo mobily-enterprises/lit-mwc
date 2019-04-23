@@ -4,16 +4,22 @@ export const CommonMixin = (base) => {
     constructor() {
       super()
       debugger
-      this._reflectAttributes(this.noReflectionList)
+      this._reflectAttributesAndProperties(this.noReflectionList)
     }
 
-    get noReflectionList() {
+    get notReflectedAttributes() {
       return []
     }
 
-    _reflectAttributes(noMap = []) {
+    get reflectedProperties() {
+      return []
+    }
+
+    _reflectAttributesAndProperties(noMap = []) {
       this.updateComplete.then(() => {
         var dst = this.shadowRoot.querySelector('#_el')
+
+        // ATTRIBUTES FIRST
 
         // Assign all starting attributes to the destination element
         for (let attr of this.attributes) {
@@ -32,6 +38,18 @@ export const CommonMixin = (base) => {
           });
         });
         observer.observe(this, { attributes: true })
+
+        // PROPERTIES
+        for (var prop of this.reflectedProperties) {
+          Object.defineProperty (this, prop, {
+            get: function () {
+               return dst[prop];
+            },
+            set: function (newValue) {
+               dst[prop] = newValue;
+            }
+          });
+        }
       })
     }
   }

@@ -8,8 +8,8 @@ class Button extends CommonMixin(LitElement) {
     return {}
   }
 
-  get noReflectionList(){
-    return ['data']
+  get notReflectedAttributes(){
+    return ['']
   }
 
   render() {
