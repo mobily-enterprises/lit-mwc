@@ -8,7 +8,7 @@ class InputText extends CommonMixin(LitElement) {
   }
 
   get reflectedProperties() {
-    return ['value']
+    return inputDefaultReflectedMethods
   }
 
   render() {

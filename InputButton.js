@@ -7,6 +7,10 @@ class InputButton extends CommonMixin(LitElement) {
     return {}
   }
 
+  get reflectedProperties() {
+    return inputDefaultReflectedMethods
+  }
+
   render() {
     return html`<input type="button" id="_el">
                   <slot></slot>
