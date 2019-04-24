@@ -1,8 +1,9 @@
 import { LitElement, html } from 'lit-element'
+import { InputMixin } from "./InputMixin.js";
 import { CommonMixin } from './CommonMixin.js'
 import { htmlDefaultReflectedProperties, inputDefaultReflectedAttributes } from './common.js'
 
-class InputText extends CommonMixin(LitElement) {
+class InputText extends InputMixin(CommonMixin(LitElement)) {
 
   static get properties() {
     return {}
@@ -17,9 +18,12 @@ class InputText extends CommonMixin(LitElement) {
   }
 
   render() {
-    return html`<input type="text" id="_el">
-                  <slot></slot>
-               `
+    return html`${ this.labelBeforeTemplate }
+  
+                <input type="text" id="_el">
+                
+                ${ this.labelAfterTemplate }
+              `
   }
 }
 customElements.define('nn-input-text', InputText)
