@@ -13,16 +13,23 @@ export const CommonMixin = (base) => {
       return []
     }
 
+    get reflectedAttributes() {
+      return []
+    }
     _reflectAttributesAndProperties() {
       var dst = this.native
 
       // ATTRIBUTES FIRST
 
-      // Assign all starting attributes to the destination element
+      // Assign all starting native: to the destination element
       for (let attr of this.attributes) {
-        let nativeAttr
-        nativeAttr = attr.name.split('native:')[1]
+        let nativeAttr = attr.name.split('native:')[1]
         if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(attr.name))
+        else {
+          if (this.reflectedAttributes[attr]) {
+            dst.setAttribute(attr, this.getAttribute(attr))
+          }
+        }
       }
 
       // Observe changes in attribute from the source element, and reflect
@@ -30,10 +37,19 @@ export const CommonMixin = (base) => {
       var observer = new MutationObserver( (mutations) =>  {
         mutations.forEach((mutation) => {
           if (mutation.type == "attributes") {
-            let nativeAttr
-            nativeAttr = mutation.attributeName.split('native:')[1]
 
-            if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(mutation.attributeName))
+            // Look for native: attributes
+            // If not there, set the attrivute if in the list of
+            // reflected ones
+            var attr = mutation.attributeName
+            let nativeAttr = attr.split('native:')[1]
+            if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(attr))
+            else {
+              let attr = mutation.attributeName
+              if (this.reflectedAttributes[attr]) {
+                dst.setAttribute(attr, this.getAttribute(attr))
+              }
+            }
           }
         });
       });

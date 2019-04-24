@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
+import { htmlDefaultReflectedProperties, inputDefaultReflectedAttributes } from './common.js'
 
 class InputText extends CommonMixin(LitElement) {
 
@@ -8,7 +9,11 @@ class InputText extends CommonMixin(LitElement) {
   }
 
   get reflectedProperties() {
-    return inputDefaultReflectedMethods
+    return [ ...htmlDefaultReflectedProperties, 'value' ]
+  }
+
+  get reflectedAttributes() {
+    return [ ...inputDefaultReflectedAttributes, 'maxlength', 'minlength', 'pattern', 'placeholder', 'readonly', 'size', 'spellcheck', 'value', 'autocorrect', 'mozactionhint' ]
   }
 
   render() {

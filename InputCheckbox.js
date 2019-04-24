@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
+import { htmlDefaultReflectedProperties, inputDefaultReflectedAttributes } from './common.js'
 
 class InputCheckbox extends CommonMixin(LitElement) {
 
@@ -8,7 +9,11 @@ class InputCheckbox extends CommonMixin(LitElement) {
   }
 
   get reflectedProperties() {
-    return inputDefaultReflectedMethods
+    return [ ...htmlDefaultReflectedProperties, 'value' ]
+  }
+
+  get reflectedAttributes() {
+    return [ ...inputDefaultReflectedAttributes, 'checked', 'value' ]
   }
 
   render() {
