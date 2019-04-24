@@ -16,7 +16,7 @@ class InputButton extends CommonMixin(LitElement) {
   render() {
     return html`<input type="button" id="_el">
                   <slot></slot>
-                </button>`
+               `
   }
 }
 customElements.define('nn-input-button', InputButton)

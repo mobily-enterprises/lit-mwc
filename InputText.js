@@ -19,7 +19,7 @@ class InputText extends CommonMixin(LitElement) {
   render() {
     return html`<input type="text" id="_el">
                   <slot></slot>
-                </button>`
+               `
   }
 }
 customElements.define('nn-input-text', InputText)

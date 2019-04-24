@@ -19,7 +19,7 @@ class InputCheckbox extends CommonMixin(LitElement) {
   render() {
     return html`<input type="checkbox" id="_el">
                   <slot></slot>
-                </button>`
+               `
   }
 }
 customElements.define('nn-input-checkbox', InputCheckbox)
