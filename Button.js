@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { htmlDefaultReflectedProperties, inputDefaultReflectedAttributes } from './common.js'
+import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
 
 class Button extends CommonMixin(LitElement) {
 
@@ -9,11 +9,11 @@ class Button extends CommonMixin(LitElement) {
   }
 
   get reflectedProperties() {
-    return [ ...htmlDefaultReflectedProperties, 'value' ]
+    return [ ...defaultReflectedProperties ]
   }
 
   get reflectedAttributes() {
-    return [ ...inputDefaultReflectedAttributes, 'autofocus', 'autocomplete', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'name', 'type', 'value' ]
+    return [ ...defaultReflectedAttributes, 'autofocus', 'autocomplete', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'name', 'type', 'value' ]
   }
 
   render() {

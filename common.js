@@ -1,7 +1,6 @@
 
-// /API/HTMLElement methods/properties
-export const htmlDefaultReflectedProperties = ['blur', 'click', 'focus', 'forceSpellCheck']
+// Methods/properties that makes sense to reflect
+export const defaultReflectedProperties = ['blur', 'click', 'focus', 'value']
 
-// Note: HTML/Element doesn't set attributes
-// HTML/Element/input attributes
-export const inputDefaultReflectedAttributes = ['autocomplete', 'autofocus', 'disabled', /*'form',*/ /*'list',*/ 'name', 'readonly', 'required', /*'tabindex',*/ 'value']
+// Attributes that makes sense to reflect
+export const defaultReflectedAttributes = ['autocomplete', 'autofocus', 'disabled', 'name', 'readonly', 'required', 'value']

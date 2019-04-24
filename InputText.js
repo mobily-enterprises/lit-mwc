@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { htmlDefaultReflectedProperties, inputDefaultReflectedAttributes } from './common.js'
+import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
 
 class InputText extends CommonMixin(LitElement) {
 
@@ -9,11 +9,13 @@ class InputText extends CommonMixin(LitElement) {
   }
 
   get reflectedProperties() {
-    return [ ...htmlDefaultReflectedProperties, 'value' ]
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
+    return [ ...defaultReflectedProperties, 'select', 'setRangeText', 'setSelectionRange' ]
   }
 
   get reflectedAttributes() {
-    return [ ...inputDefaultReflectedAttributes, 'maxlength', 'minlength', 'pattern', 'placeholder', 'readonly', 'size', 'spellcheck', 'value', 'autocorrect', 'mozactionhint' ]
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
+    return [ ...defaultReflectedAttributes, 'maxlength', 'minlength', 'pattern', 'placeholder', 'readonly', 'size', 'spellcheck', 'autocorrect', 'mozactionhint' ]
   }
 
   render() {

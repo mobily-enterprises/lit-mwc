@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { htmlDefaultReflectedProperties } from './common.js'
+import { defaultReflectedProperties } from './common.js'
 
 class Form extends CommonMixin(LitElement) {
 

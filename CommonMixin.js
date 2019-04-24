@@ -59,11 +59,9 @@ export const CommonMixin = (base) => {
       this.reflectedProperties.forEach( prop => {
         Object.defineProperty (this, prop, {
           get: function () {
-            debugger
              return dst[prop];
           },
           set: function (newValue) {
-            debugger
              dst[prop] = newValue;
           }
         });

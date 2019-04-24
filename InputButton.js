@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { htmlDefaultReflectedProperties, inputDefaultReflectedAttributes } from './common.js'
+import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
 
 class InputButton extends CommonMixin(LitElement) {
 
@@ -10,7 +10,10 @@ class InputButton extends CommonMixin(LitElement) {
 
   get reflectedProperties() {
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement
-    return [ ...htmlDefaultReflectedProperties, 'checkValidity', 'reportValidity', 'setCustomValidity', 'value' ]
+    return [ ...defaultReflectedProperties, 'checkValidity', 'reportValidity', 'setCustomValidity' ]
+  }
+  get reflectedAttributes() {
+    return [ ...defaultReflectedAttributes ]
   }
 
   render() {
