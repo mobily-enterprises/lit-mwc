@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit-element'
-import { InputMixin } from "./InputMixin.js";
+import { InputMixin } from './InputMixin.js';
 import { CommonMixin } from './CommonMixin.js'
 import { htmlDefaultReflectedProperties, inputDefaultReflectedAttributes } from './common.js'
 
