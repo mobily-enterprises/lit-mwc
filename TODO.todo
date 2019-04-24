@@ -1,14 +1,28 @@
 
 TONY
+Active:
+  ☐ Set up nn-pwa as a clone pf pwa (branch template-minimal-ui) easily updated
+  ☐ https://github.com/Polymer/pwa-starter-kit/issues/121
+    ☐ Actually follow the steps and have www and app files (from latest express) in server/
+    ☐ Make PR for documentation update as promised to Polymer team
+  ☐ Add simple route to start testing forms
+  ☐ Publish nn on NPM
+  ☐ Add link to nn to nn-pwa
+  ☐ Check that forms are submitted and data is returned
+
 ☐ nn-form:
- ☐ Load data from the server before showing the form
- ☐ Overwrite a record (PUT with an existing ID), or create a new one (POST, no ID) or create a record with an arbitrary ID (PUT with a new ID)?
- ☐ Render ALL input fields automatically disabled while the form is being submitted
- ☐ Highlight the problem fields if the form is NOT a success
- ☐ Submit the form when the user presses ENTER on a paper-input widget
- ☐ Refresh the data with the saved info coming back from the server after saving
- ☐ Display messages to the user
- ☐ Have "silent" fields that won't get submitted (will only facilitate presubmit)
+  ☐ Load data from the server before showing the form
+  ☐ Overwrite a record (PUT with an existing ID), or create a new one (POST, no ID) or create a record with an arbitrary ID (PUT with a new ID)?
+  ☐ Render ALL input fields automatically disabled while the form is being submitted
+  ☐ Highlight the problem fields if the form is NOT a success
+  ☐ Submit the form when the user presses ENTER on a paper-input widget
+  ☐ Refresh the data with the saved info coming back from the server after saving
+  ☐ Display messages to the user
+  ☐ Have "silent" fields that won't get submitted (will only facilitate presubmit)
+  ☐ Native patching https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
+    ☐ <form> has `target` (attribute). This value can be overridden by a formtarget attribute on a <button> or <input> element. Will this work through shadow DOM?
+    ☐ document.forms returns the forms. Will the forms in the shadow dom be returned?
+    ☐ HTMLFormElement.elements and HTMLFormElement.length are only <button>, <fieldset>, <input>, <object>, etc.
 
 ☐ nn-realtime-field (or include in nn-form?):
 
@@ -33,6 +47,10 @@ TONY
     ☐ Learn Workbox https://developers.google.com/web/ilt/pwa/lab-migrating-to-workbox-from-sw-precache-and-sw-toolbox
   ☐ Make sure PWA integrates with Workbox https://github.com/Polymer/tools/pull/388
   ☐ Make websocket work, with subscriptions and alerts
+
+
+☐ Check possible shadow dom issues:
+
 
 RAPHAEL
 ☐ (Tony asks) Shall we reflect the attribute 'tabindex'? Or is it likely to mess up things if the nn element has the same tabIndex as the native element in the shadow dom? Does it even make sense to set it in the shadow dom at all?
