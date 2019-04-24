@@ -10,6 +10,30 @@ TONY
  ☐ Display messages to the user
  ☐ Have "silent" fields that won't get submitted (will only facilitate presubmit)
 
+☐ nn-realtime-field (or include in nn-form?):
+
+☐ nn-autocomplete (using datalist):
+
+☐ nn-network:
+
+☐ JsonRestStores2:
+  ☐ SimpleSchema: have an async version; or, maybe turn it into a 100% async module
+  ☐ JsonRestStores: Maybe have a 'request.fullBody' field which, in case of singleFields, will be populated by request.doc (This is to simplify code in hooks, which right now need to deal with exceptions for single field writes)
+  ☐ Multer: Use async functions
+  ☐ Multer: ability to assign names based on record IDs
+  ☐ Finish docs, in tutorial-like form with examples
+
+☐ Path to nn-pwa:
+  ☐ Make basic PWA
+  ☐ Write PWA login screen with change password/profile
+  ☐ Write basic editing screens (user info, root-level records, etc.)
+  ☐ Make simple app with two screens, with Ajax calls, refresh, etc.
+  ☐ Add header with back button and history management
+  ☐ Make sure Workbox is used instead of service worker after polymer build
+    ☐ Learn Workbox https://developers.google.com/web/ilt/pwa/lab-migrating-to-workbox-from-sw-precache-and-sw-toolbox
+  ☐ Make sure PWA integrates with Workbox https://github.com/Polymer/tools/pull/388
+  ☐ Make websocket work, with subscriptions and alerts
+
 RAPHAEL
 ☐ (Tony asks) Shall we reflect the attribute 'tabindex'? Or is it likely to mess up things if the nn element has the same tabIndex as the native element in the shadow dom? Does it even make sense to set it in the shadow dom at all?
 ☐ (Tony's suggestion) Implement basic drawer element
