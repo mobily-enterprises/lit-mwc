@@ -3,24 +3,26 @@
   <script type="module" src="./InputCheckbox.js"></script>
   <script type="module" src="./InputText.js"></script>
   <script type="module" src="./Button.js"></script>
-
+  <script type="module" src="./Form.js"></script>
 </head>
 
 
 <html>
   <h1>Elements test page</h1>
 
-  <h2>Input Button</h2>
-  <nn-input-button id="input-button" native:value="Input button"></nn-input-button>
+  <nn-form>
+    <h2>Input Button</h2>
+    <nn-input-button id="input-button" native:value="Input button"></nn-input-button>
 
-  <h2>Checkbox</h2>
-  <nn-input-checkbox id="input-checkbox">Checkbox</nn-input-checkbox>
+    <h2>Checkbox</h2>
+    <nn-input-checkbox id="input-checkbox">Checkbox</nn-input-checkbox>
 
-  <h2>Text</h2>
-  <nn-input-text id="input-text"></nn-input-text>
+    <h2>Text</h2>
+    <nn-input-text id="input-text"></nn-input-text>
 
-  <h2>Button</h2>
-  <nn-button id="button" me="me" native:me="native:me">Button</nn-button>
+    <h2>Button</h2>
+    <nn-button id="button" me="me" native:me="native:me">Button</nn-button>
+  </nn-form>
 
   <script>
     var button = document.getElementById('button')

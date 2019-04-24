@@ -13,11 +13,11 @@ class Form extends CommonMixin(LitElement) {
   }
 
   get reflectedProperties() {
-    return []
+    return ['submit', 'reset', 'checkValidity', 'reportValidity', 'requestAutocomplete', 'elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate']
   }
 
   get reflectedAttributes() {
-    return []
+    return ['blur', 'click', 'focus', 'name', 'accept-charset', 'action', 'autocapitalize', 'autocomplete', 'enctype', 'method', 'novalidate', 'target', ]
   }
 
   render() {
