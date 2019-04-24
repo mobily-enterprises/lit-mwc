@@ -12,3 +12,5 @@ TONY
 
 RAPHAEL
 ☐ (Tony asks) Shall we reflect the attribute 'tabindex'? Or is it likely to mess up things if the nn element has the same tabIndex as the native element in the shadow dom? Does it even make sense to set it in the shadow dom at all?
+☐ (Tony's suggestion) Implement basic drawer element
+☐ (Tony's suggestion) Implement basic tabs/tab elements
