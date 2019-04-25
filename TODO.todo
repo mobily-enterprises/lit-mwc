@@ -44,14 +44,7 @@ Active:
   ☐ Write basic editing screens (user info, root-level records, etc.)
   ☐ Make simple app with two screens, with Ajax calls, refresh, etc.
   ☐ Add header with back button and history management
-  ☐ Make sure Workbox is used instead of service worker after polymer build
-    ☐ Learn Workbox https://developers.google.com/web/ilt/pwa/lab-migrating-to-workbox-from-sw-precache-and-sw-toolbox
-  ☐ Make sure PWA integrates with Workbox https://github.com/Polymer/tools/pull/388
   ☐ Make websocket work, with subscriptions and alerts
-
-
-☐ Check possible shadow dom issues:
-
 
 RAPHAEL
 ☐ (Tony asks) Shall we reflect the attribute 'tabindex'? Or is it likely to mess up things if the nn element has the same tabIndex as the native element in the shadow dom? Does it even make sense to set it in the shadow dom at all?
