@@ -1,12 +1,25 @@
-import { LitElement, html } from 'lit-element'
+import { LitElement, html, css } from 'lit-element'
 import { InputMixin } from './InputMixin.js';
 import { CommonMixin } from './CommonMixin.js'
 import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
-
 class InputText extends InputMixin(CommonMixin(LitElement)) {
+  static get styles () { 
+      return css`
+        input {
+          height: 36px;
+          border-radius: var(--nn-input-border-radius, initial);
+          border: var(--nn-input-border, 1px solid #dddddd);
+          background-color: #ccffcc;
+          -webkit-appearance: none;
+        }
+        
+      `
+    }
 
   static get properties() {
-    return {}
+    return {
+      myStyle: { type: String }
+    }
   }
 
   get reflectedProperties() {
@@ -19,8 +32,16 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
     return [ ...defaultReflectedAttributes, 'maxlength', 'minlength', 'pattern', 'placeholder', 'readonly', 'size', 'spellcheck', 'autocorrect', 'mozactionhint' ]
   }
 
+  constructor() {
+    super();
+    this.myStyle = './input-style1.css'
+  }
+
   render() {
-    return html`${ this.labelBeforeTemplate }
+    return html`
+                ${ this.myStyle ? html`<link rel="stylesheet" href="${this.myStyle}">` : '' }
+
+                ${ this.labelBeforeTemplate }
   
                 <input type="text" id="_el">
                 
