@@ -34,11 +34,29 @@ TONY
 ☐ nn-realtime-field (or include in nn-form?):
 
 ☐ nn-autocomplete (using datalist):
+WATCH
+☐  https://github.com/w3c/webcomponents/issues/187 VERY CRUCIAL TICKET ON ELEMENT-FORM ASSOCIATION
 
 RAPHAEL
 ☐ (Tony asks) Shall we reflect the attribute 'tabindex'? Or is it likely to mess up things if the nn element has the same tabIndex as the native element in the shadow dom? Does it even make sense to set it in the shadow dom at all?
+  ☐ Needs testing
+
+Components:
+☐ Fix Label Mixin for inputs
 ☐ (Tony's suggestion) Implement basic drawer element
 ☐ (Tony's suggestion) Implement basic tabs/tab elements
 
-WATCH
-☐  https://github.com/w3c/webcomponents/issues/187 VERY CRUCIAL TICKET ON ELEMENT-FORM ASSOCIATION
+☐ Header (or Top App bar https://material.io/design/components/app-bars-top.html)
+☐ Nav bar (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
+☐ FAB
+☐ Toast
+☐ Slider (use native)
+☐ Switch (maybe checkbox style variant?)
+☐ Progress bar
+
+Styling:
+☐ Simple theme mechanism (use litElement recommended methods: import css tagged templates, custom css properties)
+☐ Text and textarea default theme
+☐ Buttons default theme
+☐ Checkbox default theme
+☐ Advanced theme mechanism (Allow default styles to be overriden either by extending the element or by replacing the default theme css tagged template file)
