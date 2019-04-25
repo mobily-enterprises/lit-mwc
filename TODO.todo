@@ -1,10 +1,11 @@
 
 TONY
 Active:
-  ☐ Set up nn-pwa as a clone pf pwa (branch template-minimal-ui) easily updated
+  ✔ Set up nn-pwa as a clone pf pwa (branch template-minimal-ui) easily updated @done(2019-04-25 21:45) @project(Active)
   ☐ https://github.com/Polymer/pwa-starter-kit/issues/121
     ☐ Actually follow the steps and have www and app files (from latest express) in server/
     ☐ Make PR for documentation update as promised to Polymer team
+
   ☐ Add simple route to start testing forms
   ☐ Publish nn on NPM
   ☐ Add link to nn to nn-pwa
