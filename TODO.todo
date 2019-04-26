@@ -1,20 +1,4 @@
-
 TONY
-Active:
-  ✔ Set up nn-pwa as a clone pf pwa (branch template-minimal-ui) easily updated @done(2019-04-25 21:45) @project(Active)
-  ✔ https://github.com/Polymer/pwa-starter-kit/issues/121 @done(2019-04-26 07:14) @project(Active)
-    ✔ Actually follow the steps and have www and app files (from latest express) in server/ @done(2019-04-26 07:14) @project(Active)
-    ✔ Make PR for documentation update as promised to Polymer team @done(2019-04-26 07:14) @project(Active)
-  ✔ Add a proper server based on express to the server directory @done(2019-04-26 08:12) @project(Active)
-  ✔ Organise static resources directory @done(2019-04-26 09:31) @project(Active)
-  ☐ Add jsonreststores2 to the mix, with store loader
-  ☐ Add simple store to start testing forms
-  ☐ Publish nn on NPM
-  ☐ Add link to nn to nn-pwa
-  ☐ Check that forms are submitted and data is returned
-
-  CHECK:
-  ☐ Organise static resources https://github.com/Polymer/pwa-starter-kit/issues/358
 
 ☐ nn-form:
   ☐ Load data from the server before showing the form
@@ -36,20 +20,6 @@ Active:
 
 ☐ nn-network:
 
-☐ JsonRestStores2:
-  ☐ SimpleSchema: have an async version; or, maybe turn it into a 100% async module
-  ☐ JsonRestStores: Maybe have a 'request.fullBody' field which, in case of singleFields, will be populated by request.doc (This is to simplify code in hooks, which right now need to deal with exceptions for single field writes)
-  ☐ Multer: Use async functions
-  ☐ Multer: ability to assign names based on record IDs
-  ☐ Finish docs, in tutorial-like form with examples
-
-☐ Path to nn-pwa:
-  ☐ Make basic PWA
-  ☐ Write PWA login screen with change password/profile
-  ☐ Write basic editing screens (user info, root-level records, etc.)
-  ☐ Make simple app with two screens, with Ajax calls, refresh, etc.
-  ☐ Add header with back button and history management
-  ☐ Make websocket work, with subscriptions and alerts https://socketcluster.io
 
 RAPHAEL
 ☐ (Tony asks) Shall we reflect the attribute 'tabindex'? Or is it likely to mess up things if the nn element has the same tabIndex as the native element in the shadow dom? Does it even make sense to set it in the shadow dom at all?
