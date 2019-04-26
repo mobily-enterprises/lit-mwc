@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { InputMixin } from './InputMixin.js';
 import { CommonMixin } from './CommonMixin.js'
 import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
-class InputText extends LitElement {
+class InputText extends InputMixin(CommonMixin(LitElement)) {
   static get styles () { 
       return css`
         input {
