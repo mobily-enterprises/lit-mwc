@@ -1,27 +1,31 @@
 TONY
 
 ☐ nn-form:
-  ☐ Load data from the server before showing the form
+  ✔ Load data from the server before showing the form @done(2019-04-29 21:14) @project(☐ nn-form)
   ☐ Overwrite a record (PUT with an existing ID), or create a new one (POST, no ID) or create a record with an arbitrary ID (PUT with a new ID)?
+  ☐ Refresh the data with the saved info coming back from the server after saving
   ☐ Render ALL input fields automatically disabled while the form is being submitted
   ☐ Highlight the problem fields if the form is NOT a success
   ☐ Submit the form when the user presses ENTER on a paper-input widget
-  ☐ Refresh the data with the saved info coming back from the server after saving
-  ☐ Display messages to the user
+  ☐ Display messages to the user in case of form errors
+  ☐ Add hidden elements for each nn- element so that form will submit if used natively
   ☐ Have "silent" fields that won't get submitted (will only facilitate presubmit)
+
   ☐ Native patching https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
     ☐ <form> has `target` (attribute). This value can be overridden by a formtarget attribute on a <button> or <input> element. Will this work through shadow DOM?
     ☐ document.forms returns the forms. Will the forms in the shadow dom be returned?
     ☐ HTMLFormElement.elements and HTMLFormElement.length are only <button>, <fieldset>, <input>, <object>, etc.
+☐ nn-network:
 
 ☐ nn-realtime-field (or include in nn-form?):
 
 ☐ nn-autocomplete (using datalist):
-
-☐ nn-network:
 
 
 RAPHAEL
 ☐ (Tony asks) Shall we reflect the attribute 'tabindex'? Or is it likely to mess up things if the nn element has the same tabIndex as the native element in the shadow dom? Does it even make sense to set it in the shadow dom at all?
 ☐ (Tony's suggestion) Implement basic drawer element
 ☐ (Tony's suggestion) Implement basic tabs/tab elements
+
+WATCH
+☐  https://github.com/w3c/webcomponents/issues/187 VERY CRUCIAL TICKET ON ELEMENT-FORM ASSOCIATION
