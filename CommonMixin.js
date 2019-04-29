@@ -1,14 +1,22 @@
 export const CommonMixin = (base) => {
   return class Base extends base {
 
-    constructor() {
-      super()
-      this.updateComplete.then(() => {
-        this.native = this.shadowRoot.querySelector('#_el')
-        this._reflectAttributesAndProperties()
-      })
+    firstUpdated () {
+      this.native = this.shadowRoot.querySelector('#_el')
+      this._reflectAttributesAndProperties()
     }
 
+    connectedCallback () {
+      super.connectedCallback()
+      this.assignFormProperty()
+    }
+
+    assignFormProperty () {
+      if (this.tagName === 'NN-FORM') return
+      var el = this
+      while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM')) {}
+      this.form = el
+    }
     get reflectedProperties() {
       return []
     }
@@ -22,11 +30,12 @@ export const CommonMixin = (base) => {
       // ATTRIBUTES FIRST
 
       // Assign all starting native: to the destination element
-      for (let attr of this.attributes) {
-        let nativeAttr = attr.name.split('native:')[1]
-        if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(attr.name))
+      for (let attributeObject of this.attributes) {
+        var attr = attributeObject.name
+        let nativeAttr = attr.split('native:')[1]
+        if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(attr))
         else {
-          if (this.reflectedAttributes[attr]) {
+          if (this.reflectedAttributes.indexOf(attr) !== -1) {
             dst.setAttribute(attr, this.getAttribute(attr))
           }
         }
@@ -46,7 +55,7 @@ export const CommonMixin = (base) => {
             if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(attr))
             else {
               let attr = mutation.attributeName
-              if (this.reflectedAttributes[attr]) {
+              if (this.reflectedAttributes.indexOf(attr) !== -1) {
                 dst.setAttribute(attr, this.getAttribute(attr))
               }
             }
@@ -55,16 +64,20 @@ export const CommonMixin = (base) => {
       });
       observer.observe(this, { attributes: true })
 
-      // PROPERTIES
+      // METHODS (as bound functions) AND PROPERTIES (as getters/setters)
       this.reflectedProperties.forEach( prop => {
-        Object.defineProperty (this, prop, {
-          get: function () {
-             return dst[prop];
-          },
-          set: function (newValue) {
-             dst[prop] = newValue;
-          }
-        });
+        if (typeof dst[prop] === 'function') {
+          this[prop] = dst[prop].bind(dst)
+        } else {
+          Object.defineProperty (this, prop, {
+            get: function () {
+              return dst[prop];
+            },
+            set: function (newValue) {
+              dst[prop] = newValue;
+            }
+          });
+        }
       })
     }
   }
