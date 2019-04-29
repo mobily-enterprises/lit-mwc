@@ -17,9 +17,15 @@ class Button extends CommonMixin(LitElement) {
   }
 
   render() {
-    return html`<button id="_el">
+    return html`<button @click="${this.clicked}" id="_el">
                   <slot></slot>
                 </button>`
+  }
+
+  clicked () {
+    var attr = this.getAttribute('type')
+    debugger
+    if (attr === 'submit') this.form.submit()
   }
 }
 customElements.define('nn-button', Button)
