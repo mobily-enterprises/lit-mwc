@@ -6,9 +6,9 @@ TONY
   ☐ Refresh the data with the saved info coming back from the server after saving
   ☐ Render ALL input fields automatically disabled while the form is being submitted
   ☐ Highlight the problem fields if the form is NOT a success
-  ☐ Submit the form when the user presses ENTER on a paper-input widget
+  ☐ Submit the form when the user presses ENTER on a inputText
   ☐ Display messages to the user in case of form errors
-  ☐ Add hidden elements for each nn- element so that form will submit if used natively
+  ☐ Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
   ☐ Have "silent" fields that won't get submitted (will only facilitate presubmit)
 
   ☐ Native patching https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
