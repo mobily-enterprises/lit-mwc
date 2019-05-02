@@ -7,28 +7,77 @@ class Form extends CommonMixin(LitElement) {
   static get properties () {
     return {
       recordId: {
-        type: String
-      }
+        type: String,
+      },
+
+      // This will allow users to redefine methods declaratively
+      createSubmitObject: Function,
+      presubmit: Function,
+      setFormElementValues: Function
     }
   }
 
   get reflectedProperties () {
-    return ['submit', 'reset', 'checkValidity', 'reportValidity', 'requestAutocomplete', 'elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate']
+    return [/*'submit',*/ 'reset', 'checkValidity', 'reportValidity', 'requestAutocomplete', 'elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate']
   }
 
   get reflectedAttributes () {
     return ['blur', 'click', 'focus', 'name', 'accept-charset', 'action', 'autocapitalize', 'autocomplete', 'enctype', 'method', 'novalidate', 'target' ]
   }
 
-  getFormElements () {
-     return [ ...this.querySelectorAll('[name]') ]
+  setFormElementValues (v) {
+    var elements = this.gatherFormElements()
+    for (let el of elements) {
+      el.value = v[el.name]
+    }
   }
 
-  setFormElementValues (v) {
-    for (let prop in v) {
-      var el = this.querySelector(`[name=${prop}]`) || this.querySelector(`[nn-name=${prop}]`)
-      if (el) el.value = v[prop]
+  gatherFormElements () {
+    return [...this.querySelectorAll('[name]')]
+  }
+
+  createSubmitObject (elements) {
+    var r = {}
+    for (let el of elements) {
+      r[el.name] = el.value
     }
+    return r
+  }
+
+  presubmit () {}
+
+  async submit () {
+
+    // Gather the element
+    var elements = this.gatherFormElements()
+
+    // Make up the submit object based on the passed elements
+    var submitObject = this.createSubmitObject(elements)
+
+    // The method will depend on the presence or absence of recordId
+    var method = this.recordId ? 'PUT' : 'POST'
+
+    // Set the url, which will also depend on recordId
+    var action = this.getAttribute('action')
+    if (!action) throw new Error('The submitted form has no action URL set')
+    var url = action + (this.recordId ? `/${this.recordId}` : '')
+
+    var fetchOptions = {
+      url,
+      method,
+      headers: { "Content-Type": "application/json" },
+      redirect: "follow", // manual, *follow, error
+      body: JSON.stringify(submitObject) // body data type must match "Content-Type" header
+    }
+
+    this.presubmit(fetchOptions)
+
+    try {
+      var fetched = await fetch(fetchOptions.url, fetchOptions)
+    } catch (e) {
+    }
+    var v = await fetched.json()
+    this.setFormElementValues(v)
   }
 
   async updated (changedProperties) {
