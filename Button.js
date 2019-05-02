@@ -23,9 +23,7 @@ class Button extends CommonMixin(LitElement) {
   }
 
   clicked () {
-    var attr = this.getAttribute('type')
-    debugger
-    if (attr === 'submit') this.form.submit()
+    if (this.getAttribute('type') === 'submit') this.form.submit()
   }
 }
 customElements.define('nn-button', Button)
