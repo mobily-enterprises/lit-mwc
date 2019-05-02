@@ -2,11 +2,13 @@ TONY
 
 ☐ nn-form:
   ✔ Load data from the server before showing the form @done(2019-04-29 21:14) @project(☐ nn-form)
-  ☐ Overwrite a record (PUT with an existing ID), or create a new one (POST, no ID) or create a record with an arbitrary ID (POST with a new ID)?
-    ☐ Stop reflecting submit(), implement gatherFormElements() that gathers all values and send to server
-  ☐ Refresh the data with the saved info coming back from the server after saving
-    ☐ Use gatherFormElements() and assign their corresponding .value
-    ☐ Make sure user can define their own assign mechanism
+  ✔ Overwrite a record (PUT with an existing ID), or create a new one (POST, no ID) or create a record with an arbitrary ID (POST with a new ID)? @done(2019-05-03 07:17) @project(☐ nn-form)
+    ✔ Stop reflecting submit(), implement gatherFormElements() that gathers all values and send to server @done(2019-05-03 07:17) @project(☐ nn-form)
+  ✔ Refresh the data with the saved info coming back from the server after saving @done(2019-05-03 07:17) @project(☐ nn-form)
+    ✔ Use gatherFormElements() and assign their corresponding .value @done(2019-05-03 07:17) @project(☐ nn-form)
+    ✔ Make sure user can define their own assign mechanism @done(2019-05-03 07:17) @project(☐ nn-form)
+  ✔ Make important method redefineable without subclassing @done(2019-05-03 07:17) @project(☐ nn-form)
+
   ☐ Render ALL input fields automatically disabled while the form is being submitted
     ☐ Again, use gatherFormElements(), get status before and save, submit, restore status
   ☐ Highlight the problem fields if the form is NOT a success
@@ -15,16 +17,17 @@ TONY
   ☐ Submit the form when the user presses ENTER on a inputText
    ☐ This should be done by Input.js which already has .form
   ☐ Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
+
   ☐ Native patching https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
     ☐ <form> has `target` (attribute). This value can be overridden by a formtarget attribute on a <button> or <input> element. Will this work through shadow DOM?
     ☐ document.forms returns the forms. Will the forms in the shadow dom be returned?
     ☐ HTMLFormElement.elements and HTMLFormElement.length are only <button>, <fieldset>, <input>, <object>, etc.
+
 ☐ nn-network:
 
 ☐ nn-realtime-field (or include in nn-form?):
 
 ☐ nn-autocomplete (using datalist):
-
 
 RAPHAEL
 ☐ (Tony asks) Shall we reflect the attribute 'tabindex'? Or is it likely to mess up things if the nn element has the same tabIndex as the native element in the shadow dom? Does it even make sense to set it in the shadow dom at all?
