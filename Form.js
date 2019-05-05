@@ -28,13 +28,13 @@ class Form extends CommonMixin(LitElement) {
   }
 
   setFormElementValues (v) {
-    var elements = this.gatherFormElements('setForm')
+    var elements = this._gatherFormElements('setForm')
     for (let el of elements) {
       el.value = v[el.name]
     }
   }
 
-  gatherFormElements (callerName) {
+  _gatherFormElements (callerName) {
     var r = this.querySelectorAll('[name]')
     if (callerName === 'submitter' || callerName === 'loader' ) {
       r = [ ...r, ...this.querySelectorAll('[form-element]')]
@@ -59,18 +59,15 @@ class Form extends CommonMixin(LitElement) {
   }
 
   _enableElements (elements) {
-    for (let el of elements) {
-      // el.setAttribute('disabled', false)
-      el.disabled = false
-    }
+    for (let el of elements) el.disabled = false
   }
 
   async submit () {
 
     // Gather the element
-    var elements = this.gatherFormElements('json-creator')
+    var elements = this._gatherFormElements('json-creator')
 
-    // Make up the submit object based on the passed elements
+    // HOOK: Make up the submit object based on the passed elements
     var submitObject = this.createSubmitObject(elements)
 
     // The method will depend on the presence or absence of recordId
@@ -89,17 +86,26 @@ class Form extends CommonMixin(LitElement) {
       body: JSON.stringify(submitObject) // body data type must match "Content-Type" header
     }
 
+    // HOOK: Allow devs to customise the request about to be sent to the server
     this.presubmit(fetchOptions)
 
-    var formElements = this.gatherFormElements('submitter')
+    // Disable the elements
+    var formElements = this._gatherFormElements('submitter')
     this._disableElements(formElements)
 
+    // Attempt the submission
     try {
       var fetched = await fetch(fetchOptions.url, fetchOptions)
     } catch (e) {
     }
+
+    // Convert the result to JSON
     var v = await fetched.json()
+
+    // HOOK Set the form values, in case the server processed some values
     this.setFormElementValues(v)
+
+    // Re-enable the elements
     this._enableElements(formElements)
   }
 
@@ -125,7 +131,7 @@ class Form extends CommonMixin(LitElement) {
       await this.updateComplete
 
       // Disable elements
-      var formElements = this.gatherFormElements('loader')
+      var formElements = this._gatherFormElements('loader')
       this._disableElements(formElements)
 
       // Fetch the data and trasform it to json
