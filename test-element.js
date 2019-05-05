@@ -19,7 +19,9 @@ class TestElement extends LitElement {
   
   render() {
     return html`
-      <nn-input-text .myStyle="${this.path}"></nn-input-text>
+      <nn-input-text labelBefore .myStyle="${this.path}">
+        <label slot="label">Test label</label>
+      </nn-input-text>
     `;
   }
 }

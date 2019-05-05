@@ -13,6 +13,14 @@ export const InputMixin = (base) => {
       return this._labelBefore
     }
 
+    set label(val) {
+      this.labelBefore = val
+    }
+
+    get label() {
+      return this.labelBefore
+    }
+
       
     set labelAfter(val) {
       let oldVal = this._labelAfter
