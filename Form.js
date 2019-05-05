@@ -6,8 +6,10 @@ class Form extends CommonMixin(LitElement) {
 
   static get properties () {
     return {
+
       recordId: {
         type: String,
+        attribute: 'record-id'
       },
 
       // This will allow users to redefine methods declaratively
@@ -26,14 +28,18 @@ class Form extends CommonMixin(LitElement) {
   }
 
   setFormElementValues (v) {
-    var elements = this.gatherFormElements()
+    var elements = this.gatherFormElements('setForm')
     for (let el of elements) {
       el.value = v[el.name]
     }
   }
 
-  gatherFormElements () {
-    return [...this.querySelectorAll('[name]')]
+  gatherFormElements (callerName) {
+    var r = this.querySelectorAll('[name]')
+    if (callerName === 'submitter' || callerName === 'loader' ) {
+      r = [ ...r, ...this.querySelectorAll('[form-element]')]
+    }
+    return r
   }
 
   createSubmitObject (elements) {
@@ -46,10 +52,23 @@ class Form extends CommonMixin(LitElement) {
 
   presubmit () {}
 
+  _disableElements (elements) {
+    for (let el of elements) {
+      if (!el.disabled) el.disabled = true
+    }
+  }
+
+  _enableElements (elements) {
+    for (let el of elements) {
+      // el.setAttribute('disabled', false)
+      el.disabled = false
+    }
+  }
+
   async submit () {
 
     // Gather the element
-    var elements = this.gatherFormElements()
+    var elements = this.gatherFormElements('json-creator')
 
     // Make up the submit object based on the passed elements
     var submitObject = this.createSubmitObject(elements)
@@ -72,16 +91,22 @@ class Form extends CommonMixin(LitElement) {
 
     this.presubmit(fetchOptions)
 
+    var formElements = this.gatherFormElements('submitter')
+    this._disableElements(formElements)
+
     try {
       var fetched = await fetch(fetchOptions.url, fetchOptions)
     } catch (e) {
     }
     var v = await fetched.json()
     this.setFormElementValues(v)
+    this._enableElements(formElements)
   }
 
   async updated (changedProperties) {
     // Load the data
+
+    super.updated()
 
     // If no-autoload is set to true, or there is no autoload or no recordId,
     // simply give up: nothing to do
@@ -94,12 +119,27 @@ class Form extends CommonMixin(LitElement) {
     var recordId = changedProperties.get('recordId')
     var fetched
     if (action) {
+
+      // This will make sure that the element is actually visible
+      // before doing the fetch
+      await this.updateComplete
+
+      // Disable elements
+      var formElements = this.gatherFormElements('loader')
+      this._disableElements(formElements)
+
+      // Fetch the data and trasform it to json
       try {
         fetched = await fetch(action + '/' + this.recordId)
       } catch (e) {
       }
       var v = await fetched.json()
+
+      // Set values
       this.setFormElementValues(v)
+
+      // Re-enabled all disabled fields
+      this._enableElements(formElements)
     }
   }
 

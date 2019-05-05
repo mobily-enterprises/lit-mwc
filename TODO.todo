@@ -8,14 +8,19 @@ TONY
     ✔ Use gatherFormElements() and assign their corresponding .value @done(2019-05-03 07:17) @project(☐ nn-form)
     ✔ Make sure user can define their own assign mechanism @done(2019-05-03 07:17) @project(☐ nn-form)
   ✔ Make important method redefineable without subclassing @done(2019-05-03 07:17) @project(☐ nn-form)
+  ✔ Render ALL input fields automatically disabled while the form is being submitted @done(2019-05-05 21:14) @project(☐ nn-form)
+    ✔ Again, use gatherFormElements(), get status before and save, submit, restore status @done(2019-05-05 21:14) @project(☐ nn-form)
 
-  ☐ Render ALL input fields automatically disabled while the form is being submitted
-    ☐ Again, use gatherFormElements(), get status before and save, submit, restore status
+
+  ☐ Check if we need more reflected properties in common.js, added disabled now -- more?
+
   ☐ Highlight the problem fields if the form is NOT a success
     ☐ Use default HTML methods, which nn- elements will style better
     ☐ Allow the user to provide a function that returns the "problem fields" reading the returned json
+
   ☐ Submit the form when the user presses ENTER on a inputText
    ☐ This should be done by Input.js which already has .form
+
   ☐ Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
 
   ☐ Native patching https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
