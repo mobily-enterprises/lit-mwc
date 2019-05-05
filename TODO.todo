@@ -11,6 +11,7 @@ TONY
   ✔ Render ALL input fields automatically disabled while the form is being submitted @done(2019-05-05 21:14) @project(☐ nn-form)
     ✔ Again, use gatherFormElements(), get status before and save, submit, restore status @done(2019-05-05 21:14) @project(☐ nn-form)
 
+  ☐ Implement nn-style:label="..."
 
   ☐ Check if we need more reflected properties in common.js, added disabled now -- more?
 
