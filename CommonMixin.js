@@ -29,10 +29,10 @@ export const CommonMixin = (base) => {
 
       // ATTRIBUTES FIRST
 
-      // Assign all starting native: to the destination element
+      // Assign all starting nn- to the destination element
       for (let attributeObject of this.attributes) {
         var attr = attributeObject.name
-        let nativeAttr = attr.split('native:')[1]
+        let nativeAttr = attr.split('nn-')[1]
         if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(attr))
         else {
           if (this.reflectedAttributes.indexOf(attr) !== -1) {
@@ -47,11 +47,11 @@ export const CommonMixin = (base) => {
         mutations.forEach((mutation) => {
           if (mutation.type == "attributes") {
 
-            // Look for native: attributes
+            // Look for nn- attributes
             // If not there, set the attrivute if in the list of
             // reflected ones
             var attr = mutation.attributeName
-            let nativeAttr = attr.split('native:')[1]
+            let nativeAttr = attr.split('nn-')[1]
             if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(attr))
             else {
               let attr = mutation.attributeName

@@ -12,7 +12,7 @@
 
   <nn-form>
     <h2>Input Button</h2>
-    <nn-input-button id="input-button" native:value="Input button"></nn-input-button>
+    <nn-input-button id="input-button" nn-value="Input button"></nn-input-button>
 
     <h2>Checkbox</h2>
     <nn-input-checkbox id="input-checkbox">Checkbox</nn-input-checkbox>
@@ -21,14 +21,14 @@
     <nn-input-text id="input-text"></nn-input-text>
 
     <h2>Button</h2>
-    <nn-button id="button" me="me" native:me="native:me">Button</nn-button>
+    <nn-button id="button" me="me" nn-me="nn-me">Button</nn-button>
   </nn-form>
 
   <script>
     var button = document.getElementById('button')
     button.addEventListener('click', function(e) {
       debugger
-      button.setAttribute('native:autocomplete', 'native:autocomplete')
+      button.setAttribute('nn-autocomplete', 'nn-autocomplete')
     } )
 
   </script>
