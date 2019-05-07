@@ -14,6 +14,11 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
           -webkit-appearance: none;
         }
 
+        input:invalid {
+          background-color: pink;
+          border: var(--nn-input-border-invalid, 1px solid #bb7777);
+        }
+
         label {
           display: inline-block;
           vertical-align: middle;
@@ -27,6 +32,10 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
           padding-right: 4px;
           max-width: fit-content;
           margin-right: -5px;
+        }
+
+        input:invalid + label {
+          background-color: var(--nn-label-background-invalid, #dd9999);
         }
         
       `

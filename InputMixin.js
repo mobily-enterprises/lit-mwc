@@ -8,7 +8,8 @@ export const InputMixin = (base) => {
         stylesheet: { type: String },
         label: { type: String },
         labelBefore: { type: Boolean },
-        labelAfter: { type: Boolean }
+        labelAfter: { type: Boolean },
+        invalid: { type: String }
       }
     }
 
@@ -16,6 +17,15 @@ export const InputMixin = (base) => {
       return html`
           ${ this.stylesheet ? html`<link rel="stylesheet" href="${this.stylesheet}">` : '' }
         `
+    }
+
+    get labelTextTemplate() {
+      return  html`
+                <label for="_el">
+                  ${this.label}
+                  <slot name="label"></slot>
+                </label>
+              `
     }
 
     get labelTemplate() {
