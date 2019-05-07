@@ -6,11 +6,27 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
   static get styles () { 
       return css`
         input {
-          height: 36px;
-          border-radius: var(--nn-input-border-radius, initial);
+          display: inline-flex;
+          height: 30px;
+          border-radius: var(--nn-input-border-radius, 0 4px 4px 0);
           border: var(--nn-input-border, 1px solid #dddddd);
-          background-color: #ccffcc;
+          background-color: var(--nn-input-border, initial);
           -webkit-appearance: none;
+        }
+
+        label {
+          display: inline-block;
+          vertical-align: middle;
+          height: 26px;
+          font-size: 0.8em;
+          border: var(--nn-label-border, 1px solid #dddddd);
+          background-color: var(--nn-label-background, #eeeeee);
+          border-radius: var(--nn-label-border-radius, 4px 0 0 4px );
+          padding-top: 6px;
+          padding-left: 4px;
+          padding-right: 4px;
+          max-width: fit-content;
+          margin-right: -5px;
         }
         
       `
@@ -18,7 +34,6 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
 
   static get properties() {
     return {
-      myStyle: { type: String }
     }
   }
 
@@ -32,14 +47,9 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
     return [ ...defaultReflectedAttributes, 'maxlength', 'minlength', 'pattern', 'placeholder', 'readonly', 'size', 'spellcheck', 'autocorrect', 'mozactionhint' ]
   }
 
-  constructor() {
-    super();
-    this.myStyle = ''
-  }
-
   render() {
     return html`
-                ${ this.myStyle ? html`<link rel="stylesheet" href="${this.myStyle}">` : '' }
+                ${ this.customStyle }
 
                 ${ this.labelBeforeTemplate }
   
