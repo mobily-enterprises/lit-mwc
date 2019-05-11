@@ -1,9 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { defaultReflectedProperties } from './common.js'
-
 class Form extends CommonMixin(LitElement) {
-
   static get properties () {
     return {
 
@@ -20,11 +17,11 @@ class Form extends CommonMixin(LitElement) {
   }
 
   get reflectedProperties () {
-    return [/*'submit',*/ 'reset', 'checkValidity', 'reportValidity', 'requestAutocomplete', 'elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate']
+    return ['reset', 'checkValidity', 'reportValidity', 'requestAutocomplete', 'elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate'] // 'submit' deleted
   }
 
   get reflectedAttributes () {
-    return ['blur', 'click', 'focus', 'name', 'accept-charset', 'action', 'autocapitalize', 'autocomplete', 'enctype', 'method', 'novalidate', 'target' ]
+    return ['blur', 'click', 'focus', 'name', 'accept-charset', 'action', 'autocapitalize', 'autocomplete', 'enctype', 'method', 'novalidate', 'target']
   }
 
   setFormElementValues (v) {
@@ -36,8 +33,8 @@ class Form extends CommonMixin(LitElement) {
 
   _gatherFormElements (callerName) {
     var r = this.querySelectorAll('[name]')
-    if (callerName === 'submitter' || callerName === 'loader' ) {
-      r = [ ...r, ...this.querySelectorAll('[form-element]')]
+    if (callerName === 'submitter' || callerName === 'loader') {
+      r = [...r, ...this.querySelectorAll('[form-element]')]
     }
     return r
   }
@@ -63,7 +60,6 @@ class Form extends CommonMixin(LitElement) {
   }
 
   async submit () {
-
     // Gather the element
     var elements = this._gatherFormElements('json-creator')
 
@@ -81,8 +77,8 @@ class Form extends CommonMixin(LitElement) {
     var fetchOptions = {
       url,
       method,
-      headers: { "Content-Type": "application/json" },
-      redirect: "follow", // manual, *follow, error
+      headers: { 'Content-Type': 'application/json' },
+      redirect: 'follow', // manual, *follow, error
       body: JSON.stringify(submitObject) // body data type must match "Content-Type" header
     }
 
@@ -125,7 +121,6 @@ class Form extends CommonMixin(LitElement) {
     var recordId = changedProperties.get('recordId')
     var fetched
     if (action) {
-
       // This will make sure that the element is actually visible
       // before doing the fetch
       await this.updateComplete

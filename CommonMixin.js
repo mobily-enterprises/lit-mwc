@@ -1,6 +1,5 @@
 export const CommonMixin = (base) => {
   return class Base extends base {
-
     firstUpdated () {
       this.native = this.shadowRoot.querySelector('#_el')
       this._reflectAttributesAndProperties()
@@ -17,14 +16,14 @@ export const CommonMixin = (base) => {
       while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM')) {}
       this.form = el
     }
-    get reflectedProperties() {
+    get reflectedProperties () {
       return []
     }
 
-    get reflectedAttributes() {
+    get reflectedAttributes () {
       return []
     }
-    _reflectAttributesAndProperties() {
+    _reflectAttributesAndProperties () {
       var dst = this.native
 
       // ATTRIBUTES FIRST
@@ -43,10 +42,9 @@ export const CommonMixin = (base) => {
 
       // Observe changes in attribute from the source element, and reflect
       // them to the destination element
-      var observer = new MutationObserver( (mutations) =>  {
+      var observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
-          if (mutation.type == "attributes") {
-
+          if (mutation.type == 'attributes') {
             // Look for nn- attributes
             // If not there, set the attrivute if in the list of
             // reflected ones
@@ -60,23 +58,23 @@ export const CommonMixin = (base) => {
               }
             }
           }
-        });
-      });
+        })
+      })
       observer.observe(this, { attributes: true })
 
       // METHODS (as bound functions) AND PROPERTIES (as getters/setters)
-      this.reflectedProperties.forEach( prop => {
+      this.reflectedProperties.forEach(prop => {
         if (typeof dst[prop] === 'function') {
           this[prop] = dst[prop].bind(dst)
         } else {
-          Object.defineProperty (this, prop, {
+          Object.defineProperty(this, prop, {
             get: function () {
-              return dst[prop];
+              return dst[prop]
             },
             set: function (newValue) {
-              dst[prop] = newValue;
+              dst[prop] = newValue
             }
-          });
+          })
         }
       })
     }

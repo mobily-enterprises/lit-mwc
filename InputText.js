@@ -1,10 +1,10 @@
 import { LitElement, html, css } from 'lit-element'
-import { InputMixin } from './InputMixin.js';
+import { InputMixin } from './InputMixin.js'
 import { CommonMixin } from './CommonMixin.js'
 import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
 class InputText extends InputMixin(CommonMixin(LitElement)) {
-  static get styles () { 
-      return css`
+  static get styles () {
+    return css`
         input {
           display: inline-flex;
           height: 30px;
@@ -37,34 +37,34 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
         input:invalid + label {
           background-color: var(--nn-label-background-invalid, #dd9999);
         }
-        
-      `
-    }
 
-  static get properties() {
+      `
+  }
+
+  static get properties () {
     return {
     }
   }
 
-  get reflectedProperties() {
+  get reflectedProperties () {
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
     return [ ...defaultReflectedProperties, 'select', 'setRangeText', 'setSelectionRange' ]
   }
 
-  get reflectedAttributes() {
+  get reflectedAttributes () {
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
     return [ ...defaultReflectedAttributes, 'maxlength', 'minlength', 'pattern', 'placeholder', 'readonly', 'size', 'spellcheck', 'autocorrect', 'mozactionhint' ]
   }
 
-  render() {
+  render () {
     return html`
-                ${ this.customStyle }
+                ${this.customStyle}
 
-                ${ this.labelBeforeTemplate }
-  
+                ${this.labelBeforeTemplate}
+
                 <input type="text" id="_el">
-                
-                ${ this.labelAfterTemplate }
+
+                ${this.labelAfterTemplate}
               `
   }
 }

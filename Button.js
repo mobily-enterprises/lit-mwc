@@ -3,20 +3,19 @@ import { CommonMixin } from './CommonMixin.js'
 import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
 
 class Button extends CommonMixin(LitElement) {
-
-  static get properties() {
+  static get properties () {
     return {}
   }
 
-  get reflectedProperties() {
+  get reflectedProperties () {
     return [ ...defaultReflectedProperties ]
   }
 
-  get reflectedAttributes() {
+  get reflectedAttributes () {
     return [ ...defaultReflectedAttributes, 'autofocus', 'autocomplete', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'name', 'type', 'value' ]
   }
 
-  render() {
+  render () {
     return html`<button @click="${this.clicked}" id="_el">
                   <slot></slot>
                 </button>`
