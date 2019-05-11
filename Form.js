@@ -1,5 +1,7 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
+
+/* globals fetch customElements */
 class Form extends CommonMixin(LitElement) {
   static get properties () {
     return {
@@ -144,7 +146,7 @@ class Form extends CommonMixin(LitElement) {
   }
 
   render () {
-    return html`<form id="_el">
+    return html`<form id="_native">
                   <slot></slot>
                 </form>`
   }

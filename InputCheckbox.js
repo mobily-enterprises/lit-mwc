@@ -3,23 +3,22 @@ import { CommonMixin } from './CommonMixin.js'
 import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
 
 class InputCheckbox extends CommonMixin(LitElement) {
-
-  static get properties() {
+  static get properties () {
     return {}
   }
 
-  get reflectedProperties() {
+  get reflectedProperties () {
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
     return [ ...defaultReflectedProperties, 'checked', 'select' ]
   }
 
-  get reflectedAttributes() {
+  get reflectedAttributes () {
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
     return [ ...defaultReflectedAttributes, 'checked' ]
   }
 
-  render() {
-    return html`<input type="checkbox" id="_el">
+  render () {
+    return html`<input type="checkbox" id="_native">
                   <slot></slot>
                `
   }

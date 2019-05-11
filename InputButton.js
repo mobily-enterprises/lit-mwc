@@ -3,21 +3,20 @@ import { CommonMixin } from './CommonMixin.js'
 import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
 
 class InputButton extends CommonMixin(LitElement) {
-
-  static get properties() {
+  static get properties () {
     return {}
   }
 
-  get reflectedProperties() {
+  get reflectedProperties () {
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement
     return [ ...defaultReflectedProperties, 'checkValidity', 'reportValidity', 'setCustomValidity' ]
   }
-  get reflectedAttributes() {
+  get reflectedAttributes () {
     return [ ...defaultReflectedAttributes ]
   }
 
-  render() {
-    return html`<input type="button" id="_el">
+  render () {
+    return html`<input type="button" id="_native">
                   <slot></slot>
                `
   }

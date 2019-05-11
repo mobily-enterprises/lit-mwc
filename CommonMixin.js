@@ -1,7 +1,7 @@
 export const CommonMixin = (base) => {
   return class Base extends base {
     firstUpdated () {
-      this.native = this.shadowRoot.querySelector('#_el')
+      this.native = this.shadowRoot.querySelector('#_native')
       this._reflectAttributesAndProperties()
     }
 
@@ -23,6 +23,16 @@ export const CommonMixin = (base) => {
     get reflectedAttributes () {
       return []
     }
+    _setDstAttr (nativeAttr, attrValue) {
+      let tokens = nativeAttr.split(':')
+      if (tokens.length === 1) {
+        this.native.setAttribute(nativeAttr, attrValue)
+      } else if (tokens.length === 2) {
+        let dstElement = this.shadowRoot.querySelector(`#${tokens[0]}`)
+        if (dstElement) dstElement.setAttribute(tokens[1], attrValue)
+      }
+    }
+
     _reflectAttributesAndProperties () {
       var dst = this.native
 
@@ -31,8 +41,8 @@ export const CommonMixin = (base) => {
       // Assign all starting nn- to the destination element
       for (let attributeObject of this.attributes) {
         var attr = attributeObject.name
-        let nativeAttr = attr.split('nn-')[1]
-        if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(attr))
+        let nativeAttr = attr.split('nn:')[1]
+        if (nativeAttr) this._setDstAttr(nativeAttr, this.getAttribute(attr))
         else {
           if (this.reflectedAttributes.indexOf(attr) !== -1) {
             dst.setAttribute(attr, this.getAttribute(attr))
@@ -44,13 +54,13 @@ export const CommonMixin = (base) => {
       // them to the destination element
       var observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
-          if (mutation.type == 'attributes') {
+          if (mutation.type === 'attributes') {
             // Look for nn- attributes
             // If not there, set the attrivute if in the list of
             // reflected ones
             var attr = mutation.attributeName
             let nativeAttr = attr.split('nn-')[1]
-            if (nativeAttr) dst.setAttribute(nativeAttr, this.getAttribute(attr))
+            if (nativeAttr) this._setDstAttr(nativeAttr, this.getAttribute(attr))
             else {
               let attr = mutation.attributeName
               if (this.reflectedAttributes.indexOf(attr) !== -1) {

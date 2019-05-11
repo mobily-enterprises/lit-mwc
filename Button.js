@@ -16,12 +16,12 @@ class Button extends CommonMixin(LitElement) {
   }
 
   render () {
-    return html`<button @click="${this.clicked}" id="_el">
+    return html`<button @click="${this._clicked}" id="_native">
                   <slot></slot>
                 </button>`
   }
 
-  clicked () {
+  _clicked () {
     if (this.getAttribute('type') === 'submit') this.form.submit()
   }
 }
