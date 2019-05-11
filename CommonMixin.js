@@ -23,10 +23,10 @@ export const CommonMixin = (base) => {
     get reflectedAttributes () {
       return []
     }
-    _setDstAttr (nativeAttr, attrValue) {
-      let tokens = nativeAttr.split(':')
+    _setSubAttr (subAttr, attrValue) {
+      let tokens = subAttr.split(':')
       if (tokens.length === 1) {
-        this.native.setAttribute(nativeAttr, attrValue)
+        this.native.setAttribute(subAttr, attrValue)
       } else if (tokens.length === 2) {
         let dstElement = this.shadowRoot.querySelector(`#${tokens[0]}`)
         if (dstElement) dstElement.setAttribute(tokens[1], attrValue)
@@ -41,8 +41,8 @@ export const CommonMixin = (base) => {
       // Assign all starting nn- to the destination element
       for (let attributeObject of this.attributes) {
         var attr = attributeObject.name
-        let nativeAttr = attr.split('nn:')[1]
-        if (nativeAttr) this._setDstAttr(nativeAttr, this.getAttribute(attr))
+        let subAttr = attr.split('nn:')[1]
+        if (subAttr) this._setSubAttr(subAttr, this.getAttribute(attr))
         else {
           if (this.reflectedAttributes.indexOf(attr) !== -1) {
             dst.setAttribute(attr, this.getAttribute(attr))
@@ -55,12 +55,12 @@ export const CommonMixin = (base) => {
       var observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           if (mutation.type === 'attributes') {
-            // Look for nn- attributes
+            // Look for nn: attributes
             // If not there, set the attrivute if in the list of
             // reflected ones
             var attr = mutation.attributeName
-            let nativeAttr = attr.split('nn-')[1]
-            if (nativeAttr) this._setDstAttr(nativeAttr, this.getAttribute(attr))
+            let subAttr = attr.split('nn:')[1]
+            if (subAttr) this._setSubAttr(subAttr, this.getAttribute(attr))
             else {
               let attr = mutation.attributeName
               if (this.reflectedAttributes.indexOf(attr) !== -1) {
