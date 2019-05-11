@@ -118,7 +118,6 @@ class Form extends CommonMixin(LitElement) {
     // (It will be a get)
     // If there is a result, fetch the element values
     var action = this.getAttribute('action')
-    var recordId = changedProperties.get('recordId')
     var fetched
     if (action) {
       // This will make sure that the element is actually visible
