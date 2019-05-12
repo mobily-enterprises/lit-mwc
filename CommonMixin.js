@@ -69,6 +69,7 @@ export const CommonMixin = (base) => {
             let subAttr = attr.split('nn:')[1]
             if (subAttr) this._setSubAttr(subAttr, this.getAttribute(attr))
             else {
+              debugger
               let attr = mutation.attributeName
               if (this.reflectedAttributes.indexOf(attr) !== -1) {
                 // Assign new value. NOTE: if the main element's attribute

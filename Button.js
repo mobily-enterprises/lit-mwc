@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { HTMLBasePropsAndMethods, HTMLFormElementPropsAndMethods, defaultReflectedAttributes } from './common.js'
+import { basePropsAndMethods, buttonIDLProperties, buttonIDLAttributes } from './common.js'
 
 class Button extends CommonMixin(LitElement) {
   static get properties () {
@@ -9,14 +9,15 @@ class Button extends CommonMixin(LitElement) {
 
   get reflectedProperties () {
     return [
-      ...HTMLBasePropsAndMethods,
-      ...HTMLFormElementPropsAndMethods
-      // Methods: NONE https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
+      ...basePropsAndMethods,
+      ...buttonIDLProperties
     ]
   }
 
   get reflectedAttributes () {
-    return [ ...defaultReflectedAttributes, 'autofocus', 'autocomplete', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'name', 'type', 'value' ]
+    return [
+      ...buttonIDLAttributes
+    ]
   }
 
   render () {
@@ -26,6 +27,7 @@ class Button extends CommonMixin(LitElement) {
   }
 
   _clicked () {
+    debugger
     if (this.getAttribute('type') === 'submit') this.form.submit()
   }
 }

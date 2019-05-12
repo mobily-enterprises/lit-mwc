@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { HTMLBasePropsAndMethods, HTMLFormElementPropsAndMethods, defaultReflectedAttributes } from './common.js'
+import { basePropsAndMethods, inputIDLProperties, inputIDLAttributes } from './common.js'
 
 class InputButton extends CommonMixin(LitElement) {
   static get properties () {
@@ -10,13 +10,12 @@ class InputButton extends CommonMixin(LitElement) {
   get reflectedProperties () {
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement
     return [
-      ...HTMLBasePropsAndMethods,
-      ...HTMLFormElementPropsAndMethods
-      // Methods: NONE https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/button
+      ...basePropsAndMethods,
+      ...inputIDLProperties
     ]
   }
   get reflectedAttributes () {
-    return [ ...defaultReflectedAttributes ]
+    return [ ...inputIDLAttributes ]
   }
 
   render () {

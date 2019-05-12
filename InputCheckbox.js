@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { HTMLBasePropsAndMethods, HTMLFormElementPropsAndMethods, defaultReflectedAttributes } from './common.js'
+import { basePropsAndMethods, inputIDLProperties, inputIDLAttributes } from './common.js'
 
 class InputCheckbox extends CommonMixin(LitElement) {
   static get properties () {
@@ -9,18 +9,15 @@ class InputCheckbox extends CommonMixin(LitElement) {
 
   get reflectedProperties () {
     return [
-      ...HTMLBasePropsAndMethods,
-      ...HTMLFormElementPropsAndMethods,
-      // Method `select()` and IDL attribute `checked` -- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
-      'select', 'checked'
+      ...basePropsAndMethods,
+      ...inputIDLProperties
     ]
   }
 
   get reflectedAttributes () {
     // IDL attribute `checked` https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
     return [
-      ...defaultReflectedAttributes,
-      'checked'
+      ...inputIDLAttributes
     ]
   }
 
