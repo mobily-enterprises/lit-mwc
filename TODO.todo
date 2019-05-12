@@ -10,7 +10,7 @@ TONY
   ✔ Make important method redefineable without subclassing @done(2019-05-03 07:17) @project(☐ nn-form)
   ✔ Render ALL input fields automatically disabled while the form is being submitted @done(2019-05-05 21:14) @project(☐ nn-form)
     ✔ Again, use gatherFormElements(), get status before and save, submit, restore status @done(2019-05-05 21:14) @project(☐ nn-form)
-  ✔ Implement nn-style:label="..." @done(2019-05-11 17:21) @project(☐ nn-form)
+  ✔ Implement nn:style:label="..." @done(2019-05-11 17:21) @project(☐ nn-form)
   ☐ Check https://github.com/ricardofbarros/linter-js-standard/issues/229
 
   ☐ Check if we need more reflected properties in common.js, added disabled now -- more?
