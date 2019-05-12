@@ -12,17 +12,20 @@ TONY
     ✔ Again, use gatherFormElements(), get status before and save, submit, restore status @done(2019-05-05 21:14) @project(☐ nn-form)
   ✔ Implement nn:style:label="..." @done(2019-05-11 17:21) @project(☐ nn-form)
   ✔ Check https://github.com/ricardofbarros/linter-js-standard/issues/229 @done(2019-05-12 12:31) @project(☐ nn-form)
-
-  ☐ Wait for: https://stackoverflow.com/questions/56096524/which-elements-properties-are-reflected-into-attributes-in-html
-
-  ☐ Check if we need more reflected properties in common.js, added disabled now -- more?
+  ✔ Wait for: https://stackoverflow.com/questions/56096524/which-elements-properties-are-reflected-into-attributes-in-html @done(2019-05-13 00:17) @project(☐ nn-form)
+  ✔ Check if we need more reflected properties in common.js, added disabled now -- more? @done(2019-05-13 00:17) @project(☐ nn-form)
 
   ☐ Highlight the problem fields if the form is NOT a success
+    ☐ https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation
     ☐ Use default HTML methods, which nn- elements will style better
     ☐ Allow the user to provide a function that returns the "problem fields" reading the returned json
 
   ☐ Submit the form when the user presses ENTER on a inputText
    ☐ This should be done by Input.js which already has .form
+
+   ☐ Provide coverage for ALL of the HTML form elements https://developer.mozilla.org/en-US/docs/Web/HTML/Element#Forms
+    ☐ ALL <input> types
+    ☐ ALL other possible fields
 
   ☐ Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
 
@@ -31,9 +34,6 @@ TONY
     ☐ document.forms returns the forms. Will the forms in the shadow dom be returned?
     ☐ HTMLFormElement.elements and HTMLFormElement.length are only <button>, <fieldset>, <input>, <object>, etc.
 
-  ☐ Provide coverage for ALL of the HTML form elements https://developer.mozilla.org/en-US/docs/Web/HTML/Element#Forms
-
-  ☐
 ☐ nn-network:
 
 ☐ nn-realtime-field (or include in nn-form?):
