@@ -9,7 +9,7 @@
 //
 
 //
-// HTML Methods (no properties) from HTMLElements https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement#Methods
+// HTML Methods from HTMLElements https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement#Methods
 export const HTMLBasePropsAndMethods = ['blur', 'click', 'focus']
 
 // COMMON PROPERTIES AND METHODS FOR INPUT FORM ELEMENTS
