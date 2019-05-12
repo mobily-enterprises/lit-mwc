@@ -45,7 +45,14 @@ export const CommonMixin = (base) => {
         if (subAttr) this._setSubAttr(subAttr, this.getAttribute(attr))
         else {
           if (this.reflectedAttributes.indexOf(attr) !== -1) {
-            dst.setAttribute(attr, this.getAttribute(attr))
+            // Assign new value. NOTE: if the main element's attribute
+            // comes back as null, it will remove it instead
+            var newValue = this.getAttribute(attr)
+            if (newValue === null) {
+              dst.removeAttribute(attr)
+            } else {
+              dst.setAttribute(attr, newValue)
+            }
           }
         }
       }
@@ -64,7 +71,15 @@ export const CommonMixin = (base) => {
             else {
               let attr = mutation.attributeName
               if (this.reflectedAttributes.indexOf(attr) !== -1) {
-                dst.setAttribute(attr, this.getAttribute(attr))
+
+                // Assign new value. NOTE: if the main element's attribute
+                // comes back as null, it will remove it instead
+                var newValue = this.getAttribute(attr)
+                if (newValue === null) {
+                  dst.removeAttribute(attr)
+                } else {
+                  dst.setAttribute(attr, newValue)
+                }
               }
             }
           }
