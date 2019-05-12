@@ -22,19 +22,6 @@
 // HTML Methods from HTMLElements https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement#Methods
 export const basePropsAndMethods = ['blur', 'click', 'focus', 'forceSpellCheck']
 
-// - All IDL attributes listed in MDN
-//   - https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
-// - PLUS (<input>) ALL extra properties found here
-//   - https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement
-// - MINUS
-//    `form`, which wouldn't make much sense
-export const buttonIDLAttributes = [ 'autofocus', 'disabled', 'formaction', 'formnovalidate', 'name', 'type', 'value', 'formenctype', 'formmethod', 'formtarget', 'labels', 'menu' ]
-export const inputIDLAttributes = [ 'accept', 'alt', 'autocomplete', 'autofocus', 'checked', 'dirname', 'disabled', 'formaction', 'height', 'list', 'max', 'maxlength', 'minlength', 'min', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'src', 'step', 'type', 'usemap', 'value', 'width', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget' ]
-export const meterIDLAttributes = [ 'high', 'low', 'max', 'min', 'optimum', 'value' ]
-export const progressIDLAttributes = [ 'max', 'value' ]
-export const selectIDLAttributes = [ 'autocomplete', 'autofocus', 'disabled', 'multiple', 'name', 'required', 'size' ]
-export const textAreaIDLAttributes = [ 'autocomplete', 'autofocus', 'cols', 'dirname', 'disabled', 'enterkeyhint', 'inputmode', 'maxlength', 'minlength', 'name', 'placeholder', 'readonly', 'required', 'rows', 'wrap' ]
-
 // - ALL IDL attributes listed in MDN
 //   - https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 // - PLUS ALL methods and properties for the Constraint validation API

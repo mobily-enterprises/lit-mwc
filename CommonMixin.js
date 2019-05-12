@@ -44,15 +44,12 @@ export const CommonMixin = (base) => {
         let subAttr = attr.split('nn:')[1]
         if (subAttr) this._setSubAttr(subAttr, this.getAttribute(attr))
         else {
-          if (this.reflectedAttributes.indexOf(attr) !== -1) {
+          // if (this.reflectedAttributes.indexOf(attr) !== -1) {
+          if (['style', 'class', 'form'].indexOf(attr) === -1) {
             // Assign new value. NOTE: if the main element's attribute
             // comes back as null, it will remove it instead
             var newValue = this.getAttribute(attr)
-            if (newValue === null) {
-              dst.removeAttribute(attr)
-            } else {
-              dst.setAttribute(attr, newValue)
-            }
+            dst.setAttribute(attr, newValue)
           }
         }
       }
@@ -69,9 +66,9 @@ export const CommonMixin = (base) => {
             let subAttr = attr.split('nn:')[1]
             if (subAttr) this._setSubAttr(subAttr, this.getAttribute(attr))
             else {
-              debugger
               let attr = mutation.attributeName
-              if (this.reflectedAttributes.indexOf(attr) !== -1) {
+              // if (this.reflectedAttributes.indexOf(attr) !== -1) {
+              if (['style', 'class', 'form'].indexOf(attr) === -1) {
                 // Assign new value. NOTE: if the main element's attribute
                 // comes back as null, it will remove it instead
                 var newValue = this.getAttribute(attr)
@@ -86,7 +83,6 @@ export const CommonMixin = (base) => {
         })
       })
       observer.observe(this, { attributes: true })
-
       // METHODS (as bound functions) AND PROPERTIES (as getters/setters)
       this.reflectedProperties.forEach(prop => {
         if (typeof dst[prop] === 'function') {

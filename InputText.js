@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { InputMixin } from './InputMixin.js'
 import { CommonMixin } from './CommonMixin.js'
-import { basePropsAndMethods, inputIDLProperties, inputIDLAttributes } from './common.js'
+import { basePropsAndMethods, inputIDLProperties } from './common.js'
 class InputText extends InputMixin(CommonMixin(LitElement)) {
   static get styles () {
     return css`
@@ -53,10 +53,12 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
     ]
   }
 
+  /*
   get reflectedAttributes () {
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
     return [ ...inputIDLAttributes, 'maxlength', 'minlength', 'pattern', 'placeholder', 'readonly', 'size', 'spellcheck', 'autocorrect', 'mozactionhint' ]
   }
+  */
 
   render () {
     return html`

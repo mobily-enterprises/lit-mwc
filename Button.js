@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { basePropsAndMethods, buttonIDLProperties, buttonIDLAttributes } from './common.js'
+import { basePropsAndMethods, buttonIDLProperties } from './common.js'
 
 class Button extends CommonMixin(LitElement) {
   static get properties () {
@@ -14,11 +14,13 @@ class Button extends CommonMixin(LitElement) {
     ]
   }
 
+  /*
   get reflectedAttributes () {
     return [
       ...buttonIDLAttributes
     ]
   }
+  */
 
   render () {
     return html`<button @click="${this._clicked}" id="_native">
