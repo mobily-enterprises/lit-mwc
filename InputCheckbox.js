@@ -7,7 +7,7 @@ class InputCheckbox extends CommonMixin(LitElement) {
     return {}
   }
 
-  get noAttributes () {
+  get skipAttributes () {
     return ['form', 'type']
   }
 

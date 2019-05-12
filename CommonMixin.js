@@ -1,4 +1,4 @@
-import { noAttributes } from './common.js'
+import { skipAttributes } from './common.js'
 
 export const CommonMixin = (base) => {
   return class Base extends base {
@@ -23,7 +23,7 @@ export const CommonMixin = (base) => {
       return []
     }
 
-    get noAttributes () {
+    get skipAttributes () {
       return []
     }
 
@@ -38,7 +38,7 @@ export const CommonMixin = (base) => {
     }
 
     getAttribute (attr) {
-      let na = [...this.noAttributes, noAttributes]
+      let na = [...this.skipAttributes, skipAttributes]
       if (na.indexOf(attr) !== -1) {
         return super.getAttribute(attr)
       }
@@ -52,7 +52,7 @@ export const CommonMixin = (base) => {
     _reflectAttributesAndProperties () {
       var dst = this.native
 
-      let na = [...this.noAttributes, noAttributes]
+      let na = [...this.skipAttributes, skipAttributes]
 
       // ATTRIBUTES FIRST
 

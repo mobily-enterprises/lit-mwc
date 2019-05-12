@@ -7,7 +7,7 @@ class Button extends CommonMixin(LitElement) {
     return {}
   }
 
-  get noAttributes () {
+  get skipAttributes () {
     return ['form']
   }
 

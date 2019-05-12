@@ -46,7 +46,7 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
     }
   }
 
-  get noAttributes () {
+  get skipAttributes () {
     return ['form', 'type']
   }
 
