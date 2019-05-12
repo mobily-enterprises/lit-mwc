@@ -20,7 +20,7 @@
 //     - https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement
 
 // HTML Methods from HTMLElements https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement#Methods
-export const basePropsAndMethods = ['blur', 'click', 'focus', 'forceSpellCheck']
+export const baseProperties = ['blur', 'click', 'focus', 'forceSpellCheck']
 
 // - ALL IDL attributes listed in MDN
 //   - https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
@@ -38,3 +38,5 @@ export const meterIDLProperties = [ 'high', 'low', 'max', 'min', 'optimum', 'val
 export const progressIDLProperties = [ 'max', 'value' ]
 export const selectIDLProperties = [ 'autocomplete', 'autofocus', 'disabled', 'multiple', 'name', 'required', 'size', 'validity', 'validationMessage', 'willValidate', 'checkValidity', 'reportValidity', 'setCustomValidity' ]
 export const textAreaIDLProperties = [ 'autofocus', 'cols', 'dirName', 'disabled', 'enterKeyHint', 'inputmode', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'validity', 'validationMessage', 'willValidate', 'checkValidity', 'reportValidity', 'setCustomValidity' ]
+
+export const noAttributes = ['id', 'style', 'class']

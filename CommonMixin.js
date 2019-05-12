@@ -1,3 +1,5 @@
+import { noAttributes } from './common.js'
+
 export const CommonMixin = (base) => {
   return class Base extends base {
     firstUpdated () {
@@ -16,9 +18,15 @@ export const CommonMixin = (base) => {
       while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM')) {}
       this.form = el
     }
+
     get reflectedProperties () {
       return []
     }
+
+    get noAttributes () {
+      return []
+    }
+
     _setSubAttr (subAttr, attrValue) {
       let tokens = subAttr.split(':')
       if (tokens.length === 1) {
@@ -30,7 +38,8 @@ export const CommonMixin = (base) => {
     }
 
     getAttribute (attr) {
-      if (['id', 'style', 'class', 'form'].indexOf(attr) !== -1) {
+      let na = [...this.noAttributes, noAttributes]
+      if (na.indexOf(attr) !== -1) {
         return super.getAttribute(attr)
       }
 
@@ -43,6 +52,8 @@ export const CommonMixin = (base) => {
     _reflectAttributesAndProperties () {
       var dst = this.native
 
+      let na = [...this.noAttributes, noAttributes]
+
       // ATTRIBUTES FIRST
 
       // Assign all starting nn- to the destination element
@@ -52,7 +63,7 @@ export const CommonMixin = (base) => {
         if (subAttr) this._setSubAttr(subAttr, super.getAttribute(attr))
         else {
           // if (this.reflectedAttributes.indexOf(attr) !== -1) {
-          if (['id', 'style', 'class', 'form'].indexOf(attr) === -1) {
+          if (na.indexOf(attr) === -1) {
             // Assign new value. NOTE: if the main element's attribute
             // comes back as null, it will remove it instead
             var newValue = super.getAttribute(attr)
@@ -75,7 +86,7 @@ export const CommonMixin = (base) => {
             else {
               let attr = mutation.attributeName
               // if (this.reflectedAttributes.indexOf(attr) !== -1) {
-              if (['id', 'style', 'class', 'form'].indexOf(attr) === -1) {
+              if (na.indexOf(attr) === -1) {
                 // Assign new value. NOTE: if the main element's attribute
                 // comes back as null, it will remove it instead
                 var newValue = super.getAttribute(attr)

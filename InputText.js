@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { InputMixin } from './InputMixin.js'
 import { CommonMixin } from './CommonMixin.js'
-import { basePropsAndMethods, inputIDLProperties } from './common.js'
+import { baseProperties, inputIDLProperties } from './common.js'
 class InputText extends InputMixin(CommonMixin(LitElement)) {
   static get styles () {
     return css`
@@ -46,9 +46,13 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
     }
   }
 
+  get noAttributes () {
+    return ['form', 'type']
+  }
+
   get reflectedProperties () {
     return [
-      ...basePropsAndMethods,
+      ...baseProperties,
       ...inputIDLProperties
     ]
   }

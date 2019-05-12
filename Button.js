@@ -1,15 +1,19 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { basePropsAndMethods, buttonIDLProperties } from './common.js'
+import { baseProperties, buttonIDLProperties } from './common.js'
 
 class Button extends CommonMixin(LitElement) {
   static get properties () {
     return {}
   }
 
+  get noAttributes () {
+    return ['form']
+  }
+
   get reflectedProperties () {
     return [
-      ...basePropsAndMethods,
+      ...baseProperties,
       ...buttonIDLProperties
     ]
   }
