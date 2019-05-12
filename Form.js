@@ -18,7 +18,7 @@ class Form extends CommonMixin(LitElement) {
     }
   }
 
-  get reflectedProperties () {
+  get reflectProperties () {
     return ['reset', 'checkValidity', 'reportValidity', 'requestAutocomplete', 'elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate'] // 'submit' deleted
   }
 

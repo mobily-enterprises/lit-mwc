@@ -11,7 +11,7 @@ class Button extends CommonMixin(LitElement) {
     return ['form']
   }
 
-  get reflectedProperties () {
+  get reflectProperties () {
     return [
       ...baseProperties,
       ...buttonIDLProperties

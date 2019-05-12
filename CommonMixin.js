@@ -19,7 +19,7 @@ export const CommonMixin = (base) => {
       this.form = el
     }
 
-    get reflectedProperties () {
+    get reflectProperties () {
       return []
     }
 
@@ -103,7 +103,7 @@ export const CommonMixin = (base) => {
       thisObserver.observe(this, { attributes: true })
 
       // METHODS (as bound functions) AND PROPERTIES (as getters/setters)
-      this.reflectedProperties.forEach(prop => {
+      this.reflectProperties.forEach(prop => {
         if (typeof dst[prop] === 'function') {
           this[prop] = dst[prop].bind(dst)
         } else {

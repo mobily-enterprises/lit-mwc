@@ -11,7 +11,7 @@ class InputCheckbox extends CommonMixin(LitElement) {
     return ['form', 'type']
   }
 
-  get reflectedProperties () {
+  get reflectProperties () {
     return [
       ...baseProperties,
       ...inputIDLProperties
