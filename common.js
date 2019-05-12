@@ -39,4 +39,4 @@ export const progressIDLProperties = [ 'max', 'value' ]
 export const selectIDLProperties = [ 'autocomplete', 'autofocus', 'disabled', 'multiple', 'name', 'required', 'size', 'validity', 'validationMessage', 'willValidate', 'checkValidity', 'reportValidity', 'setCustomValidity' ]
 export const textAreaIDLProperties = [ 'autofocus', 'cols', 'dirName', 'disabled', 'enterKeyHint', 'inputmode', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'validity', 'validationMessage', 'willValidate', 'checkValidity', 'reportValidity', 'setCustomValidity' ]
 
-export const skipAttributes = ['id', 'style', 'class']
+export const alwaysSkipAttributes = ['id', 'style', 'class']

@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { baseProperties, buttonIDLProperties } from './common.js'
+import { baseProperties, buttonIDLProperties, alwaysSkipAttributes } from './common.js'
 
 class Button extends CommonMixin(LitElement) {
   static get properties () {
@@ -8,7 +8,10 @@ class Button extends CommonMixin(LitElement) {
   }
 
   get skipAttributes () {
-    return ['form']
+    return [
+      ...alwaysSkipAttributes,
+      'form'
+    ]
   }
 
   get reflectProperties () {

@@ -1,5 +1,3 @@
-import { skipAttributes } from './common.js'
-
 export const CommonMixin = (base) => {
   return class Base extends base {
     firstUpdated () {
@@ -38,8 +36,7 @@ export const CommonMixin = (base) => {
     }
 
     getAttribute (attr) {
-      let na = [...this.skipAttributes, skipAttributes]
-      if (na.indexOf(attr) !== -1) {
+      if (this.skipAttributes.indexOf(attr) !== -1) {
         return super.getAttribute(attr)
       }
 
@@ -52,8 +49,6 @@ export const CommonMixin = (base) => {
     _reflectAttributesAndProperties () {
       var dst = this.native
 
-      let na = [...this.skipAttributes, skipAttributes]
-
       // ATTRIBUTES FIRST
 
       // Assign all starting nn- to the destination element
@@ -63,7 +58,7 @@ export const CommonMixin = (base) => {
         if (subAttr) this._setSubAttr(subAttr, super.getAttribute(attr))
         else {
           // if (this.reflectedAttributes.indexOf(attr) !== -1) {
-          if (na.indexOf(attr) === -1) {
+          if (this.skipAttributes.indexOf(attr) === -1) {
             // Assign new value. NOTE: if the main element's attribute
             // comes back as null, it will remove it instead
             var newValue = super.getAttribute(attr)
@@ -86,7 +81,7 @@ export const CommonMixin = (base) => {
             else {
               let attr = mutation.attributeName
               // if (this.reflectedAttributes.indexOf(attr) !== -1) {
-              if (na.indexOf(attr) === -1) {
+              if (this.skipAttributes.indexOf(attr) === -1) {
                 // Assign new value. NOTE: if the main element's attribute
                 // comes back as null, it will remove it instead
                 var newValue = super.getAttribute(attr)

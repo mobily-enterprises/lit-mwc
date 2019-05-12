@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { baseProperties, inputIDLProperties } from './common.js'
+import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from './common.js'
 
 class InputCheckbox extends CommonMixin(LitElement) {
   static get properties () {
@@ -8,7 +8,10 @@ class InputCheckbox extends CommonMixin(LitElement) {
   }
 
   get skipAttributes () {
-    return ['form', 'type']
+    return [
+      ...alwaysSkipAttributes,
+      'form', 'type'
+    ]
   }
 
   get reflectProperties () {
