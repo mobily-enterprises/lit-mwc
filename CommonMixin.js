@@ -19,10 +19,6 @@ export const CommonMixin = (base) => {
     get reflectedProperties () {
       return []
     }
-
-    get reflectedAttributes () {
-      return []
-    }
     _setSubAttr (subAttr, attrValue) {
       let tokens = subAttr.split(':')
       if (tokens.length === 1) {
@@ -31,6 +27,17 @@ export const CommonMixin = (base) => {
         let dstElement = this.shadowRoot.querySelector(`#${tokens[0]}`)
         if (dstElement) dstElement.setAttribute(tokens[1], attrValue)
       }
+    }
+
+    getAttribute (attr) {
+      if (['id', 'style', 'class', 'form'].indexOf(attr) !== -1) {
+        return super.getAttribute(attr)
+      }
+
+      let nativeAttribute = this.native.getAttribute(attr)
+      if (nativeAttribute !== null) return nativeAttribute
+
+      return super.getAttribute(attr)
     }
 
     _reflectAttributesAndProperties () {
@@ -42,13 +49,13 @@ export const CommonMixin = (base) => {
       for (let attributeObject of this.attributes) {
         var attr = attributeObject.name
         let subAttr = attr.split('nn:')[1]
-        if (subAttr) this._setSubAttr(subAttr, this.getAttribute(attr))
+        if (subAttr) this._setSubAttr(subAttr, super.getAttribute(attr))
         else {
           // if (this.reflectedAttributes.indexOf(attr) !== -1) {
-          if (['style', 'class', 'form'].indexOf(attr) === -1) {
+          if (['id', 'style', 'class', 'form'].indexOf(attr) === -1) {
             // Assign new value. NOTE: if the main element's attribute
             // comes back as null, it will remove it instead
-            var newValue = this.getAttribute(attr)
+            var newValue = super.getAttribute(attr)
             dst.setAttribute(attr, newValue)
           }
         }
@@ -56,7 +63,7 @@ export const CommonMixin = (base) => {
 
       // Observe changes in attribute from the source element, and reflect
       // them to the destination element
-      var observer = new MutationObserver((mutations) => {
+      var thisObserver = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           if (mutation.type === 'attributes') {
             // Look for nn: attributes
@@ -64,14 +71,14 @@ export const CommonMixin = (base) => {
             // reflected ones
             var attr = mutation.attributeName
             let subAttr = attr.split('nn:')[1]
-            if (subAttr) this._setSubAttr(subAttr, this.getAttribute(attr))
+            if (subAttr) this._setSubAttr(subAttr, super.getAttribute(attr))
             else {
               let attr = mutation.attributeName
               // if (this.reflectedAttributes.indexOf(attr) !== -1) {
-              if (['style', 'class', 'form'].indexOf(attr) === -1) {
+              if (['id', 'style', 'class', 'form'].indexOf(attr) === -1) {
                 // Assign new value. NOTE: if the main element's attribute
                 // comes back as null, it will remove it instead
-                var newValue = this.getAttribute(attr)
+                var newValue = super.getAttribute(attr)
                 if (newValue === null) {
                   dst.removeAttribute(attr)
                 } else {
@@ -82,7 +89,8 @@ export const CommonMixin = (base) => {
           }
         })
       })
-      observer.observe(this, { attributes: true })
+      thisObserver.observe(this, { attributes: true })
+
       // METHODS (as bound functions) AND PROPERTIES (as getters/setters)
       this.reflectedProperties.forEach(prop => {
         if (typeof dst[prop] === 'function') {

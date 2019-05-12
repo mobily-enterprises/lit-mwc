@@ -53,13 +53,6 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
     ]
   }
 
-  /*
-  get reflectedAttributes () {
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
-    return [ ...inputIDLAttributes, 'maxlength', 'minlength', 'pattern', 'placeholder', 'readonly', 'size', 'spellcheck', 'autocorrect', 'mozactionhint' ]
-  }
-  */
-
   render () {
     return html`
                 ${this.customStyle}

@@ -14,15 +14,6 @@ class InputCheckbox extends CommonMixin(LitElement) {
     ]
   }
 
-  /*
-  get reflectedAttributes () {
-    // IDL attribute `checked` https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
-    return [
-      ...inputIDLAttributes
-    ]
-  }
-  */
-
   render () {
     return html`<input type="checkbox" id="_native">
                   <slot></slot>

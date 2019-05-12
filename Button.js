@@ -14,14 +14,6 @@ class Button extends CommonMixin(LitElement) {
     ]
   }
 
-  /*
-  get reflectedAttributes () {
-    return [
-      ...buttonIDLAttributes
-    ]
-  }
-  */
-
   render () {
     return html`<button @click="${this._clicked}" id="_native">
                   <slot></slot>
@@ -29,7 +21,6 @@ class Button extends CommonMixin(LitElement) {
   }
 
   _clicked () {
-    debugger
     if (this.getAttribute('type') === 'submit') this.form.submit()
   }
 }

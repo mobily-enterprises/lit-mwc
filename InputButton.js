@@ -8,17 +8,11 @@ class InputButton extends CommonMixin(LitElement) {
   }
 
   get reflectedProperties () {
-    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement
     return [
       ...basePropsAndMethods,
       ...inputIDLProperties
     ]
   }
-  /*
-  get reflectedAttributes () {
-    return [ ...inputIDLAttributes ]
-  }
-  */
 
   render () {
     return html`<input type="button" id="_native">
