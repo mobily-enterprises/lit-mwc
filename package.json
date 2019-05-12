@@ -25,5 +25,8 @@
   "homepage": "https://github.com/mobily-enterprises/nn#readme",
   "dependencies": {
     "lit-element": "^2.1.0"
+  },
+  "standard": {
+    "globals": ["customElements", "MutationObserver"]
   }
 }
