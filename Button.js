@@ -11,6 +11,7 @@ class Button extends CommonMixin(LitElement) {
     return [
       ...HTMLBasePropsAndMethods,
       ...HTMLFormElementPropsAndMethods
+      // Methods: NONE https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
     ]
   }
 
