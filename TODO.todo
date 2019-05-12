@@ -11,7 +11,9 @@ TONY
   ✔ Render ALL input fields automatically disabled while the form is being submitted @done(2019-05-05 21:14) @project(☐ nn-form)
     ✔ Again, use gatherFormElements(), get status before and save, submit, restore status @done(2019-05-05 21:14) @project(☐ nn-form)
   ✔ Implement nn:style:label="..." @done(2019-05-11 17:21) @project(☐ nn-form)
-  ☐ Check https://github.com/ricardofbarros/linter-js-standard/issues/229
+  ✔ Check https://github.com/ricardofbarros/linter-js-standard/issues/229 @done(2019-05-12 12:31) @project(☐ nn-form)
+
+  ☐ Wait for: https://stackoverflow.com/questions/56096524/which-elements-properties-are-reflected-into-attributes-in-html
 
   ☐ Check if we need more reflected properties in common.js, added disabled now -- more?
 
@@ -29,6 +31,9 @@ TONY
     ☐ document.forms returns the forms. Will the forms in the shadow dom be returned?
     ☐ HTMLFormElement.elements and HTMLFormElement.length are only <button>, <fieldset>, <input>, <object>, etc.
 
+  ☐ Provide coverage for ALL of the HTML form elements https://developer.mozilla.org/en-US/docs/Web/HTML/Element#Forms
+
+  ☐
 ☐ nn-network:
 
 ☐ nn-realtime-field (or include in nn-form?):

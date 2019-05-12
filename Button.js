@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
-import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
+import { HTMLBasePropsAndMethods, HTMLFormElementPropsAndMethods, defaultReflectedAttributes } from './common.js'
 
 class Button extends CommonMixin(LitElement) {
   static get properties () {
@@ -8,7 +8,10 @@ class Button extends CommonMixin(LitElement) {
   }
 
   get reflectedProperties () {
-    return [ ...defaultReflectedProperties ]
+    return [
+      ...HTMLBasePropsAndMethods,
+      ...HTMLFormElementPropsAndMethods
+    ]
   }
 
   get reflectedAttributes () {

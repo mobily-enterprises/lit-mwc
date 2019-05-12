@@ -71,7 +71,6 @@ export const CommonMixin = (base) => {
             else {
               let attr = mutation.attributeName
               if (this.reflectedAttributes.indexOf(attr) !== -1) {
-
                 // Assign new value. NOTE: if the main element's attribute
                 // comes back as null, it will remove it instead
                 var newValue = this.getAttribute(attr)

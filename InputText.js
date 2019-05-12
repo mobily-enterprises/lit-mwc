@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { InputMixin } from './InputMixin.js'
 import { CommonMixin } from './CommonMixin.js'
-import { defaultReflectedProperties, defaultReflectedAttributes } from './common.js'
+import { HTMLBasePropsAndMethods, HTMLFormElementPropsAndMethods, defaultReflectedAttributes } from './common.js'
 class InputText extends InputMixin(CommonMixin(LitElement)) {
   static get styles () {
     return css`
@@ -47,8 +47,11 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
   }
 
   get reflectedProperties () {
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
-    return [ ...defaultReflectedProperties, 'select', 'setRangeText', 'setSelectionRange' ]
+    return [
+      ...HTMLBasePropsAndMethods,
+      ...HTMLFormElementPropsAndMethods,
+      // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
+      'select', 'setSelectionRange', 'setRangeText' ]
   }
 
   get reflectedAttributes () {

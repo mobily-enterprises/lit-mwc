@@ -53,12 +53,12 @@ class Form extends CommonMixin(LitElement) {
 
   _disableElements (elements) {
     for (let el of elements) {
-      if (!el.disabled) el.disabled = true
+      if (!el.disabled) el.setAttribute('disabled', true)
     }
   }
 
   _enableElements (elements) {
-    for (let el of elements) el.disabled = false
+    for (let el of elements) el.removeAttribute('disabled')
   }
 
   async submit () {
