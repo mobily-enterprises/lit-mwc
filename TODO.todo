@@ -1,5 +1,32 @@
-TONY
+☐ input
+  ☐ button
+  ☐ checkbox
+  ☐ color
+  ☐ date
+  ☐ datetime-local
+  ☐ email
+  ☐ file
+  ☐ image
+  ☐ month
+  ☐ number
+  ☐ password
+  ☐ radio
+  ☐ range
+  ☐ reset
+  ☐ search
+  ☐ submit
+  ☐ tel
+  ☐ text
+  ☐ time
+  ☐ url
+  ☐ week
+☐ button
+☐ meter
+☐ progress
+☐ select
+☐ textarea
 
+TONY
 ☐ nn-form:
   ✔ Load data from the server before showing the form @done(2019-04-29 21:14) @project(☐ nn-form)
   ✔ Overwrite a record (PUT with an existing ID), or create a new one (POST, no ID) or create a record with an arbitrary ID (POST with a new ID)? @done(2019-05-03 07:17) @project(☐ nn-form)
@@ -14,6 +41,7 @@ TONY
   ✔ Check https://github.com/ricardofbarros/linter-js-standard/issues/229 @done(2019-05-12 12:31) @project(☐ nn-form)
   ✔ Wait for: https://stackoverflow.com/questions/56096524/which-elements-properties-are-reflected-into-attributes-in-html @done(2019-05-13 00:17) @project(☐ nn-form)
   ✔ Check if we need more reflected properties in common.js, added disabled now -- more? @done(2019-05-13 00:17) @project(☐ nn-form)
+  ✔ Redefine setAttribute() rather than attrbute observer to carry on changes to contained elements @done(2019-05-14 09:28) @project(☐ nn-form)
 
   ☐ Highlight the problem fields if the form is NOT a success
     ☐ https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation
