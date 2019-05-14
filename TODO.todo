@@ -43,10 +43,12 @@ TONY
   ✔ Check if we need more reflected properties in common.js, added disabled now -- more? @done(2019-05-13 00:17) @project(☐ nn-form)
   ✔ Redefine setAttribute() rather than attrbute observer to carry on changes to contained elements @done(2019-05-14 09:28) @project(☐ nn-form)
 
-  ☐ Highlight the problem fields if the form is NOT a success
+  ☐ VALIDATION
+    ☐ Highlight the problem fields if the form is NOT a success
     ☐ https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation
     ☐ Use default HTML methods, which nn- elements will style better
     ☐ Allow the user to provide a function that returns the "problem fields" reading the returned json
+    ☐ Make sure validation works the same client-side and server-side
 
   ☐ Submit the form when the user presses ENTER on a inputText
    ☐ This should be done by Input.js which already has .form
