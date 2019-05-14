@@ -26,12 +26,23 @@ export const CommonMixin = (base) => {
     }
 
     _setSubAttr (subAttr, attrValue) {
-      let tokens = subAttr.split(':')
+      let tokens = subAttr.split('::')
+
+      // No :: found, simply change attribute in `native`
       if (tokens.length === 1) {
-        this.native.setAttribute(subAttr, attrValue)
+        (attrValue === null)
+          ? this.native.removeAttribute(subAttr)
+          : this.native.setAttribute(subAttr, attrValue)
+
+      // Yes, :: is there: assign the attribute to the element with the
+      // corresponding ID
       } else if (tokens.length === 2) {
         let dstElement = this.shadowRoot.querySelector(`#${tokens[0]}`)
-        if (dstElement) dstElement.setAttribute(tokens[1], attrValue)
+        if (dstElement) {
+          attrValue === null
+            ? dstElement.removeAttribute(tokens[1])
+            : dstElement.setAttribute(tokens[1], attrValue)
+        }
       }
     }
 
@@ -43,28 +54,35 @@ export const CommonMixin = (base) => {
       let nativeAttribute = this.native.getAttribute(attr)
       if (nativeAttribute !== null) return nativeAttribute
 
+      // This shouldn't really happen, but it's here as a fallback
+      // TODO: Maybe delete it and always return the native's value regardless
       return super.getAttribute(attr)
+    }
+
+    setAttribute (attr, value) {
+      // Set the attribute
+      super.setAttribute(attr, value)
+
+      // Skip the ones in the skipAttributes list
+      if (this.skipAttributes.indexOf(attr) !== -1) return
+
+      // Assign the same attribute to the contained native
+      // element, taking care of the 'nn' syntax
+      //
+      this._setSubAttr(attr, value)
     }
 
     _reflectAttributesAndProperties () {
       var dst = this.native
 
-      // ATTRIBUTES FIRST
+      // STEP #1: ATTRIBUTES FIRST
 
-      // Assign all starting nn- to the destination element
+      // Assign all starting attribute to the destination element
       for (let attributeObject of this.attributes) {
         var attr = attributeObject.name
-        let subAttr = attr.split('nn:')[1]
-        if (subAttr) this._setSubAttr(subAttr, super.getAttribute(attr))
-        else {
-          // if (this.reflectedAttributes.indexOf(attr) !== -1) {
-          if (this.skipAttributes.indexOf(attr) === -1) {
-            // Assign new value. NOTE: if the main element's attribute
-            // comes back as null, it will remove it instead
-            var newValue = super.getAttribute(attr)
-            dst.setAttribute(attr, newValue)
-          }
-        }
+
+        if (this.skipAttributes.indexOf(attr) !== -1) continue
+        this._setSubAttr(attr, super.getAttribute(attr))
       }
 
       // Observe changes in attribute from the source element, and reflect
@@ -72,32 +90,34 @@ export const CommonMixin = (base) => {
       var thisObserver = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           if (mutation.type === 'attributes') {
-            // Look for nn: attributes
+            var attr = mutation.attributeName
             // If not there, set the attrivute if in the list of
             // reflected ones
-            var attr = mutation.attributeName
-            let subAttr = attr.split('nn:')[1]
-            if (subAttr) this._setSubAttr(subAttr, super.getAttribute(attr))
-            else {
-              let attr = mutation.attributeName
-              // if (this.reflectedAttributes.indexOf(attr) !== -1) {
-              if (this.skipAttributes.indexOf(attr) === -1) {
-                // Assign new value. NOTE: if the main element's attribute
-                // comes back as null, it will remove it instead
-                var newValue = super.getAttribute(attr)
-                if (newValue === null) {
-                  dst.removeAttribute(attr)
-                } else {
-                  dst.setAttribute(attr, newValue)
-                }
-              }
-            }
+
+            // Don't reflect forbidden attributes
+            if (this.skipAttributes.indexOf(attr) !== -1) return
+
+            // Don't reflect attributes with ::
+            if (attr.indexOf('::') !== -1) return
+
+            // Check if the value has changed. If it hasn't, there is no
+            // point in re-assigning it, especially since the observer
+            // might have been triggered by this very mixin
+            var newValue = this.native.getAttribute(attr)
+            var thisValue = super.getAttribute(attr)
+            if (newValue === thisValue) return
+
+            // Assign the new value
+            (newValue === null)
+              ? super.removeAttribute(attr)
+              : super.setAttribute(attr, newValue)
           }
         })
       })
-      thisObserver.observe(this, { attributes: true })
+      thisObserver.observe(this.native, { attributes: true })
 
-      // METHODS (as bound functions) AND PROPERTIES (as getters/setters)
+      // STEP #2: METHODS (as bound functions) AND PROPERTIES (as getters/setters)
+
       this.reflectProperties.forEach(prop => {
         if (typeof dst[prop] === 'function') {
           this[prop] = dst[prop].bind(dst)
