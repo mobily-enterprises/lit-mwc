@@ -72,6 +72,19 @@ export const CommonMixin = (base) => {
       this._setSubAttr(attr, value)
     }
 
+    removeAttribute (attr) {
+      // Set the attribute
+      super.removeAttribute(attr)
+
+      // Skip the ones in the skipAttributes list
+      if (this.skipAttributes.indexOf(attr) !== -1) return
+
+      // Assign the same attribute to the contained native
+      // element, taking care of the 'nn' syntax
+      //
+      this._setSubAttr(attr, null)
+    }
+
     _reflectAttributesAndProperties () {
       var dst = this.native
 
