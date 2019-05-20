@@ -96,7 +96,6 @@ class Form extends CommonMixin(LitElement) {
     var formElements = this._gatherFormElements('submitter')
     this._disableElements(formElements)
 
-    debugger
     // Attempt the submission
     var networkError = false
     try {
@@ -109,6 +108,9 @@ class Form extends CommonMixin(LitElement) {
     // CASE #1: network error.
     if (networkError) {
       console.log('Network error!')
+
+      // Re-enable the elements
+      this._enableElements(formElements)
 
       // Emit event to make it possible to tell the user via UI about the problem
       let event = new CustomEvent('form-error', { detail: { type: 'network' }, bubbles: true, composed: true })
@@ -126,9 +128,25 @@ class Form extends CommonMixin(LitElement) {
       let event = new CustomEvent('form-error', { detail: { type: 'http', response, errs }, bubbles: true, composed: true })
       this.dispatchEvent(event)
 
+      // Re-enable the elements
+      // This must happen before setCustomValidity() and reportValidity()
+      this._enableElements(formElements)
 
-
-      console.log('Errors!', errs)
+      // Set error messages
+      if (errs.errors && errs.errors.length) {
+        let elements = this._gatherFormElements('errorSetter')
+        var elHash = {}
+        for (let el of elements) {
+          elHash[el.name] = el
+        }
+        for (let err of errs.errors) {
+          let el = elHash[err.field]
+          if (el && el.native) {
+            el.native.setCustomValidity(err.message)
+            el.native.reportValidity()
+          }
+        }
+      }
 
     // CASE #3: NO error. Set fields to their
     // new values
@@ -139,13 +157,13 @@ class Form extends CommonMixin(LitElement) {
       // HOOK Set the form values, in case the server processed some values
       this.setFormElementValues(v)
 
+      // Re-enable the elements
+      this._enableElements(formElements)
+
       // Emit event to make it possible to tell the user via UI about the problem
       let event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true })
       this.dispatchEvent(event)
     }
-
-    // Re-enable the elements
-    this._enableElements(formElements)
   }
 
   async updated (changedProperties) {
