@@ -1,7 +1,7 @@
 import { LitElement, html } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
 
-/* globals fetch customElements */
+/* globals fetch customElements CustomEvent */
 class Form extends CommonMixin(LitElement) {
   static get properties () {
     return {
@@ -14,7 +14,8 @@ class Form extends CommonMixin(LitElement) {
       // This will allow users to redefine methods declaratively
       createSubmitObject: Function,
       presubmit: Function,
-      setFormElementValues: Function
+      setFormElementValues: Function,
+      extrapolateErrors: Function
     }
   }
 
@@ -31,6 +32,10 @@ class Form extends CommonMixin(LitElement) {
     for (let el of elements) {
       el.value = v[el.name]
     }
+  }
+
+  extrapolateErrors (o) {
+    return o
   }
 
   _gatherFormElements (callerName) {
@@ -91,17 +96,53 @@ class Form extends CommonMixin(LitElement) {
     var formElements = this._gatherFormElements('submitter')
     this._disableElements(formElements)
 
+    debugger
     // Attempt the submission
+    var networkError = false
     try {
-      var fetched = await fetch(fetchOptions.url, fetchOptions)
+      var response = await fetch(fetchOptions.url, fetchOptions)
     } catch (e) {
+      console.log('ERROR!', e)
+      networkError = true
     }
 
-    // Convert the result to JSON
-    var v = await fetched.json()
+    // CASE #1: network error.
+    if (networkError) {
+      console.log('Network error!')
 
-    // HOOK Set the form values, in case the server processed some values
-    this.setFormElementValues(v)
+      // Emit event to make it possible to tell the user via UI about the problem
+      let event = new CustomEvent('form-error', { detail: { type: 'network' }, bubbles: true, composed: true })
+      this.dispatchEvent(event)
+    //
+    // CASE #2: HTTP error.
+    // Invalidate the problem fields
+    } else if (!response.ok) {
+      //
+      // Try and get the errors object from the reponse's json
+      let errs = await response.json()
+      errs = this.extrapolateErrors(errs) || {}
+
+      // Emit event to make it possible to tell the user via UI about the problem
+      let event = new CustomEvent('form-error', { detail: { type: 'http', response, errs }, bubbles: true, composed: true })
+      this.dispatchEvent(event)
+
+
+
+      console.log('Errors!', errs)
+
+    // CASE #3: NO error. Set fields to their
+    // new values
+    } else {
+      // Convert the result to JSON
+      var v = await response.json()
+
+      // HOOK Set the form values, in case the server processed some values
+      this.setFormElementValues(v)
+
+      // Emit event to make it possible to tell the user via UI about the problem
+      let event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true })
+      this.dispatchEvent(event)
+    }
 
     // Re-enable the elements
     this._enableElements(formElements)
@@ -120,7 +161,7 @@ class Form extends CommonMixin(LitElement) {
     // (It will be a get)
     // If there is a result, fetch the element values
     var action = this.getAttribute('action')
-    var fetched
+    var response
     if (action) {
       // This will make sure that the element is actually visible
       // before doing the fetch
@@ -132,10 +173,10 @@ class Form extends CommonMixin(LitElement) {
 
       // Fetch the data and trasform it to json
       try {
-        fetched = await fetch(action + '/' + this.recordId)
+        response = await fetch(action + '/' + this.recordId)
       } catch (e) {
       }
-      var v = await fetched.json()
+      var v = await response.json()
 
       // Set values
       this.setFormElementValues(v)
