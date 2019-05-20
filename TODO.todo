@@ -44,11 +44,15 @@ TONY
   ✔ Redefine setAttribute() rather than attrbute observer to carry on changes to contained elements @done(2019-05-14 09:28) @project(☐ nn-form)
 
   ☐ VALIDATION
-    ☐ Highlight the problem fields if the form is NOT a success
-    ☐ https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation
-    ☐ Use default HTML methods, which nn- elements will style better
-    ☐ Allow the user to provide a function that returns the "problem fields" reading the returned json
-    ☐ Make sure validation works the same client-side and server-side
+    ✔ Highlight the problem fields if the form is NOT a success @done(2019-05-21 07:46) @project(☐ nn-form)
+    ✔ https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation @done(2019-05-21 07:46) @project(☐ nn-form)
+    ✔ Use default HTML methods, which nn- elements will style better @done(2019-05-21 07:46) @project(☐ nn-form)
+    ✔ Allow the user to provide a function that returns the "problem fields" reading the returned json @done(2019-05-21 07:46) @project(☐ nn-form)
+    ✔ Make sure validation works the same client-side and server-side @done(2019-05-21 07:47) @project(☐ nn-form)
+    ☐ Make sure Form::submit() runs checkValidity() before submitting and doesn't submit if there are problems
+      ☐ Emulate as much as possible what the native form does
+      ☐ Make sure error messages are cleared before sending
+    ☐ Give better error messages, since native ones are so ugly (with Raphael)
 
   ☐ Submit the form when the user presses ENTER on a inputText
    ☐ This should be done by Input.js which already has .form
