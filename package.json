@@ -27,6 +27,9 @@
     "lit-element": "^2.1.0"
   },
   "standard": {
-    "globals": ["customElements", "MutationObserver"]
+    "globals": [
+      "customElements",
+      "MutationObserver"
+    ]
   }
 }
