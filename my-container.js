@@ -21,13 +21,18 @@ export class MyContainer extends LitElement {
     super()
     this.exampleArray = ['One', 'Two', 'Three']
   }
+
+  someFunction () {
+
+  }
+
   render() {
     return html`
       <my-contained ></my-contained>
       <my-contained .text="Another text"></my-contained>
       ${this.exampleArray.map((item) => {
         return html`
-          <my-contained .text="${item}"> </my-contained>
+          <my-contained attr="${`itemDescription_${this.exampleArray[0]}`}" .text="${item}"> </my-contained>
         `
       })}
     `;

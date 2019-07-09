@@ -31,12 +31,13 @@ export class MyContained extends LitElement {
   }
 
   firstUpdated() {
-    console.log(this.shadowRoot);
-    
+    console.log("Shadowroot in firstUpdated:", this.shadowRoot);
+
   }
 
   setAttribute (subAttr, attrValue) {
-    console.log( this.shadowRoot);
+    debugger
+    console.log( "Shadowroot in setAttribute:", this.shadowRoot);
     super.setAttribute(subAttr, attrValue)
   }
 }
