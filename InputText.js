@@ -5,6 +5,10 @@ import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from './comm
 class InputText extends InputMixin(CommonMixin(LitElement)) {
   static get styles () {
     return css`
+        :host {
+          display: flex
+        }
+
         input {
           display: inline-flex;
           height: 30px;
@@ -23,7 +27,7 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
           display: inline-block;
           vertical-align: middle;
           height: 26px;
-          font-size: 0.8em;
+          font-size: 1em;
           border: var(--nn-label-border, 1px solid #dddddd);
           background-color: var(--nn-label-background, #eeeeee);
           border-radius: var(--nn-label-border-radius, 4px 0 0 4px );
