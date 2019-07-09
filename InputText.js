@@ -6,7 +6,7 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
   static get styles () {
     return css`
         :host {
-          display: flex
+          display: flex;
         }
 
         input {
@@ -16,6 +16,7 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
           border: var(--nn-input-border, 1px solid #dddddd);
           background-color: var(--nn-input-border, initial);
           -webkit-appearance: none;
+          width: inherit;
         }
 
         input:invalid {
