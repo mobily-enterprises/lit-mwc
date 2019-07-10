@@ -32,7 +32,7 @@ export class MyContainer extends LitElement {
       <my-contained .text="Another text"></my-contained>
       ${this.exampleArray.map((item) => {
         return html`
-          <my-contained attr="${`itemDescription_${this.exampleArray[0]}`}" .text="${item}"> </my-contained>
+          <my-contained attr="${`itemDescription`}" .text="${item}"> </my-contained>
         `
       })}
     `;
