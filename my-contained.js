@@ -23,6 +23,7 @@ export class MyContained extends LitElement {
   }
 
   render () {
+    debugger
     return html`
       <h3>I'm contained</h3>
       <h4>${this.text}</h4>
@@ -34,6 +35,7 @@ export class MyContained extends LitElement {
   }
 
   setAttribute (subAttr, attrValue) {
+    debugger
     console.log(`Shadowroot in setAttribute (${attrValue}):`, this.shadowRoot.querySelectorAll('*'))
     super.setAttribute(subAttr, attrValue)
   }
