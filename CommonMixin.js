@@ -28,6 +28,12 @@ export const CommonMixin = (base) => {
     _setSubAttr (subAttr, attrValue) {
       let tokens = subAttr.split('::')
 
+      // Safeguard: if this.native is not yet set, it means that
+      // an attribute was set BEFORE the element was rendered. If that
+      // is the case, simply give up. _reflectAttributesAndProperties() will
+      // be run afterwards to sync things up anyway
+      if (!this.native) return
+
       // No :: found, simply change attribute in `native`
       if (tokens.length === 1) {
         (attrValue === null)
