@@ -8,7 +8,7 @@ class Button extends CommonMixin(LitElement) {
       button {
         height: var(--button-height, 30px);
         background-color: var(--button-background, white);
-        border-radius: var(--button-border-radius, 4px);
+        border-radius: var(--button-border-radius, 3px);
         text-transform: uppercase;
       }
 
