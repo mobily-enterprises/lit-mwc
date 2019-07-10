@@ -17,6 +17,11 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
           background-color: var(--nn-input-border, initial);
           -webkit-appearance: none;
           width: inherit;
+          margin-left: 10px;
+          margin-right: 0;
+          float: right;
+          font-size: 1em;
+          padding-left: 10px;
         }
 
         input:invalid {
