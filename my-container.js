@@ -1,20 +1,19 @@
-import { LitElement, css, html } from 'lit-element';
+import { LitElement, css, html } from 'lit-element'
 import './my-contained.js'
 
 export class MyContainer extends LitElement {
-
   static get styles () {
     return css`
       :host {
         display: block;
       }
-    `;
+    `
   }
 
-  static get properties() {
+  static get properties () {
     return {
       exampleArray: { type: Array }
-    };
+    }
   }
 
   constructor () {
@@ -22,20 +21,16 @@ export class MyContainer extends LitElement {
     this.exampleArray = ['One', 'Two', 'Three']
   }
 
-  someFunction () {
-
-  }
-
-  render() {
+  render () {
     return html`
       <my-contained ></my-contained>
-      <my-contained .text="Another text"></my-contained>
+      <my-contained attr="${`outside_map`}"></my-contained>
       ${this.exampleArray.map((item) => {
         return html`
-          <my-contained attr="${`itemDescription`}" .text="${item}"> </my-contained>
+          <my-contained attr="${`in_map`}" .text="${item}"> </my-contained>
         `
       })}
-    `;
+    `
   }
 }
-customElements.define('my-container', MyContainer);
+customElements.define('my-container', MyContainer)
