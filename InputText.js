@@ -14,6 +14,7 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
           height: 30px;
           border-radius: var(--nn-input-border-radius, 0 4px 4px 0);
           border: var(--nn-input-border, 1px solid #dddddd);
+          color: var(--nn-input-color, inherit);
           background-color: var(--nn-input-border, initial);
           -webkit-appearance: none;
           width: inherit;
@@ -33,6 +34,7 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
           height: 26px;
           font-size: 1em;
           border: var(--nn-label-border, 1px solid #dddddd);
+          color: var(--nn-label-color, inherit);
           background-color: var(--nn-label-background, #eeeeee);
           border-radius: var(--nn-label-border-radius, 4px 0 0 4px );
           padding-top: 6px;
