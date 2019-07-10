@@ -1,10 +1,34 @@
-import { LitElement, html } from 'lit-element'
+import { LitElement, html, css } from 'lit-element'
 import { CommonMixin } from './CommonMixin.js'
 import { baseProperties, buttonIDLProperties, alwaysSkipAttributes } from './common.js'
 
 class Button extends CommonMixin(LitElement) {
+  static get styles () {
+    return css`
+      button {
+        height: var(--button-height, 36px);
+        background-color: var(--button-background, white);
+        border-radius: var(--button-border-radius, 4px);
+        text-transform: uppercase;
+      }
+
+      button[raised] {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 
+                    0 1px 5px 0 rgba(0, 0, 0, 0.12), 
+                    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+    `
+  }
   static get properties () {
-    return {}
+    return {
+      stylesheet: { type: String },
+    }
+  }
+
+  get customStyle () {
+    return html`
+        ${this.stylesheet ? html`<link rel="stylesheet" href="${this.stylesheet}">` : ''}
+      `
   }
 
   get skipAttributes () {
@@ -22,7 +46,9 @@ class Button extends CommonMixin(LitElement) {
   }
 
   render () {
-    return html`<button @click="${this._clicked}" id="_native">
+    return html`${this.customStyle}
+
+                <button @click="${this._clicked}" id="_native">
                   <slot></slot>
                 </button>`
   }
