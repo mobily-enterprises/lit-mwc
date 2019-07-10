@@ -6,7 +6,7 @@ class Button extends CommonMixin(LitElement) {
   static get styles () {
     return css`
       button {
-        height: var(--button-height, 36px);
+        height: var(--button-height, 30px);
         background-color: var(--button-background, white);
         border-radius: var(--button-border-radius, 4px);
         text-transform: uppercase;
