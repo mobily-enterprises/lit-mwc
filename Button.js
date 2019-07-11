@@ -10,6 +10,7 @@ class Button extends CommonMixin(LitElement) {
         background-color: var(--button-background, white);
         border-radius: var(--button-border-radius, 3px);
         text-transform: uppercase;
+        color: inherit
       }
 
       button[raised] {
