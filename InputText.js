@@ -15,7 +15,7 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
           border-radius: var(--nn-input-border-radius, 0 4px 4px 0);
           border: var(--nn-input-border, 1px solid #dddddd);
           color: var(--nn-input-color, inherit);
-          background-color: var(--nn-input-border, initial);
+          background-color: var(--nn-input-background, initial);
           -webkit-appearance: none;
           width: inherit;
           float: right;
