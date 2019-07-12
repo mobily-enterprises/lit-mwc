@@ -7,11 +7,11 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
     return css`
         :host {
           display: flex;
+          height: 30px;
         }
 
         input {
           display: inline-flex;
-          height: 30px;
           border-radius: var(--nn-input-border-radius, 0 4px 4px 0);
           border: var(--nn-input-border, 1px solid #dddddd);
           color: var(--nn-input-color, inherit);
@@ -21,6 +21,7 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
           float: right;
           font-size: 1em;
           padding-left: 10px;
+          margin-left: 4px;
         }
 
         input:invalid {
@@ -29,19 +30,20 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
         }
 
         label {
-          display: inline-block;
-          vertical-align: middle;
-          height: 26px;
+          display: inline-flex;
           font-size: 1em;
           border: var(--nn-label-border, 1px solid #dddddd);
           color: var(--nn-label-color, inherit);
           background-color: var(--nn-label-background, #eeeeee);
           border-radius: var(--nn-label-border-radius, 4px 0 0 4px );
-          padding-top: 6px;
           padding-left: 4px;
           padding-right: 4px;
           max-width: fit-content;
           margin-right: -5px;
+        }
+
+        label span#label-text {
+          align-self: center;
         }
 
         input:invalid + label {
