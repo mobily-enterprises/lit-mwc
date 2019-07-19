@@ -54,7 +54,7 @@ TONY
       ☐ Make sure error messages are cleared before sending
     ☐ Give better error messages, since native ones are so ugly (with Raphael)
 
-  ☐ Submit the form when the user presses ENTER on a inputText
+  ☐ Submit the form when the user preses ENTER on a inputText
    ☐ This should be done by Input.js which already has .form
 
    ☐ Provide coverage for ALL of the HTML form elements https://developer.mozilla.org/en-US/docs/Web/HTML/Element#Forms
