@@ -86,7 +86,7 @@ class Form extends CommonMixin(LitElement) {
       method,
       headers: { 'Content-Type': 'application/json' },
       redirect: 'follow', // manual, *follow, error
-      body: JSON.stringify(submitObject) // body data type must match "Content-Type" header
+      body: submitObject // body data type must match "Content-Type" header
     }
 
     // HOOK: Allow devs to customise the request about to be sent to the server
@@ -95,6 +95,9 @@ class Form extends CommonMixin(LitElement) {
     // Disable the elements
     var formElements = this._gatherFormElements('submitter')
     this._disableElements(formElements)
+
+    // fetch() wants a stingified body
+    fetchOptions.body = JSON.stringify(fetchOptions.body)
 
     // Attempt the submission
     var networkError = false
