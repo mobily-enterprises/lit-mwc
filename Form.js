@@ -30,7 +30,8 @@ class Form extends CommonMixin(LitElement) {
   setFormElementValues (v) {
     var elements = this._gatherFormElements('setForm')
     for (let el of elements) {
-      el.value = v[el.name]
+      if (typeof el.checked !== 'undefined') el.checked = !!v[el.name]
+      else el.value = v[el.name]
     }
   }
 
@@ -49,7 +50,7 @@ class Form extends CommonMixin(LitElement) {
   createSubmitObject (elements) {
     var r = {}
     for (let el of elements) {
-      r[el.name] = el.value
+      r[el.name] = typeof el.checked !== 'undefined' ? !!el.checked : el.value
     }
     return r
   }
