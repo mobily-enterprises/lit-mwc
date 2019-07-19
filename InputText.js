@@ -5,13 +5,23 @@ import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from './comm
 class InputText extends InputMixin(CommonMixin(LitElement)) {
   static get styles () {
     return css`
+        :host {
+          display: flex;
+          height: 30px;
+        }
+
         input {
           display: inline-flex;
-          height: 30px;
           border-radius: var(--nn-input-border-radius, 0 4px 4px 0);
           border: var(--nn-input-border, 1px solid #dddddd);
-          background-color: var(--nn-input-border, initial);
+          color: var(--nn-input-color, inherit);
+          background-color: var(--nn-input-background, initial);
           -webkit-appearance: none;
+          width: inherit;
+          float: right;
+          font-size: 1em;
+          padding-left: 10px;
+          margin-left: 4px;
         }
 
         input:invalid {
@@ -20,18 +30,20 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
         }
 
         label {
-          display: inline-block;
-          vertical-align: middle;
-          height: 26px;
-          font-size: 0.8em;
+          display: inline-flex;
+          font-size: 1em;
           border: var(--nn-label-border, 1px solid #dddddd);
+          color: var(--nn-label-color, inherit);
           background-color: var(--nn-label-background, #eeeeee);
           border-radius: var(--nn-label-border-radius, 4px 0 0 4px );
-          padding-top: 6px;
           padding-left: 4px;
           padding-right: 4px;
           max-width: fit-content;
           margin-right: -5px;
+        }
+
+        label span#label-text {
+          align-self: center;
         }
 
         input:invalid + label {
