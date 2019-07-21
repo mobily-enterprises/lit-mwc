@@ -27,11 +27,16 @@ class Form extends CommonMixin(LitElement) {
     return ['blur', 'click', 'focus', 'name', 'accept-charset', 'action', 'autocapitalize', 'autocomplete', 'enctype', 'method', 'novalidate', 'target']
   }
 
+  _getElementValueProp (el) {
+    if (el.type === 'checkbox') return 'checked'
+    if (el.getAttribute('value-prop')) return el.getAttribute('value-prop')
+    return 'value'
+  }
+
   setFormElementValues (v) {
     var elements = this._gatherFormElements('setForm')
     for (let el of elements) {
-      if (typeof el.checked !== 'undefined') el.checked = !!v[el.name]
-      else el.value = v[el.name]
+      el[this._getElementValueProp(el)] = v[el.name]
     }
   }
 
@@ -50,7 +55,7 @@ class Form extends CommonMixin(LitElement) {
   createSubmitObject (elements) {
     var r = {}
     for (let el of elements) {
-      r[el.name] = typeof el.checked !== 'undefined' ? !!el.checked : el.value
+      r[el.name] = el[this._getElementValueProp(el)]
     }
     return r
   }
