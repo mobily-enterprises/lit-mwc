@@ -110,8 +110,6 @@ export const CommonMixin = (base) => {
         mutations.forEach((mutation) => {
           if (mutation.type === 'attributes') {
             var attr = mutation.attributeName
-            // If not there, set the attrivute if in the list of
-            // reflected ones
 
             // Don't reflect forbidden attributes
             if (this.skipAttributes.indexOf(attr) !== -1) return
@@ -146,8 +144,17 @@ export const CommonMixin = (base) => {
               return dst[prop]
             },
             set: function (newValue) {
+              let oldValue = dst[prop]
+
+              // Set the new value
               dst[prop] = newValue
-            }
+
+              // This is required by litElement since it won't
+              // create a setter if there is already one
+              this._requestUpdate(prop, oldValue)
+            },
+            configurable: true,
+            enumerable: true
           })
         }
       })
