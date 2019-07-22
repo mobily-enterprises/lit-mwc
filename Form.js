@@ -11,6 +11,11 @@ class Form extends CommonMixin(LitElement) {
         attribute: 'record-id'
       },
 
+      setFormAfterSubmit: {
+        type: Boolean,
+        attribute: 'set-form-after-submit'
+      },
+
       // This will allow users to redefine methods declaratively
       createSubmitObject: Function,
       presubmit: Function,
@@ -20,11 +25,49 @@ class Form extends CommonMixin(LitElement) {
   }
 
   get reflectProperties () {
-    return ['reset', 'checkValidity', 'reportValidity', 'requestAutocomplete', 'elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate'] // 'submit' deleted
+    return ['checkValidity', 'reportValidity', 'requestAutocomplete', 'elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate'] // 'submit' deleted
   }
 
   get reflectedAttributes () {
     return ['blur', 'click', 'focus', 'name', 'accept-charset', 'action', 'autocapitalize', 'autocomplete', 'enctype', 'method', 'novalidate', 'target']
+  }
+
+  reset () {
+    if (!this.native) return
+
+    this.native.reset()
+
+    let elements = this._gatherFormElements('reset')
+    for (let el of elements) {
+      // Get the original value
+      var valueProp = this._getElementValueProp(el)
+      var originalValue = el.getAttribute(valueProp)
+
+      // Assign it to the value prop, with quirks...
+
+      // CHECKBOXES
+      // Boolean elements are treated as booleans
+      if (this._booleanElement(el)) {
+        el[valueProp] = originalValue !== null
+
+      // SELECT
+      // Selectable elements (with prop selectedIndex)
+      // are set with selectedIndex = 0
+      } else if (typeof el.selectedIndex !== 'undefined' || el.getAttribute('as-select') !== null) {
+        if (!originalValue) el.selectedIndex = 0
+        else el[valueProp] = originalValue
+
+      // Any other case
+      } else {
+        el[valueProp] = originalValue
+      }
+    }
+  }
+
+  _booleanElement (el) {
+    if (el.type === 'checkbox') return true
+    if (el.getAttribute('as-boolean') !== null) return true
+    return false
   }
 
   _getElementValueProp (el) {
@@ -36,7 +79,7 @@ class Form extends CommonMixin(LitElement) {
   setFormElementValues (v) {
     var elements = this._gatherFormElements('setForm')
     for (let el of elements) {
-      el[this._getElementValueProp(el)] = v[el.name]
+      if (typeof v[el.name] !== 'undefined') el[this._getElementValueProp(el)] = v[el.name]
     }
   }
 
@@ -164,7 +207,9 @@ class Form extends CommonMixin(LitElement) {
       var v = await response.json()
 
       // HOOK Set the form values, in case the server processed some values
-      this.setFormElementValues(v)
+      // Note: this is only ever called if set-form-after-submit was
+      // passed to the form.
+      if (this.setFormAfterSubmit) this.setFormElementValues(v)
 
       // Re-enable the elements
       this._enableElements(formElements)
@@ -176,8 +221,6 @@ class Form extends CommonMixin(LitElement) {
   }
 
   async updated (changedProperties) {
-    // Load the data
-
     super.updated()
 
     // If no-autoload is set to true, or there is no autoload or no recordId,
