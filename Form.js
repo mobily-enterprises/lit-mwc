@@ -19,6 +19,7 @@ class Form extends CommonMixin(LitElement) {
       // This will allow users to redefine methods declaratively
       createSubmitObject: Function,
       presubmit: Function,
+      response: Function,
       setFormElementValues: Function,
       extrapolateErrors: Function
     }
@@ -105,6 +106,8 @@ class Form extends CommonMixin(LitElement) {
 
   presubmit () {}
 
+  response () {}
+
   _disableElements (elements) {
     for (let el of elements) {
       if (!el.disabled) el.setAttribute('disabled', true)
@@ -167,14 +170,17 @@ class Form extends CommonMixin(LitElement) {
       // Emit event to make it possible to tell the user via UI about the problem
       let event = new CustomEvent('form-error', { detail: { type: 'network' }, bubbles: true, composed: true })
       this.dispatchEvent(event)
+
+      // Response hook
+      this.response(null, response)
     //
     // CASE #2: HTTP error.
     // Invalidate the problem fields
     } else if (!response.ok) {
       //
       // Try and get the errors object from the reponse's json
-      let errs = await response.json()
-      errs = this.extrapolateErrors(errs) || {}
+      let originalErrs = await response.json()
+      let errs = this.extrapolateErrors(originalErrs) || {}
 
       // Emit event to make it possible to tell the user via UI about the problem
       let event = new CustomEvent('form-error', { detail: { type: 'http', response, errs }, bubbles: true, composed: true })
@@ -200,6 +206,8 @@ class Form extends CommonMixin(LitElement) {
         }
       }
 
+      // Response hook
+      this.response(originalErrs, response)
     // CASE #3: NO error. Set fields to their
     // new values
     } else {
@@ -217,6 +225,9 @@ class Form extends CommonMixin(LitElement) {
       // Emit event to make it possible to tell the user via UI about the problem
       let event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true })
       this.dispatchEvent(event)
+
+      // Response hook
+      this.response(v, response)
     }
   }
 
