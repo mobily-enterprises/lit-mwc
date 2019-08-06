@@ -1,10 +1,11 @@
-import { html } from 'lit-element'
+import { html, TemplateResult } from 'lit-element'
 
 export const InputMixin = (base) => {
   return class Base extends base {
     static get properties () {
       return {
         stylesheet: { type: String },
+        customCSS: { type: TemplateResult },
         label: { type: String },
         labelBefore: {
           type: Boolean,
@@ -21,23 +22,9 @@ export const InputMixin = (base) => {
     get customStyle () {
       return html`
           ${this.stylesheet ? html`<link rel="stylesheet" href="${this.stylesheet}">` : ''}
+          ${this.customCSS ? html`${this.customCSS}` : ''}
         `
     }
-
-    /*
-      RAPHAEL: THIS IS DRIVING ME BANANAS.
-      WHAT IS THIS FUNCTION FOR?!?!?!?!
-    */
-    /*
-    get labelTextTemplate () {
-      return html`
-                <label for="_native">
-                  ${this.label}
-                  <slot name="label"></slot>
-                </label>
-              `
-    }
-    */
 
     get labelTemplate () {
       return html`
