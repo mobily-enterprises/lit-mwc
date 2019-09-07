@@ -33,7 +33,7 @@ export class NnDrawer extends LitElement {
          right: 5px;
          z-index: 10;
          background: transparent;
-
+         border: none;
        }
      `
     ]
