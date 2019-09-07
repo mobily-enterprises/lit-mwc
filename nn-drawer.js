@@ -34,6 +34,7 @@ export class NnDrawer extends LitElement {
 
   render () {
     return html`
+      <button id="close">&#x274C;</button>
       <div class="container">
         <slot></slot>
       </div>
