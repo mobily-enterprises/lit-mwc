@@ -10,17 +10,27 @@ export class NnDrawer extends LitElement {
 
        div.container {
          height: 100vh; /* 100% Full-height */
-         width: 0; /* 0 width - change this with JavaScript */
          position: fixed; /* Stay in place */
          z-index: 1; /* Stay on top */
          top: 0; /* Stay at the top */
          left: 0;
+         transform: translateX(-100%);
          overflow-x: hidden; /* Disable horizontal scroll */
          padding-top: 60px; /* Place content 60px from the top */
          transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
        }
+
+       :host([opened]) div.container {
+         transform: translateX(100%);
+       }
      `
     ]
+  }
+
+  static get properties () {
+    return {
+      opened: { type: Boolean, reflect: true }
+    }
   }
 
   render () {
@@ -32,11 +42,11 @@ export class NnDrawer extends LitElement {
   }
 
   open () {
-    this.shadowRoot.querySelector('div.container').style.width = '250px'
+    this.opened = true
   }
 
   close () {
-    this.shadowRoot.querySelector('div.container').style.width = '0'
+    this.opened = false
   }
 }
 
