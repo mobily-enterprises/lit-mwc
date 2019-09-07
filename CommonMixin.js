@@ -1,8 +1,41 @@
 export const CommonMixin = (base) => {
   return class Base extends base {
+    //
     firstUpdated () {
+      //
+      // Find the native element
       this.native = this.shadowRoot.querySelector('#_native')
+      
+      // Get the boot property values. These are properties that may
+      // have been set before the element was first updated, which is
+      // before the element had a chance to listen to property changes
+      var bootProperties = this._getBootProperties()
+      var bootPropertiesValues = {}
+      for (let prop of bootProperties) {
+        bootPropertiesValues[prop] = this[prop]
+      }
+
+      // Reflect all attributes and properties
       this._reflectAttributesAndProperties()
+
+      // Set the boot properties for the element
+      for (let prop of bootProperties) {
+        this[prop] = bootPropertiesValues[prop]
+      }
+    }
+    _getBootProperties () {
+      // Assign "boot properties". This is an unfortunate hack that is
+      // necessary in order to assign custom properties added *before* the
+      // observer was on
+      var bootProperties = Array.isArray(this.bootProperties) ? this.bootProperties : []
+
+      var fromAttr = typeof this.getAttribute('boot-properties') !== 'string'
+        ? []
+        : this.getAttribute('boot-properties').split(' ')
+
+      bootProperties = [ ...bootProperties, ...fromAttr ]
+
+      return bootProperties
     }
 
     connectedCallback () {
