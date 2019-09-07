@@ -24,7 +24,10 @@ export class NnDrawer extends LitElement {
        }
 
        #close {
-         color: white
+         color: white;
+         position: absolute;
+         top: 5px;
+         right: 5px;
        }
      `
     ]
@@ -38,8 +41,8 @@ export class NnDrawer extends LitElement {
 
   render () {
     return html`
-      <button id="close" @click="${this.close}">&#x274C;</button>
       <div class="container">
+        <button id="close" @click="${this.close}">&#x274C;</button>
         <slot></slot>
       </div>
     `
