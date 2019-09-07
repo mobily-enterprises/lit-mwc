@@ -47,7 +47,7 @@ export class NnDrawer extends LitElement {
   render () {
     return html`
       <div class="container">
-        <button id="close" @click="${this.close}">close</button>
+        <button id="close" @click="${this.close}">${close}</button>
         <slot></slot>
       </div>
     `
