@@ -21,7 +21,7 @@ export class NnDrawer extends LitElement {
        }
 
        :host([opened]) div.container {
-         transform: translateX(100%);
+         transform: translateX(0);
        }
      `
     ]
