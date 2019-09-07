@@ -25,6 +25,7 @@ export class NnDrawer extends LitElement {
        }
 
        #close {
+         -webkit-appearance: none;
          color: white;
          fill: white;
          position: absolute;
