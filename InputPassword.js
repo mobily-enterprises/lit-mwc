@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { InputText } from './InputText'
 
-export class InputPassword extends InputText {
+class InputPassword extends InputText {
   render () {
     return html`
                 ${this.customStyle}
