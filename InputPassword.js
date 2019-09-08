@@ -1,4 +1,5 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit-element'
+import './InputText'
 
 export class InputPassword extends InputText {
   render () {
