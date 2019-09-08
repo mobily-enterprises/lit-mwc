@@ -40,6 +40,7 @@ class InputText extends InputMixin(CommonMixin(LitElement)) {
           padding-right: 4px;
           max-width: fit-content;
           margin-right: -5px;
+          white-space: nowrap;
         }
 
         label span#label-text {
