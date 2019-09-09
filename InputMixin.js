@@ -22,7 +22,7 @@ export const InputMixin = (base) => {
     get customStyle () {
       return html`
           ${this.stylesheet ? html`<link rel="stylesheet" href="${this.stylesheet}">` : ''}
-          ${this.customCSS ? ${this.customCSS} : ''}
+          ${this.customCSS ? html`${this.customCSS}` : ''}
         `
     }
 
