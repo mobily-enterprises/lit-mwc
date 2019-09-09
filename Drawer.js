@@ -9,20 +9,41 @@ export class NnDrawer extends LitElement {
          display: block
        }
 
+       div.backdrop {
+        height: 100vh;
+        background-color: transparent;
+        pointer-events:fill;
+        z-index: 0;
+        position: fixed;
+        opacity: 0;
+        transition: opacity 0.5s ease-out, width 0.6s step-end ;
+        width: 0;
+       }
+
        div.container {
          height: 100vh; /* 100% Full-height */
          position: fixed; /* Stay in place */
          z-index: 1; /* Stay on top */
          top: 0; /* Stay at the top */
          left: 0;
+         will-change: transform;
          transform: translateX(-100%);
          overflow-x: hidden; /* Disable horizontal scroll */
-         transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+         transition: transform 0.3s ease-out; /* 0.5 second transition effect to slide in the sidenav */
          background-color: var(--drawer-background, initial);
        }
 
        :host([opened]) div.container {
+         will-change: transform;
          transform: translateX(0);
+         box-shadow: var(--drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14))
+       }
+
+       :host([opened]) div.backdrop {
+        background-color: rgba(0, 0, 0, 0.25);
+        opacity: 1;
+        transition: opacity 0.4s ease-out; 
+        width: 100vw;
        }
 
        #close {
@@ -36,6 +57,15 @@ export class NnDrawer extends LitElement {
          background: transparent;
          border: none;
        }
+
+
+       button#close:focus, button#close:active {
+          outline: none !important;
+        }
+
+      button#close:active {
+        filter: brightness(50%)
+      }
      `
     ]
   }
@@ -48,6 +78,7 @@ export class NnDrawer extends LitElement {
 
   render () {
     return html`
+      <div class="backdrop" @click="${this.close}"></div>
       <div class="container">
         <button id="close" @click="${this.close}">${close}</button>
         <slot></slot>

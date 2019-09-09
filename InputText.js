@@ -38,13 +38,15 @@ export class InputText extends InputMixin(CommonMixin(LitElement)) {
           border-radius: var(--nn-label-border-radius, 4px 0 0 4px );
           padding-left: 4px;
           padding-right: 4px;
-          max-width: fit-content;
+          min-width: fit-content;
           margin-right: -5px;
           white-space: nowrap;
+
         }
 
-        label span#label-text {
+        label div#label-text {
           align-self: center;
+          width: var(--nn-input-label-width, auto);
         }
 
         input:invalid + label {

@@ -1,4 +1,4 @@
-import { html, TemplateResult } from 'lit-element'
+import { html } from 'lit-element'
 
 export const InputMixin = (base) => {
   return class Base extends base {
@@ -29,7 +29,7 @@ export const InputMixin = (base) => {
     get labelTemplate () {
       return html`
                 <label id="label" for="_native">
-                  <span id="label-text">${this.label}</span>
+                  <div id="label-text">${this.label}</div>
                   <slot id="label-slot" name="label"></slot>
                 </label>
               `

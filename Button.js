@@ -10,21 +10,34 @@ class Button extends CommonMixin(LitElement) {
         background-color: var(--button-background, white);
         border-radius: var(--button-border-radius, 3px);
         text-transform: uppercase;
-        color: inherit
+        color: inherit;
       }
 
-      button[raised] {
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-                    0 1px 5px 0 rgba(0, 0, 0, 0.12),
-                    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      :host([raised]) button {
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 4px 0 rgba(0, 0, 0, 0.16);
+        transition: box-shadow 0.2s ease-out;
       }
+
+      button:active, button:focus {
+        outline: none;
+      }
+
+      :host([raised]) button:active {
+        box-shadow: none;
+        border-color: rgba(0, 0, 0, 0.1)
+        border-image: none;
+        transition: box-shadow 0.2s ease-out;
+
+      } 
+      
     `
   }
   
   static get properties () {
     return {
       stylesheet: { type: String },
-      customCSS: { type: Object }
+      customCSS: { type: Object },
+      raised: { type: Boolean, reflect: true }
     }
   }
 
