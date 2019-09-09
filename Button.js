@@ -23,12 +23,14 @@ class Button extends CommonMixin(LitElement) {
   static get properties () {
     return {
       stylesheet: { type: String }
+      customCSS: { type: CSSResult }
     }
   }
 
   get customStyle () {
     return html`
         ${this.stylesheet ? html`<link rel="stylesheet" href="${this.stylesheet}">` : ''}
+        ${this.customCSS ? ${this.customCSS} : ''}
       `
   }
 

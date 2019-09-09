@@ -18,6 +18,7 @@ export class NnDrawer extends LitElement {
          transform: translateX(-100%);
          overflow-x: hidden; /* Disable horizontal scroll */
          transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+         background-color: var(--drawer-background, initial);
        }
 
        :host([opened]) div.container {

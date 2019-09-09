@@ -5,7 +5,7 @@ export const InputMixin = (base) => {
     static get properties () {
       return {
         stylesheet: { type: String },
-        customCSS: { type: TemplateResult },
+        customCSS: { type: CSSResult },
         label: { type: String },
         labelBefore: {
           type: Boolean,
@@ -22,7 +22,7 @@ export const InputMixin = (base) => {
     get customStyle () {
       return html`
           ${this.stylesheet ? html`<link rel="stylesheet" href="${this.stylesheet}">` : ''}
-          ${this.customCSS ? html`${this.customCSS}` : ''}
+          ${this.customCSS ? ${this.customCSS} : ''}
         `
     }
 
