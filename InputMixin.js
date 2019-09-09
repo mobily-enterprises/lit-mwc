@@ -5,7 +5,7 @@ export const InputMixin = (base) => {
     static get properties () {
       return {
         stylesheet: { type: String },
-        customCSS: { type: CSSResult },
+        customCSS: { type: Object },
         label: { type: String },
         labelBefore: {
           type: Boolean,
