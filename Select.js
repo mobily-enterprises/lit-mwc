@@ -108,11 +108,3 @@ export class Select extends InputMixin(CommonMixin(LitElement)) {
   }
 }
 customElements.define('nn-select', Select)
-
-// THE MAP BASED OPTIONS IS A TEMPORARY SOLUTION.
-// THIS DIDN'T WORK. COULD NOT FIGURE OUT THE REASON. SLOT IS NOT CREATED INSIDE <select>. WE NEED TO INVESTIGATE
-//
-// <select id="_native">
-// <slot></slot>  // OR // <slot name="options"></slot>
-// </select>
-//
