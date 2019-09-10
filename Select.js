@@ -81,7 +81,7 @@ export class Select extends InputMixin(CommonMixin(LitElement)) {
     ]
   }
 
-  constructor() {
+  constructor () {
     super()
     this.options = []
   }
@@ -91,28 +91,27 @@ export class Select extends InputMixin(CommonMixin(LitElement)) {
                 ${this.customStyle}
 
                 ${this.labelBeforeTemplate}
-                
-                <select id="_native">
-                  ${this.empty 
-                    ? html` <option slot="options" disabled selected> ${this.empty} </option> `
-                    : ''
-                  }
-                  ${this.options.map( (opt) => {
-                    return html`
-                      <option value="${opt}">${opt}</option>
-                    `
-                  })}
-                </select>
+                <slot @slotchange="${this.addSlotToSelect}"></slot>
+
+                 <select id="_native">
+                 </select>
 
                 ${this.labelAfterTemplate}
               `
+  }
+
+  addSlotToSelect (e) {
+    const select = this.shadowRoot.querySelector('#_native')
+    for (const option of e.srcElement.assignedElements()) {
+      select.appendChild(option)
+    }
   }
 }
 customElements.define('nn-select', Select)
 
 // THE MAP BASED OPTIONS IS A TEMPORARY SOLUTION.
 // THIS DIDN'T WORK. COULD NOT FIGURE OUT THE REASON. SLOT IS NOT CREATED INSIDE <select>. WE NEED TO INVESTIGATE
-// 
+//
 // <select id="_native">
 // <slot></slot>  // OR // <slot name="options"></slot>
 // </select>
