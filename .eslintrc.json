@@ -1,0 +1,24 @@
+{
+  "extends": ["eslint:recommended", "standard", "plugin:lit/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "plugins": [
+    "html",
+    "lit"
+  ],
+  "rules": {
+    "brace-style": "off",
+    "new-cap": ["error", { "capIsNewExceptions": ["Polymer", "AuditMixin", "MySqlStoreMixin", "HTTPMixin"] }],
+    "no-var": "error",
+    "require-jsdoc": "off",
+    "lit/no-legacy-template-syntax": "off"
+  },
+  "globals": {
+    "Polymer": true
+  }
+}
