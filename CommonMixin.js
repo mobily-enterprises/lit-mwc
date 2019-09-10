@@ -16,6 +16,8 @@ export const CommonMixin = (base) => {
       }
 
       // Reflect all attributes and properties
+      // Note:
+      //   * all properties are reflected except some ()
       this._reflectAttributesAndProperties()
 
       // Set the boot properties for the element
