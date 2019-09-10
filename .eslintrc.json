@@ -13,7 +13,7 @@
   ],
   "rules": {
     "brace-style": "off",
-    "new-cap": ["error", { "capIsNewExceptions": ["Polymer", "AuditMixin", "MySqlStoreMixin", "HTTPMixin"] }],
+    "new-cap": ["error", { "capIsNewExceptions": ["Polymer", "InputMixin", "CommonMixin"] }],
     "no-var": "error",
     "require-jsdoc": "off",
     "lit/no-legacy-template-syntax": "off"

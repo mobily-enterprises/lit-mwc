@@ -82,7 +82,7 @@ export class InputText extends InputMixin(CommonMixin(LitElement)) {
                 ${this.labelBeforeTemplate}
 
                 <input type="text" id="_native">
-                
+
                 ${this.labelAfterTemplate}
               `
   }
