@@ -1,8 +1,9 @@
 import { LitElement, html, css } from 'lit-element'
+import { ifDefined } from "lit-html/directives/if-defined";
 import { InputMixin } from './InputMixin.js'
 import { CommonMixin } from './CommonMixin.js'
 import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from './common.js'
-export class InputText extends InputMixin(CommonMixin(LitElement)) {
+export class InputDatalist extends InputMixin(CommonMixin(LitElement)) {
   static get styles () {
     return css`
         :host {
@@ -56,15 +57,20 @@ export class InputText extends InputMixin(CommonMixin(LitElement)) {
       `
   }
 
+  // To use datalist, it's necessary for the element to be in the same scope as the input, and that means NOT slotted. 
+  // So, to make that work, nn-input-text will render a datalist node and it's children using data from the 
+  // datalistItems property. It's an Array with Object items including the keys 'label' and 'value'.
+  // 
   static get properties () {
     return {
+      datalistItems: { type: Array, attribute: 'datalist-items' }
     }
   }
 
   get skipAttributes () {
     return [
       ...alwaysSkipAttributes,
-      'form', 'type'
+      'form', 'type', 'list'
     ]
   }
 
@@ -81,10 +87,16 @@ export class InputText extends InputMixin(CommonMixin(LitElement)) {
 
                 ${this.labelBeforeTemplate}
 
-                <input type="text" id="_native">
-                
+                <input type="text" id="_native" list=${ifDefined(this.datalistItems ? 'list' : undefined)} >
+                <datalist id="list">
+                  ${this.datalistItems.map( (opt) => {
+                    return html`
+                      <option value="${opt.value}">${opt.label}</option>
+                    `
+                })}
+              </datalist>
                 ${this.labelAfterTemplate}
               `
   }
 }
-customElements.define('nn-input-text', InputText)
+customElements.define('nn-input-datalist', InputDatalist)

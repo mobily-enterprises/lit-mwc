@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { InputMixin } from './InputMixin.js'
 import { CommonMixin } from './CommonMixin.js'
 import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from './common.js'
-export class InputText extends InputMixin(CommonMixin(LitElement)) {
+export class Textarea extends InputMixin(CommonMixin(LitElement)) {
   static get styles () {
     return css`
         :host {
@@ -10,23 +10,23 @@ export class InputText extends InputMixin(CommonMixin(LitElement)) {
           height: 30px;
         }
 
-        input {
+        textarea {
           display: inline-flex;
-          border-radius: var(--nn-input-border-radius, 0 4px 4px 0);
-          border: var(--nn-input-border, 1px solid #dddddd);
-          color: var(--nn-input-color, inherit);
-          background-color: var(--nn-input-background, initial);
+          border-radius: var(--nn-textarea-border-radius, 0 4px 4px 0);
+          border: var(--nn-textarea-border, 1px solid #dddddd);
+          color: var(--nn-textarea-color, inherit);
+          background-color: var(--nn-textarea-background, initial);
           -webkit-appearance: none;
-          width: 100%;
           float: right;
+          width: 100%;
           font-size: 1em;
           padding-left: 10px;
           margin-left: 4px;
         }
 
-        input:invalid {
+        textarea:invalid {
           background-color: pink;
-          border: var(--nn-input-border-invalid, 1px solid #bb7777);
+          border: var(--nn-textarea-border-invalid, 1px solid #bb7777);
         }
 
         label {
@@ -46,10 +46,10 @@ export class InputText extends InputMixin(CommonMixin(LitElement)) {
 
         label div#label-text {
           align-self: center;
-          width: var(--nn-input-label-width, auto);
+          width: var(--nn-textarea-label-width, auto);
         }
 
-        input:invalid + label {
+        textarea:invalid + label {
           background-color: var(--nn-label-background-invalid, #dd9999);
         }
 
@@ -81,10 +81,10 @@ export class InputText extends InputMixin(CommonMixin(LitElement)) {
 
                 ${this.labelBeforeTemplate}
 
-                <input type="text" id="_native">
-                
+                <textarea name="" id="_native"></textarea>
+
                 ${this.labelAfterTemplate}
               `
   }
 }
-customElements.define('nn-input-text', InputText)
+customElements.define('nn-textarea', Textarea)

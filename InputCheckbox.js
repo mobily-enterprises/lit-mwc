@@ -38,9 +38,11 @@ class InputCheckbox extends InputMixin(CommonMixin(LitElement)) {
     return html`
                 ${this.customStyle}
 
+                ${this.labelBeforeTemplate}
+
                 <input type="checkbox" id="_native">
-                <span></span>
-                ${this.labelTemplate}
+
+                ${this.labelAfterTemplate}
                `
   }
 }
