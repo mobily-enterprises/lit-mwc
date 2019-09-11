@@ -1,59 +1,121 @@
+// NativeReflectorMixin
+// ====================
+//
+// This is the centrepiece of the `nn-`` elements. Every `nn-` element has the
+// characteristic of being basically a native element with theming steroids.
+// Each `nn-` element has, in its template, a native element marked as
+// `id="_native"` which identifies the element they represent. For example
+// the `Button.js` file will implement `nn-button` element, which in turn will
+// have `<button id="_native"` in its template.
+//
+// The approach to `nn-` elements is to reflect as much as possible, in terms
+// of properties and attributes, from the `nn-` element down to the `_native` one.
+//
+// This means that the `nn-` element is a "gateway" to properties and attributes
+// of the actual native element inside.
+//
+// For example writing:
+//
+//     <nn-button label="Some label"></nn-button>
+//
+// Will imply that the contained `<button>` element (which is marked as
+// `_native`) also has the `label` attribute set to `Some label`.
+//
+// The idea is that between `<nn-button>` and `<button>` _everything_ is
+// reflected. This is great in theory, but there is a level of trickery
+// required to make things work properly. For example some attributes will
+// _always_ need to be skipped (`id`, `style`, `class`). Also, it's impossible
+// to simply reflect every property, since 1) they could be anywhere in the
+// prototype chain 2) Some properties should never be reflected (see:
+// `setAttribute()`, `hasChildNodes()`, and so on).
+//
+// So, the approach is:
+//
+//  * All attributes are reflected, _except_ some that are blacklisted (in
+//    `this.skipAttributes`)
+//  * Only properties/methods listed in `this.reflectProperties` are reflected.
+//    Each element will provide a comprehensive list of reflected properties, which
+//    will depend on the HTML specs of the targeted `_native` element.
+//  * Some "boot" properties are assigned when the element is first updated.
+//
+// "Boot properties" are those properties (stressing _proproperties_, not
+// _attributes_!) that are meaningful to the element and might be set when
+// the element is declared -- and _before_ the element has a chance to run its
+// code and therefore listen to property changes. For example:
+//
+//     <nn-input name="description" .value="${this.info.dbDescription}">
+//
+// In this case, the _property_ `value` of the input element is set before
+// the element is declared. Therefore, `value` must be set as a boot property,
+// guaranteeing that the `value` property will be assigned to the targeted
+// `_native` element.
+//
+// ## Into the code
+//
+// First of all, NativeRefletorMixin is declared as a mixing in function:
 export const NativeReflectorMixin = (base) => {
-  return class Base extends base {
-    //
+  return class Base extends base { // eslint-disable-line
+
+// The firstUpdated method is used to perform one-time work after the element's
+// template has been created. In this case, it will need to:
+//
+// 1) Find the native element (marked with `id="_native"`)
+// 2) Map the values of the boot properties. At this stage, the property `value`
+//    for example might have already been set.
+// 3) Start reflection of attributes and properties
+// 4) Assign boot properties to the element. NOTE: since reflection has
+//    started, assigning `this[prop] = bootPropertiesValues[prop]` will also
+//    assign the corresponding property down to the `_native` element
+//
+// Boot properties are stored in `this.bootProperties`. However, users are given
+// the option to add last-minute boot properties with the attribute
+// `extra-boot-properties`. This is done by `_getBootProperties()`,
+// explained shortly.
     firstUpdated () {
-      //
-      // Find the native element
+      /* Find the native element */
       this.native = this.shadowRoot.querySelector('#_native')
 
-      // Get the boot property values. These are properties that may
-      // have been set before the element was first updated, which is
-      // before the element had a chance to listen to property changes
+      /* Get the boot property values which may have been set before the element */
+      /* had a chance to listen to property changes */
       const bootProperties = this._getBootProperties()
       const bootPropertiesValues = {}
       for (const prop of bootProperties) {
         bootPropertiesValues[prop] = this[prop]
       }
 
-      // Reflect all attributes and properties
-      // Note:
-      //   * all properties are reflected except some (listed in skipAttributes)
-      //   * only elected properties are reflected (listed in reflectProperties)
+      /* Reflect all attributes and properties */
+      /*  - all properties are reflected except some (listed in skipAttributes) */
+      /*  - only elected properties are reflected (listed in reflectProperties) */
       this._reflectAttributesAndProperties()
 
-      // Set the boot properties for the element
+      /* Set the boot properties for the element */
       for (const prop of bootProperties) {
         this[prop] = bootPropertiesValues[prop]
       }
     }
 
+// As mentoned above, boot properties are defined in the element, but
+// users are able to add more by setting the attribute
+// `extra-boot-properties`:
+
     _getBootProperties () {
       // Assign "boot properties". This is an unfortunate hack that is
       // necessary in order to assign custom properties added *before* the
       // observer was on
-      let bootProperties = Array.isArray(this.bootProperties) ? this.bootProperties : []
+      let bootProperties = this.bootProperties
 
-      const fromAttr = typeof this.getAttribute('boot-properties') !== 'string'
-        ? []
-        : this.getAttribute('boot-properties').split(' ')
+      /* Users can have attribute `extra-boot-properties` */
+      /* to add boot properties */
+      const fromAttr = this.getAttribute('extra-boot-properties')
+      if (fromAttr && typeof fromAttr === 'string') {
+        bootProperties = [...bootProperties, ...fromAttr.split(' ')]
+      }
 
-      bootProperties = [...bootProperties, ...fromAttr]
-
+      console.log(bootProperties)
       return bootProperties
     }
 
-    connectedCallback () {
-      super.connectedCallback()
-      this.assignFormProperty()
-    }
-
-    assignFormProperty () {
-      if (this.tagName === 'NN-FORM') return
-      let el = this
-      while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM')) { } // eslint-disable-line no-empty
-      this.form = el
-    }
-
+//
     get reflectProperties () {
       return []
     }
@@ -62,31 +124,8 @@ export const NativeReflectorMixin = (base) => {
       return []
     }
 
-    _setSubAttr (subAttr, attrValue) {
-      const tokens = subAttr.split('::')
-
-      // Safeguard: if this.native is not yet set, it means that
-      // an attribute was set BEFORE the element was rendered. If that
-      // is the case, simply give up. _reflectAttributesAndProperties() will
-      // be run afterwards to sync things up anyway
-      if (!this.native) return
-
-      // No :: found, simply change attribute in `native`
-      if (tokens.length === 1) {
-        (attrValue === null)
-          ? this.native.removeAttribute(subAttr)
-          : this.native.setAttribute(subAttr, attrValue)
-
-      // Yes, :: is there: assign the attribute to the element with the
-      // corresponding ID
-      } else if (tokens.length === 2) {
-        const dstElement = this.shadowRoot.querySelector(`#${tokens[0]}`)
-        if (dstElement) {
-          attrValue === null
-            ? dstElement.removeAttribute(tokens[1])
-            : dstElement.setAttribute(tokens[1], attrValue)
-        }
-      }
+    get bootProperties () {
+      return []
     }
 
     getAttribute (attr) {
@@ -126,6 +165,33 @@ export const NativeReflectorMixin = (base) => {
       // element, taking care of the 'nn' syntax
       //
       this._setSubAttr(attr, null)
+    }
+
+    _setSubAttr (subAttr, attrValue) {
+      const tokens = subAttr.split('::')
+
+      // Safeguard: if this.native is not yet set, it means that
+      // an attribute was set BEFORE the element was rendered. If that
+      // is the case, simply give up. _reflectAttributesAndProperties() will
+      // be run afterwards to sync things up anyway
+      if (!this.native) return
+
+      // No :: found, simply change attribute in `native`
+      if (tokens.length === 1) {
+        (attrValue === null)
+          ? this.native.removeAttribute(subAttr)
+          : this.native.setAttribute(subAttr, attrValue)
+
+      // Yes, :: is there: assign the attribute to the element with the
+      // corresponding ID
+      } else if (tokens.length === 2) {
+        const dstElement = this.shadowRoot.querySelector(`#${tokens[0]}`)
+        if (dstElement) {
+          attrValue === null
+            ? dstElement.removeAttribute(tokens[1])
+            : dstElement.setAttribute(tokens[1], attrValue)
+        }
+      }
     }
 
     _reflectAttributesAndProperties () {
