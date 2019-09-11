@@ -57,13 +57,8 @@ export class InputDatalist extends InputMixin(CommonMixin(LitElement)) {
       `
   }
 
-  // To use datalist, it's necessary for the element to be in the same scope as the input, and that means NOT slotted. 
-  // So, to make that work, nn-input-text will render a datalist node and it's children using data from the 
-  // datalistItems property. It's an Array with Object items including the keys 'label' and 'value'.
-  // 
   static get properties () {
     return {
-      datalistItems: { type: Array, attribute: 'datalist-items' }
     }
   }
 
@@ -86,17 +81,21 @@ export class InputDatalist extends InputMixin(CommonMixin(LitElement)) {
                 ${this.customStyle}
 
                 ${this.labelBeforeTemplate}
+                <slot @slotchange="${this.addSlotToSelect}"></slot>
 
-                <input type="text" id="_native" list=${ifDefined(this.datalistItems ? 'list' : undefined)} >
-                <datalist id="list">
-                  ${this.datalistItems.map( (opt) => {
-                    return html`
-                      <option value="${opt.value}">${opt.label}</option>
-                    `
-                })}
-              </datalist>
+                <input type="text" id="_native" list="_datalist" >
+                  <datalist id="_datalist">
+
+                  </datalist>
                 ${this.labelAfterTemplate}
               `
+  }
+  
+  addSlotToSelect (e) {
+    const select = this.shadowRoot.querySelector('#_datalist')
+    for (const option of e.srcElement.assignedElements()) {
+      select.appendChild(option)
+    }
   }
 }
 customElements.define('nn-input-datalist', InputDatalist)
