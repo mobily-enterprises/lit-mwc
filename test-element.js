@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import './InputText.js'
+import './Select.js'
 import { DefaultTheme } from './BaseStyle.js'
 
 class TestElement extends LitElement {
@@ -8,6 +9,7 @@ class TestElement extends LitElement {
       path: { type: String }
     }
   }
+
   static get styles () {
     return DefaultTheme
   }
@@ -22,6 +24,14 @@ class TestElement extends LitElement {
       <nn-input-text labelBefore .stylesheet="${this.path}">
         <label slot="label">Test label</label>
       </nn-input-text>
+
+      <nn-select class="field" id="recorrente" name="recorrente" label="Recorrente">
+         <option disabled selected> -- não recorrente -- </option>
+         <option value="diariamente">Diariamente</option>
+         <option value="Semanalmente">Semanalmente</option>
+         <option value="Mensalmente">Mensalmente</option>
+       </nn-select>
+
     `
   }
 }

@@ -5,35 +5,38 @@ export const CommonMixin = (base) => {
       //
       // Find the native element
       this.native = this.shadowRoot.querySelector('#_native')
-      
+
       // Get the boot property values. These are properties that may
       // have been set before the element was first updated, which is
       // before the element had a chance to listen to property changes
-      var bootProperties = this._getBootProperties()
-      var bootPropertiesValues = {}
-      for (let prop of bootProperties) {
+      const bootProperties = this._getBootProperties()
+      const bootPropertiesValues = {}
+      for (const prop of bootProperties) {
         bootPropertiesValues[prop] = this[prop]
       }
 
       // Reflect all attributes and properties
+      // Note:
+      //   * all properties are reflected except some ()
       this._reflectAttributesAndProperties()
 
       // Set the boot properties for the element
-      for (let prop of bootProperties) {
+      for (const prop of bootProperties) {
         this[prop] = bootPropertiesValues[prop]
       }
     }
+
     _getBootProperties () {
       // Assign "boot properties". This is an unfortunate hack that is
       // necessary in order to assign custom properties added *before* the
       // observer was on
-      var bootProperties = Array.isArray(this.bootProperties) ? this.bootProperties : []
+      let bootProperties = Array.isArray(this.bootProperties) ? this.bootProperties : []
 
-      var fromAttr = typeof this.getAttribute('boot-properties') !== 'string'
+      const fromAttr = typeof this.getAttribute('boot-properties') !== 'string'
         ? []
         : this.getAttribute('boot-properties').split(' ')
 
-      bootProperties = [ ...bootProperties, ...fromAttr ]
+      bootProperties = [...bootProperties, ...fromAttr]
 
       return bootProperties
     }
@@ -45,8 +48,8 @@ export const CommonMixin = (base) => {
 
     assignFormProperty () {
       if (this.tagName === 'NN-FORM') return
-      var el = this
-      while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM')) {}
+      let el = this
+      while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM')) { } // eslint-disable-line no-empty
       this.form = el
     }
 
@@ -59,7 +62,7 @@ export const CommonMixin = (base) => {
     }
 
     _setSubAttr (subAttr, attrValue) {
-      let tokens = subAttr.split('::')
+      const tokens = subAttr.split('::')
 
       // Safeguard: if this.native is not yet set, it means that
       // an attribute was set BEFORE the element was rendered. If that
@@ -76,7 +79,7 @@ export const CommonMixin = (base) => {
       // Yes, :: is there: assign the attribute to the element with the
       // corresponding ID
       } else if (tokens.length === 2) {
-        let dstElement = this.shadowRoot.querySelector(`#${tokens[0]}`)
+        const dstElement = this.shadowRoot.querySelector(`#${tokens[0]}`)
         if (dstElement) {
           attrValue === null
             ? dstElement.removeAttribute(tokens[1])
@@ -90,7 +93,7 @@ export const CommonMixin = (base) => {
         return super.getAttribute(attr)
       }
 
-      let nativeAttribute = this.native.getAttribute(attr)
+      const nativeAttribute = this.native.getAttribute(attr)
       if (nativeAttribute !== null) return nativeAttribute
 
       // This shouldn't really happen, but it's here as a fallback
@@ -125,13 +128,13 @@ export const CommonMixin = (base) => {
     }
 
     _reflectAttributesAndProperties () {
-      var dst = this.native
+      const dst = this.native
 
       // STEP #1: ATTRIBUTES FIRST
 
       // Assign all starting attribute to the destination element
-      for (let attributeObject of this.attributes) {
-        var attr = attributeObject.name
+      for (const attributeObject of this.attributes) {
+        const attr = attributeObject.name
 
         if (this.skipAttributes.indexOf(attr) !== -1) continue
         this._setSubAttr(attr, super.getAttribute(attr))
@@ -139,10 +142,10 @@ export const CommonMixin = (base) => {
 
       // Observe changes in attribute from the source element, and reflect
       // them to the destination element
-      var thisObserver = new MutationObserver((mutations) => {
+      const thisObserver = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           if (mutation.type === 'attributes') {
-            var attr = mutation.attributeName
+            const attr = mutation.attributeName
 
             // Don't reflect forbidden attributes
             if (this.skipAttributes.indexOf(attr) !== -1) return
@@ -153,8 +156,8 @@ export const CommonMixin = (base) => {
             // Check if the value has changed. If it hasn't, there is no
             // point in re-assigning it, especially since the observer
             // might have been triggered by this very mixin
-            var newValue = this.native.getAttribute(attr)
-            var thisValue = super.getAttribute(attr)
+            const newValue = this.native.getAttribute(attr)
+            const thisValue = super.getAttribute(attr)
             if (newValue === thisValue) return
 
             // Assign the new value
@@ -177,7 +180,7 @@ export const CommonMixin = (base) => {
               return dst[prop]
             },
             set: function (newValue) {
-              let oldValue = dst[prop]
+              const oldValue = dst[prop]
 
               // Set the new value
               dst[prop] = newValue

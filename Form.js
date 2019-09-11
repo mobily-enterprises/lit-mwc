@@ -29,8 +29,8 @@ class Form extends CommonMixin(LitElement) {
     return ['checkValidity', 'reportValidity', 'requestAutocomplete', 'elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate'] // 'submit' deleted
   }
 
-  get reflectedAttributes () {
-    return ['blur', 'click', 'focus', 'name', 'accept-charset', 'action', 'autocapitalize', 'autocomplete', 'enctype', 'method', 'novalidate', 'target']
+  get skipAttributes () {
+    return []
   }
 
   reset () {
@@ -38,11 +38,11 @@ class Form extends CommonMixin(LitElement) {
 
     this.native.reset()
 
-    let elements = this._gatherFormElements('reset')
-    for (let el of elements) {
+    const elements = this._gatherFormElements('reset')
+    for (const el of elements) {
       // Get the original value
-      var valueProp = this._getElementValueProp(el)
-      var originalValue = el.getAttribute(valueProp)
+      const valueProp = this._getElementValueProp(el)
+      const originalValue = el.getAttribute(valueProp)
 
       // Assign it to the value prop, with quirks...
 
@@ -78,8 +78,8 @@ class Form extends CommonMixin(LitElement) {
   }
 
   setFormElementValues (v) {
-    var elements = this._gatherFormElements('setForm')
-    for (let el of elements) {
+    const elements = this._gatherFormElements('setForm')
+    for (const el of elements) {
       if (typeof v[el.name] !== 'undefined') el[this._getElementValueProp(el)] = v[el.name]
     }
   }
@@ -89,7 +89,7 @@ class Form extends CommonMixin(LitElement) {
   }
 
   _gatherFormElements (callerName) {
-    var r = this.querySelectorAll('[name]')
+    let r = this.querySelectorAll('[name]')
     if (callerName === 'submitter' || callerName === 'loader') {
       r = [...r, ...this.querySelectorAll('[form-element]')]
     }
@@ -97,8 +97,8 @@ class Form extends CommonMixin(LitElement) {
   }
 
   createSubmitObject (elements) {
-    var r = {}
-    for (let el of elements) {
+    const r = {}
+    for (const el of elements) {
       r[el.name] = el[this._getElementValueProp(el)]
     }
     return r
@@ -109,31 +109,31 @@ class Form extends CommonMixin(LitElement) {
   response () {}
 
   _disableElements (elements) {
-    for (let el of elements) {
+    for (const el of elements) {
       if (!el.disabled) el.setAttribute('disabled', true)
     }
   }
 
   _enableElements (elements) {
-    for (let el of elements) el.removeAttribute('disabled')
+    for (const el of elements) el.removeAttribute('disabled')
   }
 
   async submit () {
     // Gather the element
-    var elements = this._gatherFormElements('json-creator')
+    const elements = this._gatherFormElements('json-creator')
 
     // HOOK: Make up the submit object based on the passed elements
-    var submitObject = this.createSubmitObject(elements)
+    const submitObject = this.createSubmitObject(elements)
 
     // The method will depend on the presence or absence of recordId
-    var method = this.recordId ? 'PUT' : 'POST'
+    const method = this.recordId ? 'PUT' : 'POST'
 
     // Set the url, which will also depend on recordId
-    var action = this.getAttribute('action')
+    const action = this.getAttribute('action')
     if (!action) throw new Error('The submitted form has no action URL set')
-    var url = action + (this.recordId ? `/${this.recordId}` : '')
+    const url = action + (this.recordId ? `/${this.recordId}` : '')
 
-    var fetchOptions = {
+    const fetchOptions = {
       url,
       method,
       headers: { 'Content-Type': 'application/json' },
@@ -145,16 +145,17 @@ class Form extends CommonMixin(LitElement) {
     this.presubmit(fetchOptions)
 
     // Disable the elements
-    var formElements = this._gatherFormElements('submitter')
+    const formElements = this._gatherFormElements('submitter')
     this._disableElements(formElements)
 
     // fetch() wants a stingified body
     fetchOptions.body = JSON.stringify(fetchOptions.body)
 
     // Attempt the submission
-    var networkError = false
+    let networkError = false
+    let response
     try {
-      var response = await fetch(fetchOptions.url, fetchOptions)
+      response = await fetch(fetchOptions.url, fetchOptions)
     } catch (e) {
       console.log('ERROR!', e)
       networkError = true
@@ -168,7 +169,7 @@ class Form extends CommonMixin(LitElement) {
       this._enableElements(formElements)
 
       // Emit event to make it possible to tell the user via UI about the problem
-      let event = new CustomEvent('form-error', { detail: { type: 'network' }, bubbles: true, composed: true })
+      const event = new CustomEvent('form-error', { detail: { type: 'network' }, bubbles: true, composed: true })
       this.dispatchEvent(event)
 
       // Response hook
@@ -179,11 +180,11 @@ class Form extends CommonMixin(LitElement) {
     } else if (!response.ok) {
       //
       // Try and get the errors object from the reponse's json
-      let originalErrs = await response.json()
-      let errs = this.extrapolateErrors(originalErrs) || {}
+      const originalErrs = await response.json()
+      const errs = this.extrapolateErrors(originalErrs) || {}
 
       // Emit event to make it possible to tell the user via UI about the problem
-      let event = new CustomEvent('form-error', { detail: { type: 'http', response, errs }, bubbles: true, composed: true })
+      const event = new CustomEvent('form-error', { detail: { type: 'http', response, errs }, bubbles: true, composed: true })
       this.dispatchEvent(event)
 
       // Re-enable the elements
@@ -192,13 +193,13 @@ class Form extends CommonMixin(LitElement) {
 
       // Set error messages
       if (errs.errors && errs.errors.length) {
-        let elements = this._gatherFormElements('errorSetter')
-        var elHash = {}
-        for (let el of elements) {
+        const elements = this._gatherFormElements('errorSetter')
+        const elHash = {}
+        for (const el of elements) {
           elHash[el.name] = el
         }
-        for (let err of errs.errors) {
-          let el = elHash[err.field]
+        for (const err of errs.errors) {
+          const el = elHash[err.field]
           if (el && el.native) {
             el.native.setCustomValidity(err.message)
             el.native.reportValidity()
@@ -212,7 +213,7 @@ class Form extends CommonMixin(LitElement) {
     // new values
     } else {
       // Convert the result to JSON
-      var v = await response.json()
+      const v = await response.json()
 
       // HOOK Set the form values, in case the server processed some values
       // Note: this is only ever called if set-form-after-submit was
@@ -223,7 +224,7 @@ class Form extends CommonMixin(LitElement) {
       this._enableElements(formElements)
 
       // Emit event to make it possible to tell the user via UI about the problem
-      let event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true })
+      const event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true })
       this.dispatchEvent(event)
 
       // Response hook
@@ -241,23 +242,24 @@ class Form extends CommonMixin(LitElement) {
     // Work out the action's URL, adding the record ID  at the end
     // (It will be a get)
     // If there is a result, fetch the element values
-    var action = this.getAttribute('action')
-    var response
+    const action = this.getAttribute('action')
+    let response
     if (action) {
       // This will make sure that the element is actually visible
       // before doing the fetch
       await this.updateComplete
 
       // Disable elements
-      var formElements = this._gatherFormElements('loader')
+      const formElements = this._gatherFormElements('loader')
       this._disableElements(formElements)
 
       // Fetch the data and trasform it to json
       try {
         response = await fetch(action + '/' + this.recordId)
       } catch (e) {
+        // eslint-disable-line
       }
-      var v = await response.json()
+      const v = await response.json()
 
       // Set values
       this.setFormElementValues(v)
