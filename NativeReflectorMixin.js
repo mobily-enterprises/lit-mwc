@@ -1,4 +1,4 @@
-export const CommonMixin = (base) => {
+export const NativeReflectorMixin = (base) => {
   return class Base extends base {
     //
     firstUpdated () {

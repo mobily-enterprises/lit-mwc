@@ -29,10 +29,6 @@ export class Select extends InputMixin(CommonMixin(LitElement)) {
           border: var(--nn-select-border-invalid, 1px solid #bb7777);
         }
 
-        select option {
-          text-transform: capitalize;
-        }
-
         label {
           display: inline-flex;
           font-size: 1em;
@@ -62,8 +58,6 @@ export class Select extends InputMixin(CommonMixin(LitElement)) {
 
   static get properties () {
     return {
-      options: { type: Array },
-      empty: { type: String }
     }
   }
 
