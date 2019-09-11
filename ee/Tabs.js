@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-export class NlTabs extends LitElement {
+export class Tabs extends LitElement {
 
   static get styles () {
     return [
@@ -10,7 +10,7 @@ export class NlTabs extends LitElement {
           height: 42px;
           padding-top: 0;
         }
-        
+
         :host nav {
           border-bottom: 1px solid var(--app-lines-color)
         }
@@ -75,7 +75,7 @@ export class NlTabs extends LitElement {
     ]
   }
 
-  
+
   static get properties () {
     return {
       selected: { type: String },
@@ -89,8 +89,8 @@ export class NlTabs extends LitElement {
     this.eventBubbles = false
   }
 
-  /** NLTabs usage
-   * add elements with a slot="tabs" within the nl-tabs tags to create tabs. 
+  /** Tabs usage
+   * add elements with a slot="tabs" within the nl-tabs tags to create tabs.
    * Tab elements must have an id. Index support will be added soon
    */
   render() {
@@ -104,7 +104,7 @@ export class NlTabs extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('clicked-slot', this._fireSelectedEvent);
-  }  
+  }
 
   _fireSelectedEvent(e) {
     this.dispatchEvent(new CustomEvent('selected-changed', { detail: {action: e.detail.selected}}))
@@ -124,4 +124,4 @@ export class NlTabs extends LitElement {
   }
 
 }
-customElements.define('nl-tabs', NlTabs)
+customElements.define('nl-tabs', Tabs)
