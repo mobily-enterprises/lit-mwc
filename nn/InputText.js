@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
-import { InputMixin } from './InputMixin.js'
-import { NativeReflectorMixin } from './NativeReflectorMixin.js'
-import { defaultBootProperties, baseProperties, inputIDLProperties, alwaysSkipAttributes } from './common.js'
+import { InputMixin } from '../mixins/InputMixin.js'
+import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { defaultBootProperties, baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
 export class InputText extends InputMixin(NativeReflectorMixin(LitElement)) {
   static get styles () {
     return css`

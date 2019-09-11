@@ -1,8 +1,8 @@
 import { LitElement, html, css } from 'lit-element'
-import { ifDefined } from "lit-html/directives/if-defined";
-import { InputMixin } from './InputMixin.js'
-import { NativeReflectorMixin } from './NativeReflectorMixin.js'
-import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from './common.js'
+import { ifDefined } from 'lit-html/directives/if-defined'
+import { InputMixin } from '../mixins/InputMixin.js'
+import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
 export class InputDatalist extends InputMixin(NativeReflectorMixin(LitElement)) {
   static get styles () {
     return css`

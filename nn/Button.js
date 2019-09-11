@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element'
-import { NativeReflectorMixin } from './NativeReflectorMixin.js'
-import { baseProperties, buttonIDLProperties, alwaysSkipAttributes } from './common.js'
+import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { baseProperties, buttonIDLProperties, alwaysSkipAttributes } from '../common.js'
 
 class Button extends NativeReflectorMixin(LitElement) {
   static get styles () {

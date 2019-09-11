@@ -1,7 +1,7 @@
 import { LitElement, html } from 'lit-element'
-import './InputText.js'
-import './Select.js'
-import { DefaultTheme } from './BaseStyle.js'
+import './nn/InputText.js'
+import './nn/Select.js'
+import { DefaultTheme } from './styles/BaseStyle.js'
 
 class TestElement extends LitElement {
   static get properties () {
@@ -16,7 +16,7 @@ class TestElement extends LitElement {
 
   constructor () {
     super()
-    this.path = './input-style.css'
+    this.path = './styles/input-style.css'
   }
 
   render () {
