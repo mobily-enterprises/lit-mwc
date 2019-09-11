@@ -1,8 +1,8 @@
 import { LitElement, html } from 'lit-element'
-import { CommonMixin } from './CommonMixin.js'
+import { NativeReflectorMixin } from './NativeReflectorMixin.js'
 import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from './common.js'
 
-class InputButton extends CommonMixin(LitElement) {
+class InputButton extends NativeReflectorMixin(LitElement) {
   static get properties () {
     return {}
   }

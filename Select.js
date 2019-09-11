@@ -1,8 +1,8 @@
 import { LitElement, html, css } from 'lit-element'
 import { InputMixin } from './InputMixin.js'
-import { CommonMixin } from './CommonMixin.js'
+import { NativeReflectorMixin } from './NativeReflectorMixin.js'
 import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from './common.js'
-export class Select extends InputMixin(CommonMixin(LitElement)) {
+export class Select extends InputMixin(NativeReflectorMixin(LitElement)) {
   static get styles () {
     return css`
         :host {

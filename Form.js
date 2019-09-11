@@ -1,8 +1,8 @@
 import { LitElement, html } from 'lit-element'
-import { CommonMixin } from './CommonMixin.js'
+import { NativeReflectorMixin } from './NativeReflectorMixin.js'
 
 /* globals fetch customElements CustomEvent */
-class Form extends CommonMixin(LitElement) {
+class Form extends NativeReflectorMixin(LitElement) {
   static get properties () {
     return {
 

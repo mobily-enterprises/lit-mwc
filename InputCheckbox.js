@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit-element'
-import { CommonMixin } from './CommonMixin.js'
+import { NativeReflectorMixin } from './NativeReflectorMixin.js'
 import { InputMixin } from './InputMixin.js'
 import { baseProperties, defaultBootProperties, inputIDLProperties, alwaysSkipAttributes } from './common.js'
 
-class InputCheckbox extends InputMixin(CommonMixin(LitElement)) {
+class InputCheckbox extends InputMixin(NativeReflectorMixin(LitElement)) {
   static get styles () {
     return css`
     `

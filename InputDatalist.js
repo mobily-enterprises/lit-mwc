@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit-element'
 import { ifDefined } from "lit-html/directives/if-defined";
 import { InputMixin } from './InputMixin.js'
-import { CommonMixin } from './CommonMixin.js'
+import { NativeReflectorMixin } from './NativeReflectorMixin.js'
 import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from './common.js'
-export class InputDatalist extends InputMixin(CommonMixin(LitElement)) {
+export class InputDatalist extends InputMixin(NativeReflectorMixin(LitElement)) {
   static get styles () {
     return css`
         :host {
@@ -90,7 +90,7 @@ export class InputDatalist extends InputMixin(CommonMixin(LitElement)) {
                 ${this.labelAfterTemplate}
               `
   }
-  
+
   addSlotToSelect (e) {
     const select = this.shadowRoot.querySelector('#_datalist')
     for (const option of e.srcElement.assignedElements()) {
