@@ -79,17 +79,17 @@ export class InputDatalist extends FormElementMixin(InputMixin(NativeReflectorMi
 
   render () {
     return html`
-                ${this.customStyle}
+      ${this.customStyle}
 
-                ${this.labelBeforeTemplate}
-                <slot @slotchange="${this.addSlotToSelect}"></slot>
+      ${this.labelBeforeTemplate}
+      <slot @slotchange="${this.addSlotToSelect}"></slot>
 
-                <input type="text" id="_native" list="_datalist" >
-                  <datalist id="_datalist">
+      <input type="text" id="_native" list="_datalist" >
+        <datalist id="_datalist">
 
-                  </datalist>
-                ${this.labelAfterTemplate}
-              `
+        </datalist>
+      ${this.labelAfterTemplate}
+    `
   }
 
   addSlotToSelect (e) {
