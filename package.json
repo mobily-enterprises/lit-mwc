@@ -1,5 +1,5 @@
 {
-  "name": "nn",
+  "name": "nn-html",
   "version": "0.0.1",
   "description": "Nearly Native HTML elements",
   "main": "server.js",
