@@ -1,8 +1,9 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { baseProperties, buttonIDLProperties, alwaysSkipAttributes } from '../common.js'
 
-class Button extends NativeReflectorMixin(LitElement) {
+class Button extends FormElementMixin(NativeReflectorMixin(LitElement)) {
   static get styles () {
     return css`
       button {
@@ -28,11 +29,11 @@ class Button extends NativeReflectorMixin(LitElement) {
         border-image: none;
         transition: box-shadow 0.2s ease-out;
 
-      } 
-      
+      }
+
     `
   }
-  
+
   static get properties () {
     return {
       stylesheet: { type: String },

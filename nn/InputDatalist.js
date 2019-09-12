@@ -1,9 +1,10 @@
 import { LitElement, html, css } from 'lit-element'
+import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { ifDefined } from 'lit-html/directives/if-defined'
 import { InputMixin } from '../mixins/InputMixin.js'
-import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
-export class InputDatalist extends InputMixin(NativeReflectorMixin(LitElement)) {
+export class InputDatalist extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
     return css`
         :host {
