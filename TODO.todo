@@ -1,30 +1,32 @@
 ☐ input
-  ☐ button
-  ☐ checkbox
+  ✔ button @done(2019-09-14 05:49)
+  ✔ input-datalist (input with datalist) @done(2019-09-14 05:51)
+  ✔ checkbox @done(2019-09-14 05:51)
   ☐ color
-  ☐ date
-  ☐ datetime-local
+  ✔ date @done(2019-09-14 05:51)
+  ✔ datetime-local @done(2019-09-14 05:51)
+  ☐ number
   ☐ email
   ☐ file
+  ☐ url
   ☐ image
   ☐ month
-  ☐ number
-  ☐ password
+  ✔ password @done(2019-09-14 05:52)
   ☐ radio
   ☐ range
-  ☐ reset
-  ☐ search
+  ✔ reset (NOT IMPLEMENTED, discouraged in the spes themselves) @done(2019-09-14 05:55)
+  ✔ search @done(2019-09-14 06:29)
   ☐ submit
-  ☐ tel
-  ☐ text
-  ☐ time
-  ☐ url
+  ✔ tel @done(2019-09-14 06:21)
+  ✔ text @done(2019-09-14 05:57)
+  ✔ time @done(2019-09-14 05:57)
   ☐ week
-☐ button
+✔ button @done(2019-09-14 05:49)
 ☐ meter
 ☐ progress
-☐ select
-☐ textarea
+✔ select @done(2019-09-14 05:49)
+✔ textarea @done(2019-09-14 05:49)
+✔ form @done(2019-09-14 05:49)
 
 TONY
 ☐ nn-form:
