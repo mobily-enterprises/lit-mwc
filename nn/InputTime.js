@@ -4,13 +4,10 @@ import { InputText } from './InputText'
 class InputTime extends InputText {
   render () {
     return html`
-                ${this.customStyle}
-
-                ${this.labelBeforeTemplate}
-
-                <input type="time" id="_native">
-
-                ${this.labelAfterTemplate}
+      ${this.customStyle}
+      ${this.labelBeforeTemplate}
+      <input type="time" id="_native">
+      ${this.labelAfterTemplate}
               `
   }
 }
