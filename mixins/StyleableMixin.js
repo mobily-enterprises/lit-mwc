@@ -1,15 +1,17 @@
-import { html, TemplateResult } from 'lit-element'
+import { html } from 'lit-element'
 
 export const StyleableMixin = (base) => {
   return class Base extends base {
     static get properties () {
       return {
+        /* This is for non-developers consumers, using attribute */
         stylesheet: {
-          type: String,
-          attribute: 'element-style'
+          type: String
         },
+        /* This is for developers, assigning property */
         elementStyle: {
-          type: TemplateResult
+          type: Object,
+          attribute: false
         }
       }
     }

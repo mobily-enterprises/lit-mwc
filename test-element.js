@@ -22,7 +22,7 @@ class TestElement extends LitElement {
 
   render () {
     return html`
-      <nn-input-text id="debug" element-style='${this.myStyle}' label2="Eheh" labelBefore .value="${'THIS_NEEDS_TO_SHOW'}" extra-boot-properties="value" .stylesheet="${this.path}">
+      <nn-input-text elementStyle.="${this.myStyle}" label2="Eheh" labelBefore .value="${'THIS_NEEDS_TO_SHOW'}" extra-boot-properties="value" stylesheet="${this.path}">
         <label slot="label">Test label</label>
       </nn-input-text>
 
