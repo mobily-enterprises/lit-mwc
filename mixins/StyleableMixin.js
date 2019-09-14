@@ -1,15 +1,15 @@
-import { html } from 'lit-element'
+import { html, TemplateResult } from 'lit-element'
 
 export const StyleableMixin = (base) => {
   return class Base extends base {
     static get properties () {
       return {
         stylesheet: {
-          type: String
+          type: String,
+          attribute: 'element-style'
         },
-        customCSS: {
-          type: Object,
-          attribute: 'custom-css'
+        elementStyle: {
+          type: TemplateResult
         }
       }
     }
@@ -17,7 +17,7 @@ export const StyleableMixin = (base) => {
     get customStyle () {
       return html`
           ${this.stylesheet ? html`<link rel="stylesheet" href="${this.stylesheet}">` : ''}
-          ${this.customCSS ? html`${this.customCSS}` : ''}
+          ${this.elementStyle ? html`${this.elementStyle}` : ''}
         `
     }
   }

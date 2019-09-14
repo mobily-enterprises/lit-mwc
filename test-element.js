@@ -17,11 +17,12 @@ class TestElement extends LitElement {
   constructor () {
     super()
     this.path = './styles/input-style.css'
+    this.myStyle = html`input { background-color: blue; color: white}`
   }
 
   render () {
     return html`
-      <nn-input-text id="debug" custom-css='{"color":"red"}' label2="Eheh" labelBefore .value="${'THIS_NEEDS_TO_SHOW'}" extra-boot-properties="value" .stylesheet="${this.path}">
+      <nn-input-text id="debug" element-style='${this.myStyle}' label2="Eheh" labelBefore .value="${'THIS_NEEDS_TO_SHOW'}" extra-boot-properties="value" .stylesheet="${this.path}">
         <label slot="label">Test label</label>
       </nn-input-text>
 
