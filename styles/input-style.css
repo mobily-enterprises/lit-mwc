@@ -1,5 +1,5 @@
 input[type="text"] {
-  height: 42px;
+  border-color: green;
   border-radius: 10px;
   background-color: white;
   -webkit-appearance: none;
