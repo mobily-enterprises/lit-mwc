@@ -6,7 +6,7 @@ class InputSearch extends InputText {
     return html`
       ${this.customStyle}
       ${this.labelBeforeTemplate}
-      <input type="search" id="_native">
+      <input type="search" id="native">
       ${this.labelAfterTemplate}
               `
   }

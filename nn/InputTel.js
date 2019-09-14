@@ -6,7 +6,7 @@ class InputTel extends InputText {
     return html`
       ${this.customStyle}
       ${this.labelBeforeTemplate}
-      <input type="tel" id="_native">
+      <input type="tel" id="native">
       ${this.labelAfterTemplate}
               `
   }

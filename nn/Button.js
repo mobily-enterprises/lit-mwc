@@ -1,9 +1,10 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
+import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { baseProperties, buttonIDLProperties, alwaysSkipAttributes } from '../common.js'
 
-class Button extends FormElementMixin(NativeReflectorMixin(LitElement)) {
+class Button extends FormElementMixin(StyleableMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
     return css`
       button {
@@ -42,13 +43,6 @@ class Button extends FormElementMixin(NativeReflectorMixin(LitElement)) {
     }
   }
 
-  get customStyle () {
-    return html`
-        ${this.stylesheet ? html`<link rel="stylesheet" href="${this.stylesheet}">` : ''}
-        ${this.customCSS ? html`${this.customCSS}` : ''}
-      `
-  }
-
   get skipAttributes () {
     return [
       ...alwaysSkipAttributes,
@@ -64,11 +58,12 @@ class Button extends FormElementMixin(NativeReflectorMixin(LitElement)) {
   }
 
   render () {
-    return html`${this.customStyle}
-
-                <button @click="${this._clicked}" id="_native">
-                  <slot></slot>
-                </button>`
+    return html`
+      ${this.customStyle}
+      <button @click="${this._clicked}" id="native">
+        <slot></slot>
+      </button>
+    `
   }
 
   _clicked () {

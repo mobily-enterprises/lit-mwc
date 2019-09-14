@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
-import { InputMixin } from '../mixins/InputMixin.js'
+import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
-export class Textarea extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
+export class Textarea extends FormElementMixin(LabelsMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
     return css`
         :host {
@@ -78,14 +78,11 @@ export class Textarea extends FormElementMixin(InputMixin(NativeReflectorMixin(L
 
   render () {
     return html`
-                ${this.customStyle}
-
-                ${this.labelBeforeTemplate}
-
-                <textarea name="" id="_native"></textarea>
-
-                ${this.labelAfterTemplate}
-              `
+      ${this.customStyle}
+      ${this.labelBeforeTemplate}
+      <textarea name="" id="native"></textarea>
+      ${this.labelAfterTemplate}
+    `
   }
 }
 customElements.define('nn-textarea', Textarea)

@@ -6,7 +6,7 @@ class InputDate extends InputText {
     return html`
       ${this.customStyle}
       ${this.labelBeforeTemplate}
-      <input type="date" id="_native">
+      <input type="date" id="native">
       ${this.labelAfterTemplate}
     `
   }

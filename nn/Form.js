@@ -1,8 +1,9 @@
 import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { StyleableMixin } from '../mixins/StyleableMixin.js'
 
 /* globals fetch customElements CustomEvent */
-class Form extends NativeReflectorMixin(LitElement) {
+class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   static get properties () {
     return {
 
@@ -270,9 +271,12 @@ class Form extends NativeReflectorMixin(LitElement) {
   }
 
   render () {
-    return html`<form id="_native">
-                  <slot></slot>
-                </form>`
+    return html`
+      ${this.customStyle}
+      <form id="native">
+        <slot></slot>
+      </form>
+    `
   }
 }
 customElements.define('nn-form', Form)

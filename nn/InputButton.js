@@ -29,9 +29,10 @@ class InputButton extends FormElementMixin(NativeReflectorMixin(LitElement)) {
   }
 
   render () {
-    return html`<input type="button" id="_native">
-                  <slot></slot>
-               `
+    return html`
+      <input type="button" id="native">
+        <slot></slot>
+     `
   }
 }
 customElements.define('nn-input-button', InputButton)

@@ -13,7 +13,7 @@
   ],
   "rules": {
     "brace-style": "off",
-    "new-cap": ["error", { "capIsNewExceptions": ["Polymer", "InputMixin", "NativeReflectorMixin","FormElementMixin"] }],
+    "new-cap": ["error", { "capIsNewExceptions": ["Polymer", "LabelsMixin", "NativeReflectorMixin","FormElementMixin", "StyleableMixin"] }],
     "no-var": "error",
     "require-jsdoc": "off",
     "lit/no-legacy-template-syntax": "off",

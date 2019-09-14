@@ -1,9 +1,10 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
-import { InputMixin } from '../mixins/InputMixin.js'
+import { LabelsMixin } from '../mixins/LabelsMixin.js'
+import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { defaultBootProperties, baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
-export class InputText extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
+export class InputText extends FormElementMixin(StyleableMixin(LabelsMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
     return css`
         :host {
@@ -59,6 +60,7 @@ export class InputText extends FormElementMixin(InputMixin(NativeReflectorMixin(
 
   static get properties () {
     return {
+      invalid: { type: String } // TODO: Raphael, do we need this...?
     }
   }
 
@@ -84,14 +86,11 @@ export class InputText extends FormElementMixin(InputMixin(NativeReflectorMixin(
 
   render () {
     return html`
-                ${this.customStyle}
-
-                ${this.labelBeforeTemplate}
-
-                <input type="text" id="_native">
-
-                ${this.labelAfterTemplate}
-              `
+      ${this.customStyle}
+      ${this.labelBeforeTemplate}
+      <input type="text" id="native">
+      ${this.labelAfterTemplate}
+    `
   }
 }
 customElements.define('nn-input-text', InputText)

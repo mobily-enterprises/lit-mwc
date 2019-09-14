@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
-import { InputMixin } from '../mixins/InputMixin.js'
+import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
-export class Select extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
+export class Select extends FormElementMixin(LabelsMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
     return css`
         :host {
@@ -83,20 +83,16 @@ export class Select extends FormElementMixin(InputMixin(NativeReflectorMixin(Lit
 
   render () {
     return html`
-                ${this.customStyle}
-
-                ${this.labelBeforeTemplate}
-                <slot @slotchange="${this.addSlotToSelect}"></slot>
-
-                 <select id="_native">
-                 </select>
-
-                ${this.labelAfterTemplate}
-              `
+      ${this.customStyle}
+      ${this.labelBeforeTemplate}
+      <slot @slotchange="${this.addSlotToSelect}"></slot>
+      <select id="native"></select>
+      ${this.labelAfterTemplate}
+    `
   }
 
   addSlotToSelect (e) {
-    const select = this.shadowRoot.querySelector('#_native')
+    const select = this.shadowRoot.querySelector('#native')
     for (const option of e.srcElement.assignedElements()) {
       select.appendChild(option)
     }

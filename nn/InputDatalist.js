@@ -1,10 +1,11 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
-import { ifDefined } from 'lit-html/directives/if-defined'
-import { InputMixin } from '../mixins/InputMixin.js'
+import { LabelsMixin } from '../mixins/LabelsMixin.js'
+import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
-export class InputDatalist extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
+
+export class InputDatalist extends FormElementMixin(LabelsMixin(StyleableMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
     return css`
         :host {
@@ -80,14 +81,11 @@ export class InputDatalist extends FormElementMixin(InputMixin(NativeReflectorMi
   render () {
     return html`
       ${this.customStyle}
-
       ${this.labelBeforeTemplate}
       <slot @slotchange="${this.addSlotToSelect}"></slot>
-
-      <input type="text" id="_native" list="_datalist" >
-        <datalist id="_datalist">
-
-        </datalist>
+      <input type="text" id="native" list="_datalist" >
+      <datalist id="_datalist">
+      </datalist>
       ${this.labelAfterTemplate}
     `
   }
