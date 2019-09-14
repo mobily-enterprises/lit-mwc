@@ -3,6 +3,7 @@ import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
+
 export class Select extends FormElementMixin(LabelsMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
     return css`

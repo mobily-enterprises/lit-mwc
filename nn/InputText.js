@@ -4,6 +4,7 @@ import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { defaultBootProperties, baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
+
 export class InputText extends FormElementMixin(StyleableMixin(LabelsMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
     return css`
