@@ -2,16 +2,18 @@ import { html } from 'lit-element'
 
 export const LabelsMixin = (base) => {
   return class Base extends base {
+
+    constructor (){
+      super()
+      this.labelPosition = 'before'
+    }
+
     static get properties () {
       return {
         label: { type: String },
-        labelBefore: {
-          type: Boolean,
-          attribute: 'label-before'
-        },
-        labelAfter: {
-          type: Boolean,
-          attribute: 'label-after'
+        labelPostion: {
+          type: String,
+          attribute: 'label-position'
         }
       }
     }
@@ -26,15 +28,13 @@ export const LabelsMixin = (base) => {
     }
 
     get labelBeforeTemplate () {
-      return html`
-        ${(this.label || this.labelBefore) ? this.labelTemplate : ''}
-      `
+      if (this.labelPosition === 'after') return
+      return this.labelTemplate
     }
 
     get labelAfterTemplate () {
-      return html`
-        ${this.labelAfter ? this.labelTemplate : ''}
-      `
+      if (this.labelPosition === 'before') return
+      return this.labelTemplate
     }
   }
 }

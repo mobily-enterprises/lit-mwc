@@ -32,6 +32,8 @@ class TestElement extends LitElement {
          <option value="Mensalmente">Mensalmente</option>
        </nn-select>
 
+       <nn-input label="test"></nn-input>
+
     `
   }
 }
