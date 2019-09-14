@@ -22,8 +22,8 @@ class TestElement extends LitElement {
 
   render () {
     return html`
-      <nn-input-text elementStyle.="${this.myStyle}" label2="Eheh" labelBefore .value="${'THIS_NEEDS_TO_SHOW'}" extra-boot-properties="value" stylesheet="${this.path}">
-        <label slot="label">Test label</label>
+      <nn-input-text elementStyle.="${this.myStyle}" label2="Eheh" .value="${'THIS NEEDS TO SHOW'}" stylesheet="${this.path}">
+        <span slot="label">Text</span>
       </nn-input-text>
 
       <nn-select class="field" id="recorrente" name="recorrente" label="Recorrente">
