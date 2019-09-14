@@ -44,10 +44,9 @@ export class InputText extends FormElementMixin(StyleableMixin(LabelsMixin(Nativ
           min-width: fit-content;
           margin-right: -5px;
           white-space: nowrap;
-
         }
 
-        label div#label-text {
+        label div#label-text, ::slotted(*) {
           align-self: center;
           width: var(--nn-input-label-width, auto);
         }
@@ -55,7 +54,6 @@ export class InputText extends FormElementMixin(StyleableMixin(LabelsMixin(Nativ
         input:invalid + label {
           background-color: var(--nn-label-background-invalid, #dd9999);
         }
-
       `
   }
 
