@@ -91,7 +91,7 @@ export const NativeReflectorMixin = (base) => {
       this._reflectAttributesAndProperties()
 
       /* Set the boot properties for the element */
-      for (const prop of bootPropertiesValues) {
+      for (const prop of Object.keys(bootPropertiesValues)) {
         this[prop] = bootPropertiesValues[prop]
       }
     }
@@ -113,11 +113,9 @@ export const NativeReflectorMixin = (base) => {
         bootProperties = [...bootProperties, ...fromAttr.split(' ')]
       }
 
-      console.log(bootProperties)
       return bootProperties
     }
 
-//
     get reflectProperties () {
       return []
     }
