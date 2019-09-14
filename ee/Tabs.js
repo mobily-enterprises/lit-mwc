@@ -1,7 +1,6 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit-element'
 
 export class Tabs extends LitElement {
-
   static get styles () {
     return [
       css`
@@ -75,7 +74,6 @@ export class Tabs extends LitElement {
     ]
   }
 
-
   static get properties () {
     return {
       selected: { type: String },
@@ -93,21 +91,21 @@ export class Tabs extends LitElement {
    * add elements with a slot="tabs" within the nl-tabs tags to create tabs.
    * Tab elements must have an id. Index support will be added soon
    */
-  render() {
+  render () {
     return html`
     <nav>
       <slot name="tabs" @slotchange="${this._manageSlotted}"></slot>
     </nav>
-    `;
+    `
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener('clicked-slot', this._fireSelectedEvent);
+  connectedCallback () {
+    super.connectedCallback()
+    this.addEventListener('clicked-slot', this._fireSelectedEvent)
   }
 
-  _fireSelectedEvent(e) {
-    this.dispatchEvent(new CustomEvent('selected-changed', { detail: {action: e.detail.selected}}))
+  _fireSelectedEvent (e) {
+    this.dispatchEvent(new CustomEvent('selected-changed', { detail: { action: e.detail.selected } }))
     this.selected = e.detail.selected
   }
 
@@ -115,13 +113,12 @@ export class Tabs extends LitElement {
     const slot = e.currentTarget
     const slotted = slot.assignedNodes()
     for (const element of slotted) {
-      element.addEventListener('click', this._clickedSlotted);
+      element.addEventListener('click', this._clickedSlotted)
     }
   }
 
-  _clickedSlotted(e) {
-    this.parentElement.dispatchEvent(new CustomEvent('clicked-slot', { detail: { event: e, selected: this.id }}));
+  _clickedSlotted (e) {
+    this.parentElement.dispatchEvent(new CustomEvent('clicked-slot', { detail: { event: e, selected: this.id } }))
   }
-
 }
 customElements.define('nl-tabs', Tabs)
