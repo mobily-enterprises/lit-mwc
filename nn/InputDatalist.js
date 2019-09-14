@@ -81,12 +81,12 @@ export class InputDatalist extends FormElementMixin(LabelsMixin(StyleableMixin(N
   render () {
     return html`
       ${this.customStyle}
-      ${this.labelBeforeTemplate}
+      ${this.ifLabelBefore}
       <slot @slotchange="${this.addSlotToSelect}"></slot>
       <input type="text" id="native" list="_datalist" >
       <datalist id="_datalist">
       </datalist>
-      ${this.labelAfterTemplate}
+      ${this.ifLabelAfter}
     `
   }
 

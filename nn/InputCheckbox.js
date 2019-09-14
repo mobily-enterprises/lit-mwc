@@ -39,9 +39,9 @@ class InputCheckbox extends FormElementMixin(LabelsMixin(StyleableMixin(NativeRe
   render () {
     return html`
       ${this.customStyle}
-      ${this.labelBeforeTemplate}
+      ${this.ifLabelBefore}
       <input type="checkbox" id="native">
-      ${this.labelAfterTemplate}
+      ${this.ifLabelAfter}
                `
   }
 }

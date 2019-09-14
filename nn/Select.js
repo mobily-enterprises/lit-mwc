@@ -85,10 +85,10 @@ export class Select extends FormElementMixin(LabelsMixin(NativeReflectorMixin(Li
   render () {
     return html`
       ${this.customStyle}
-      ${this.labelBeforeTemplate}
+      ${this.ifLabelBefore}
       <slot @slotchange="${this.addSlotToSelect}"></slot>
       <select id="native"></select>
-      ${this.labelAfterTemplate}
+      ${this.ifLabelAfter}
     `
   }
 

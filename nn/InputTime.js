@@ -5,9 +5,9 @@ class InputTime extends InputText {
   render () {
     return html`
       ${this.customStyle}
-      ${this.labelBeforeTemplate}
+      ${this.ifLabelBefore}
       <input type="time" id="native">
-      ${this.labelAfterTemplate}
+      ${this.ifLabelAfter}
               `
   }
 }

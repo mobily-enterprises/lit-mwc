@@ -5,9 +5,9 @@ class InputSearch extends InputText {
   render () {
     return html`
       ${this.customStyle}
-      ${this.labelBeforeTemplate}
+      ${this.ifLabelBefore}
       <input type="search" id="native">
-      ${this.labelAfterTemplate}
+      ${this.ifLabelAfter}
               `
   }
 }

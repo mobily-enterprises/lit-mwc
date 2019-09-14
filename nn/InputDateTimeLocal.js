@@ -5,9 +5,9 @@ class InputDateTimeLocal extends InputText {
   render () {
     return html`
       ${this.customStyle}
-      ${this.labelBeforeTemplate}
+      ${this.ifLabelBefore}
       <input type="datetime-local" id="native">
-      ${this.labelAfterTemplate}
+      ${this.ifLabelAfter}
     `
   }
 }

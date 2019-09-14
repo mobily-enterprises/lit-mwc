@@ -88,9 +88,9 @@ export class InputText extends FormElementMixin(StyleableMixin(LabelsMixin(Nativ
   render () {
     return html`
       ${this.customStyle}
-      ${this.labelBeforeTemplate}
+      ${this.ifLabelBefore}
       <input type="text" id="native">
-      ${this.labelAfterTemplate}
+      ${this.ifLabelAfter}
     `
   }
 }

@@ -5,9 +5,9 @@ class InputPassword extends InputText {
   render () {
     return html`
       ${this.customStyle}
-      ${this.labelBeforeTemplate}
+      ${this.ifLabelBefore}
       <input type="password" id="native">
-      ${this.labelAfterTemplate}
+      ${this.ifLabelAfter}
     `
   }
 }

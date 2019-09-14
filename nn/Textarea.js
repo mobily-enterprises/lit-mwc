@@ -80,9 +80,9 @@ export class Textarea extends FormElementMixin(LabelsMixin(NativeReflectorMixin(
   render () {
     return html`
       ${this.customStyle}
-      ${this.labelBeforeTemplate}
+      ${this.ifLabelBefore}
       <textarea name="" id="native"></textarea>
-      ${this.labelAfterTemplate}
+      ${this.ifLabelAfter}
     `
   }
 }

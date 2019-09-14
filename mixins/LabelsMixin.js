@@ -3,7 +3,7 @@ import { html } from 'lit-element'
 export const LabelsMixin = (base) => {
   return class Base extends base {
 
-    constructor (){
+    constructor () {
       super()
       this.labelPosition = 'before'
     }
@@ -27,12 +27,12 @@ export const LabelsMixin = (base) => {
       `
     }
 
-    get labelBeforeTemplate () {
+    get ifLabelBefore () {
       if (this.labelPosition === 'after') return
       return this.labelTemplate
     }
 
-    get labelAfterTemplate () {
+    get ifLabelAfter () {
       if (this.labelPosition === 'before') return
       return this.labelTemplate
     }
