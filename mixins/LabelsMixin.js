@@ -10,7 +10,7 @@ export const LabelsMixin = (base) => {
     static get properties () {
       return {
         label: { type: String },
-        labelPostion: {
+        labelPosition: {
           type: String,
           attribute: 'label-position'
         }
