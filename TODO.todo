@@ -2,25 +2,25 @@
   ✔ button @done(2019-09-14 05:49)
   ✔ input-datalist (input with datalist) @done(2019-09-14 05:51)
   ✔ checkbox @done(2019-09-14 05:51)
-  ☐ color
   ✔ date @done(2019-09-14 05:51)
   ✔ datetime-local @done(2019-09-14 05:51)
-  ☐ number
-  ☐ email
-  ☐ file
-  ☐ url
-  ☐ image
-  ☐ month
+  ✔ number @done(2019-09-15 13:19)
+  ✔ email @done(2019-09-15 13:20)
+  ✔ url @done(2019-09-15 13:25)
+  ✔ image (NOT IMPLEMENTED, as used to create submit buttons) @done(2019-09-15 13:31)
+  ✔ week @done(2019-09-15 13:32)
+  ✔ month @done(2019-09-15 13:33)
   ✔ password @done(2019-09-14 05:52)
-  ☐ radio
+  ✔ radio @done(2019-09-15 13:43)
+  ☐ file
   ☐ range
+  ☐ color
   ✔ reset (NOT IMPLEMENTED, discouraged in the spes themselves) @done(2019-09-14 05:55)
   ✔ search @done(2019-09-14 06:29)
   ☐ submit
   ✔ tel @done(2019-09-14 06:21)
   ✔ text @done(2019-09-14 05:57)
   ✔ time @done(2019-09-14 05:57)
-  ☐ week
 ✔ button @done(2019-09-14 05:49)
 ☐ meter
 ☐ progress
