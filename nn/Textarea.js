@@ -6,7 +6,9 @@ import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../com
 
 export class Textarea extends FormElementMixin(LabelsMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
-    return css`
+    return [
+      LabelsMixin.defaultStyles,
+      css`
         :host {
           display: flex;
           height: 30px;
@@ -30,32 +32,8 @@ export class Textarea extends FormElementMixin(LabelsMixin(NativeReflectorMixin(
           background-color: pink;
           border: var(--nn-textarea-border-invalid, 1px solid #bb7777);
         }
-
-        label {
-          display: inline-flex;
-          font-size: 1em;
-          border: var(--nn-label-border, 1px solid #dddddd);
-          color: var(--nn-label-color, inherit);
-          background-color: var(--nn-label-background, #eeeeee);
-          border-radius: var(--nn-label-border-radius, 4px 0 0 4px );
-          padding-left: 4px;
-          padding-right: 4px;
-          min-width: fit-content;
-          margin-right: -5px;
-          white-space: nowrap;
-
-        }
-
-        label div#label-text {
-          align-self: center;
-          width: var(--nn-textarea-label-width, auto);
-        }
-
-        textarea:invalid + label {
-          background-color: var(--nn-label-background-invalid, #dd9999);
-        }
-
       `
+    ]
   }
 
   static get properties () {
