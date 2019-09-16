@@ -59,9 +59,9 @@ TONY
   ☐ Submit the form when the user preses ENTER on a inputText
    ☐ This should be done by Input.js which already has .form
 
-   ☐ Provide coverage for ALL of the HTML form elements https://developer.mozilla.org/en-US/docs/Web/HTML/Element#Forms
-    ☐ ALL <input> types
-    ☐ ALL other possible fields
+   ✔ Provide coverage for ALL of the HTML form elements https://developer.mozilla.org/en-US/docs/Web/HTML/Element#Forms @done(2019-09-16 19:56) @project(☐ nn-form)
+    ✔ ALL <input> types @done(2019-09-16 19:56) @project(☐ nn-form)
+    ✔ ALL other possible fields @done(2019-09-16 19:56) @project(☐ nn-form)
 
   ☐ Write en-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
