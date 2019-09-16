@@ -7,6 +7,7 @@
   <script type="module" src="./nn/InputColor.js"></script>
   <script type="module" src="./nn/InputSubmit.js"></script>
   <script type="module" src="./nn/InputText.js"></script>
+  <script type="module" src="./nn/Meter.js"></script>
   <script type="module" src="./nn/Button.js"></script>
   <script type="module" src="./nn/Form.js"></script>
   <script type="module" src="./test-element.js"></script>
@@ -18,9 +19,12 @@
 
   <nn-form>
 
+    <h2>Meter</h2>
+    <nn-meter id="meter" min=10 max=20 value=15></nn-meter>
+
     <h2>Submit</h2>
     <nn-input-submit id="input-submit" label="Submit"></nn-input-submit>
-    
+
     <h2>File</h2>
     <nn-input-file id="input-file" label="Upload file" multiple></nn-input-file>
 
