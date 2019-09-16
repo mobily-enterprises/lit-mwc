@@ -120,7 +120,6 @@ class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   }
 
   async submit () {
-    debugger
     // Gather the element
     const elements = this._gatherFormElements('json-creator')
 
