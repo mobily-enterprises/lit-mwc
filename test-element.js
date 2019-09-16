@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit-element'
 import './nn/InputText.js'
 import './nn/InputRange.js'
+import './en/InputRange.js'
 
 import './nn/Select.js'
 import { DefaultTheme } from './styles/BaseStyle.js'
@@ -37,7 +38,10 @@ class TestElement extends LitElement {
 
 
        <h2>Range in element</h2>
-       <nn-input-range .value=${'10'} id="input-range" label="Range" min=10 max=100></nn-input-range>
+       <en-input-range .value=${'10'} id="input-range" label="Range" min=10 max=100>
+         <div slot="range-amount-before">AMOUNT BEFORE: <span id="range-amount"></span></div>
+         <div slot="range-amount-after">AMOUNT AFTER: <span id="range-amount"></span></div>
+       </en-input-range>
 
 
        <nn-input label="test"></nn-input>
