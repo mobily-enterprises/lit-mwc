@@ -120,6 +120,7 @@ class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   }
 
   async submit () {
+    debugger
     // Gather the element
     const elements = this._gatherFormElements('json-creator')
 
@@ -201,9 +202,9 @@ class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
         }
         for (const err of errs.errors) {
           const el = elHash[err.field]
-          if (el && el.native) {
-            el.native.setCustomValidity(err.message)
-            el.native.reportValidity()
+          if (el) {
+            el.setCustomValidity(err.message)
+            el.reportValidity()
           }
         }
       }
