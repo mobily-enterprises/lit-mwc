@@ -12,7 +12,7 @@
   ✔ month @done(2019-09-15 13:33)
   ✔ password @done(2019-09-14 05:52)
   ✔ radio @done(2019-09-15 13:43)
-  ☐ file
+  ✔ file @done(2019-09-16 06:29)
   ☐ range
   ☐ color
   ✔ reset (NOT IMPLEMENTED, discouraged in the spes themselves) @done(2019-09-14 05:55)
@@ -62,6 +62,8 @@ TONY
    ☐ Provide coverage for ALL of the HTML form elements https://developer.mozilla.org/en-US/docs/Web/HTML/Element#Forms
     ☐ ALL <input> types
     ☐ ALL other possible fields
+
+  ☐ Write en-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
   ☐ Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
 
