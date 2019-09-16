@@ -1,5 +1,5 @@
 import { html } from 'lit-element'
-import { InputText } from './InputText'
+import { InputText } from '../nn/InputText'
 
 class InputRange extends InputText {
   static get properties () {
