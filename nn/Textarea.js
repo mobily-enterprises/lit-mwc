@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
-import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
+import { baseProperties, inputIDLProperties, textAreaIDLProperties, alwaysSkipAttributes } from '../common.js'
 
 export class Textarea extends FormElementMixin(LabelsMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
@@ -51,7 +51,8 @@ export class Textarea extends FormElementMixin(LabelsMixin(NativeReflectorMixin(
   get reflectProperties () {
     return [
       ...baseProperties,
-      ...inputIDLProperties
+      ...inputIDLProperties,
+      ...textAreaIDLProperties
     ]
   }
 

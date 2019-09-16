@@ -1,7 +1,7 @@
 import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
-import { defaultBootProperties, baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
+import { defaultBootProperties, baseProperties, inputIDLProperties, buttonIDLProperties, alwaysSkipAttributes } from '../common.js'
 
 class InputSubmit extends FormElementMixin(NativeReflectorMixin(LitElement)) {
   static get properties () {
@@ -18,7 +18,8 @@ class InputSubmit extends FormElementMixin(NativeReflectorMixin(LitElement)) {
   get reflectProperties () {
     return [
       ...baseProperties,
-      ...inputIDLProperties
+      ...inputIDLProperties,
+      ...buttonIDLProperties
     ]
   }
 
