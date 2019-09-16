@@ -8,7 +8,7 @@ class InputTel extends InputText {
       ${this.ifLabelBefore}
       <input type="tel" id="native">
       ${this.ifLabelAfter}
-              `
+    `
   }
 }
 window.customElements.define('nn-input-tel', InputTel)

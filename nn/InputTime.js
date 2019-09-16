@@ -8,7 +8,7 @@ class InputTime extends InputText {
       ${this.ifLabelBefore}
       <input type="time" id="native">
       ${this.ifLabelAfter}
-              `
+    `
   }
 }
 window.customElements.define('nn-input-time', InputTime)

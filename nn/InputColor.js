@@ -8,7 +8,7 @@ class InputColor extends InputText {
       ${this.ifLabelBefore}
       <input type="color" id="native">
       ${this.ifLabelAfter}
-              `
+    `
   }
 }
 window.customElements.define('nn-input-color', InputColor)

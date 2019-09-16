@@ -45,7 +45,7 @@ class InputRadio extends FormElementMixin(LabelsMixin(StyleableMixin(NativeRefle
       ${this.ifLabelBefore}
       <input type="radio" id="native">
       ${this.ifLabelAfter}
-               `
+    `
   }
 }
 customElements.define('nn-input-radio', InputRadio)

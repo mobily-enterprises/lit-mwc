@@ -8,7 +8,7 @@ class InputSearch extends InputText {
       ${this.ifLabelBefore}
       <input type="search" id="native">
       ${this.ifLabelAfter}
-              `
+    `
   }
 }
 window.customElements.define('nn-input-tel', InputSearch)

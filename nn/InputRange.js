@@ -7,7 +7,8 @@ class InputRange extends InputText {
       ${this.customStyle}
       ${this.ifLabelBefore}
       <input type="range" id="native">
-      ${this.ifLabelAfter}              `
+      ${this.ifLabelAfter}
+    `
   }
 }
 window.customElements.define('nn-input-range', InputRange)
