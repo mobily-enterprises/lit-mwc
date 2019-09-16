@@ -38,7 +38,6 @@ export class InputFile extends FormElementMixin(StyleableMixin(LabelsMixin(Input
 
   static get properties () {
     return {
-      invalid: { type: String },
       fileName: { type: String },
       manyFilesText: {
         type: String,
