@@ -19,11 +19,11 @@ class InputRange extends InputText {
   render () {
     return html`
       ${this.customStyle}
-      <slot @slotchange="${this.slotChanged}" id="range-amount-after" name="range-amount-after"></slot>
+      <slot @slotchange="${this.slotChanged}" id="range-amount-before" name="range-amount-before"></slot>
       ${this.ifLabelBefore}
       <input @change=${this.updateShownValue} type="range" id="native">
       ${this.ifLabelAfter}
-      <slot @slotchange="${this.slotChanged}" id="range-amount-before" name="range-amount-before"></slot>
+      <slot @slotchange="${this.slotChanged}" id="range-amount-after" name="range-amount-after"></slot>
     `
   }
 
