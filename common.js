@@ -19,7 +19,7 @@
 //     - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
 //     - https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement
 
-// Defualt "boot" properties, which are ensured to be assigned if observer was late
+// Default "boot" properties, which are ensured to be assigned if observer was late
 export const defaultBootProperties = ['value']
 
 // HTML Methods from HTMLElements https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement#Methods
