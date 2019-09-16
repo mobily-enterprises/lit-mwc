@@ -1,7 +1,21 @@
-import { html } from 'lit-element'
-import { InputText } from '../nn/InputText'
+import { html, css, LitElement } from 'lit-element'
+import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { InputMixin } from '../mixins/InputMixin.js'
+import { FormElementMixin } from '../mixins/FormElementMixin.js'
+import { LabelsMixin } from '../mixins/LabelsMixin.js'
+import { StyleableMixin } from '../mixins/StyleableMixin.js'
+class InputRange extends FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
+  static get styles () {
+    return [
+      css`
+        :host {
+          display: flex;
+          height: 30px;
+        }
+      `
+    ]
+  }
 
-class InputRange extends InputText {
   static get properties () {
     return {
       shownValue: {

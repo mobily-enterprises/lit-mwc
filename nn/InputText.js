@@ -4,8 +4,9 @@ import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
+import { ValidityMixin } from '../mixins//ValidityMIxin';
 
-export class InputText extends FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
+export class InputText extends ValidityMixin(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
     return [
       LabelsMixin.defaultStyles,
@@ -13,6 +14,14 @@ export class InputText extends FormElementMixin(StyleableMixin(LabelsMixin(Input
         :host {
           display: flex;
           height: 30px;
+        }
+
+        :host(:valid) {
+          background: black;
+        }
+
+        :host(:invalid) {
+          background: red;
         }
 
         input {
@@ -28,6 +37,11 @@ export class InputText extends FormElementMixin(StyleableMixin(LabelsMixin(Input
           padding-left: 10px;
           margin-left: 4px;
         }
+        
+        /* We might decided to keep something like this */
+        /* input:valid { 
+          border: var(--nn-input-border-invalid, 1px solid green);
+        } */
 
         input:invalid {
           background-color: pink;

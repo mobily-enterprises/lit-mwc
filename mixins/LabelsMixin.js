@@ -53,12 +53,24 @@ LabelsMixin.defaultStyles = css`
     white-space: nowrap;
   }
 
-  label div#label-text, , ::slotted(*) {
+  :host([label-position='after']) label {
+    border-radius: var(--nn-label-border-radius, 0 4px 4px 0 );
+    margin-left: -5px;
+    margin-right: unset;
+  }
+
+  label div#label-text, ::slotted(*) {
     align-self: center;
     width: var(--nn-input-label-width, auto);
   }
 
-  input:invalid + label {
+  input:invalid + label, input:invalid ~ label {
     background-color: var(--nn-label-background-invalid, #dd9999);
+  }
+
+  :host([label-position='after']) input{
+    border-radius: var(--nn-input-border-radius, 4px 0 0 4px );
+    margin-right: 4px;
+    margin-left: unset;
   }
 `
