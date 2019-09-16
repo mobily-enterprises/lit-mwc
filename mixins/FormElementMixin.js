@@ -1,4 +1,3 @@
-
 export const FormElementMixin = (base) => {
   return class Base extends base {
     static get properties () {
@@ -25,8 +24,8 @@ export const FormElementMixin = (base) => {
       while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM')) { } // eslint-disable-line no-empty
       this.form = el
     }
-    
-    firstUpdated() {
+
+    firstUpdated () {
       super.firstUpdated()
       this.native.oninvalid = () => {
         if (!this.nativeErrorMessages) event.preventDefault()
