@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
-import { baseProperties, inputIDLProperties, meterIDLProperties, alwaysSkipAttributes } from '../common.js'
 
-export class Meter extends FormElementMixin(NativeReflectorMixin(LitElement)) {
+export class Meter extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
     return [
       css`
@@ -20,23 +20,10 @@ export class Meter extends FormElementMixin(NativeReflectorMixin(LitElement)) {
     ]
   }
 
-  static get properties () {
-    return {
-    }
-  }
-
-  get skipAttributes () {
-    return [
-      ...alwaysSkipAttributes,
-      'form', 'type'
-    ]
-  }
-
   get reflectProperties () {
     return [
-      ...baseProperties,
-      ...inputIDLProperties,
-      ...meterIDLProperties
+      ...super.reflectProperties,
+      ...['high', 'low', 'max', 'min', 'optimum', 'value', 'labels']
     ]
   }
 

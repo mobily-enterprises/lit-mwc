@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
-import { baseProperties, inputIDLProperties, progressIDLProperties, alwaysSkipAttributes } from '../common.js'
 
-export class Progress extends FormElementMixin(NativeReflectorMixin(LitElement)) {
+export class Progress extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
     return [
       css`
@@ -25,18 +25,10 @@ export class Progress extends FormElementMixin(NativeReflectorMixin(LitElement))
     }
   }
 
-  get skipAttributes () {
-    return [
-      ...alwaysSkipAttributes,
-      'form', 'type'
-    ]
-  }
-
   get reflectProperties () {
     return [
-      ...baseProperties,
-      ...inputIDLProperties,
-      ...progressIDLProperties
+      ...super.reflectProperties,
+      ...['max', 'position', 'value', 'labels']
     ]
   }
 

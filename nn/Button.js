@@ -2,7 +2,6 @@ import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
-import { baseProperties, buttonIDLProperties, alwaysSkipAttributes } from '../common.js'
 
 class Button extends FormElementMixin(StyleableMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
@@ -29,9 +28,7 @@ class Button extends FormElementMixin(StyleableMixin(NativeReflectorMixin(LitEle
         border-color: rgba(0, 0, 0, 0.1)
         border-image: none;
         transition: box-shadow 0.2s ease-out;
-
       }
-
     `
   }
 
@@ -45,15 +42,16 @@ class Button extends FormElementMixin(StyleableMixin(NativeReflectorMixin(LitEle
 
   get skipAttributes () {
     return [
-      ...alwaysSkipAttributes,
+      ...super.skipAttributes,
       'form'
     ]
   }
 
   get reflectProperties () {
     return [
-      ...baseProperties,
-      ...buttonIDLProperties
+      ...super.reflectProperties,
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement (-form)
+      ...['accessKey', 'autofocus', 'disabled', 'formAction', 'formEnctype', 'formMethod', 'formNoValidate', 'formTarget', 'labels', 'menu ', 'name', 'tabIndex', 'type', 'willValidate', 'validationMessage', 'validity', 'value', 'checkValidity', 'reportValidity', 'setCustomValidity']
     ]
   }
 

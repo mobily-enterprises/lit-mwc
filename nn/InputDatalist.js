@@ -1,11 +1,11 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
-import { baseProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
 
-export class InputDatalist extends FormElementMixin(LabelsMixin(StyleableMixin(NativeReflectorMixin(LitElement)))) {
+export class InputDatalist extends FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
   static get styles () {
     return [
       LabelsMixin.defaultStyles,
@@ -37,22 +37,10 @@ export class InputDatalist extends FormElementMixin(LabelsMixin(StyleableMixin(N
     ]
   }
 
-  static get properties () {
-    return {
-    }
-  }
-
   get skipAttributes () {
     return [
-      ...alwaysSkipAttributes,
-      'form', 'type', 'list'
-    ]
-  }
-
-  get reflectProperties () {
-    return [
-      ...baseProperties,
-      ...inputIDLProperties
+      ...super.skipAttributes,
+      'list'
     ]
   }
 

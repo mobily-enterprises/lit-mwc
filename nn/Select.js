@@ -1,10 +1,10 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
-import { baseProperties, inputIDLProperties, selectIDLProperties, alwaysSkipAttributes } from '../common.js'
 
-export class Select extends FormElementMixin(LabelsMixin(NativeReflectorMixin(LitElement))) {
+export class Select extends FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
     return [
       LabelsMixin.defaultStyles,
@@ -36,23 +36,10 @@ export class Select extends FormElementMixin(LabelsMixin(NativeReflectorMixin(Li
     ]
   }
 
-  static get properties () {
-    return {
-    }
-  }
-
-  get skipAttributes () {
-    return [
-      ...alwaysSkipAttributes,
-      'form', 'type'
-    ]
-  }
-
   get reflectProperties () {
     return [
-      ...baseProperties,
-      ...inputIDLProperties,
-      ...selectIDLProperties
+      ...super.reflectProperties,
+      ...['autofocus', 'disabled', 'form', 'labels', 'length', 'multiple', 'name', 'options', 'required', 'selectedIndex', 'selectedOptions', 'size', 'type', 'validationMessage', 'validity', 'value', 'willValidate', 'add', 'blur', 'checkValidity', 'focus', 'item', 'namedItem', 'remove', 'reportValidity', 'setCustomValidity']
     ]
   }
 

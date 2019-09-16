@@ -27,11 +27,11 @@ class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   }
 
   get reflectProperties () {
-    return ['checkValidity', 'reportValidity', 'requestAutocomplete', 'elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate'] // 'submit' deleted
-  }
-
-  get skipAttributes () {
-    return []
+    return [
+      ...super.reflectProperties,
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
+      ...['elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'submit', 'reset', 'checkValidity', 'reportValidity', 'requestAutocomplete']
+    ]
   }
 
   reset () {

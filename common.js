@@ -18,6 +18,8 @@
 // - textarea
 //     - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
 //     - https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement
+//
+//  Plus form, button
 
 // Default "boot" properties, which are ensured to be assigned if observer was late
 export const defaultBootProperties = ['value']
@@ -35,6 +37,7 @@ export const baseProperties = ['blur', 'click', 'focus', 'forceSpellCheck']
 //   - <button> https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement
 // - MINUS
 //    - `form`, which is set by the constructor in NativeReflectorMixin
+
 export const buttonIDLProperties = ['autoFocus', 'disabled', 'formAction', 'formNoValidate', 'name', 'type', 'value', 'validity', 'validationMessage', 'willValidate', 'checkValidity', 'reportValidity', 'setCustomValidity', 'formEncType', 'formMethod', 'formTarget', 'labels', 'menu']
 export const inputIDLProperties = ['accept', 'alt', 'autocomplete', 'autofocus', 'checked', 'dirName', 'disabled', 'formAction', 'height', 'list', 'max', 'maxLength', 'minLength', 'min', 'multiple', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'size', 'src', 'step', 'type', 'usemap', 'value', 'width', 'validity', 'validationMessage', 'willValidate', 'setCustomValidity', 'checkValidity', 'reportValidity', 'formEncType', 'formenctype', 'formMethod', 'formNoValidate', 'formTarget', 'defaultChecked', 'indeterminate', 'allowdirs', 'files', 'select', 'selectionStart', 'selectionEnd', 'selectionDirection', 'defaultValue', 'labels', 'valueAsDate', 'valueAsNumber', 'autocapitalize', 'select', 'setSelectionRange', 'setRangeText']
 export const meterIDLProperties = ['high', 'low', 'max', 'min', 'optimum', 'value']

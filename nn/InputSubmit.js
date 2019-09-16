@@ -1,39 +1,14 @@
 import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
-import { defaultBootProperties, baseProperties, inputIDLProperties, buttonIDLProperties, alwaysSkipAttributes } from '../common.js'
 
-class InputSubmit extends FormElementMixin(NativeReflectorMixin(LitElement)) {
-  static get properties () {
-    return {}
-  }
-
-  get skipAttributes () {
-    return [
-      ...alwaysSkipAttributes,
-      'form', 'type'
-    ]
-  }
-
-  get reflectProperties () {
-    return [
-      ...baseProperties,
-      ...inputIDLProperties,
-      ...buttonIDLProperties
-    ]
-  }
-
-  get bootProperties () {
-    return [
-      ...defaultBootProperties
-    ]
-  }
-
+class InputSubmit extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
   render () {
     return html`
       ${this.customStyle}
       <input @click="${this._formSubmit}" type="submit" id="native">
-     `
+    `
   }
 
   _formSubmit (e) {

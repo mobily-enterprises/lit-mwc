@@ -1,6 +1,13 @@
 
 export const FormElementMixin = (base) => {
   return class Base extends base {
+    get skipAttributes () {
+      return [
+        ...super.skipAttributes,
+        ...['form']
+      ]
+    }
+
     connectedCallback () {
       super.connectedCallback()
       this.assignFormProperty()

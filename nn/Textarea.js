@@ -1,10 +1,10 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
-import { baseProperties, inputIDLProperties, textAreaIDLProperties, alwaysSkipAttributes } from '../common.js'
 
-export class Textarea extends FormElementMixin(LabelsMixin(NativeReflectorMixin(LitElement))) {
+export class Textarea extends FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
     return [
       LabelsMixin.defaultStyles,
@@ -36,23 +36,10 @@ export class Textarea extends FormElementMixin(LabelsMixin(NativeReflectorMixin(
     ]
   }
 
-  static get properties () {
-    return {
-    }
-  }
-
-  get skipAttributes () {
-    return [
-      ...alwaysSkipAttributes,
-      'form', 'type'
-    ]
-  }
-
   get reflectProperties () {
     return [
-      ...baseProperties,
-      ...inputIDLProperties,
-      ...textAreaIDLProperties
+      ...super.reflectProperties,
+      ...['form', 'type', 'value', 'textLength', 'defaultValue', 'placeholder', 'rows', 'cols', 'autofocus', 'name', 'disabled', 'labels', 'maxLength', 'accessKey', 'readOnly', 'required', 'tabIndex', 'selectionStart', 'selectionEnd', 'selectionDirection', 'validity', 'willValidate', 'validationMessage', 'autocomplete ', 'autocapitalize ', 'inputMode ', 'wrap', 'blur', 'focus', 'select', 'setRangeText', 'setSelectionRange', 'checkValidity', 'reportValidity', 'setCustomValidity']
     ]
   }
 

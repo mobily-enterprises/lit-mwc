@@ -116,16 +116,19 @@ export const NativeReflectorMixin = (base) => {
       return bootProperties
     }
 
+    // From https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
     get reflectProperties () {
-      return []
+      return [
+        'accessKey', 'accessKeyLabel', 'contentEditable', 'isContentEditable', 'contextMenu ', 'dataset', 'dir', 'draggable', 'dropzone', 'hidden', 'inert', 'innerText', 'itemScope ', 'itemType', 'itemId ', 'itemRef', 'itemProp', 'itemValue ', 'lang', 'noModule', 'nonce', 'offsetHeight', 'offsetLeft', 'offsetParent', 'offsetTop', 'offsetWidth', 'properties', 'spellcheck', 'style', 'tabIndex', 'title', 'translate', 'attachInternals', 'blur', 'click', 'focus', 'forceSpellCheck'
+      ]
     }
 
     get skipAttributes () {
-      return []
+      return ['id', 'style', 'class']
     }
 
     get bootProperties () {
-      return []
+      return ['value']
     }
 
     getAttribute (attr) {
@@ -238,7 +241,8 @@ export const NativeReflectorMixin = (base) => {
 
       // STEP #2: METHODS (as bound functions) AND PROPERTIES (as getters/setters)
 
-      this.reflectProperties.forEach(prop => {
+      const uniqProps = [...new Set(this.reflectProperties)]
+      uniqProps.forEach(prop => {
         if (typeof dst[prop] === 'function') {
           this[prop] = dst[prop].bind(dst)
         } else {
@@ -264,3 +268,35 @@ export const NativeReflectorMixin = (base) => {
     }
   }
 }
+
+
+/*
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement
+  button: ['accessKey', 'autofocus', 'disabled', 'form', 'formAction', 'formEnctype', 'formMethod', 'formNoValidate', 'formTarget', 'labels', 'menu ', 'name', 'tabIndex', 'type', 'willValidate', 'validationMessage', 'validity', 'value', 'checkValidity', 'reportValidity', 'setCustomValidity'],
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
+  form: ['elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'submit', 'reset', 'checkValidity', 'reportValidity', 'requestAutocomplete'],
+  ['elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'submit', 'reset', 'checkValidity', 'reportValidity', 'requestAutocomplete']
+
+
+  // From https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement
+  input: ['form', 'formAction', 'formEncType', 'formMethod', 'formNoValidate', 'formTarget', 'name', 'type', 'disabled', 'autofocus', 'required', 'validity', 'validationMessage', 'willValidate', 'checked', 'defaultChecked', 'indeterminate', 'alt', 'height', 'src', 'width', 'accept', 'allowdirs ', 'files', 'webkitdirectory ', 'webkitEntries ', 'autocomplete', 'max', 'maxLength', 'min', 'minLength', 'pattern', 'placeholder', 'readOnly', 'size', 'selectionStart', 'selectionEnd', 'selectionDirection', 'defaultValue', 'dirName', 'accessKey', 'list', 'multiple', 'files', 'labels', 'step', 'valueAsDate', 'valueAsNumber', 'autocapitalize ', 'inputmode', 'align ', 'useMap ', 'blur', 'click', 'focus', 'select', 'setSelectionRange', 'setRangeText', 'setCustomValidity', 'checkValidity', 'reportValidity', 'stepDown', 'stepUp'],
+
+  // From https://developer.mozilla.org/en-US/docs/Web/API/HTMLMeterElement
+  meter: ['high', 'low', 'max', 'min', 'optimum', 'value', 'labels'],
+
+  // From https://developer.mozilla.org/en-US/docs/Web/API/HTMLProgressElement
+  progress: ['max', 'position', 'value', 'labels'],
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement
+  select: ['autofocus', 'disabled', 'form', 'labels', 'length', 'multiple', 'name', 'options', 'required', 'selectedIndex', 'selectedOptions', 'size', 'type', 'validationMessage', 'validity', 'value', 'willValidate', 'add', 'blur', 'checkValidity', 'focus', 'item', 'namedItem', 'remove', 'reportValidity', 'setCustomValidity', ''],
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement
+  textarea: ['form', 'type', 'value', 'textLength', 'defaultValue', 'placeholder', 'rows', 'cols', 'autofocus', 'name', 'disabled', 'labels', 'maxLength', 'accessKey', 'readOnly', 'required', 'tabIndex', 'selectionStart', 'selectionEnd', 'selectionDirection', 'validity', 'willValidate', 'validationMessage', 'autocomplete ', 'autocapitalize ', 'inputMode ', 'wrap', 'blur', 'focus', 'select', 'setRangeText', 'setSelectionRange', 'checkValidity', 'reportValidity', 'setCustomValidity']
+
+}
+
+NativeReflectorMixin.defaultBootProperties = ['value']
+NativeReflectorMixin.alwaysSkipAttributes = ['id', 'style', 'class']
+
+*/

@@ -1,11 +1,11 @@
 import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
+import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
-import { baseProperties, defaultBootProperties, inputIDLProperties, alwaysSkipAttributes } from '../common.js'
 
-class InputCheckbox extends FormElementMixin(LabelsMixin(StyleableMixin(NativeReflectorMixin(LitElement)))) {
+class InputCheckbox extends FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
   static get styles () {
     return [
       LabelsMixin.defaultStyles,
@@ -14,27 +14,9 @@ class InputCheckbox extends FormElementMixin(LabelsMixin(StyleableMixin(NativeRe
     ]
   }
 
-  static get properties () {
-    return {}
-  }
-
-  get skipAttributes () {
-    return [
-      ...alwaysSkipAttributes,
-      'form', 'type'
-    ]
-  }
-
-  get reflectProperties () {
-    return [
-      ...baseProperties,
-      ...inputIDLProperties
-    ]
-  }
-
   get bootProperties () {
     return [
-      ...defaultBootProperties,
+      super.bootProperties,
       'checked'
     ]
   }
