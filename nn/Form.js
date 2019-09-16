@@ -29,8 +29,8 @@ class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   get reflectProperties () {
     return [
       ...super.reflectProperties,
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
-      ...['elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'submit', 'reset', 'checkValidity', 'reportValidity', 'requestAutocomplete']
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement MINUS submit
+      ...['elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'reset', 'checkValidity', 'reportValidity', 'requestAutocomplete']
     ]
   }
 
@@ -120,6 +120,7 @@ class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   }
 
   async submit () {
+    debugger
     // Gather the element
     const elements = this._gatherFormElements('json-creator')
 
