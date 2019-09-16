@@ -1,7 +1,9 @@
 <head>
   <script type="module" src="./nn/InputButton.js"></script>
+  <script type="module" src="./nn/InputRange.js"></script>
   <script type="module" src="./nn/InputCheckbox.js"></script>
   <script type="module" src="./nn/InputRadio.js"></script>
+  <script type="module" src="./nn/InputFile.js"></script>
   <script type="module" src="./nn/InputText.js"></script>
   <script type="module" src="./nn/Button.js"></script>
   <script type="module" src="./nn/Form.js"></script>
@@ -13,8 +15,14 @@
   <h1>Elements test page</h1>
 
   <nn-form>
+    <h2>File</h2>
+    <nn-input-file id="file-input" label="Upload file" multiple></nn-input-file>
+
     <h2>Input Button</h2>
     <nn-input-button id="input-button" value="Input button"></nn-input-button>
+
+    <h2>Range</h2>
+    <nn-input-range value=10 id="input-range" label="Range" min=10 max=100></nn-input-range>
 
     <h2>Checkbox</h2>
     <nn-input-checkbox id="input-checkbox" label="Checkbox"></nn-input-checkbox>
@@ -36,11 +44,7 @@
   <h2>Test Element</h2>
   <test-element></test-element>
   <script>
-    var button = document.getElementById('button')
-    button.addEventListener('click', function(e) {
-      debugger
-      button.setAttribute('label::labelattribute', 'valueforlabel')
-    } )
-
+    const button = document.getElementById('button')
+    button.addEventListener('click', (e) => button.setAttribute('label::labelattribute', 'valueforlabel'))
   </script>
 </html>

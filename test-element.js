@@ -1,5 +1,7 @@
 import { LitElement, html } from 'lit-element'
 import './nn/InputText.js'
+import './nn/InputRange.js'
+
 import './nn/Select.js'
 import { DefaultTheme } from './styles/BaseStyle.js'
 
@@ -32,6 +34,11 @@ class TestElement extends LitElement {
          <option value="Semanalmente">Semanalmente</option>
          <option value="Mensalmente">Mensalmente</option>
        </nn-select>
+
+
+       <h2>Range in element</h2>
+       <nn-input-range .value=${'10'} id="input-range" label="Range" min=10 max=100></nn-input-range>
+
 
        <nn-input label="test"></nn-input>
 
