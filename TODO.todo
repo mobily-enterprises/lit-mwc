@@ -1,4 +1,4 @@
-☐ input
+✔ input @done(2019-09-16 11:57)
   ✔ button @done(2019-09-14 05:49)
   ✔ input-datalist (input with datalist) @done(2019-09-14 05:51)
   ✔ checkbox @done(2019-09-14 05:51)
@@ -17,15 +17,15 @@
   ✔ color @done(2019-09-16 10:38)
   ✔ reset (NOT IMPLEMENTED, discouraged in the spes themselves) @done(2019-09-14 05:55)
   ✔ search @done(2019-09-14 06:29)
-  ☐ submit
+  ✔ submit @done(2019-09-16 11:18)
   ✔ tel @done(2019-09-14 06:21)
   ✔ text @done(2019-09-14 05:57)
   ✔ time @done(2019-09-14 05:57)
 ✔ button @done(2019-09-14 05:49)
-☐ meter
-☐ progress
+✔ meter @done(2019-09-16 11:41)
+✔ progress @done(2019-09-16 11:57)
 ✔ select @done(2019-09-14 05:49)
-✔ textarea @done(2019-09-14 05:49)
+✔ textarea @done(2019-09-16 11:57)
 ✔ form @done(2019-09-14 05:49)
 
 TONY
