@@ -51,6 +51,34 @@ TONY
     ✔ Use default HTML methods, which nn- elements will style better @done(2019-05-21 07:46) @project(☐ nn-form)
     ✔ Allow the user to provide a function that returns the "problem fields" reading the returned json @done(2019-05-21 07:46) @project(☐ nn-form)
     ✔ Make sure validation works the same client-side and server-side @done(2019-05-21 07:47) @project(☐ nn-form)
+    ☐ nn-form will simply deal with submit and validation. Also, submit on pressing a submit button and maybe monkey patching for element list
+    ☐ en-form will inherit from nn-form and add all of the error setting, preloading, etc.
+
+    ☐ IDEA:
+      ☐ OVERRIDE checkValidity (nn, in FormElementMixin
+        ☐ Set `_shownErrorMessage` to ''
+        ☐ Run setCustomValidity('')
+        ☐ checkValidity will call the native one (which will emit event etc)
+          ☐ If native checkValidity FAILS, THE INVALID EVENT WILL BE FIRED NATIVELY
+          ☐ If native checkValidity WINS, we run own validator. So
+            ☐ If validator returns a problem
+              ☐ Run setCustomValidity() with custom error message
+              ☐ Run reportValidity(), so THE INVALID EVENT WILL BE FIRED NATIVELY
+
+      ☐ Listen to `invalid` events (nn, in FormElementMixin)
+        ☐ If `invalid` one is emitted
+          ☐ Set `_shownErrorMessage`
+            ☐ If custom validator used (invalid has customError), use that
+            ☐ If not, use helper function to get strings
+
+      ☐ OVERRIDE form.checkValidity (nn)
+        ☐ For each contained elements
+          ☐ Run checkValidity()
+
+      ☐ OVERRIDE Form submit (en)
+        ☐ Run checkValidity()
+        ☐ Run submit
+
     ☐ Make sure Form::submit() runs checkValidity() before submitting and doesn't submit if there are problems
       ☐ Emulate as much as possible what the native form does
       ☐ Make sure error messages are cleared before sending
