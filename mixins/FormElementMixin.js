@@ -28,7 +28,9 @@ export const FormElementMixin = (base) => {
     firstUpdated () {
       super.firstUpdated()
       this.native.oninvalid = () => {
-        if (!this.nativeErrorMessages) event.preventDefault()
+        debugger
+        // if (!this.nativeErrorMessages)
+        // event.preventDefault()
       }
     }
   }

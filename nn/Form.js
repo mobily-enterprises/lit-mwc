@@ -204,7 +204,7 @@ class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
           const el = elHash[err.field]
           if (el) {
             el.setCustomValidity(err.message)
-            el.reportValidity()
+            // el.reportValidity()
           }
         }
       }
