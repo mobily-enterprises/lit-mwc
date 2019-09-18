@@ -7,6 +7,48 @@ export const LabelsMixin = (base) => {
       this.labelPosition = 'before'
     }
 
+    static get styles () {
+      return [
+        super.styles,
+        css`
+          label {
+            display: inline-flex;
+            font-size: 1em;
+            border: var(--nn-label-border, 1px solid #dddddd);
+            color: var(--nn-label-color, inherit);
+            background-color: var(--nn-label-background, #eeeeee);
+            border-radius: var(--nn-label-border-radius, 4px 0 0 4px );
+            padding-left: 4px;
+            padding-right: 4px;
+            min-width: fit-content;
+            margin-right: -5px;
+            white-space: nowrap;
+          }
+
+          :host([label-position='after']) label {
+            border-radius: var(--nn-label-border-radius, 0 4px 4px 0 );
+            margin-left: -5px;
+            margin-right: unset;
+          }
+
+          label div#label-text, ::slotted(*) {
+            align-self: center;
+            width: var(--nn-input-label-width, auto);
+          }
+
+          input:invalid + label, input:invalid ~ label {
+            background-color: var(--nn-label-background-invalid, #dd9999);
+          }
+
+          :host([label-position='after']) input{
+            border-radius: var(--nn-input-border-radius, 4px 0 0 4px );
+            margin-right: 4px;
+            margin-left: unset;
+          }
+        `
+      ]
+    }
+
     static get properties () {
       return {
         label: { type: String },
@@ -37,40 +79,3 @@ export const LabelsMixin = (base) => {
     }
   }
 }
-
-LabelsMixin.defaultStyles = css`
-  label {
-    display: inline-flex;
-    font-size: 1em;
-    border: var(--nn-label-border, 1px solid #dddddd);
-    color: var(--nn-label-color, inherit);
-    background-color: var(--nn-label-background, #eeeeee);
-    border-radius: var(--nn-label-border-radius, 4px 0 0 4px );
-    padding-left: 4px;
-    padding-right: 4px;
-    min-width: fit-content;
-    margin-right: -5px;
-    white-space: nowrap;
-  }
-
-  :host([label-position='after']) label {
-    border-radius: var(--nn-label-border-radius, 0 4px 4px 0 );
-    margin-left: -5px;
-    margin-right: unset;
-  }
-
-  label div#label-text, ::slotted(*) {
-    align-self: center;
-    width: var(--nn-input-label-width, auto);
-  }
-
-  input:invalid + label, input:invalid ~ label {
-    background-color: var(--nn-label-background-invalid, #dd9999);
-  }
-
-  :host([label-position='after']) input{
-    border-radius: var(--nn-input-border-radius, 4px 0 0 4px );
-    margin-right: 4px;
-    margin-left: unset;
-  }
-`

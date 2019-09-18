@@ -6,6 +6,7 @@ import { FormElementMixin } from '../mixins/FormElementMixin.js'
 export class Progress extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
     return [
+      super.styles,
       css`
         :host {
           display: flex;

@@ -8,6 +8,7 @@ import { StyleableMixin } from '../mixins/StyleableMixin.js'
 class InputRange extends FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
   static get styles () {
     return [
+      super.styles,
       css`
         :host {
           display: flex;

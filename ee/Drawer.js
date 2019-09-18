@@ -4,6 +4,7 @@ const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24">
 export class Drawer extends LitElement {
   static get styles () {
     return [
+      super.styles,
       css`
        :host {
          display: block
@@ -42,7 +43,7 @@ export class Drawer extends LitElement {
        :host([opened]) div.backdrop {
         background-color: rgba(0, 0, 0, 0.25);
         opacity: 1;
-        transition: opacity 0.4s ease-out; 
+        transition: opacity 0.4s ease-out;
         width: 100vw;
        }
 

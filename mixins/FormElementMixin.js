@@ -1,3 +1,5 @@
+import { html, css } from 'lit-element'
+
 export const FormElementMixin = (base) => {
   return class Base extends base {
     static get properties () {
@@ -5,8 +7,30 @@ export const FormElementMixin = (base) => {
         nativeErrorMessages: { type: String, attribute: 'native-error-messages' },
         shownValidationMessage: { type: String, attribute: false },
         validator: { type: Function },
-        validationMessages: { type: Object, attribute: 'validition-messages' }
+        validationMessages: { type: Object, attribute: 'validition-messages' },
+        validationMessagePosition: { type: String, attribute: 'validation-message-position' }
       }
+    }
+
+    static get styles () {
+      return [
+        super.styles,
+        css`
+          * {
+            color: red
+          }
+
+          span.error-message {
+            color: red;
+            background-color: red;
+          }
+
+          :invalid {
+            background-color: pink;
+            border: var(--nn-input-border-invalid, 1px solid #bb7777);
+          }
+        `
+      ]
     }
 
     constructor () {
@@ -25,6 +49,7 @@ export const FormElementMixin = (base) => {
         'typeMismatch'
       ]
       this.validationMessages = {}
+      this.validationMessagePosition = 'before'
     }
 
     get skipAttributes () {
@@ -37,6 +62,24 @@ export const FormElementMixin = (base) => {
     connectedCallback () {
       super.connectedCallback()
       this.assignFormProperty()
+    }
+
+    get validationMessageTemplate () {
+      return html`
+        <span class="error-message">
+          ${this.shownValidationMessage}
+        </span>
+      `
+    }
+
+    get ifValidationMessageBefore () {
+      if (this.validationMessagePosition === 'after') return ''
+      return this.validationMessageTemplate
+    }
+
+    get ifValidationMessageAfter () {
+      if (this.validationMessagePosition === 'before') return ''
+      return this.validationMessageTemplate
     }
 
     assignFormProperty () {

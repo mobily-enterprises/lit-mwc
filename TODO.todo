@@ -116,8 +116,3 @@
       ☐ Run submit
 
 ☐ Watch https://github.com/w3c/webcomponents/issues/187 VERY CRUCIAL TICKET ON ELEMENT-FORM ASSOCIATION
-
-✔ (Tony asks) Shall we reflect the attribute 'tabindex'? Or is it likely to mess up things if the nn element has the same tabIndex as the native element in the shadow dom? Does it even make sense to set it in the shadow dom at all? @done(2019-09-18 07:00)
-  ✔ Needs testing @done(2019-09-18 07:01)
-
-Styling:

@@ -8,7 +8,7 @@ import { StyleableMixin } from '../mixins/StyleableMixin.js'
 class InputRadio extends FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
   static get styles () {
     return [
-      LabelsMixin.defaultStyles,
+      super.styles,
       css`
       `
     ]

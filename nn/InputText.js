@@ -9,7 +9,7 @@ import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 export class InputText extends ThemeableMixin('nn/InputText')(StyleableMixin(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
   static get styles () {
     return [
-      LabelsMixin.defaultStyles,
+      super.styles,
       css`
         :host {
           display: flex;
@@ -42,11 +42,6 @@ export class InputText extends ThemeableMixin('nn/InputText')(StyleableMixin(For
         /* input:valid {
           border: var(--nn-input-border-invalid, 1px solid green);
         } */
-
-        input:invalid {
-          background-color: pink;
-          border: var(--nn-input-border-invalid, 1px solid #bb7777);
-        }
       `
     ]
   }
@@ -59,10 +54,11 @@ export class InputText extends ThemeableMixin('nn/InputText')(StyleableMixin(For
 
   render () {
     return html`
-      ERROR: ${this.shownValidationMessage}
       ${this.customStyle}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <input type="text" id="native">
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }
