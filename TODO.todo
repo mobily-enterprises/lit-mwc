@@ -57,7 +57,7 @@
   ✔ Use default HTML methods, which nn- elements will style better @done(2019-05-21 07:46) @project(☐ nn-form)
   ✔ Allow the user to provide a function that returns the "problem fields" reading the returned json @done(2019-05-21 07:46) @project(☐ nn-form)
   ✔ Make sure validation works the same client-side and server-side @done(2019-05-21 07:47) @project(☐ nn-form)
-  ☐ Make styling for error message, similar to <meter> containing message
+  ✔ Make styling for error message, similar to <meter> containing message @done(2019-09-18 17:42)
   ☐ Split nn-form into nn-form and en-form
     ☐ nn-form will simply deal with submit and validation. Also, submit on pressing a submit button and maybe monkey patching for element list
     ☐ en-form will inherit from nn-form and add all of the error setting, preloading, etc.
