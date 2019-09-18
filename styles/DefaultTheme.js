@@ -136,10 +136,10 @@ export const InputTextStyle = css`
 
   input:focus, input:active {
     outline: none
-  } 
+  }
 
   /* We might decide to keep this */
-  /* input:valid { 
+  /* input:valid {
   border: var(--nn-input-border-invalid, 1px solid green);
   } */
 
@@ -151,5 +151,5 @@ export const InputTextStyle = css`
 `
 
 export const ButtonStyle = css `
-  
+
 `
