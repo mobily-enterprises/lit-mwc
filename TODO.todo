@@ -62,8 +62,9 @@
     ☐ nn-form will simply deal with submit and validation. Also, submit on pressing a submit button and maybe monkey patching for element list
     ☐ en-form will inherit from nn-form and add all of the error setting, preloading, etc.
   ☐ Check enter on submit: find out native behaviour, emulate it, offer option
-  ☐ Implement real-time form submit of single fields
+  ☐ Implement real-time form submit of single fields in en-forms
 
+(LATER)
 ☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
   ☐ Do nn elements work with normal forms?
     ☐ IF NOT, Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
