@@ -1,6 +1,6 @@
 import { html, css } from 'lit-element'
 
-export const NnInputWeek = (base) => {
+export const InputWeek = (base) => {
   return class Base extends base {
   }
 }

@@ -1,6 +1,6 @@
 import { html, css } from 'lit-element'
 
-export const NnInputDateTimeLocal = (base) => {
+export const InputDateTimeLocal = (base) => {
   return class Base extends base {
   }
 }

@@ -1,6 +1,6 @@
 import { html, css } from 'lit-element'
 
-export const NnSelect = (base) => {
+export const Select = (base) => {
   return class Base extends base {
   }
 }

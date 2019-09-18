@@ -1,6 +1,6 @@
 import { html, css } from 'lit-element'
 
-export const NnInputDataList = (base) => {
+export const InputDataList = (base) => {
   return class Base extends base {
   }
 }

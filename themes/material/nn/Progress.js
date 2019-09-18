@@ -1,6 +1,6 @@
 import { html, css } from 'lit-element'
 
-export const NnProgress = (base) => {
+export const Progress = (base) => {
   return class Base extends base {
   }
 }

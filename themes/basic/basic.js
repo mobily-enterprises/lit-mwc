@@ -1,55 +1,55 @@
-import { NnInputText } from './NnInputText'
-import { NnInputButton } from './NnInputButton'
-import { NnButton } from './NnButton'
-import { NnForm } from './NnForm'
-import { NnInputCheckBox } from './NnInputCheckBox'
-import { NnInputColor } from './NnInputColor'
-import { NnInputDataList } from './NnInputDataList'
-import { NnInputDate } from './NnInputDate'
-import { NnInputDateTimeLocal } from './NnInputDateTimeLocal'
-import { NnInputEmail } from './NnInputEmail'
-import { NnInputFile } from './NnInputFile'
-import { NnInputMonth } from './NnInputMonth'
-import { NnInputNumber } from './NnInputNumber'
-import { NnInputPassword } from './NnInputPassword'
-import { NnInputRadio } from './NnInputRadio'
-import { NnInputRange } from './NnInputRange'
-import { NnInputSearch } from './NnInputSearch'
-import { NnInputSubmit } from './NnInputSubmit'
-import { NnInputTel } from './NnInputTel'
-import { NnInputTime } from './NnInputTime'
-import { NnInputUrl } from './NnInputUrl'
-import { NnInputWeek } from './NnInputWeek'
-import { NnMeter } from './NnMeter'
-import { NnProgress } from './NnProgress'
-import { NnSelect } from './NnSelect'
-import { NnTextArea } from './NnTextArea'
+import { InputText } from './nn/InputText'
+import { InputButton } from './nn/InputButton'
+import { Button } from './nn/Button'
+import { Form } from './nn/Form'
+import { InputCheckBox } from './nn/InputCheckBox'
+import { InputColor } from './nn/InputColor'
+import { InputDataList } from './nn/InputDataList'
+import { InputDate } from './nn/InputDate'
+import { InputDateTimeLocal } from './nn/InputDateTimeLocal'
+import { InputEmail } from './nn/InputEmail'
+import { InputFile } from './nn/InputFile'
+import { InputMonth } from './nn/InputMonth'
+import { InputNumber } from './nn/InputNumber'
+import { InputPassword } from './nn/InputPassword'
+import { InputRadio } from './nn/InputRadio'
+import { InputRange } from './nn/InputRange'
+import { InputSearch } from './nn/InputSearch'
+import { InputSubmit } from './nn/InputSubmit'
+import { InputTel } from './nn/InputTel'
+import { InputTime } from './nn/InputTime'
+import { InputUrl } from './nn/InputUrl'
+import { InputWeek } from './nn/InputWeek'
+import { Meter } from './nn/Meter'
+import { Progress } from './nn/Progress'
+import { Select } from './nn/Select'
+import { TextArea } from './nn/TextArea'
 
 window.TP_THEME = {
-  'nn/InputText': NnInputText,
-  'nn/InputButton': NnInputButton,
-  'nn/Button': NnButton,
-  'nn/Form': NnForm,
-  'nn/InputCheckbox': NnInputCheckBox,
-  'nn/InputColor': NnInputColor,
-  'nn/InputDatalist': NnInputDataList,
-  'nn/InputDate': NnInputDate,
-  'nn/InputDateTimeLocal': NnInputDateTimeLocal,
-  'nn/InputEmail': NnInputEmail,
-  'nn/InputFile': NnInputFile,
-  'nn/InputMonth': NnInputMonth,
-  'nn/InputNumber': NnInputNumber,
-  'nn/InputPassword': NnInputPassword,
-  'nn/InputRadio': NnInputRadio,
-  'nn/InputRange': NnInputRange,
-  'nn/InputSearch': NnInputSearch,
-  'nn/InputSubmit': NnInputSubmit,
-  'nn/InputTel': NnInputTel,
-  'nn/InputTime': NnInputTime,
-  'nn/InputUrl': NnInputUrl,
-  'nn/InputWeek': NnInputWeek,
-  'nn/Meter': NnMeter,
-  'nn/Progress': NnProgress,
-  'nn/Select': NnSelect,
-  'nn/Textarea': NnTextArea
+  'nn/InputText': InputText,
+  'nn/InputButton': InputButton,
+  'nn/Button': Button,
+  'nn/Form': Form,
+  'nn/InputCheckbox': InputCheckBox,
+  'nn/InputColor': InputColor,
+  'nn/InputDatalist': InputDataList,
+  'nn/InputDate': InputDate,
+  'nn/InputDateTimeLocal': InputDateTimeLocal,
+  'nn/InputEmail': InputEmail,
+  'nn/InputFile': InputFile,
+  'nn/InputMonth': InputMonth,
+  'nn/InputNumber': InputNumber,
+  'nn/InputPassword': InputPassword,
+  'nn/InputRadio': InputRadio,
+  'nn/InputRange': InputRange,
+  'nn/InputSearch': InputSearch,
+  'nn/InputSubmit': InputSubmit,
+  'nn/InputTel': InputTel,
+  'nn/InputTime': InputTime,
+  'nn/InputUrl': InputUrl,
+  'nn/InputWeek': InputWeek,
+  'nn/Meter': Meter,
+  'nn/Progress': Progress,
+  'nn/Select': Select,
+  'nn/Textarea': TextArea
 }

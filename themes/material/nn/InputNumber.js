@@ -1,6 +1,6 @@
 import { html, css } from 'lit-element'
 
-export const NnInputNumber = (base) => {
+export const InputNumber = (base) => {
   return class Base extends base {
   }
 }

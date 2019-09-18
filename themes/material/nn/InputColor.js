@@ -1,6 +1,6 @@
 import { html, css } from 'lit-element'
 
-export const NnInputColor = (base) => {
+export const InputColor = (base) => {
   return class Base extends base {
   }
 }

@@ -1,6 +1,6 @@
 import { html, css } from 'lit-element'
 
-export const NnInputEmail = (base) => {
+export const InputEmail = (base) => {
   return class Base extends base {
   }
 }
