@@ -39,7 +39,8 @@ export class Select extends FormElementMixin(LabelsMixin(InputMixin(NativeReflec
   get reflectProperties () {
     return [
       ...super.reflectProperties,
-      ...['autofocus', 'disabled', 'form', 'labels', 'length', 'multiple', 'name', 'options', 'required', 'selectedIndex', 'selectedOptions', 'size', 'type', 'validationMessage', 'validity', 'value', 'willValidate', 'add', 'blur', 'checkValidity', 'focus', 'item', 'namedItem', 'remove', 'reportValidity', 'setCustomValidity']
+      // FROM https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement -checkValidity
+      ...['autofocus', 'disabled', 'form', 'labels', 'length', 'multiple', 'name', 'options', 'required', 'selectedIndex', 'selectedOptions', 'size', 'type', 'validationMessage', 'validity', 'value', 'willValidate', 'add', 'blur', 'focus', 'item', 'namedItem', 'remove', 'reportValidity', 'setCustomValidity']
     ]
   }
 

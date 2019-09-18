@@ -59,6 +59,7 @@ export class InputText extends ThemeableMixin('nn/InputText')(StyleableMixin(For
 
   render () {
     return html`
+      ERROR: ${this.shownValidationMessage}
       ${this.customStyle}
       ${this.ifLabelBefore}
       <input type="text" id="native">

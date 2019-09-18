@@ -50,8 +50,8 @@ class Button extends FormElementMixin(StyleableMixin(NativeReflectorMixin(LitEle
   get reflectProperties () {
     return [
       ...super.reflectProperties,
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement (-form)
-      ...['accessKey', 'autofocus', 'disabled', 'formAction', 'formEnctype', 'formMethod', 'formNoValidate', 'formTarget', 'labels', 'menu ', 'name', 'tabIndex', 'type', 'willValidate', 'validationMessage', 'validity', 'value', 'checkValidity', 'reportValidity', 'setCustomValidity']
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement (-form -checkValidity)
+      ...['accessKey', 'autofocus', 'disabled', 'formAction', 'formEnctype', 'formMethod', 'formNoValidate', 'formTarget', 'labels', 'menu ', 'name', 'tabIndex', 'type', 'willValidate', 'validationMessage', 'validity', 'value', 'reportValidity', 'setCustomValidity']
     ]
   }
 
