@@ -8,15 +8,10 @@ export class Meter extends FormElementMixin(InputMixin(NativeReflectorMixin(LitE
     return [
       super.styles || [],
       css`
-        :host {
+        /* :host {
           display: flex;
           height: 30px;
-        }
-
-        meter:invalid {
-          background-color: pink;
-          border: var(--nn-select-border-invalid, 1px solid #bb7777);
-        }
+        } */
       `
     ]
   }

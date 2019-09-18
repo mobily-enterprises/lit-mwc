@@ -10,7 +10,7 @@ export class InputDatalist extends FormElementMixin(LabelsMixin(StyleableMixin(I
     return [
       super.styles || [],
       css`
-        :host {
+        /* :host {
           display: flex;
           height: 30px;
         }
@@ -27,12 +27,7 @@ export class InputDatalist extends FormElementMixin(LabelsMixin(StyleableMixin(I
           font-size: 1em;
           padding-left: 10px;
           margin-left: 4px;
-        }
-
-        input:invalid {
-          background-color: pink;
-          border: var(--nn-input-border-invalid, 1px solid #bb7777);
-        }
+        } */
       `
     ]
   }

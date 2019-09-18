@@ -11,32 +11,24 @@ export class InputText extends ThemeableMixin('nn/InputText')(StyleableMixin(For
     return [
       super.styles || [],
       css`
-        :host {
+        /* :host {
           display: flex;
           height: 30px;
-        }
+        } */
 
-        :host(:valid) {
-          background: black;
-        }
-
-        :host(:invalid) {
-          background: red;
-        }
-
-        input {
+        /* input {
           display: inline-flex;
           border-radius: var(--nn-input-border-radius, 0 4px 4px 0);
           border: var(--nn-input-border, 1px solid #dddddd);
           color: var(--nn-input-color, inherit);
           background-color: var(--nn-input-background, initial);
-          -webkit-appearance: none;
+          -webkit-appearance: input;
           width: 100%;
           float: right;
           font-size: 1em;
           padding-left: 10px;
           margin-left: 4px;
-        }
+        } */
 
         /* We might decided to keep something like this */
         /* input:valid {
@@ -44,12 +36,6 @@ export class InputText extends ThemeableMixin('nn/InputText')(StyleableMixin(For
         } */
       `
     ]
-  }
-
-  static get properties () {
-    return {
-      invalid: { type: String } // TODO: Raphael, do we need this...?
-    }
   }
 
   render () {

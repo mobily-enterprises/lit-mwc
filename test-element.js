@@ -6,6 +6,7 @@ import './en/InputRange.js'
 import './nn/Select.js'
 import { DefaultTheme } from './styles/BaseStyle.js'
 
+console.log(LitElement);
 class TestElement extends LitElement {
   static get properties () {
     return {

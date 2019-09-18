@@ -9,12 +9,12 @@ export class Select extends FormElementMixin(LabelsMixin(InputMixin(NativeReflec
     return [
       super.styles || [],
       css`
-        :host {
+        /* :host {
           display: flex;
           height: 30px;
-        }
+        } */
 
-        select {
+        /* select {
           display: inline-flex;
           border-radius: var(--nn-select-border-radius, 0 4px 4px 0);
           border: var(--nn-select-border, 1px solid #dddddd);
@@ -26,12 +26,7 @@ export class Select extends FormElementMixin(LabelsMixin(InputMixin(NativeReflec
           font-size: 1em;
           padding-left: 10px;
           margin-left: 4px;
-        }
-
-        select:invalid {
-          background-color: pink;
-          border: var(--nn-select-border-invalid, 1px solid #bb7777);
-        }
+        } */
       `
     ]
   }

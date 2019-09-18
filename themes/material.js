@@ -1,11 +1,11 @@
+import { BaseStyle, InputTextStyle, ButtonStyle } from '../styles/DefaultTheme'
+
 window.TP_THEME = {
-  'nn/InputText':
-    (base) => {
-      return class Base extends base {
-        constructor () {
-          super()
-          debugger
-        }
-      }
-    }
+  'nn/InputText': {
+    styles: [ BaseStyle, InputTextStyle ]
+  },
+  'nn/InputButton': {
+    styles: [ BaseStyle, ButtonStyle ]
+  }
+  
 }

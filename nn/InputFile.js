@@ -10,15 +10,10 @@ export class InputFile extends FormElementMixin(StyleableMixin(LabelsMixin(Input
     return [
       super.styles || [],
       css`
-        :host {
+        /* :host {
           display: flex;
           height: 30px;
-        }
-
-        input:invalid {
-          background-color: pink;
-          border: var(--nn-input-border-invalid, 1px solid #bb7777);
-        }
+        } */
 
         /* From https://zellwk.com/blog/hide-content-accessibly/ */
         [hidden] {

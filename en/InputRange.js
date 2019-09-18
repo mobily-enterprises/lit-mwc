@@ -10,10 +10,10 @@ class InputRange extends FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(
     return [
       super.styles || [],
       css`
-        :host {
+        /* :host {
           display: flex;
           height: 30px;
-        }
+        } */
       `
     ]
   }

@@ -9,12 +9,12 @@ export class Textarea extends FormElementMixin(LabelsMixin(InputMixin(NativeRefl
     return [
       super.styles || [],
       css`
-        :host {
+        /* :host {
           display: flex;
           height: 30px;
-        }
+        } */
 
-        textarea {
+        /* textarea {
           display: inline-flex;
           border-radius: var(--nn-textarea-border-radius, 0 4px 4px 0);
           border: var(--nn-textarea-border, 1px solid #dddddd);
@@ -26,12 +26,7 @@ export class Textarea extends FormElementMixin(LabelsMixin(InputMixin(NativeRefl
           font-size: 1em;
           padding-left: 10px;
           margin-left: 4px;
-        }
-
-        textarea:invalid {
-          background-color: pink;
-          border: var(--nn-textarea-border-invalid, 1px solid #bb7777);
-        }
+        } */
       `
     ]
   }
