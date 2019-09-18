@@ -4,9 +4,8 @@ import './nn/InputRange.js'
 import './en/InputRange.js'
 
 import './nn/Select.js'
-import { DefaultTheme } from './styles/BaseStyle.js'
+import { BaseStyle } from './styles/DefaultTheme'
 
-console.log(LitElement);
 class TestElement extends LitElement {
   static get properties () {
     return {
@@ -15,7 +14,7 @@ class TestElement extends LitElement {
   }
 
   static get styles () {
-    return DefaultTheme
+    return BaseStyle
   }
 
   constructor () {
