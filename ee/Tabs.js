@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit-element'
 export class Tabs extends LitElement {
   static get styles () {
     return [
-      super.styles,
+      super.styles || [],
       css`
         :host {
           width: 100%;

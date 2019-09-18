@@ -14,15 +14,11 @@ export const FormElementMixin = (base) => {
 
     static get styles () {
       return [
-        super.styles,
+        super.styles || [],
         css`
-          * {
-            color: red
-          }
 
           span.error-message {
             color: red;
-            background-color: red;
           }
 
           :invalid {

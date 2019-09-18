@@ -6,7 +6,7 @@ import { StyleableMixin } from '../mixins/StyleableMixin.js'
 class Button extends FormElementMixin(StyleableMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
     return [
-      super.styles,
+      super.styles || [],
       css`
         button {
           height: var(--button-height, 30px);

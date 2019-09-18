@@ -8,7 +8,7 @@ import { StyleableMixin } from '../mixins/StyleableMixin.js'
 export class InputDatalist extends FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
   static get styles () {
     return [
-      super.styles,
+      super.styles || [],
       css`
         :host {
           display: flex;

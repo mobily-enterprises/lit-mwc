@@ -9,7 +9,7 @@ import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 export class InputText extends ThemeableMixin('nn/InputText')(StyleableMixin(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
   static get styles () {
     return [
-      super.styles,
+      super.styles || [],
       css`
         :host {
           display: flex;

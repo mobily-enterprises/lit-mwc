@@ -4,7 +4,7 @@ const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24">
 export class Drawer extends LitElement {
   static get styles () {
     return [
-      super.styles,
+      super.styles || [],
       css`
        :host {
          display: block

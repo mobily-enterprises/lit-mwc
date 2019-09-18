@@ -9,7 +9,7 @@ export const LabelsMixin = (base) => {
 
     static get styles () {
       return [
-        super.styles,
+        super.styles || [],
         css`
           label {
             display: inline-flex;

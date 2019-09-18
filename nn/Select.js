@@ -7,7 +7,7 @@ import { LabelsMixin } from '../mixins/LabelsMixin.js'
 export class Select extends FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
     return [
-      super.styles,
+      super.styles || [],
       css`
         :host {
           display: flex;
