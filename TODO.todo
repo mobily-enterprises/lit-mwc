@@ -92,7 +92,7 @@
   ☐ Implement Toast ee-toast
   ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
 
-  ☐ DOCUMENT VALIDATION DESIGN:
+  ☐ DOCUMENT VALIDATION BLUEPRINT:
     ☐ OVERRIDE checkValidity (nn, in FormElementMixin)
       ☐ Set `shownValidationMessage` to ''
       ☐ Run setCustomValidity('')
