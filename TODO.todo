@@ -72,7 +72,6 @@
 ☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
   ☐ Do nn elements work with normal forms?
     ☐ IF NOT, Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
-
   ☐ <form> has `target` (attribute). This value can be overridden by a formtarget attribute on a <button> or <input> element. Will this work through shadow DOM?
     ☐ if not, can it be hacked so that it does?
   ☐ document.forms returns the forms. Will the elements in the shadow dom be returned?
