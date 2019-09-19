@@ -14,10 +14,7 @@ export const LabelsMixin = (base) => {
           label {
             display: inline-flex;
             font-size: 1em;
-            /* border: var(--nn-label-border, 1px solid #dddddd); */
             color: var(--nn-label-color, inherit);
-            /* background-color: var(--nn-label-background, #eeeeee); */
-            /* border-radius: var(--nn-label-border-radius, 4px 0 0 4px ); */
             padding-left: 4px;
             padding-right: 4px;
             min-width: fit-content;
@@ -26,7 +23,6 @@ export const LabelsMixin = (base) => {
           }
 
           :host([label-position='after']) label {
-            /* border-radius: var(--nn-label-border-radius, 0 4px 4px 0 ); */
             margin-left: -5px;
             margin-right: unset;
           }
@@ -37,11 +33,10 @@ export const LabelsMixin = (base) => {
           }
 
           input:invalid + label, input:invalid ~ label {
-            background-color: var(--nn-label-background-invalid, #dd9999);
+            background-color: var(--nn-label-background-invalid, initial);
           }
 
           :host([label-position='after']) input{
-            /* border-radius: var(--nn-input-border-radius, 4px 0 0 4px ); */
             margin-right: 4px;
             margin-left: unset;
           }

@@ -2,7 +2,6 @@ import { LitElement, html } from 'lit-element'
 import './nn/InputText.js'
 import './nn/InputRange.js'
 import './en/InputRange.js'
-
 import './nn/Select.js'
 import { BaseStyle } from './styles/DefaultTheme'
 

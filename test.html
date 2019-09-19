@@ -46,11 +46,14 @@
     <nn-input-radio id="input-radio-2" label="Radio 2" name="some"></nn-input-radio>
 
     <h2>Text label before</h2>
-    <nn-input-text value="pooo" id="input-text" label="Text" label-position="before"></nn-input-text>
+    <nn-input-text id="input-text" label="Text" label-position="before"></nn-input-text>
 
     <h2>Text label after</h2>
-    <nn-input-text value="pooo" id="input-text" label="Text" label-position="after"></nn-input-text>
+    <nn-input-text required id="input-text" label="Text" label-position="after"></nn-input-text>
 
+    <h2>Native input</h2>
+    <label for="native-test">Native</label>
+    <input id="native-text" type="text">
     <h2>Button</h2>
     <nn-button id="button" me1="me" me2="me2">Button</nn-button>
   </nn-form>

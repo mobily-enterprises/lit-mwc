@@ -1,5 +1,5 @@
 export const ThemeableMixin = (path) => (base) => {
-  const theme = window.TP_THEME && window.TP_THEME[path]
-  if (theme) return theme(base)
-  else return base
-}
+  const common = (window.TP_THEME && window.TP_THEME.common) || (p => p)
+  const theme = (window.TP_THEME && window.TP_THEME[path]) || (p => p)
+  return theme(common(base))
+ }

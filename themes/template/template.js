@@ -1,4 +1,3 @@
-import { CommonStyle } from './CommonStyle'
 import { InputText } from './nn/InputText'
 import { InputButton } from './nn/InputButton'
 import { Button } from './nn/Button'
@@ -27,7 +26,6 @@ import { Select } from './nn/Select'
 import { TextArea } from './nn/TextArea'
 
 window.TP_THEME = {
-  'common': CommonStyle,
   'nn/InputText': InputText,
   'nn/InputButton': InputButton,
   'nn/Button': Button,
