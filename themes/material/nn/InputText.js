@@ -1,5 +1,4 @@
 import { html, css } from 'lit-element'
-// import { MaterialBase } from '../CommonStyle.js';
 
 export const InputText = (base) => {
   return class Base extends base {
