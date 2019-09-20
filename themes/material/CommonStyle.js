@@ -60,7 +60,7 @@ export const CommonStyle = (base) => {
           --error-text: darkred;
           --theme-border-style: solid;
           --theme-border-width: 1px;
-          --theme-border-color: var(--primary-color-light);
+          --theme-border-color: var(--primary-color);
           --theme-border-radius: 5px;
           --theme-border: var(--theme-border-width) var(--theme-border-style) var(--theme-border-color);
           --theme-box-shadow1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);

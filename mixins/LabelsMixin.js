@@ -22,11 +22,6 @@ export const LabelsMixin = (base) => {
             white-space: nowrap;
           }
 
-          :host([label-position='after']) label {
-            margin-left: -5px;
-            margin-right: unset;
-          }
-
           label div#label-text, ::slotted(*) {
             align-self: center;
             width: var(--nn-input-label-width, auto);
@@ -36,10 +31,6 @@ export const LabelsMixin = (base) => {
             background-color: var(--nn-label-background-invalid, initial);
           }
 
-          :host([label-position='after']) input{
-            margin-right: 4px;
-            margin-left: unset;
-          }
         `
       ]
     }

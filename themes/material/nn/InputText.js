@@ -3,6 +3,18 @@ import { AddHasValueAttributeMixin } from 'nn/mixins/AddHasValueAttributeMixin'
 
 export const InputText = (base) => {
   return class Base extends AddHasValueAttributeMixin(base) {
+    static get properties () {
+      return {
+        validationMessagePosition: { type: String, attribute: false, noAccessor: true },
+        labelPosition: { type: String, noAccessor: true, attribute: false}
+      }
+    }
+
+    constructor () {
+      super()
+      this.labelPosition = 'after'
+      this.validationMessagePosition = 'after'
+    }
     static get styles () {
       return [
         super.styles,
@@ -10,8 +22,8 @@ export const InputText = (base) => {
         :host {
           position: relative;
           height: var(--form-element-height);
-          padding: 5px 12px;
-          width: fit-content
+          padding: 10px;
+          width: fit-content;
         }
 
         input {
@@ -22,7 +34,6 @@ export const InputText = (base) => {
           color: var(--nn-input-color, inherit);
           background-color: var(--nn-input-background, var(--input-background));
           width: 100%;
-          float: right;
           font-size: 1em;
           padding-left: 10px;
           margin-left: 4px;
@@ -66,17 +77,56 @@ export const InputText = (base) => {
           transition: all 0.3s ease-in-out;
         }
 
-        :host([has-value]) label {
+        input:required ~ label::after {
+          content: '*';
+          padding-left: 2px;
+          position: relative;
+        }
+
+        label::before {
+          position: absolute;
+          content: '';
+          transform: translateY(-100%);
+          transition: all 0.4s ease-in-out;
+          opacity: 0;
+          user-select: none;
+          pointer-events: none;
+          z-index: -1;
+        }
+
+        :host([has-value]) label::before, input:focus ~ label::before {
+          left: 0;
+          content: '';
+          transform: translateY(0);
+          background-color: var(--floating-label-background, white);
+          border-radius: var(--nn-label-border-radius, 0 0 12px 0);
+          opacity: 1;
+          width: 100%;
+          height: 100%;
+          transition: all 0.4s ease-in-out;
+        }
+
+        :host([has-value]) label, input:focus ~ label  {
           transform: translateY(-150%);
-          background-color: white;
-          border-radius: var(--nn-label-border-radius, 0 0 4px 0);
           transition: all 0.3s ease-in-out;
         }
 
-        :host span.error-message {
+        span.error-message {
           position: absolute;
-          top: 100%;
+          bottom: 0px;
+          /* transform: translateY(0px); */
+          right: 2px;
           font-size: 80%;
+          white-space:nowrap;
+          opacity: 0;
+          will-change: transform, opacity;
+          transition: all 0.3s ease-in-out;
+        }
+
+        input:invalid ~ span.error-message {
+          transform: translateY(-6px);
+          opacity: 1;
+          transition: all 0.3s ease-in-out;
         }
         `
       ]
