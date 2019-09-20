@@ -79,24 +79,24 @@ export const InputRadio = (base) => {
             content: "";
             position: absolute;
             opacity: 0;
+            width: 19px;
+            height: 19px;
             will-change: transform, opacity;
             transition: opacity 0.3s ease-out;
           }
 
           input:checked ~ label::after { 
             display: block;
-            left: 5px;
-            top: 5px;
-            width: 9px;
-            height: 9px;
+            left: 0;
+            top: 0;
             opacity: 1;
             background-color:  var(--primary-color);
             /* border: solid white; */
             border-radius: 50%;
             /* border-width: 0 3px 3px 0; */
-            -webkit-transform: scale(50%,50%);
-            -ms-transform: scale(50%,50%);
-            transform: scale(50%,50%);
+            -webkit-transform: scale(0.5);
+            -ms-transform: scale(0.5);
+            transform: scale(0.5);
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in;
           }
         `
