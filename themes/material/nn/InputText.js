@@ -1,17 +1,8 @@
 import { css } from 'lit-element'
+import { AddHasValueAttributeMixin } from 'nn/mixins/AddHasValueAttributeMixin'
 
 export const InputText = (base) => {
-  return class Base extends base {
-    _observeInput (e) {
-      const target = e.currentTarget
-      this.toggleAttribute('hasInput', !!target.value.length)
-    }
-
-    firstUpdated () {
-      super.firstUpdated()
-      this.native.addEventListener('input', this._observeInput)
-    }
-
+  return class Base extends AddHasValueAttributeMixin(base) {
     static get styles () {
       return [
         super.styles,
@@ -75,7 +66,7 @@ export const InputText = (base) => {
           transition: all 0.3s ease-in-out;
         }
 
-        :host([hasInput]) label {
+        :host([has-value]) label {
           transform: translateY(-150%);
           background-color: white;
           border-radius: var(--nn-label-border-radius, 0 0 4px 0);
