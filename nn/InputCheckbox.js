@@ -25,7 +25,7 @@ class InputCheckbox extends FormElementMixin(LabelsMixin(StyleableMixin(InputMix
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
-      <input type="checkbox" id="native">
+      <input type="checkbox" as-boolean value-prop="checked" id="native">
       ${this.ifLabelAfter}
     `
   }
