@@ -46,9 +46,9 @@ export const CommonStyle = (base) => {
         :host {
           display: block;
           --font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-          --primary-color: #616161;
-          --primary-color-light: #8e8e8e;
-          --primary-color-dark: #373737;
+          --primary-color: #455a64;
+          --primary-color-light: #718792;
+          --primary-color-dark: #1c313a;
           --secondary-color: #512da8;
           --secondary-color-light: #8559da;
           --secondary-color-dark: #140078;

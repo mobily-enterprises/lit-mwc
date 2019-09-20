@@ -23,10 +23,9 @@ export const InputCheckBox = (base) => {
           :host {
             display: block;
             position: relative;
-            padding-left: 32px;
+            padding-left: 24px;
             margin-bottom: 12px;
             cursor: pointer;
-            /* font-size: 22px; */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -81,10 +80,7 @@ export const InputCheckBox = (base) => {
             position: absolute;
             opacity: 0;
             will-change: transform, opacity;
-            /* -webkit-transform: scale(0,0) translate(50%, 0); */
-            /* -ms-transform: scale(0,0) translate(50%, 0); */
-            /* transform: scale(0,0) translate(50%, 0); */
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in;
+            transition: opacity 0.3s ease-out;
           }
 
           input:checked ~ label::after { 
@@ -97,8 +93,8 @@ export const InputCheckBox = (base) => {
             border: solid white;
             border-radius: 2px;
             border-width: 0 3px 3px 0;
-            /* -webkit-transform: rotate(45deg) scale(100%,100%) translate(0,0); */
-            /* -ms-transform: rotate(45deg) scale(100%,100%) translate(0,0); */
+            -webkit-transform: rotate(405deg);
+            -ms-transform: rotate(405deg);
             transform: rotate(405deg);
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in;
           }
