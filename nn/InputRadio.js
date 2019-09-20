@@ -19,9 +19,23 @@ class InputRadio extends ThemeableMixin('nn/InputRadio')(FormElementMixin(Labels
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
-      <input type="radio" id="native">
+      <input as-radio value-prop="checked" @change="${this._excludeOthers}" type="radio" id="native">
       ${this.ifLabelAfter}
     `
+  }
+
+  _excludeOthers (e) {
+    // All other elements with the same name, marked as `as-radio`
+    const others = [...this.form._gatherFormElements()].filter(el =>
+      el !== this &&
+      el.getAttribute('name') &&
+      el.getAttribute('name') === this.getAttribute('name') &&
+      el.getAttribute('as-radio') !== null
+    )
+    for (const el of others) {
+      const prop = el.getAttribute('value-prop') || 'checked'
+      el[prop] = false
+    }
   }
 }
 customElements.define('nn-input-radio', InputRadio)

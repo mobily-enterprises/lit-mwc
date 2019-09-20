@@ -67,7 +67,7 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
 
   _booleanElement (el) {
     if (el.type === 'checkbox') return true
-    if (el.getAttribute('as-boolean') !== null) return true
+    if (el.getAttribute('as-checkbox') !== null) return true
     return false
   }
 

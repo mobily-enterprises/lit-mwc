@@ -35,8 +35,8 @@ export class Select extends ThemeableMixin('nn/Select')(FormElementMixin(LabelsM
   get reflectProperties () {
     return [
       ...super.reflectProperties,
-      // FROM https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement -checkValidity
-      ...['autofocus', 'disabled', 'form', 'labels', 'length', 'multiple', 'name', 'options', 'required', 'selectedIndex', 'selectedOptions', 'size', 'type', 'validationMessage', 'validity', 'value', 'willValidate', 'add', 'blur', 'focus', 'item', 'namedItem', 'remove', 'reportValidity', 'setCustomValidity']
+      // FROM https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement -checkValidity -form
+      ...['autofocus', 'disabled', 'labels', 'length', 'multiple', 'name', 'options', 'required', 'selectedIndex', 'selectedOptions', 'size', 'type', 'validationMessage', 'validity', 'value', 'willValidate', 'add', 'blur', 'focus', 'item', 'namedItem', 'remove', 'reportValidity', 'setCustomValidity']
     ]
   }
 
