@@ -1,9 +1,12 @@
-import { LitElement, html } from 'lit-element'
-import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
-import { StyleableMixin } from '../mixins/StyleableMixin.js'
+import { html } from 'lit-element'
+import { NnForm } from '../nn/Form.js'
 
 /* globals fetch customElements CustomEvent */
-class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
+class EnForm extends NnForm {
+  get reflectProperties () {
+    return super.reflectProperties.filter(attr => attr !== 'submit')
+  }
+
   static get properties () {
     return {
 
@@ -26,68 +29,6 @@ class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     }
   }
 
-  get reflectProperties () {
-    return [
-      ...super.reflectProperties,
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement -submit -checkValidity
-      ...['elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'reset', 'reportValidity', 'requestAutocomplete']
-    ]
-  }
-
-  checkValidity () {
-    let valid = true
-    for (const el of this._gatherFormElements()) {
-      if (typeof el.checkValidity === 'function') {
-        if (!el.checkValidity()) valid = false
-      }
-    }
-    return valid
-  }
-
-  reset () {
-    if (!this.native) return
-
-    this.native.reset()
-
-    const elements = this._gatherFormElements('reset')
-    for (const el of elements) {
-      // Get the original value
-      const valueProp = this._getElementValueProp(el)
-      const originalValue = el.getAttribute(valueProp)
-
-      // Assign it to the value prop, with quirks...
-
-      // CHECKBOXES
-      // Boolean elements are treated as booleans
-      if (this._booleanElement(el)) {
-        el[valueProp] = originalValue !== null
-
-      // SELECT
-      // Selectable elements (with prop selectedIndex)
-      // are set with selectedIndex = 0
-      } else if (typeof el.selectedIndex !== 'undefined' || el.getAttribute('as-select') !== null) {
-        if (!originalValue) el.selectedIndex = 0
-        else el[valueProp] = originalValue
-
-      // Any other case
-      } else {
-        el[valueProp] = originalValue
-      }
-    }
-  }
-
-  _booleanElement (el) {
-    if (el.type === 'checkbox') return true
-    if (el.getAttribute('as-boolean') !== null) return true
-    return false
-  }
-
-  _getElementValueProp (el) {
-    if (el.type === 'checkbox') return 'checked'
-    if (el.getAttribute('value-prop')) return el.getAttribute('value-prop')
-    return 'value'
-  }
-
   setFormElementValues (v) {
     const elements = this._gatherFormElements('setForm')
     for (const el of elements) {
@@ -97,14 +38,6 @@ class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
 
   extrapolateErrors (o) {
     return o
-  }
-
-  _gatherFormElements (callerName) {
-    let r = this.querySelectorAll('[name]')
-    if (callerName === 'submitter' || callerName === 'loader') {
-      r = [...r, ...this.querySelectorAll('[form-element]')]
-    }
-    return r
   }
 
   createSubmitObject (elements) {
@@ -292,4 +225,4 @@ class Form extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     `
   }
 }
-customElements.define('nn-form', Form)
+customElements.define('en-form', EnForm)
