@@ -1,8 +1,7 @@
-import { html, css } from 'lit-element'
+import { css } from 'lit-element'
 
 export const InputText = (base) => {
   return class Base extends base {
-
     _observeInput (e) {
       const target = e.currentTarget
       this.toggleAttribute('hasInput', !!target.value.length)
@@ -14,7 +13,8 @@ export const InputText = (base) => {
     }
 
     static get styles () {
-      return [ ...super.styles,
+      return [
+        super.styles,
         css`
         :host {
           position: relative;
@@ -48,7 +48,7 @@ export const InputText = (base) => {
           border-color: var(--error-text);
         }
 
-        :invalid { 
+        :invalid {
           border: unset;
           border-bottom: var(--nn-input-border, var(--theme-border));
         }
@@ -74,7 +74,7 @@ export const InputText = (base) => {
           will-change: transform, background-color;
           transition: all 0.3s ease-in-out;
         }
-        
+
         :host([hasInput]) label {
           transform: translateY(-150%);
           background-color: white;
