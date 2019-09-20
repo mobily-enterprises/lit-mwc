@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element'
+import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
