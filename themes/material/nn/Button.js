@@ -31,9 +31,15 @@ export const Button = (base) => {
             outline: none;            
           }
 
-          button:active, :host([outlined]:not([text])) button:active {
+          button:focus {
+            border-color: rgba(255, 255, 255, 0.7);
+            border-color: var(--primary-color);
+            box-shadow: var(--theme-box-shadow2);
+            filter: brightness(115%);
+          }
+
+          button:active {
             transition: all 0.2s ease-out;
-            border-color: rgba(0, 0, 0, 0.1);
             border-style: inset;
             border-color: var(--primary-color);
           }
@@ -42,6 +48,13 @@ export const Button = (base) => {
           :host([text]:not([raised])) button {
             background-color: transparent;
             color: var(--nn-button-color, var(--primary-color));
+          }
+
+          :host([text]:not([outlined])) button:focus, 
+          :host([text]:not([raised])) button:focus {
+            background-color: transparent;
+            color: var(--nn-button-color, var(--primary-color));
+            box-shadow: var(--theme-box-shadow2);
           }
 
           :host([text]:not([outlined])) button:active, 
@@ -72,7 +85,7 @@ export const Button = (base) => {
 
           :host([raised]:not([text])) button,
           :host([raised]:not([outlined])) button {
-            box-shadow: var(--theme-box-shadow2);
+            box-shadow: var(--theme-box-shadow3);
             transition: box-shadow 0.2s ease-out;
           }
 

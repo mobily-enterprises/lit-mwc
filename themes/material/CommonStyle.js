@@ -52,6 +52,7 @@ export const CommonStyle = (base) => {
           --secondary-color: #512da8;
           --secondary-color-light: #8559da;
           --secondary-color-dark: #140078;
+          --boundaries-color: #777;
           --primary-text: #fff;
           --secondary-text: #000;
           --text-on-dark: #fff;
@@ -60,7 +61,7 @@ export const CommonStyle = (base) => {
           --error-text: darkred;
           --theme-border-style: solid;
           --theme-border-width: 1px;
-          --theme-border-color: var(--primary-color);
+          --theme-border-color: var(--boundaries-color);
           --theme-border-radius: 5px;
           --theme-border: var(--theme-border-width) var(--theme-border-style) var(--theme-border-color);
           --theme-box-shadow1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);

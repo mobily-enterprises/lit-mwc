@@ -15,6 +15,7 @@ export const InputText = (base) => {
       this.labelPosition = 'after'
       this.validationMessagePosition = 'after'
     }
+    
     static get styles () {
       return [
         super.styles,
