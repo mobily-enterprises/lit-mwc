@@ -110,8 +110,10 @@ export const InputText = (base) => {
         }
 
         :host([has-value]) label, input:focus ~ label  {
-          transform: translateY(-150%);
+          transform: translateY(-155%);
+          font-size: 80%;
           transition: all 0.3s ease-in-out;
+          margin-left: -2px;
         }
 
         span.error-message {

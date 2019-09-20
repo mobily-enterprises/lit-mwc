@@ -54,7 +54,7 @@ export const InputRadio = (base) => {
 
           input:checked ~ label::before {
             border-color: var(--primary-color);
-            background-color:  var(--primary-color);
+            background-color: transparent;
             transition: background-color 0.3s ease-in-out;
           }
 
@@ -90,7 +90,7 @@ export const InputRadio = (base) => {
             width: 9px;
             height: 9px;
             opacity: 1;
-            background-color: white;
+            background-color:  var(--primary-color);
             /* border: solid white; */
             border-radius: 50%;
             /* border-width: 0 3px 3px 0; */

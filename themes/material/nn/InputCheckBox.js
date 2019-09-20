@@ -86,7 +86,7 @@ export const InputCheckBox = (base) => {
           input:checked ~ label::after { 
             display: block;
             left: 6px;
-            top: 3px;
+            top: 2px;
             width: 5px;
             height: 10px;
             opacity: 1;
