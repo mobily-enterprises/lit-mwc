@@ -92,6 +92,8 @@ export const InputText = (base) => {
           user-select: none;
           pointer-events: none;
           z-index: -1;
+          will-change: transform;
+          transition: all 0.35s ease-in-out;
         }
 
         :host([has-value]) label::before, input:focus ~ label::before {
@@ -103,7 +105,7 @@ export const InputText = (base) => {
           opacity: 1;
           width: 100%;
           height: 100%;
-          transition: all 0.4s ease-in-out;
+          transition: all 0.35s ease-in-out;
         }
 
         :host([has-value]) label, input:focus ~ label  {
