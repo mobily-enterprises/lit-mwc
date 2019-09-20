@@ -19,6 +19,10 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
 
     for (const el of this._gatherFormElements()) {
       if (typeof el.checkValidity === 'function') {
+        // Native element may have customValidity set
+        // by a server response
+        el.setCustomValidity('')
+
         if (!el.checkValidity()) valid = false
       }
     }
