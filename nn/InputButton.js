@@ -2,8 +2,9 @@ import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { InputMixin } from '../mixins/InputMixin.js'
+import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-class InputButton extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
+class InputButton extends ThemeableMixin('nn/InputButton')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   static get properties () {
     return {}
   }

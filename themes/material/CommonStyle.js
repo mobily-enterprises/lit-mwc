@@ -46,12 +46,13 @@ export const CommonStyle = (base) => {
         :host {
           display: block;
           --font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-          --primary-color: #616161;
-          --primary-color-light: #8e8e8e;
-          --primary-color-dark: #373737;
+          --primary-color: #455a64;
+          --primary-color-light: #718792;
+          --primary-color-dark: #1c313a;
           --secondary-color: #512da8;
           --secondary-color-light: #8559da;
           --secondary-color-dark: #140078;
+          --boundaries-color: #777;
           --primary-text: #fff;
           --secondary-text: #000;
           --text-on-dark: #fff;
@@ -60,7 +61,7 @@ export const CommonStyle = (base) => {
           --error-text: darkred;
           --theme-border-style: solid;
           --theme-border-width: 1px;
-          --theme-border-color: var(--primary-color-light);
+          --theme-border-color: var(--boundaries-color);
           --theme-border-radius: 5px;
           --theme-border: var(--theme-border-width) var(--theme-border-style) var(--theme-border-color);
           --theme-box-shadow1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
