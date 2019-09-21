@@ -79,9 +79,9 @@ export const FormElementMixin = (base) => {
     }
 
     assignFormProperty () {
-      if (this.tagName === 'NN-FORM') return
+      if (this.tagName === 'NN-FORM' || this.tagName === 'EN-FORM') return
       let el = this
-      while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM')) { } // eslint-disable-line no-empty
+      while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM' && el.tagName !== 'EN-FORM')) { } // eslint-disable-line no-empty
       this.form = el
     }
 
@@ -92,7 +92,7 @@ export const FormElementMixin = (base) => {
 
       // If the original checkValidity() fails, the @invalid event will be
       // fired anyway
-      if (!this.native.checkValidity()) return
+      if (!this.native.checkValidity()) return false
 
       // Check own validator. If error message, will set it with setCustomValidity()
       // and will run reportValidity() which will fire the @invalid event
@@ -100,7 +100,9 @@ export const FormElementMixin = (base) => {
       if (ownErrorMessage) {
         this.setCustomValidity(ownErrorMessage)
         this.reportValidity()
+        return false
       }
+      return true
     }
 
     firstUpdated () {

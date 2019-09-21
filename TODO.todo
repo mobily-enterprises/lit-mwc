@@ -59,14 +59,27 @@
   ✔ Make sure validation works the same client-side and server-side @done(2019-05-21 07:47) @project(☐ nn-form)
   ✔ Make styling for error message, similar to <meter> containing message @done(2019-09-18 17:42)
   ✔ Made default themes directory structure @done(2019-09-19 07:05)
+  ✔ Split nn-form into nn-form and en-form @done(2019-09-21 14:17)
+  ✔ en-form will inherit from nn-form and add all of the error setting, preloading, etc. @done(2019-09-21 14:18)
   ☐ Form.js
-    ☐ Make sure that if recordId is undefined a request isn't Made
     ☐ Honour the method specified by the user as a priority
-  ☐ Split nn-form into nn-form and en-form
-    ☐ nn-form will simply deal with submit and validation. Also, submit on pressing a submit button and maybe monkey patching for element list
-    ☐ en-form will inherit from nn-form and add all of the error setting, preloading, etc.
-  ☐ Check enter on submit: find out native behaviour, emulate it, offer option
-  ☐ Implement real-time form submit of single fields in en-forms
+    ☐ Make sure that if recordId is undefined a request isn't Made
+    ☐ Check enter on submit: find out native behaviour, emulate it, offer option
+    ☐ Make sure that 'submit' (type=submit) button really submits
+    ☐ Implement real-time form submit of single fields
+
+☐ Extra elements
+  ☐ Write en-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+  ☐ Write ee-network (backport from existing)
+  ☐ Implement ee-drawer
+  ☐ Implement ee-tabs
+  ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
+  ☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
+  ☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
+  ☐ Implement FAB en-fab
+  ☐ Implement Toast ee-toast
+  ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
+  ☐ Add TP to https://github.com/web-padawan/awesome-lit-html
 
 (LATER)
 ☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
@@ -81,19 +94,6 @@
     ☐ If that happens, will it make any difference?
   ☐ Submit the form when the user preses ENTER on a sole inputText
 
-
-☐ Extra elements
-  ☐ Write en-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
-  ☐ Write ee-network (backport from existing)
-  ☐ Implement ee-drawer
-  ☐ Implement ee-tabs
-  ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
-  ☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
-  ☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
-  ☐ Implement FAB en-fab
-  ☐ Implement Toast ee-toast
-  ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
-  ☐ Add TP to https://github.com/web-padawan/awesome-lit-html
 
   ☐ DOCUMENT VALIDATION BLUEPRINT:
     ☐ OVERRIDE checkValidity (nn, in FormElementMixin)
