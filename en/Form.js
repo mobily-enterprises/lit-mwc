@@ -20,12 +20,46 @@ class EnForm extends NnForm {
         attribute: 'set-form-after-submit'
       },
 
+      validateOnLoad: {
+        type: Boolean,
+        attribute: 'validate-on-load'
+      },
+
+      validateOnRender: {
+        type: Boolean,
+        attribute: 'validate-on-render'
+      },
+
       // This will allow users to redefine methods declaratively
       createSubmitObject: Function,
       presubmit: Function,
       response: Function,
       setFormElementValues: Function,
       extrapolateErrors: Function
+
+    }
+  }
+
+  constructor () {
+    super()
+    this.validateOnLoad = false
+    this.validateOnRender = false
+  }
+
+  async firstUpdated () {
+    super.firstUpdated()
+
+    if (this.validateOnRender) {
+      // Wait for all children to be ready to rock and roll
+      const elements = this._gatherFormElements()
+      for (const el of elements) {
+        // TODO: What about React, Vue, etc.? Uniform API across element libraries?
+        if (typeof el.updateComplete !== 'undefined') {
+          await el.updateComplete
+        }
+      }
+      // Check validity
+      this.checkValidity()
     }
   }
 
@@ -63,6 +97,7 @@ class EnForm extends NnForm {
   }
 
   async submit () {
+    debugger
     // No validity = no sending
     if (!this.checkValidity()) return
 
@@ -72,8 +107,19 @@ class EnForm extends NnForm {
     // HOOK: Make up the submit object based on the passed elements
     const submitObject = this.createSubmitObject(elements)
 
-    // The method will depend on the presence or absence of recordId
-    const method = this.recordId ? 'PUT' : 'POST'
+    // The element's method can only be null, POST or PUT.
+    // If not null, and not "PUT", it's set to "POST"
+    let elementMethod = this.getAttribute('method')
+    if (elementMethod && elementMethod.toUpperCase() !== 'PUT') {
+      elementMethod = 'POST'
+    }
+
+    // The 'method' attribute will have priority no matter what.
+    // If `method` is not set, then it will depend on recordId (PUT if present,
+    // POST if not)
+    const method = elementMethod === null
+      ? this.recordId ? 'PUT' : 'POST'
+      : elementMethod
 
     // Set the url, which will also depend on recordId
     const action = this.getAttribute('action')
@@ -213,6 +259,11 @@ class EnForm extends NnForm {
 
       // Re-enabled all disabled fields
       this._enableElements(formElements)
+
+      // Run checkValidity if validateOnRender is on
+      if (this.validateOnLoad) {
+        this.checkValidity()
+      }
     }
   }
 

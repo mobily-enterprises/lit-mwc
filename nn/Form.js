@@ -12,13 +12,6 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     ]
   }
 
-  firstUpdated () {
-    super.firstUpdated()
-
-    // TODO: check that this is good enough
-    setTimeout(() => this.checkValidity(), 100)
-  }
-
   checkValidity () {
     // Check validity in form
     let valid = true
