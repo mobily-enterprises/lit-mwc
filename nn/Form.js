@@ -12,10 +12,17 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     ]
   }
 
+  firstUpdated () {
+    super.firstUpdated()
+
+    // TODO: check that this is good enough
+    setTimeout(() => this.checkValidity(), 100)
+  }
+
   checkValidity () {
     // Check validity in form
     let valid = true
-    if (!this.native.checkValidity()) valid = false
+    // if (!this.native.checkValidity()) valid = false
 
     for (const el of this._gatherFormElements()) {
       if (typeof el.checkValidity === 'function') {
@@ -23,7 +30,10 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
         // by a server response
         el.setCustomValidity('')
 
-        if (!el.checkValidity()) valid = false
+        if (!el.checkValidity()) {
+          valid = false
+          el.reportValidity()
+        }
       }
     }
     return valid
