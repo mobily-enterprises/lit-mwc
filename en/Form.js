@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
 import { NnForm } from '../nn/Form.js'
 
-/* globals fetch customElements CustomEvent */
+/* globals customElements CustomEvent */
 class EnForm extends NnForm {
   get reflectProperties () {
     return super.reflectProperties.filter(attr => attr !== 'submit')
@@ -9,6 +9,11 @@ class EnForm extends NnForm {
 
   static get properties () {
     return {
+
+      fetchingElement: {
+        type: String,
+        attribute: 'fetching-element'
+      },
 
       recordId: {
         type: String,
@@ -44,6 +49,7 @@ class EnForm extends NnForm {
     super()
     this.validateOnLoad = false
     this.validateOnRender = false
+    this.fetchingElement = null
   }
 
   async firstUpdated () {
@@ -96,8 +102,16 @@ class EnForm extends NnForm {
     for (const el of elements) el.removeAttribute('disabled')
   }
 
+  _fetchEl () {
+    if (this.fetchingElement) {
+      if (typeof this.fetchingElement === 'string') return this.querySelector(`#${this.fetchingElement}`)
+      else return this.fetchingElement
+    } else {
+      return window
+    }
+  }
+
   async submit () {
-    debugger
     // No validity = no sending
     if (!this.checkValidity()) return
 
@@ -148,7 +162,8 @@ class EnForm extends NnForm {
     let networkError = false
     let response
     try {
-      response = await fetch(fetchOptions.url, fetchOptions)
+      const el = this._fetchEl()
+      response = await el.fetch(fetchOptions.url, fetchOptions)
     } catch (e) {
       console.log('ERROR!', e)
       networkError = true
@@ -248,7 +263,8 @@ class EnForm extends NnForm {
 
       // Fetch the data and trasform it to json
       try {
-        response = await fetch(action + '/' + this.recordId)
+        const el = this._fetchEl()
+        response = await el.fetch(action + '/' + this.recordId)
       } catch (e) {
         // eslint-disable-line
       }

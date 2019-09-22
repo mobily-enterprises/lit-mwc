@@ -68,9 +68,9 @@
     ☐ Check enter on submit: find out native behaviour, emulate it, offer option
     ☐ Make sure that 'submit' (type=submit) button really submits
     ☐ Implement real-time form submit of single fields
+  ☐ Rename element classes from Element to NnElement to facilitate subclassing
 
 ☐ Extra elements
-  ☐ Write en-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
   ☐ Write ee-network (backport from existing)
   ☐ Implement ee-drawer
   ☐ Implement ee-tabs
@@ -81,6 +81,7 @@
   ☐ Implement Toast ee-toast
   ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
   ☐ Add TP to https://github.com/web-padawan/awesome-lit-html
+  ☐ Write en-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
 (LATER)
 ☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
