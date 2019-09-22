@@ -72,16 +72,16 @@
 
 ☐ Extra elements
   ✔ Write ee-network (backport from existing) @done(2019-09-22 20:01)
+  ✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
   ☐ Implement ee-drawer
   ☐ Implement ee-tabs
   ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
   ☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
   ☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
   ☐ Implement FAB en-fab
-  ☐ Implement Toast ee-toast
   ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
   ☐ Add TP to https://github.com/web-padawan/awesome-lit-html
-  ☐ Write en-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+  ☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
 (LATER)
 ☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
