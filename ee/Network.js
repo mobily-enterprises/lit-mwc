@@ -209,6 +209,10 @@ export class EeNetwork extends StyleableMixin(LitElement) {
       statusMessages: {
         type: Object,
         attribute: 'status-messages'
+      },
+      messenger: {
+        type: Function,
+        attribute: false
       }
     }
   }
@@ -234,25 +238,30 @@ export class EeNetwork extends StyleableMixin(LitElement) {
     return this.statusMessages[status]
   }
 
+  messenger () {}
+
   async fetch (url, initObject) {
     this.lastUrl = url
     this.lastInitObject = initObject
 
     this.status = 'loading'
+    this.messenger(this.status, url, initObject)
     try {
       const response = await fetch(url, initObject)
       if (response.ok) {
         this.status = 'loaded'
+        this.messenger(this.status, url, initObject)
       } else {
         if (this.manageErrors) this.status = 'error'
         else this.status = 'loaded'
+        this.messenger(this.status, url, initObject)
       }
       return response
     } catch (e) {
       // Set the status
       if (this.manageErrors) this.status = 'error'
       else this.status = 'loaded'
-
+      this.messenger(this.status, url, initObject)
       throw (e)
     }
   }
