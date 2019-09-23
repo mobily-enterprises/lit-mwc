@@ -62,24 +62,26 @@
   ✔ Split nn-form into nn-form and en-form @done(2019-09-21 14:17)
   ✔ en-form will inherit from nn-form and add all of the error setting, preloading, etc. @done(2019-09-21 14:18)
   ☐ Form.js
-    ☐ Honour the method specified by the user as a priority
+    ✔ Implement validate-on-render and validate-on-load @done(2019-09-22 07:28)
+    ✔ Honour the method specified by the user as a priority @done(2019-09-22 07:39)
     ☐ Make sure that if recordId is undefined a request isn't Made
     ☐ Check enter on submit: find out native behaviour, emulate it, offer option
     ☐ Make sure that 'submit' (type=submit) button really submits
     ☐ Implement real-time form submit of single fields
+  ☐ Rename element classes from Element to NnElement to facilitate subclassing
 
 ☐ Extra elements
-  ☐ Write en-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
-  ☐ Write ee-network (backport from existing)
+  ✔ Write ee-network (backport from existing) @done(2019-09-22 20:01)
+  ✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
+  ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
   ☐ Implement ee-drawer
   ☐ Implement ee-tabs
-  ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
   ☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
   ☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
   ☐ Implement FAB en-fab
-  ☐ Implement Toast ee-toast
   ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
   ☐ Add TP to https://github.com/web-padawan/awesome-lit-html
+  ☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
 (LATER)
 ☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement

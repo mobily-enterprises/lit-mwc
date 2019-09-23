@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
 import { NnForm } from '../nn/Form.js'
 
-/* globals fetch customElements CustomEvent */
+/* globals customElements CustomEvent */
 class EnForm extends NnForm {
   get reflectProperties () {
     return super.reflectProperties.filter(attr => attr !== 'submit')
@@ -9,6 +9,11 @@ class EnForm extends NnForm {
 
   static get properties () {
     return {
+
+      fetchingElement: {
+        type: String,
+        attribute: 'fetching-element'
+      },
 
       recordId: {
         type: String,
@@ -20,12 +25,47 @@ class EnForm extends NnForm {
         attribute: 'set-form-after-submit'
       },
 
+      validateOnLoad: {
+        type: Boolean,
+        attribute: 'validate-on-load'
+      },
+
+      validateOnRender: {
+        type: Boolean,
+        attribute: 'validate-on-render'
+      },
+
       // This will allow users to redefine methods declaratively
       createSubmitObject: Function,
       presubmit: Function,
       response: Function,
       setFormElementValues: Function,
       extrapolateErrors: Function
+
+    }
+  }
+
+  constructor () {
+    super()
+    this.validateOnLoad = false
+    this.validateOnRender = false
+    this.fetchingElement = null
+  }
+
+  async firstUpdated () {
+    super.firstUpdated()
+
+    if (this.validateOnRender) {
+      // Wait for all children to be ready to rock and roll
+      const elements = this._gatherFormElements()
+      for (const el of elements) {
+        // TODO: What about React, Vue, etc.? Uniform API across element libraries?
+        if (typeof el.updateComplete !== 'undefined') {
+          await el.updateComplete
+        }
+      }
+      // Check validity
+      this.checkValidity()
     }
   }
 
@@ -62,6 +102,22 @@ class EnForm extends NnForm {
     for (const el of elements) el.removeAttribute('disabled')
   }
 
+  _fetchEl () {
+    // Tries to figure out what the fetching element is.
+    // if fetching-element was passed, then it's either considered an ID
+    // or the element itself.
+    // Otherwise it will look for an ee-network or with an element with class
+    // .network. Finally, it will use `window`
+    if (this.fetchingElement) {
+      if (typeof this.fetchingElement === 'string') return this.querySelector(`#${this.fetchingElement}`)
+      else return this.fetchingElement
+    } else {
+      let maybeNetwork = this.querySelector('ee-network')
+      if (!maybeNetwork) maybeNetwork = this.querySelector('.network')
+      return maybeNetwork || window
+    }
+  }
+
   async submit () {
     // No validity = no sending
     if (!this.checkValidity()) return
@@ -72,8 +128,19 @@ class EnForm extends NnForm {
     // HOOK: Make up the submit object based on the passed elements
     const submitObject = this.createSubmitObject(elements)
 
-    // The method will depend on the presence or absence of recordId
-    const method = this.recordId ? 'PUT' : 'POST'
+    // The element's method can only be null, POST or PUT.
+    // If not null, and not "PUT", it's set to "POST"
+    let elementMethod = this.getAttribute('method')
+    if (elementMethod && elementMethod.toUpperCase() !== 'PUT') {
+      elementMethod = 'POST'
+    }
+
+    // The 'method' attribute will have priority no matter what.
+    // If `method` is not set, then it will depend on recordId (PUT if present,
+    // POST if not)
+    const method = elementMethod === null
+      ? this.recordId ? 'PUT' : 'POST'
+      : elementMethod
 
     // Set the url, which will also depend on recordId
     const action = this.getAttribute('action')
@@ -102,7 +169,8 @@ class EnForm extends NnForm {
     let networkError = false
     let response
     try {
-      response = await fetch(fetchOptions.url, fetchOptions)
+      const el = this._fetchEl()
+      response = await el.fetch(fetchOptions.url, fetchOptions)
     } catch (e) {
       console.log('ERROR!', e)
       networkError = true
@@ -149,7 +217,7 @@ class EnForm extends NnForm {
           const el = elHash[err.field]
           if (el) {
             el.setCustomValidity(err.message)
-            // el.reportValidity()
+            el.reportValidity()
           }
         }
       }
@@ -201,18 +269,26 @@ class EnForm extends NnForm {
       this._disableElements(formElements)
 
       // Fetch the data and trasform it to json
+      let v
       try {
-        response = await fetch(action + '/' + this.recordId)
+        const el = this._fetchEl()
+        response = await el.fetch(action + '/' + this.recordId)
+        v = await response.json()
       } catch (e) {
-        // eslint-disable-line
+        console.error('WARNING: Fetching element failed to fetch')
+        v = {}
       }
-      const v = await response.json()
 
       // Set values
       this.setFormElementValues(v)
 
       // Re-enabled all disabled fields
       this._enableElements(formElements)
+
+      // Run checkValidity if validateOnRender is on
+      if (this.validateOnLoad) {
+        this.checkValidity()
+      }
     }
   }
 
