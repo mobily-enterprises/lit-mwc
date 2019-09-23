@@ -103,11 +103,18 @@ class EnForm extends NnForm {
   }
 
   _fetchEl () {
+    // Tries to figure out what the fetching element is.
+    // if fetching-element was passed, then it's either considered an ID
+    // or the element itself.
+    // Otherwise it will look for an ee-network or with an element with class
+    // .network. Finally, it will use `window`
     if (this.fetchingElement) {
       if (typeof this.fetchingElement === 'string') return this.querySelector(`#${this.fetchingElement}`)
       else return this.fetchingElement
     } else {
-      return window
+      let maybeNetwork = this.querySelector('ee-network')
+      if (!maybeNetwork) maybeNetwork = this.querySelector('.network')
+      return maybeNetwork || window
     }
   }
 
@@ -262,13 +269,15 @@ class EnForm extends NnForm {
       this._disableElements(formElements)
 
       // Fetch the data and trasform it to json
+      let v
       try {
         const el = this._fetchEl()
         response = await el.fetch(action + '/' + this.recordId)
+        v = await response.json()
       } catch (e) {
-        // eslint-disable-line
+        console.error('WARNING: Fetching element failed to fetch')
+        v = {}
       }
-      const v = await response.json()
 
       // Set values
       this.setFormElementValues(v)
