@@ -97,7 +97,7 @@ class EnForm extends NnForm {
     const elHash = {}
     for (const el of elements) elHash[el.name] = el
 
-    for (const k in o) {
+    for (const k in Object.keys(elHash)) {
       o[k] = this.getFormElementValue(k)
     }
   }

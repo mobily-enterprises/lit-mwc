@@ -44,21 +44,18 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     const valueSource = this._getElementValueSource(el)
 
     // CHECKBOXES
-    // Boolean elements are treated as booleans
     if (this._checkboxElement(el)) {
       el[valueSource] = !!value
 
     // RADIO
     // Radio elements
     } else if (this._radioElement(el)) {
-      if (value === el.value) {
-        el[valueSource] = true
-        const others = [...this.form.elements()].filter(el =>
-          el !== this &&
-          this._radioElement(el)
-        )
-        for (const other of others) other[valueSource] = false
-      }
+      el[valueSource] = true
+      const others = [...this.form.elements()].filter(el =>
+        el !== this &&
+        this._radioElement(el)
+      )
+      for (const other of others) other[valueSource] = false
 
     // SELECT
     // Selectable elements (with prop selectedIndex)
