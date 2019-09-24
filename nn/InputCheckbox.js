@@ -26,7 +26,7 @@ class InputCheckbox extends ThemeableMixin('nn/InputCheckbox')(FormElementMixin(
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
-      <input type="checkbox" as-checkbox value-prop="checked" id="native">
+      <input type="checkbox" as-checkbox value-source="checked" id="native">
       ${this.ifLabelAfter}
     `
   }

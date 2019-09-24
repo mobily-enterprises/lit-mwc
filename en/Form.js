@@ -35,6 +35,21 @@ class EnForm extends NnForm {
         attribute: 'validate-on-render'
       },
 
+      setObjectAfterSubmit: {
+        type: Boolean,
+        attribute: 'set-object-after-submit'
+      },
+
+      submitCheckboxesAsNative: {
+        type: Boolean,
+        attribute: 'submit-checkboxes-as-native'
+      },
+
+      dataObject: {
+        type: Object,
+        attribute: false
+      },
+
       // This will allow users to redefine methods declaratively
       createSubmitObject: Function,
       presubmit: Function,
@@ -50,6 +65,7 @@ class EnForm extends NnForm {
     this.validateOnLoad = false
     this.validateOnRender = false
     this.fetchingElement = null
+    this.submitCheckboxesAsNative = false
   }
 
   async firstUpdated () {
@@ -69,10 +85,19 @@ class EnForm extends NnForm {
     }
   }
 
-  setFormElementValues (v) {
-    const elements = this._gatherFormElements('setForm')
-    for (const el of elements) {
-      if (typeof v[el.name] !== 'undefined') el[this._getElementValueProp(el)] = v[el.name]
+  setFormElementValues (o) {
+    for (const k in o) {
+      this.setFormElementValue(k, o[k])
+    }
+  }
+
+  setDataObject (o) {
+    const elements = this._gatherFormElements()
+    const elHash = {}
+    for (const el of elements) elHash[el.name] = el
+
+    for (const k in o) {
+      o[k] = this.getFormElementValue(k)
     }
   }
 
@@ -83,7 +108,15 @@ class EnForm extends NnForm {
   createSubmitObject (elements) {
     const r = {}
     for (const el of elements) {
-      r[el.name] = el[this._getElementValueProp(el)]
+      // Radio will only happen once thanks to checking for undefined
+      if (typeof r[el.name] === 'undefined') {
+        if (this.submitCheckboxesAsNative && this._checkboxElement(el)) {
+          const val = this.getFormElementValue(el.name)
+          if (val) r[el.name] = val
+        } else {
+          r[el.name] = !!this.getFormElementValue(el.name)
+        }
+      }
     }
     return r
   }
@@ -123,7 +156,7 @@ class EnForm extends NnForm {
     if (!this.checkValidity()) return
 
     // Gather the element
-    const elements = this._gatherFormElements('json-creator')
+    const elements = this._gatherFormElements()
 
     // HOOK: Make up the submit object based on the passed elements
     const submitObject = this.createSubmitObject(elements)
@@ -159,7 +192,7 @@ class EnForm extends NnForm {
     this.presubmit(fetchOptions)
 
     // Disable the elements
-    const formElements = this._gatherFormElements('submitter')
+    const formElements = this._gatherFormElements()
     this._disableElements(formElements)
 
     // fetch() wants a stingified body
@@ -208,7 +241,7 @@ class EnForm extends NnForm {
 
       // Set error messages
       if (errs.errors && errs.errors.length) {
-        const elements = this._gatherFormElements('errorSetter')
+        const elements = this._gatherFormElements()
         const elHash = {}
         for (const el of elements) {
           elHash[el.name] = el
@@ -235,6 +268,8 @@ class EnForm extends NnForm {
       // passed to the form.
       if (this.setFormAfterSubmit) this.setFormElementValues(v)
 
+      if (this.setObjectAfterSubmit) this.setDataObject(v)
+
       // Re-enable the elements
       this._enableElements(formElements)
 
@@ -254,6 +289,9 @@ class EnForm extends NnForm {
     // simply give up: nothing to do
     if (this.getAttribute('no-autoload') || !changedProperties.has('recordId')) return
 
+    // Record ID must be "something"
+    if (typeof this.recordId === 'undefined' || this.recordId === null) return
+
     // Work out the action's URL, adding the record ID  at the end
     // (It will be a get)
     // If there is a result, fetch the element values
@@ -265,7 +303,7 @@ class EnForm extends NnForm {
       await this.updateComplete
 
       // Disable elements
-      const formElements = this._gatherFormElements('loader')
+      const formElements = this._gatherFormElements()
       this._disableElements(formElements)
 
       // Fetch the data and trasform it to json

@@ -19,7 +19,7 @@ class InputRadio extends ThemeableMixin('nn/InputRadio')(FormElementMixin(Labels
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
-      <input as-radio value-prop="checked" @change="${this._excludeOthers}" type="radio" id="native">
+      <input as-radio value-source="checked" @change="${this._excludeOthers}" type="radio" id="native">
       ${this.ifLabelAfter}
     `
   }
@@ -33,7 +33,7 @@ class InputRadio extends ThemeableMixin('nn/InputRadio')(FormElementMixin(Labels
       el.getAttribute('as-radio') !== null
     )
     for (const el of others) {
-      const prop = el.getAttribute('value-prop') || 'checked'
+      const prop = el.getAttribute('value-source') || 'checked'
       el[prop] = false
     }
   }

@@ -32,33 +32,100 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     return valid
   }
 
+  setFormElementValue (elName, value) {
+    const el = this.form._gatherFormElements().find(el => {
+      if (this._radioElement(el)) {
+        return el.name === elName && el.value === value
+      } else {
+        return el.name === elName
+      }
+    })
+    // Get the original value
+    const valueSource = this._getElementValueSource(el)
+
+    // CHECKBOXES
+    // Boolean elements are treated as booleans
+    if (this._checkboxElement(el)) {
+      el[valueSource] = !!value
+
+    // RADIO
+    // Radio elements
+    } else if (this._radioElement(el)) {
+      if (value === el.value) {
+        el[valueSource] = true
+        const others = [...this.form._gatherFormElements()].filter(el =>
+          el !== this &&
+          this._radioElement(el)
+        )
+        for (const other of others) other[valueSource] = false
+      }
+
+    // SELECT
+    // Selectable elements (with prop selectedIndex)
+    } else if (this._selectElement(el)) {
+      if (!value) el.selectedIndex = 0
+      else el[valueSource] = value
+
+    // Any other case
+    } else {
+      el[valueSource] = value
+    }
+  }
+
+  getFormElementValue (elName) {
+    const elements = this.form._gatherFormElements().filter(el => el.name === elName)
+
+    if (!elements.length) {
+      console.error('Trying to set', elName, 'but no such element in form')
+      return
+    }
+
+    if (elements.length === 1) {
+      const el = elements[0]
+
+      const valueSource = this._getElementValueSource(el)
+      if (this._checkboxElement(el)) {
+        return el[valueSource]
+          ? (el.value ? el.value : 'on')
+          : undefined
+      } else if (this._selectElement(el)) {
+        return el[valueSource]
+      } else {
+        return el[valueSource]
+      }
+    } else {
+      const nonRadio = elements.filter(el => !this._radioElement(el))
+      if (nonRadio.length) {
+        console.error('Duplicate name', elName, 'for non-radio elements')
+        return
+      }
+
+      const checked = elements.find(el => {
+        const valueSource = this._getElementValueSource(el)
+        return el[valueSource]
+      })
+      if (checked) return checked.value
+      else return undefined
+    }
+  }
+
   reset () {
     if (!this.native) return
 
     this.native.reset()
 
     const elements = this._gatherFormElements()
+
+    // TODO: Adjust this for radios in a nice sensible way
     for (const el of elements) {
-      // Get the original value
-      const valueProp = this._getElementValueProp(el)
-      const originalValue = el.getAttribute(valueProp)
+      const valueSource = this._getElementValueSource(el)
 
-      // Assign it to the value prop, with quirks...
-
-      // CHECKBOXES
-      // Boolean elements are treated as booleans
-      if (this._booleanElement(el)) {
-        el[valueProp] = originalValue !== null
-
-      // SELECT
-      // Selectable elements (with prop selectedIndex)
-      } else if (this._selectElement(el)) {
-        if (!originalValue) el.selectedIndex = 0
-        else el[valueProp] = originalValue
-
-      // Any other case
+      if (this._radioElement(el)) {
+        el[valueSource] = el.getAttribute(valueSource) !== null
+      } else if (this._checkboxElement(el)) {
+        el[valueSource] = el.getAttribute(valueSource) !== null
       } else {
-        el[valueProp] = originalValue
+        el[valueSource] = el.getAttribute(valueSource)
       }
     }
   }
@@ -68,15 +135,21 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     return false
   }
 
-  _booleanElement (el) {
+  _checkboxElement (el) {
     if (el.type === 'checkbox') return true
     if (el.getAttribute('as-checkbox') !== null) return true
     return false
   }
 
-  _getElementValueProp (el) {
-    if (el.type === 'checkbox') return 'checked'
-    if (el.getAttribute('value-prop')) return el.getAttribute('value-prop')
+  _radioElement (el) {
+    if (el.type === 'radio') return true
+    if (el.getAttribute('as-radio') !== null) return true
+    return false
+  }
+
+  _getElementValueSource (el) {
+    if (el.type === 'checkbox' || el.type === 'radio') return 'checked'
+    if (el.getAttribute('value-source')) return el.getAttribute('value-source')
     return 'value'
   }
 
@@ -85,7 +158,8 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     if (nonValueFormElement) {
       r = [...r, ...this.querySelectorAll('[non-value-form-element]')]
     }
-    return r
+    // A tags (links) can have "name", filter them out
+    return r.filter(el => el.tagName !== 'A')
   }
 
   render () {
