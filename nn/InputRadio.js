@@ -26,7 +26,7 @@ class InputRadio extends ThemeableMixin('nn/InputRadio')(FormElementMixin(Labels
 
   _excludeOthers (e) {
     // All other elements with the same name, marked as `as-radio`
-    const others = [...this.form._gatherFormElements()].filter(el =>
+    const others = [...this.form.elements()].filter(el =>
       el !== this &&
       el.getAttribute('name') &&
       el.getAttribute('name') === this.getAttribute('name') &&

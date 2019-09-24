@@ -7,8 +7,8 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   get reflectProperties () {
     return [
       ...super.reflectProperties,
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement -checkValidity -reset
-      ...['elements', 'length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'reportValidity', 'requestAutocomplete', 'submit']
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement -checkValidity -reset -elements
+      ...['length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'reportValidity', 'requestAutocomplete', 'submit']
     ]
   }
 
@@ -17,7 +17,7 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     let valid = true
     // if (!this.native.checkValidity()) valid = false
 
-    for (const el of this._gatherFormElements()) {
+    for (const el of this.elements()) {
       if (typeof el.checkValidity === 'function') {
         // Native element may have customValidity set
         // by a server response
@@ -33,7 +33,7 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   }
 
   setFormElementValue (elName, value) {
-    const el = this.form._gatherFormElements().find(el => {
+    const el = this.form.elements().find(el => {
       if (this._radioElement(el)) {
         return el.name === elName && el.value === value
       } else {
@@ -53,7 +53,7 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     } else if (this._radioElement(el)) {
       if (value === el.value) {
         el[valueSource] = true
-        const others = [...this.form._gatherFormElements()].filter(el =>
+        const others = [...this.form.elements()].filter(el =>
           el !== this &&
           this._radioElement(el)
         )
@@ -73,7 +73,7 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   }
 
   getFormElementValue (elName) {
-    const elements = this.form._gatherFormElements().filter(el => el.name === elName)
+    const elements = this.form.elements().filter(el => el.name === elName)
 
     if (!elements.length) {
       console.error('Trying to set', elName, 'but no such element in form')
@@ -114,7 +114,7 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
 
     this.native.reset()
 
-    const elements = this._gatherFormElements()
+    const elements = this.elements()
 
     // TODO: Adjust this for radios in a nice sensible way
     for (const el of elements) {
@@ -153,13 +153,9 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     return 'value'
   }
 
-  _gatherFormElements (nonValueFormElement = false) {
-    let r = this.querySelectorAll('[name]')
-    if (nonValueFormElement) {
-      r = [...r, ...this.querySelectorAll('[non-value-form-element]')]
-    }
+  get elements () {
     // A tags (links) can have "name", filter them out
-    return r.filter(el => el.tagName !== 'A')
+    return this.querySelectorAll('[name]').filter(el => el.tagName !== 'A')
   }
 
   render () {

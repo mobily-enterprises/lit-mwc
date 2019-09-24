@@ -4,6 +4,7 @@ import { NnForm } from '../nn/Form.js'
 /* globals customElements CustomEvent */
 class EnForm extends NnForm {
   get reflectProperties () {
+    // The `submit` and `elements` properties have been redefined
     return super.reflectProperties.filter(attr => attr !== 'submit')
   }
 
@@ -73,7 +74,7 @@ class EnForm extends NnForm {
 
     if (this.validateOnRender) {
       // Wait for all children to be ready to rock and roll
-      const elements = this._gatherFormElements()
+      const elements = this.elements()
       for (const el of elements) {
         // TODO: What about React, Vue, etc.? Uniform API across element libraries?
         if (typeof el.updateComplete !== 'undefined') {
@@ -92,7 +93,7 @@ class EnForm extends NnForm {
   }
 
   setDataObject (o) {
-    const elements = this._gatherFormElements()
+    const elements = this.elements()
     const elHash = {}
     for (const el of elements) elHash[el.name] = el
 
@@ -156,7 +157,7 @@ class EnForm extends NnForm {
     if (!this.checkValidity()) return
 
     // Gather the element
-    const elements = this._gatherFormElements()
+    const elements = this.elements()
 
     // HOOK: Make up the submit object based on the passed elements
     const submitObject = this.createSubmitObject(elements)
@@ -192,7 +193,7 @@ class EnForm extends NnForm {
     this.presubmit(fetchOptions)
 
     // Disable the elements
-    const formElements = this._gatherFormElements()
+    const formElements = this.elements()
     this._disableElements(formElements)
 
     // fetch() wants a stingified body
@@ -241,7 +242,7 @@ class EnForm extends NnForm {
 
       // Set error messages
       if (errs.errors && errs.errors.length) {
-        const elements = this._gatherFormElements()
+        const elements = this.elements()
         const elHash = {}
         for (const el of elements) {
           elHash[el.name] = el
@@ -303,7 +304,7 @@ class EnForm extends NnForm {
       await this.updateComplete
 
       // Disable elements
-      const formElements = this._gatherFormElements()
+      const formElements = this.elements()
       this._disableElements(formElements)
 
       // Fetch the data and trasform it to json
