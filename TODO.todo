@@ -69,21 +69,19 @@
     ☐ Make sure that 'submit' (type=submit) button really submits
     ☐ Implement real-time form submit of single fields
   ☐ Rename element classes from Element to NnElement to facilitate subclassing
+  ☐ Rename files to lower case
+  ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
 
 ☐ Extra elements
   ✔ Write ee-network (backport from existing) @done(2019-09-22 20:01)
   ✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
-  ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
   ☐ Implement ee-drawer
   ☐ Implement ee-tabs
   ☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
   ☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
   ☐ Implement FAB en-fab
 
-(LATER)
-☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
-☐ Add TPE to https://github.com/web-padawan/awesome-lit-html
-☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+NATIVE FORMS
 ☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
   ☐ Do nn elements work with normal forms?
     ☐ IF NOT, Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
@@ -96,6 +94,11 @@
     ☐ Can it be hacked to return all elements including nn ones?
     ☐ If that happens, will it make any difference?
   ☐ Submit the form when the user preses ENTER on a sole inputText
+
+(LATER)
+☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
+☐ Add TPE to https://github.com/web-padawan/awesome-lit-html
+☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
 
   ☐ DOCUMENT VALIDATION BLUEPRINT:
