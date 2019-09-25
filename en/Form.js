@@ -51,6 +51,11 @@ class EnForm extends NnForm {
         attribute: false
       },
 
+      noAutoload: {
+        type: Boolean,
+        attribute: 'no-autoload'
+      },
+
       // This will allow users to redefine methods declaratively
       createSubmitObject: Function,
       presubmit: Function,
@@ -290,7 +295,7 @@ class EnForm extends NnForm {
 
     // If no-autoload is set to true, or there is no autoload or no recordId,
     // simply give up: nothing to do
-    if (this.getAttribute('no-autoload') || !changedProperties.has('recordId')) return
+    if (this.noAutoload || !changedProperties.has('recordId')) return
 
     // Record ID must be "something"
     if (typeof this.recordId === 'undefined' || this.recordId === null) return
