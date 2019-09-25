@@ -15,6 +15,11 @@ export const Select = (base) => {
       this.labelPosition = 'after'
       this.validationMessagePosition = 'after'
     }
+
+    connectedCallback () {
+      super.connectedCallback()
+      this.onclick = () => { this.native.click() }
+    }
     
     static get styles () {
       return [
@@ -23,7 +28,7 @@ export const Select = (base) => {
           :host {
             position: relative;
             height: var(--form-element-height);
-            padding: 10px;
+            padding: 12px;
             padding-top: 15px;
             width: fit-content;
           }
@@ -123,9 +128,9 @@ export const Select = (base) => {
 
           span.error-message {
             position: absolute;
-            bottom: 0px;
+            top: calc(100% - 5px);
             /* transform: translateY(0px); */
-            right: 2px;
+            left: 16px;
             font-size: 80%;
             white-space:nowrap;
             opacity: 0;
@@ -143,11 +148,11 @@ export const Select = (base) => {
             content: '';
             /* border: 2px solid var(--primary-color); */
             border: 5px solid transparent;
-            border-bottom-color: var(--primary-color);
+            border-top-color: var(--primary-color);
             position: absolute;
             right: 12px;
             bottom: 50%;
-            transform: translateY(40%);
+            /* transform: translateY(40%); */
           }
         `
       ]

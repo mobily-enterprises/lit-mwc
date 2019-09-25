@@ -6,70 +6,99 @@ const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24">
 export class Drawer extends ThemeableMixin('ee/Drawer')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
-      super.styles || [],
       css`
-       :host {
-         display: block
-       }
-
-       div.backdrop {
-        height: 100vh;
-        background-color: transparent;
-        pointer-events:fill;
-        z-index: 0;
-        position: fixed;
-        opacity: 0;
-        transition: opacity 0.5s ease-out, width 0.6s step-end ;
-        width: 0;
-       }
-
-       div.container {
-         height: 100vh; /* 100% Full-height */
-         position: fixed; /* Stay in place */
-         z-index: 1; /* Stay on top */
-         top: 0; /* Stay at the top */
-         left: 0;
-         will-change: transform;
-         transform: translateX(-100%);
-         overflow-x: hidden; /* Disable horizontal scroll */
-         transition: transform 0.3s ease-out; /* 0.5 second transition effect to slide in the sidenav */
-         background-color: var(--drawer-background, initial);
-       }
-
-       :host([opened]) div.container {
-         will-change: transform;
-         transform: translateX(0);
-         box-shadow: var(--drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14))
-       }
-
-       :host([opened]) div.backdrop {
-        background-color: rgba(0, 0, 0, 0.25);
-        opacity: 1;
-        transition: opacity 0.4s ease-out;
-        width: 100vw;
-       }
-
-       #close {
-         -webkit-appearance: none;
-         color: white;
-         fill: white;
-         position: absolute;
-         top: 5px;
-         right: 5px;
-         z-index: 10;
-         background: transparent;
-         border: none;
-       }
-
-
-       button#close:focus, button#close:active {
-          outline: none !important;
+        :host {
+          display: block
         }
 
-      button#close:active {
-        filter: brightness(50%)
-      }
-     `
+        div.backdrop {
+          height: 100vh;
+          background-color: transparent;
+          pointer-events:fill;
+          z-index: 0;
+          position: fixed;
+          opacity: 0;
+          transition: opacity 0.5s ease-out, width 0.6s step-end ;
+          width: 0;
+        }
+
+        div.container {
+          height: 100vh; /* 100% Full-height */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Stay on top */
+          top: 0; /* Stay at the top */
+          left: 0;
+          will-change: transform;
+          transform: translateX(-100%);
+          overflow-x: hidden; /* Disable horizontal scroll */
+          transition: transform 0.3s ease-out; /* 0.5 second transition effect to slide in the sidenav */
+          background-color: var(--drawer-background, initial);
+        }
+
+        :host([opened]) div.container {
+          will-change: transform;
+          transform: translateX(0);
+          box-shadow: var(--drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14))
+        }
+
+        :host([opened]) div.backdrop {
+          background-color: rgba(0, 0, 0, 0.25);
+          opacity: 1;
+          transition: opacity 0.4s ease-out;
+          width: 100vw;
+        }
+        
+
+        #close {
+          -webkit-appearance: none;
+          color: white;
+          fill: white;
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          z-index: 10;
+          background: transparent;
+          border: none;
+        }
+
+        ::slotted(nav) {
+          box-sizing: border-box;
+          width: var(--drawer-width, 250px);
+          height: 100%;
+          padding: 24px;
+          background: var(--drawer-background-color, #323232);
+          position: relative;
+        }
+
+        ::slotted(nav) > a {
+          display: block;
+          text-decoration: none;
+          color: var(--drawer-text-color, #dfdfdf);
+          line-height: 40px;
+          padding: 0 24px;
+          cursor: pointer;
+        }
+
+        ::slotted(nav) > a[selected] {
+          color: var(--drawer-selected-color, white);
+          font-weight: bolder;
+          border-left: 3px solid var(--drawer-selected-accent, white);
+          background-color: rgba(255,255,255, 0.1);
+        }
+
+        ::slotted(nav) > a:hover {
+          background-color: rgba(255,255,255, 0.05);
+        }
+
+
+        button#close:focus, button#close:active {
+            outline: none !important;
+          }
+
+        button#close:active {
+          filter: brightness(50%)
+        }
+      `
     ]
   }
 
@@ -98,4 +127,4 @@ export class Drawer extends ThemeableMixin('ee/Drawer')(StyleableMixin(LitElemen
   }
 }
 
-window.customElements.define('nn-drawer', Drawer)
+window.customElements.define('ee-drawer', Drawer)

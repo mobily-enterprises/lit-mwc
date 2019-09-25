@@ -3,9 +3,10 @@ import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
+import { StyleableMixin } from 'nn/mixins/StyleableMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-export class Textarea extends ThemeableMixin('nn/Textarea')(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
+export class Textarea extends ThemeableMixin('nn/Textarea')( StyleableMixin(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
     return [
       super.styles || [],

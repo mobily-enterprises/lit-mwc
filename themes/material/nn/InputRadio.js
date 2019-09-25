@@ -40,6 +40,22 @@ export const InputRadio = (base) => {
             width: 0;
           }
 
+          input:invalid {
+            background-color: var(--error-color);
+            color: var(--error-text);
+            border-color: var(--error-text);
+          }
+
+          :invalid {
+            border: unset;
+            border-bottom: var(--nn-input-border, var(--theme-border));
+          }
+
+          input:invalid + label, input:invalid ~ label {
+            background-color: none;
+            --nn-label-color: darkred;
+          }
+
           label::before { /* Background box */
             content: '';
             position: absolute;
@@ -98,6 +114,24 @@ export const InputRadio = (base) => {
             -ms-transform: scale(0.5);
             transform: scale(0.5);
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in;
+          }
+
+          span.error-message {
+            position: absolute;
+            top: calc(100% - 3px);
+            /* transform: translateY(0px); */
+            left: 16px;
+            font-size: 80%;
+            white-space:nowrap;
+            opacity: 0;
+            will-change: transform, opacity;
+            transition: all 0.3s ease-in-out;
+          }
+
+          input:invalid ~ span.error-message {
+            transform: translateY(-6px);
+            opacity: 1;
+            transition: all 0.3s ease-in-out;
           }
         `
       ]

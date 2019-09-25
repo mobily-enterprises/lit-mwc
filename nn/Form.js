@@ -1,9 +1,10 @@
 import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
+import { ThemeableMixin } from 'nn/mixins/ThemeableMixin'
 
 /* globals customElements */
-export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
+export class NnForm extends ThemeableMixin('nn/Form')(StyleableMixin(NativeReflectorMixin(LitElement))) {
   get reflectProperties () {
     return [
       ...super.reflectProperties,
