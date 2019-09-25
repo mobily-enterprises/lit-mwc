@@ -68,9 +68,9 @@ Validation and forms
   ☐ Check enter on submit: find out native behaviour, emulate it, offer option
   ☐ Make sure that 'submit' (type=submit) button really submits
   ☐ Implement real-time form submit of single fields
-☐ Tidy up
-  ☐ Rename element classes from Element to NnElement to facilitate subclassing
-  ☐ Rename files to lower case
+✔ Tidy up @done(2019-09-26 07:43)
+  ✔ Rename element classes from Element to NnElement to facilitate subclassing @done(2019-09-26 07:43)
+  ✔ [WON'T] Rename files to lower case @done(2019-09-26 07:43)
 ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
 
 ☐ Extra elements

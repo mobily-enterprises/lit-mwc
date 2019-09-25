@@ -4,7 +4,7 @@ import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-export class Progress extends ThemeableMixin('nn/Progress')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
+export class NnProgress extends ThemeableMixin('nn/Progress')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
     return [
       super.styles || [],
@@ -36,4 +36,4 @@ export class Progress extends ThemeableMixin('nn/Progress')(FormElementMixin(Inp
     `
   }
 }
-customElements.define('nn-progress', Progress)
+customElements.define('nn-progress', NnProgress)

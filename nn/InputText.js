@@ -6,7 +6,7 @@ import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-export class InputText extends ThemeableMixin('nn/InputText')(StyleableMixin(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
+export class NnInputText extends ThemeableMixin('nn/InputText')(StyleableMixin(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
   static get styles () {
     return [
       super.styles || [],
@@ -49,4 +49,4 @@ export class InputText extends ThemeableMixin('nn/InputText')(StyleableMixin(For
     `
   }
 }
-customElements.define('nn-input-text', InputText)
+customElements.define('nn-input-text', NnInputText)

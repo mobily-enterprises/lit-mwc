@@ -4,7 +4,7 @@ import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { InputMixin } from '../mixins/InputMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-class InputButton extends ThemeableMixin('nn/InputButton')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
+class NnInputButton extends ThemeableMixin('nn/InputButton')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   static get properties () {
     return {}
   }
@@ -16,4 +16,4 @@ class InputButton extends ThemeableMixin('nn/InputButton')(FormElementMixin(Inpu
      `
   }
 }
-customElements.define('nn-input-button', InputButton)
+customElements.define('nn-input-button', NnInputButton)

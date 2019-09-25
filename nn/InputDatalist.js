@@ -6,7 +6,7 @@ import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-export class InputDatalist extends ThemeableMixin('nn/InputDatalist')(FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+export class NnInputDatalist extends ThemeableMixin('nn/InputDatalist')(FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
     return [
       super.styles || [],
@@ -59,4 +59,4 @@ export class InputDatalist extends ThemeableMixin('nn/InputDatalist')(FormElemen
     }
   }
 }
-customElements.define('nn-input-datalist', InputDatalist)
+customElements.define('nn-input-datalist', NnInputDatalist)

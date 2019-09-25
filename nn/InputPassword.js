@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
-import { InputText } from './InputText'
+import { NnInputText } from './InputText'
 
-class InputPassword extends InputText {
+class NnInputPassword extends NnInputText {
   render () {
     return html`
       ${this.customStyle}
@@ -11,4 +11,4 @@ class InputPassword extends InputText {
     `
   }
 }
-window.customElements.define('nn-input-password', InputPassword)
+window.customElements.define('nn-input-password', NnInputPassword)

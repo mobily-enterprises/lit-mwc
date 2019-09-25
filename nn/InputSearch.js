@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
-import { InputText } from './InputText'
+import { NnInputText } from './InputText'
 
-class InputSearch extends InputText {
+class NnInputSearch extends NnInputText {
   render () {
     return html`
       ${this.customStyle}
@@ -11,4 +11,4 @@ class InputSearch extends InputText {
     `
   }
 }
-window.customElements.define('nn-input-tel', InputSearch)
+window.customElements.define('nn-input-tel', NnInputSearch)

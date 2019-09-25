@@ -5,7 +5,7 @@ import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-export class Select extends ThemeableMixin('nn/Select')(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
+export class NnSelect extends ThemeableMixin('nn/Select')(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
   static get styles () {
     return [
       super.styles || [],
@@ -64,4 +64,4 @@ export class Select extends ThemeableMixin('nn/Select')(FormElementMixin(LabelsM
     }
   }
 }
-customElements.define('nn-select', Select)
+customElements.define('nn-select', NnSelect)

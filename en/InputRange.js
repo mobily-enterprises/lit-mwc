@@ -6,7 +6,7 @@ import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-class InputRange extends ThemeableMixin('en/InputRange')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+class EnInputRange extends ThemeableMixin('en/InputRange')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
     return [
       super.styles || [],
@@ -73,4 +73,4 @@ class InputRange extends ThemeableMixin('en/InputRange')(FormElementMixin(Stylea
     this._updateSpanInSlot(e.srcElement, this.shownValue)
   }
 }
-window.customElements.define('en-input-range', InputRange)
+window.customElements.define('en-input-range', EnInputRange)

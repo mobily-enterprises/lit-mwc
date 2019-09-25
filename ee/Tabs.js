@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from '../mixins/StyleableMixin'
 import { ThemeableMixin } from '../mixins/ThemeableMixin'
 
-export class Tabs extends ThemeableMixin('ee/Tabs')(StyleableMixin(LitElement)) {
+export class EeTabs extends ThemeableMixin('ee/Tabs')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       super.styles || [],
@@ -124,4 +124,4 @@ export class Tabs extends ThemeableMixin('ee/Tabs')(StyleableMixin(LitElement)) 
     this.parentElement.dispatchEvent(new CustomEvent('clicked-slot', { detail: { event: e, selected: this.id } }))
   }
 }
-customElements.define('nl-tabs', Tabs)
+customElements.define('nl-tabs', EeTabs)

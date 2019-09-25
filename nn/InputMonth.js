@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
-import { InputText } from './InputText'
+import { NnInputText } from './InputText'
 
-class InputMonth extends InputText {
+class NnInputMonth extends NnInputText {
   render () {
     return html`
       ${this.customStyle}
@@ -13,4 +13,4 @@ class InputMonth extends InputText {
     `
   }
 }
-window.customElements.define('nn-input-month', InputMonth)
+window.customElements.define('nn-input-month', NnInputMonth)

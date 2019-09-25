@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
-import { InputText } from './InputText'
+import { NnInputText } from './InputText'
 
-class InputWeek extends InputText {
+class NnInputWeek extends NnInputText {
   render () {
     return html`
       ${this.customStyle}
@@ -13,4 +13,4 @@ class InputWeek extends InputText {
     `
   }
 }
-window.customElements.define('nn-input-week', InputWeek)
+window.customElements.define('nn-input-week', NnInputWeek)

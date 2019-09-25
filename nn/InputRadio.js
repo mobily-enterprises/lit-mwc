@@ -6,7 +6,7 @@ import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-class InputRadio extends ThemeableMixin('nn/InputRadio')(FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+class NnInputRadio extends ThemeableMixin('nn/InputRadio')(FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
     return [
       super.styles || [],
@@ -38,4 +38,4 @@ class InputRadio extends ThemeableMixin('nn/InputRadio')(FormElementMixin(Labels
     }
   }
 }
-customElements.define('nn-input-radio', InputRadio)
+customElements.define('nn-input-radio', NnInputRadio)

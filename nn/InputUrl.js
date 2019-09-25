@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
-import { InputText } from './InputText'
+import { NnInputText } from './InputText'
 
-class InputUrl extends InputText {
+class NnInputUrl extends NnInputText {
   render () {
     return html`
       ${this.customStyle}
@@ -13,4 +13,4 @@ class InputUrl extends InputText {
     `
   }
 }
-window.customElements.define('nn-input-url', InputUrl)
+window.customElements.define('nn-input-url', NnInputUrl)

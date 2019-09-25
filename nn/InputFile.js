@@ -6,7 +6,7 @@ import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-export class InputFile extends ThemeableMixin('nn/InputFile')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+export class NnInputFile extends ThemeableMixin('nn/InputFile')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
     return [
       super.styles || [],
@@ -65,4 +65,4 @@ export class InputFile extends ThemeableMixin('nn/InputFile')(FormElementMixin(S
     this.fileName = native.files.length > 1 ? this.manyFilesText : native.value
   }
 }
-customElements.define('nn-input-file', InputFile)
+customElements.define('nn-input-file', NnInputFile)

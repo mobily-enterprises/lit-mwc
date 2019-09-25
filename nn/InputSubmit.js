@@ -4,7 +4,7 @@ import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-class InputSubmit extends ThemeableMixin('InputSubmit')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
+class NnInputSubmit extends ThemeableMixin('InputSubmit')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   render () {
     return html`
       ${this.customStyle}
@@ -18,4 +18,4 @@ class InputSubmit extends ThemeableMixin('InputSubmit')(FormElementMixin(InputMi
     }
   }
 }
-customElements.define('nn-input-submit', InputSubmit)
+customElements.define('nn-input-submit', NnInputSubmit)

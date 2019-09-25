@@ -1,4 +1,4 @@
-import { html, css, LitElement} from 'lit-element'
+import { html, css, LitElement } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
@@ -6,7 +6,7 @@ import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-class InputRange extends ThemeableMixin('nn/InputRange')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+class NnInputRange extends ThemeableMixin('nn/InputRange')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
     return [
       super.styles || [],
@@ -30,4 +30,4 @@ class InputRange extends ThemeableMixin('nn/InputRange')(FormElementMixin(Stylea
     `
   }
 }
-window.customElements.define('nn-input-range', InputRange)
+window.customElements.define('nn-input-range', NnInputRange)

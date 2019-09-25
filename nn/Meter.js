@@ -4,7 +4,7 @@ import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-export class Meter extends ThemeableMixin('Meter')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
+export class NnMeter extends ThemeableMixin('Meter')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
     return [
       super.styles || [],
@@ -31,4 +31,4 @@ export class Meter extends ThemeableMixin('Meter')(FormElementMixin(InputMixin(N
     `
   }
 }
-customElements.define('nn-meter', Meter)
+customElements.define('nn-meter', NnMeter)

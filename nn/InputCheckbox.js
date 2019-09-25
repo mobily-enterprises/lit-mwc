@@ -6,7 +6,7 @@ import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-class InputCheckbox extends ThemeableMixin('nn/InputCheckbox')(FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+class NnInputCheckbox extends ThemeableMixin('nn/InputCheckbox')(FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
     return [
       super.styles || [],
@@ -31,4 +31,4 @@ class InputCheckbox extends ThemeableMixin('nn/InputCheckbox')(FormElementMixin(
     `
   }
 }
-customElements.define('nn-input-checkbox', InputCheckbox)
+customElements.define('nn-input-checkbox', NnInputCheckbox)

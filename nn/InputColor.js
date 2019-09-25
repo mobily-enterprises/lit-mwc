@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
-import { InputText } from './InputText'
+import { NnInputText } from './InputText'
 
-class InputColor extends InputText {
+class NnInputColor extends NnInputText {
   render () {
     return html`
       ${this.customStyle}
@@ -11,4 +11,4 @@ class InputColor extends InputText {
     `
   }
 }
-window.customElements.define('nn-input-color', InputColor)
+window.customElements.define('nn-input-color', NnInputColor)

@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
-import { InputText } from './InputText'
+import { NnInputText } from './InputText'
 
-class InputEmail extends InputText {
+class NnInputEmail extends NnInputText {
   render () {
     return html`
       ${this.customStyle}
@@ -13,4 +13,4 @@ class InputEmail extends InputText {
     `
   }
 }
-window.customElements.define('nn-input-email', InputEmail)
+window.customElements.define('nn-input-email', NnInputEmail)

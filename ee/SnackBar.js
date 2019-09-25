@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from '../mixins/StyleableMixin'
 import { ThemeableMixin } from '../mixins/ThemeableMixin'
 
-class SnackBar extends ThemeableMixin('ee/SnackBar')(StyleableMixin(LitElement)) {
+class EeSnackBar extends ThemeableMixin('ee/SnackBar')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       css`
@@ -97,4 +97,4 @@ class SnackBar extends ThemeableMixin('ee/SnackBar')(StyleableMixin(LitElement))
   }
 }
 
-window.customElements.define('ee-snack-bar', SnackBar)
+window.customElements.define('ee-snack-bar', EeSnackBar)

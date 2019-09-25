@@ -1,7 +1,7 @@
 import { html } from 'lit-element'
-import { InputText } from './InputText'
+import { NnInputText } from './InputText'
 
-class InputDate extends InputText {
+class NnInputDate extends NnInputText {
   render () {
     return html`
       ${this.customStyle}
@@ -13,4 +13,4 @@ class InputDate extends InputText {
     `
   }
 }
-window.customElements.define('nn-input-date', InputDate)
+window.customElements.define('nn-input-date', NnInputDate)
