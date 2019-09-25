@@ -25,6 +25,11 @@ import { Meter } from './nn/Meter'
 import { Progress } from './nn/Progress'
 import { Select } from './nn/Select'
 import { TextArea } from './nn/TextArea'
+import { SnackBar } from './ee/SnackBar'
+import { Drawer } from './ee/Drawer'
+import { Tabs } from './ee/Tabs'
+import { Network } from './ee/Network'
+
 
 window.TP_THEME = {
   'common': CommonStyle,
@@ -53,5 +58,9 @@ window.TP_THEME = {
   'nn/Meter': Meter,
   'nn/Progress': Progress,
   'nn/Select': Select,
-  'nn/Textarea': TextArea
+  'nn/Textarea': TextArea,
+  'ee/SnackBar': SnackBar,
+  'ee/Drawer': Drawer,
+  'ee/Tabs': Tabs,
+  'ee/Network': Network
 }

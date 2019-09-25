@@ -16,6 +16,10 @@ export const StyleableMixin = (base) => {
       }
     }
 
+    static get styles() {
+      return super.styles || []
+    }
+
     get customStyle () {
       return html`
           ${this.stylesheet ? html`<link rel="stylesheet" href="${this.stylesheet}">` : ''}
