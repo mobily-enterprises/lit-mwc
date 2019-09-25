@@ -6,7 +6,9 @@ class InputDate extends InputText {
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <input type="date" id="native">
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }

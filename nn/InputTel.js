@@ -6,7 +6,9 @@ class InputTel extends InputText {
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <input type="tel" id="native">
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }

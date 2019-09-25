@@ -23,7 +23,9 @@ class InputRange extends ThemeableMixin('nn/InputRange')(FormElementMixin(Stylea
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <input type="range" id="native">
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }

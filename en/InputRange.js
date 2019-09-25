@@ -38,7 +38,9 @@ class InputRange extends ThemeableMixin('en/InputRange')(FormElementMixin(Stylea
       ${this.customStyle}
       <slot @slotchange="${this.slotChanged}" id="range-amount-before" name="range-amount-before"></slot>
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <input @change=${this.updateShownValue} type="range" id="native">
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
       <slot @slotchange="${this.slotChanged}" id="range-amount-after" name="range-amount-after"></slot>
     `

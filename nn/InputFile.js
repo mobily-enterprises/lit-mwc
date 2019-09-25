@@ -52,7 +52,9 @@ export class InputFile extends ThemeableMixin('nn/InputFile')(FormElementMixin(S
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <input type="file" id="native" @change="${this.fileNameChanged}" hidden>
+      ${this.ifValidationMessageAfter}
       ${this.fileName}
       ${this.ifLabelAfter}
     `

@@ -6,7 +6,9 @@ class InputEmail extends InputText {
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
-      <input type="password" id="native">
+      ${this.ifValidationMessageBefore}
+      <input type="email" id="native">
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }
