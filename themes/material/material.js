@@ -25,7 +25,7 @@ import { NnInputWeek } from './nn/InputWeek'
 import { NnMeter } from './nn/Meter'
 import { NnProgress } from './nn/Progress'
 import { NnSelect } from './nn/Select'
-import { NnTextarea } from './nn/Textarea'
+import { NnTextArea } from './nn/TextArea'
 
 import { EnForm } from './en/Form'
 import { EnInputRange } from './en/InputRange'
@@ -62,7 +62,7 @@ window.TP_THEME = {
   'nn/Meter': NnMeter,
   'nn/Progress': NnProgress,
   'nn/Select': NnSelect,
-  'nn/Textarea': NnTextarea,
+  'nn/TextArea': NnTextArea,
 
   'en/Form': EnForm,
   'en/InputRange': EnInputRange,
