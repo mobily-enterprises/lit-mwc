@@ -28,11 +28,12 @@ import { NnSelect } from './nn/Select'
 import { NnTextarea } from './nn/Textarea'
 
 import { EnForm } from './en/Form'
+import { EnInputRange } from './en/InputRange'
 
-import { EeSnackBar } from './ee/SnackBar'
 import { EeDrawer } from './ee/Drawer'
-import { EeTabs } from './ee/Tabs'
 import { EeNetwork } from './ee/Network'
+import { EeSnackBar } from './ee/SnackBar'
+import { EeTabs } from './ee/Tabs'
 
 window.TP_THEME = {
   common: CommonStyle,
@@ -64,6 +65,7 @@ window.TP_THEME = {
   'nn/Textarea': NnTextarea,
 
   'en/Form': EnForm,
+  'en/InputRange': EnInputRange,
 
   'ee/SnackBar': EeSnackBar,
   'ee/Drawer': EeDrawer,
