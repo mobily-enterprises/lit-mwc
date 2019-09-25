@@ -30,9 +30,8 @@ import { Drawer } from './ee/Drawer'
 import { Tabs } from './ee/Tabs'
 import { Network } from './ee/Network'
 
-
 window.TP_THEME = {
-  'common': CommonStyle,
+  common: CommonStyle,
   'nn/InputText': InputText,
   'nn/InputButton': InputButton,
   'nn/Button': Button,
