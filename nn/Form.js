@@ -17,7 +17,7 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     let valid = true
     // if (!this.native.checkValidity()) valid = false
 
-    for (const el of this.elements()) {
+    for (const el of this.elements) {
       if (typeof el.checkValidity === 'function') {
         // Native element may have customValidity set
         // by a server response
@@ -33,13 +33,16 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   }
 
   setFormElementValue (elName, value) {
-    const el = this.form.elements().find(el => {
+    const el = [...this.elements].find(el => {
       if (this._radioElement(el)) {
         return el.name === elName && el.value === value
       } else {
         return el.name === elName
       }
     })
+
+    if (!el) return
+
     // Get the original value
     const valueSource = this._getElementValueSource(el)
 
@@ -51,8 +54,8 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
     // Radio elements
     } else if (this._radioElement(el)) {
       el[valueSource] = true
-      const others = [...this.form.elements()].filter(el =>
-        el !== this &&
+      const others = [...this.elements].filter(e =>
+        el !== e &&
         this._radioElement(el)
       )
       for (const other of others) other[valueSource] = false
@@ -70,7 +73,7 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
   }
 
   getFormElementValue (elName) {
-    const elements = this.form.elements().filter(el => el.name === elName)
+    const elements = [...this.elements].filter(el => el.name === elName)
 
     if (!elements.length) {
       console.error('Trying to set', elName, 'but no such element in form')
@@ -111,10 +114,8 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
 
     this.native.reset()
 
-    const elements = this.elements()
-
     // TODO: Adjust this for radios in a nice sensible way
-    for (const el of elements) {
+    for (const el of this.elements) {
       const valueSource = this._getElementValueSource(el)
 
       if (this._radioElement(el)) {
@@ -152,7 +153,7 @@ export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement)) {
 
   get elements () {
     // A tags (links) can have "name", filter them out
-    return this.querySelectorAll('[name]').filter(el => el.tagName !== 'A')
+    return [...this.querySelectorAll('[name]')].filter(el => el.tagName !== 'A')
   }
 
   render () {
