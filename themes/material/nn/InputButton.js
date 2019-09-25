@@ -1,9 +1,10 @@
-import { html, css } from 'lit-element'
+import { css } from 'lit-element'
 
-export const InputButton = (base) => {
+export const NnInputButton = (base) => {
   return class Base extends base {
     static get styles () {
-      return [ ...super.styles,  
+      return [
+        ...super.styles || [],
         css`
           :host {
             display: inline-block;
@@ -28,7 +29,7 @@ export const InputButton = (base) => {
           }
 
           input:active, input:focus {
-            outline: none;            
+            outline: none;
           }
 
           input:active, :host([outlined]:not([text])) input:active {
@@ -38,20 +39,20 @@ export const InputButton = (base) => {
             border-color: var(--primary-color);
           }
 
-          :host([text]:not([outlined])) input, 
+          :host([text]:not([outlined])) input,
           :host([text]:not([raised])) input {
             background-color: transparent;
             color: var(--nn-button-color, var(--primary-color));
           }
 
-          :host([text]:not([outlined])) input:active, 
+          :host([text]:not([outlined])) input:active,
           :host([text]:not([raised])) input:active {
             border-style: solid;
             border-width: 1px;
             border-color: transparent;
           }
 
-          :host([text]:not([outlined])) input:hover, 
+          :host([text]:not([outlined])) input:hover,
           :host([text]:not([raised])) input:hover {
             background-color: var(--primary-color-light);
             color: var(--primary-color-dark)

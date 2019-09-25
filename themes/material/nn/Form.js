@@ -1,10 +1,10 @@
 import { css } from 'lit-element'
 
-export const Form = (base) => {
+export const NnForm = (base) => {
   return class Base extends base {
     static get styles () {
       return [
-        super.styles || [],
+        ...super.styles || [],
         css`
           ::slotted(*) fieldset, ::slotted(fieldset) {
             border-radius: 5px;

@@ -1,6 +1,13 @@
-import { html, css } from 'lit-element'
+import { css } from 'lit-element'
 
-export const InputMonth = (base) => {
+export const NnInputMonth = (base) => {
   return class Base extends base {
+    static get styles () {
+      return [
+        ...super.styles || [],
+        css`
+        `
+      ]
+    }
   }
 }

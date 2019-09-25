@@ -1,65 +1,72 @@
 import { CommonStyle } from './CommonStyle'
-import { InputText } from './nn/InputText'
-import { InputButton } from './nn/InputButton'
-import { Button } from './nn/Button'
-import { Form } from './nn/Form'
-import { InputCheckBox } from './nn/InputCheckBox'
-import { InputColor } from './nn/InputColor'
-import { InputDataList } from './nn/InputDataList'
-import { InputDate } from './nn/InputDate'
-import { InputDateTimeLocal } from './nn/InputDateTimeLocal'
-import { InputEmail } from './nn/InputEmail'
-import { InputFile } from './nn/InputFile'
-import { InputMonth } from './nn/InputMonth'
-import { InputNumber } from './nn/InputNumber'
-import { InputPassword } from './nn/InputPassword'
-import { InputRadio } from './nn/InputRadio'
-import { InputRange } from './nn/InputRange'
-import { InputSearch } from './nn/InputSearch'
-import { InputSubmit } from './nn/InputSubmit'
-import { InputTel } from './nn/InputTel'
-import { InputTime } from './nn/InputTime'
-import { InputUrl } from './nn/InputUrl'
-import { InputWeek } from './nn/InputWeek'
-import { Meter } from './nn/Meter'
-import { Progress } from './nn/Progress'
-import { Select } from './nn/Select'
-import { Textarea } from './nn/Textarea'
-import { SnackBar } from './ee/SnackBar'
-import { Drawer } from './ee/Drawer'
-import { Tabs } from './ee/Tabs'
-import { Network } from './ee/Network'
+
+import { NnInputText } from './nn/InputText'
+import { NnInputButton } from './nn/InputButton'
+import { NnButton } from './nn/Button'
+import { NnForm } from './nn/Form'
+import { NnInputCheckBox } from './nn/InputCheckBox'
+import { NnInputColor } from './nn/InputColor'
+import { NnInputDataList } from './nn/InputDataList'
+import { NnInputDate } from './nn/InputDate'
+import { NnInputDateTimeLocal } from './nn/InputDateTimeLocal'
+import { NnInputEmail } from './nn/InputEmail'
+import { NnInputFile } from './nn/InputFile'
+import { NnInputMonth } from './nn/InputMonth'
+import { NnInputNumber } from './nn/InputNumber'
+import { NnInputPassword } from './nn/InputPassword'
+import { NnInputRadio } from './nn/InputRadio'
+import { NnInputRange } from './nn/InputRange'
+import { NnInputSearch } from './nn/InputSearch'
+import { NnInputSubmit } from './nn/InputSubmit'
+import { NnInputTel } from './nn/InputTel'
+import { NnInputTime } from './nn/InputTime'
+import { NnInputUrl } from './nn/InputUrl'
+import { NnInputWeek } from './nn/InputWeek'
+import { NnMeter } from './nn/Meter'
+import { NnProgress } from './nn/Progress'
+import { NnSelect } from './nn/Select'
+import { NnTextarea } from './nn/Textarea'
+
+import { EnForm } from './en/Form'
+
+import { EeSnackBar } from './ee/SnackBar'
+import { EeDrawer } from './ee/Drawer'
+import { EeTabs } from './ee/Tabs'
+import { EeNetwork } from './ee/Network'
 
 window.TP_THEME = {
   common: CommonStyle,
-  'nn/InputText': InputText,
-  'nn/InputButton': InputButton,
-  'nn/Button': Button,
-  'nn/Form': Form,
-  'nn/InputCheckbox': InputCheckBox,
-  'nn/InputColor': InputColor,
-  'nn/InputDatalist': InputDataList,
-  'nn/InputDate': InputDate,
-  'nn/InputDateTimeLocal': InputDateTimeLocal,
-  'nn/InputEmail': InputEmail,
-  'nn/InputFile': InputFile,
-  'nn/InputMonth': InputMonth,
-  'nn/InputNumber': InputNumber,
-  'nn/InputPassword': InputPassword,
-  'nn/InputRadio': InputRadio,
-  'nn/InputRange': InputRange,
-  'nn/InputSearch': InputSearch,
-  'nn/InputSubmit': InputSubmit,
-  'nn/InputTel': InputTel,
-  'nn/InputTime': InputTime,
-  'nn/InputUrl': InputUrl,
-  'nn/InputWeek': InputWeek,
-  'nn/Meter': Meter,
-  'nn/Progress': Progress,
-  'nn/Select': Select,
-  'nn/Textarea': Textarea,
-  'ee/SnackBar': SnackBar,
-  'ee/Drawer': Drawer,
-  'ee/Tabs': Tabs,
-  'ee/Network': Network
+  'nn/InputText': NnInputText,
+  'nn/InputButton': NnInputButton,
+  'nn/Button': NnButton,
+  'nn/Form': NnForm,
+  'nn/InputCheckbox': NnInputCheckBox,
+  'nn/InputColor': NnInputColor,
+  'nn/InputDatalist': NnInputDataList,
+  'nn/InputDate': NnInputDate,
+  'nn/InputDateTimeLocal': NnInputDateTimeLocal,
+  'nn/InputEmail': NnInputEmail,
+  'nn/InputFile': NnInputFile,
+  'nn/InputMonth': NnInputMonth,
+  'nn/InputNumber': NnInputNumber,
+  'nn/InputPassword': NnInputPassword,
+  'nn/InputRadio': NnInputRadio,
+  'nn/InputRange': NnInputRange,
+  'nn/InputSearch': NnInputSearch,
+  'nn/InputSubmit': NnInputSubmit,
+  'nn/InputTel': NnInputTel,
+  'nn/InputTime': NnInputTime,
+  'nn/InputUrl': NnInputUrl,
+  'nn/InputWeek': NnInputWeek,
+  'nn/Meter': NnMeter,
+  'nn/Progress': NnProgress,
+  'nn/Select': NnSelect,
+  'nn/Textarea': NnTextarea,
+
+  'en/Form': EnForm,
+
+  'ee/SnackBar': EeSnackBar,
+  'ee/Drawer': EeDrawer,
+  'ee/Tabs': EeTabs,
+  'ee/Network': EeNetwork
 }

@@ -4,7 +4,7 @@ import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-class Button extends ThemeableMixin('nn/Button')(FormElementMixin(StyleableMixin(NativeReflectorMixin(LitElement)))) {
+class NnButton extends ThemeableMixin('nn/Button')(FormElementMixin(StyleableMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
     return [
       super.styles || []
@@ -47,4 +47,4 @@ class Button extends ThemeableMixin('nn/Button')(FormElementMixin(StyleableMixin
     if (this.getAttribute('type') === 'submit') this.form.submit()
   }
 }
-customElements.define('nn-button', Button)
+customElements.define('nn-button', NnButton)

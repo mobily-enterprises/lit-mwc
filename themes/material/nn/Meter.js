@@ -1,6 +1,13 @@
-import { html, css } from 'lit-element'
+import { css } from 'lit-element'
 
-export const Meter = (base) => {
+export const NnMeter = (base) => {
   return class Base extends base {
+    static get styles () {
+      return [
+        ...super.styles || [],
+        css`
+        `
+      ]
+    }
   }
 }

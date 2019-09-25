@@ -1,9 +1,10 @@
-import { html, css } from 'lit-element'
+import { css } from 'lit-element'
 
-export const Button = (base) => {
+export const NnButton = (base) => {
   return class Base extends base {
     static get styles () {
-      return [ ...super.styles,  
+      return [
+        ...super.styles || [],
         css`
           :host {
             display: inline-block;
@@ -28,7 +29,7 @@ export const Button = (base) => {
           }
 
           button:active, button:focus {
-            outline: none;            
+            outline: none;
           }
 
           button:focus {
@@ -44,27 +45,27 @@ export const Button = (base) => {
             border-color: var(--primary-color);
           }
 
-          :host([text]:not([outlined])) button, 
+          :host([text]:not([outlined])) button,
           :host([text]:not([raised])) button {
             background-color: transparent;
             color: var(--nn-button-color, var(--primary-color));
           }
 
-          :host([text]:not([outlined])) button:focus, 
+          :host([text]:not([outlined])) button:focus,
           :host([text]:not([raised])) button:focus {
             background-color: transparent;
             color: var(--nn-button-color, var(--primary-color));
             box-shadow: var(--theme-box-shadow2);
           }
 
-          :host([text]:not([outlined])) button:active, 
+          :host([text]:not([outlined])) button:active,
           :host([text]:not([raised])) button:active {
             border-style: solid;
             border-width: 1px;
             border-color: transparent;
           }
 
-          :host([text]:not([outlined])) button:hover, 
+          :host([text]:not([outlined])) button:hover,
           :host([text]:not([raised])) button:hover {
             background-color: var(--primary-color-light);
             color: var(--primary-color-dark)

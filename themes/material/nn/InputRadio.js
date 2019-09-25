@@ -1,24 +1,17 @@
-import { html, css } from 'lit-element'
+import { css } from 'lit-element'
 
-export const InputRadio = (base) => {
+export const NnInputRadio = (base) => {
   return class Base extends base {
-    static get properties () {
-      return {
-        validationMessagePosition: { type: String, attribute: false, noAccessor: true },
-        labelPosition: { type: String, noAccessor: true, attribute: false}
-      }
-    }
-
     constructor () {
       super()
       this.labelPosition = 'after'
       this.validationMessagePosition = 'after'
-      this.label=''
+      this.label = ''
     }
-    
+
     static get styles () {
       return [
-        ...super.styles,
+        ...super.styles || [],
         css`
           :host {
             display: block;
@@ -101,7 +94,7 @@ export const InputRadio = (base) => {
             transition: opacity 0.3s ease-out;
           }
 
-          input:checked ~ label::after { 
+          input:checked ~ label::after {
             display: block;
             left: 0;
             top: 0;

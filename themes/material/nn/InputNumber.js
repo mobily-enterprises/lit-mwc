@@ -1,6 +1,13 @@
-import { html, css } from 'lit-element'
+import { css } from 'lit-element'
 
-export const InputNumber = (base) => {
+export const NnInputNumber = (base) => {
   return class Base extends base {
+    static get styles () {
+      return [
+        ...super.styles || [],
+        css`
+        `
+      ]
+    }
   }
 }

@@ -1,8 +1,9 @@
 import { html } from 'lit-element'
 import { NnForm } from '../nn/Form.js'
+import { ThemeableMixin } from 'nn/mixins/ThemeableMixin'
 
 /* globals customElements CustomEvent */
-class EnForm extends NnForm {
+class EnForm extends ThemeableMixin('en/Form')(NnForm) {
   get reflectProperties () {
     // The `submit` and `elements` properties have been redefined
     return super.reflectProperties.filter(attr => attr !== 'submit')

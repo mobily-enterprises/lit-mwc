@@ -1,24 +1,17 @@
 import { css } from 'lit-element'
 import { AddHasValueAttributeMixin } from 'nn/mixins/AddHasValueAttributeMixin'
 
-export const InputText = (base) => {
+export const NnInputText = (base) => {
   return class Base extends AddHasValueAttributeMixin(base) {
-    static get properties () {
-      return {
-        validationMessagePosition: { type: String, attribute: false, noAccessor: true },
-        labelPosition: { type: String, noAccessor: true, attribute: false}
-      }
-    }
-
     constructor () {
       super()
       this.labelPosition = 'after'
       this.validationMessagePosition = 'after'
     }
-    
+
     static get styles () {
       return [
-        super.styles,
+        super.styles || [],
         css`
           :host {
             position: relative;

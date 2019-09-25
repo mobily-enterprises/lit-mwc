@@ -1,6 +1,6 @@
 import { css } from 'lit-element'
 
-export const NnInputWeek = (base) => {
+export const EnForm = (base) => {
   return class Base extends base {
     static get styles () {
       return [

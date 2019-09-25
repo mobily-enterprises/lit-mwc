@@ -1,15 +1,8 @@
-import { html, css } from 'lit-element'
+import { css } from 'lit-element'
 import { AddHasValueAttributeMixin } from 'nn/mixins/AddHasValueAttributeMixin'
 
-export const Select = (base) => {
+export const NnSelect = (base) => {
   return class Base extends AddHasValueAttributeMixin(base) {
-    static get properties () {
-      return {
-        validationMessagePosition: { type: String, attribute: false, noAccessor: true },
-        labelPosition: { type: String, noAccessor: true, attribute: false}
-      }
-    }
-
     constructor () {
       super()
       this.labelPosition = 'after'
@@ -20,10 +13,10 @@ export const Select = (base) => {
       super.connectedCallback()
       this.onclick = () => { this.native.click() }
     }
-    
+
     static get styles () {
       return [
-        super.styles,
+        super.styles || [],
         css`
           :host {
             position: relative;
@@ -103,7 +96,7 @@ export const Select = (base) => {
             will-change: transform;
             transition: all 0.35s ease-in-out;
           }
-          
+
           /* If label issue is solved */
           /* :host([has-value]) label::before, select:focus ~ label::before { */
           label::before, select:focus ~ label::before {
