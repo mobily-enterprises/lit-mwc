@@ -95,12 +95,10 @@ EXTRA ELEMENTS:
 ☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
 ☐ Implement FAB en-fab
 
-
 LATER:
 ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
 ☐ Add TPE to https://github.com/web-padawan/awesome-lit-html
 ☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
-
 
 DOCUMENT VALIDATION BLUEPRINT:
 ☐ OVERRIDE checkValidity (nn, in FormElementMixin)
