@@ -1,7 +1,8 @@
 import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
+import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-export class EeNetwork extends StyleableMixin(LitElement) {
+export class EeNetwork extends ThemeableMixin('ee/Network')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       super.styles || [],

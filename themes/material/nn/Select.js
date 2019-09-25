@@ -37,7 +37,7 @@ export const Select = (base) => {
             background-color: var(--nn-select-background, var(--input-background));
             width: 100%;
             font-size: 1em;
-            padding-left: 10px;
+            padding: 0 15px;
             margin-left: 4px;
             height: var(--form-element-height);
             -webkit-appearance: none;

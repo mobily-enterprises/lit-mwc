@@ -1,6 +1,8 @@
 import { LitElement, html, css } from 'lit-element'
+import { StyleableMixin } from '../mixins/StyleableMixin'
+import { ThemeableMixin } from '../mixins/ThemeableMixin'
 
-export class Tabs extends LitElement {
+export class Tabs extends ThemeableMixin('ee/Tabs')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       super.styles || [],

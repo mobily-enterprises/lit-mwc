@@ -2,8 +2,9 @@ import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
+import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-export class Meter extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
+export class Meter extends ThemeableMixin('Meter')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
     return [
       super.styles || [],

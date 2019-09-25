@@ -4,8 +4,9 @@ import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
 import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from '../mixins/StyleableMixin.js'
+import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-class InputRange extends FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
+class InputRange extends ThemeableMixin('en/InputRange')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
     return [
       super.styles || [],

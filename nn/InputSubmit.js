@@ -2,8 +2,9 @@ import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
 import { InputMixin } from '../mixins/InputMixin.js'
 import { FormElementMixin } from '../mixins/FormElementMixin.js'
+import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-class InputSubmit extends FormElementMixin(InputMixin(NativeReflectorMixin(LitElement))) {
+class InputSubmit extends ThemeableMixin('InputSubmit')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   render () {
     return html`
       ${this.customStyle}

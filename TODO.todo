@@ -72,7 +72,36 @@ Validation and forms
 ☐ Rename files to lower case
 ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
 
-NATIVE FORMS:
+☐ Extra elements
+  ✔ Write ee-network (backport from existing) @done(2019-09-22 20:01)
+  ✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
+  ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
+  ☐ Implement ee-drawer
+  ☐ Implement ee-tabs
+  ☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
+  ☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
+  ☐ Implement FAB en-fab
+  ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
+  ☐ Add TP to https://github.com/web-padawan/awesome-lit-html
+  ☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+
+Issues:
+  ☐ #6: make sure focus is redirected to inputText (https://github.com/mobily-enterprises/tpe/issues/6)
+  ☐ #7: Improve focus visual feedback (https://github.com/mobily-enterprises/tpe/issues/7)
+
+☐ Material Theme:
+  ☐ Base, custom css properties
+  ☐ implement it for all nn elements
+  ☐ document it
+  ☐ extend to en and ee elements
+
+☐ Basic (default) style:
+  ☐ Base, custom css properties
+  ☐ implement it for all nn elements
+  ☐ document it
+  ☐ extend to en and ee elements
+
+(LATER)
 ☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
   ☐ Do nn elements work with normal forms?
     ☐ IF NOT, Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
