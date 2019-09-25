@@ -23,7 +23,7 @@ import { InputWeek } from './nn/InputWeek'
 import { Meter } from './nn/Meter'
 import { Progress } from './nn/Progress'
 import { Select } from './nn/Select'
-import { TextArea } from './nn/TextArea'
+import { Textarea } from './nn/Textarea'
 
 window.TP_THEME = {
   'nn/InputText': InputText,
@@ -51,5 +51,5 @@ window.TP_THEME = {
   'nn/Meter': Meter,
   'nn/Progress': Progress,
   'nn/Select': Select,
-  'nn/Textarea': TextArea
+  'nn/Textarea': Textarea
 }
