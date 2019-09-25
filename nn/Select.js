@@ -49,8 +49,10 @@ export class Select extends ThemeableMixin('nn/Select')(FormElementMixin(LabelsM
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <slot @slotchange="${this.addSlotToSelect}"></slot>
       <select id="native"></select>
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }
