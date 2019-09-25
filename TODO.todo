@@ -35,55 +35,44 @@
   ✔ textarea @done(2019-09-16 11:57)
   ✔ form @done(2019-09-14 05:49)
 
-☐ nn-form:
-  ✔ Load data from the server before showing the form @done(2019-04-29 21:14) @project(☐ nn-form)
-  ✔ Overwrite a record (PUT with an existing ID), or create a new one (POST, no ID) or create a record with an arbitrary ID (POST with a new ID)? @done(2019-05-03 07:17) @project(☐ nn-form)
-    ✔ Stop reflecting submit(), implement gatherFormElements() that gathers all values and send to server @done(2019-05-03 07:17) @project(☐ nn-form)
-  ✔ Refresh the data with the saved info coming back from the server after saving @done(2019-05-03 07:17) @project(☐ nn-form)
-    ✔ Use gatherFormElements() and assign their corresponding .value @done(2019-05-03 07:17) @project(☐ nn-form)
-    ✔ Make sure user can define their own assign mechanism @done(2019-05-03 07:17) @project(☐ nn-form)
-  ✔ Make important method redefineable without subclassing @done(2019-05-03 07:17) @project(☐ nn-form)
-  ✔ Render ALL input fields automatically disabled while the form is being submitted @done(2019-05-05 21:14) @project(☐ nn-form)
-    ✔ Again, use gatherFormElements(), get status before and save, submit, restore status @done(2019-05-05 21:14) @project(☐ nn-form)
-  ✔ Implement nn:style:label="..." @done(2019-05-11 17:21) @project(☐ nn-form)
-  ✔ Check https://github.com/ricardofbarros/linter-js-standard/issues/229 @done(2019-05-12 12:31) @project(☐ nn-form)
-  ✔ Wait for: https://stackoverflow.com/questions/56096524/which-elements-properties-are-reflected-into-attributes-in-html @done(2019-05-13 00:17) @project(☐ nn-form)
-  ✔ Check if we need more reflected properties in common.js, added disabled now -- more? @done(2019-05-13 00:17) @project(☐ nn-form)
-  ✔ Redefine setAttribute() rather than attrbute observer to carry on changes to contained elements @done(2019-05-14 09:28) @project(☐ nn-form)
+nn-form:
+✔ Load data from the server before showing the form @done(2019-04-29 21:14) @project(☐ nn-form)
+✔ Overwrite a record (PUT with an existing ID), or create a new one (POST, no ID) or create a record with an arbitrary ID (POST with a new ID)? @done(2019-05-03 07:17) @project(☐ nn-form)
+  ✔ Stop reflecting submit(), implement gatherFormElements() that gathers all values and send to server @done(2019-05-03 07:17) @project(☐ nn-form)
+✔ Refresh the data with the saved info coming back from the server after saving @done(2019-05-03 07:17) @project(☐ nn-form)
+  ✔ Use gatherFormElements() and assign their corresponding .value @done(2019-05-03 07:17) @project(☐ nn-form)
+  ✔ Make sure user can define their own assign mechanism @done(2019-05-03 07:17) @project(☐ nn-form)
+✔ Make important method redefineable without subclassing @done(2019-05-03 07:17) @project(☐ nn-form)
+✔ Render ALL input fields automatically disabled while the form is being submitted @done(2019-05-05 21:14) @project(☐ nn-form)
+  ✔ Again, use gatherFormElements(), get status before and save, submit, restore status @done(2019-05-05 21:14) @project(☐ nn-form)
+✔ Implement nn:style:label="..." @done(2019-05-11 17:21) @project(☐ nn-form)
+✔ Check https://github.com/ricardofbarros/linter-js-standard/issues/229 @done(2019-05-12 12:31) @project(☐ nn-form)
+✔ Wait for: https://stackoverflow.com/questions/56096524/which-elements-properties-are-reflected-into-attributes-in-html @done(2019-05-13 00:17) @project(☐ nn-form)
+✔ Check if we need more reflected properties in common.js, added disabled now -- more? @done(2019-05-13 00:17) @project(☐ nn-form)
+✔ Redefine setAttribute() rather than attrbute observer to carry on changes to contained elements @done(2019-05-14 09:28) @project(☐ nn-form)
 
-☐ Validation and forms
-  ✔ Highlight the problem fields if the form is NOT a success @done(2019-05-21 07:46) @project(☐ nn-form)
-  ✔ https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation @done(2019-05-21 07:46) @project(☐ nn-form)
-  ✔ Use default HTML methods, which nn- elements will style better @done(2019-05-21 07:46) @project(☐ nn-form)
-  ✔ Allow the user to provide a function that returns the "problem fields" reading the returned json @done(2019-05-21 07:46) @project(☐ nn-form)
-  ✔ Make sure validation works the same client-side and server-side @done(2019-05-21 07:47) @project(☐ nn-form)
-  ✔ Make styling for error message, similar to <meter> containing message @done(2019-09-18 17:42)
-  ✔ Made default themes directory structure @done(2019-09-19 07:05)
-  ✔ Split nn-form into nn-form and en-form @done(2019-09-21 14:17)
-  ✔ en-form will inherit from nn-form and add all of the error setting, preloading, etc. @done(2019-09-21 14:18)
-  ☐ Form.js
-    ✔ Implement validate-on-render and validate-on-load @done(2019-09-22 07:28)
-    ✔ Honour the method specified by the user as a priority @done(2019-09-22 07:39)
-    ☐ Make sure that if recordId is undefined a request isn't Made
-    ☐ Check enter on submit: find out native behaviour, emulate it, offer option
-    ☐ Make sure that 'submit' (type=submit) button really submits
-    ☐ Implement real-time form submit of single fields
-  ☐ Rename element classes from Element to NnElement to facilitate subclassing
+Validation and forms
+✔ Highlight the problem fields if the form is NOT a success @done(2019-05-21 07:46) @project(☐ nn-form)
+✔ https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation @done(2019-05-21 07:46) @project(☐ nn-form)
+✔ Use default HTML methods, which nn- elements will style better @done(2019-05-21 07:46) @project(☐ nn-form)
+✔ Allow the user to provide a function that returns the "problem fields" reading the returned json @done(2019-05-21 07:46) @project(☐ nn-form)
+✔ Make sure validation works the same client-side and server-side @done(2019-05-21 07:47) @project(☐ nn-form)
+✔ Make styling for error message, similar to <meter> containing message @done(2019-09-18 17:42)
+✔ Made default themes directory structure @done(2019-09-19 07:05)
+✔ Split nn-form into nn-form and en-form @done(2019-09-21 14:17)
+✔ en-form will inherit from nn-form and add all of the error setting, preloading, etc. @done(2019-09-21 14:18)
+☐ Form.js
+  ✔ Implement validate-on-render and validate-on-load @done(2019-09-22 07:28)
+  ✔ Honour the method specified by the user as a priority @done(2019-09-22 07:39)
+  ✔ Make sure that if recordId is undefined a request isn't Made @done(2019-09-25 06:38)
+  ☐ Check enter on submit: find out native behaviour, emulate it, offer option
+  ☐ Make sure that 'submit' (type=submit) button really submits
+  ☐ Implement real-time form submit of single fields
+☐ Rename element classes from Element to NnElement to facilitate subclassing
+☐ Rename files to lower case
+☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
 
-☐ Extra elements
-  ✔ Write ee-network (backport from existing) @done(2019-09-22 20:01)
-  ✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
-  ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
-  ☐ Implement ee-drawer
-  ☐ Implement ee-tabs
-  ☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
-  ☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
-  ☐ Implement FAB en-fab
-  ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
-  ☐ Add TP to https://github.com/web-padawan/awesome-lit-html
-  ☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
-
-(LATER)
+NATIVE FORMS:
 ☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
   ☐ Do nn elements work with normal forms?
     ☐ IF NOT, Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
@@ -91,34 +80,48 @@
     ☐ if not, can it be hacked so that it does?
   ☐ document.forms returns the forms. Will the elements in the shadow dom be returned?
     ☐ If not, can it be hacked to? (hint: setter)
+    ☐ Check that nn-form, using gather
   ☐ HTMLFormElement.elements and HTMLFormElement.length are only <button>, <fieldset>, <input>, <object>, etc.
     ☐ Can it be hacked to return all elements including nn ones?
     ☐ If that happens, will it make any difference?
   ☐ Submit the form when the user preses ENTER on a sole inputText
 
+EXTRA ELEMENTS:
+✔ Write ee-network (backport from existing) @done(2019-09-22 20:01)
+✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
+☐ Implement ee-drawer
+☐ Implement ee-tabs
+☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
+☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
+☐ Implement FAB en-fab
 
-  ☐ DOCUMENT VALIDATION BLUEPRINT:
-    ☐ OVERRIDE checkValidity (nn, in FormElementMixin)
-      ☐ Set `shownValidationMessage` to ''
-      ☐ Run setCustomValidity('')
-      ☐ checkValidity will call the native one (which will emit event etc)
-        ☐ If native checkValidity FAILS, THE INVALID EVENT WILL BE FIRED NATIVELY
-        ☐ If native checkValidity WINS, we run own validator. So
-          ☐ If validator returns a problem
-            ☐ Run setCustomValidity() with custom error message
-            ☐ Run reportValidity(), so THE INVALID EVENT WILL BE FIRED NATIVELY
+LATER:
+☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
+☐ Add TPE to https://github.com/web-padawan/awesome-lit-html
+☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
-    ☐ Listen to `invalid` events (nn, in FormElementMixin)
-      ☐ Set `shownValidationMessage`
-        ☐ If custom validator used (invalid has customError), use that
-        ☐ If not, use native messages OR a translation with helper function
+DOCUMENT VALIDATION BLUEPRINT:
+☐ OVERRIDE checkValidity (nn, in FormElementMixin)
+  ☐ Set `shownValidationMessage` to ''
+  ☐ Run setCustomValidity('')
+  ☐ checkValidity will call the native one (which will emit event etc)
+    ☐ If native checkValidity FAILS, THE INVALID EVENT WILL BE FIRED NATIVELY
+    ☐ If native checkValidity WINS, we run own validator. So
+      ☐ If validator returns a problem
+        ☐ Run setCustomValidity() with custom error message
+        ☐ Run reportValidity(), so THE INVALID EVENT WILL BE FIRED NATIVELY
 
-    ☐ OVERRIDE form.checkValidity (nn)
-      ☐ For each contained elements
-        ☐ Run checkValidity()
+☐ Listen to `invalid` events (nn, in FormElementMixin)
+  ☐ Set `shownValidationMessage`
+    ☐ If custom validator used (invalid has customError), use that
+    ☐ If not, use native messages OR a translation with helper function
 
-    ☐ OVERRIDE form.submit (en)
-      ☐ Run checkValidity()
-      ☐ Run submit
+☐ OVERRIDE form.checkValidity (nn)
+  ☐ For each contained elements
+    ☐ Run checkValidity()
+
+☐ OVERRIDE form.submit (en)
+  ☐ Run checkValidity()
+  ☐ Run submit
 
 ☐ Watch https://github.com/w3c/webcomponents/issues/187 VERY CRUCIAL TICKET ON ELEMENT-FORM ASSOCIATION

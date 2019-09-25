@@ -4,6 +4,7 @@ import { NnForm } from '../nn/Form.js'
 /* globals customElements CustomEvent */
 class EnForm extends NnForm {
   get reflectProperties () {
+    // The `submit` and `elements` properties have been redefined
     return super.reflectProperties.filter(attr => attr !== 'submit')
   }
 
@@ -35,6 +36,21 @@ class EnForm extends NnForm {
         attribute: 'validate-on-render'
       },
 
+      setObjectAfterSubmit: {
+        type: Boolean,
+        attribute: 'set-object-after-submit'
+      },
+
+      submitCheckboxesAsNative: {
+        type: Boolean,
+        attribute: 'submit-checkboxes-as-native'
+      },
+
+      dataObject: {
+        type: Object,
+        attribute: false
+      },
+
       // This will allow users to redefine methods declaratively
       createSubmitObject: Function,
       presubmit: Function,
@@ -50,6 +66,7 @@ class EnForm extends NnForm {
     this.validateOnLoad = false
     this.validateOnRender = false
     this.fetchingElement = null
+    this.submitCheckboxesAsNative = false
   }
 
   async firstUpdated () {
@@ -57,8 +74,7 @@ class EnForm extends NnForm {
 
     if (this.validateOnRender) {
       // Wait for all children to be ready to rock and roll
-      const elements = this._gatherFormElements()
-      for (const el of elements) {
+      for (const el of this.elements) {
         // TODO: What about React, Vue, etc.? Uniform API across element libraries?
         if (typeof el.updateComplete !== 'undefined') {
           await el.updateComplete
@@ -69,10 +85,18 @@ class EnForm extends NnForm {
     }
   }
 
-  setFormElementValues (v) {
-    const elements = this._gatherFormElements('setForm')
-    for (const el of elements) {
-      if (typeof v[el.name] !== 'undefined') el[this._getElementValueProp(el)] = v[el.name]
+  setFormElementValues (o) {
+    for (const k in o) {
+      this.setFormElementValue(k, o[k])
+    }
+  }
+
+  setDataObject (o) {
+    const elHash = {}
+    for (const el of this.elements) elHash[el.name] = el
+
+    for (const k in Object.keys(elHash)) {
+      o[k] = this.getFormElementValue(k)
     }
   }
 
@@ -83,7 +107,24 @@ class EnForm extends NnForm {
   createSubmitObject (elements) {
     const r = {}
     for (const el of elements) {
-      r[el.name] = el[this._getElementValueProp(el)]
+      // Radio will only happen once thanks to checking for undefined
+      if (typeof r[el.name] !== 'undefined') continue
+
+      // Checkboxes are special: they might be handled as native ones,
+      // (NOTHING set if unchecked, and their value set if checked) or
+      // as booleans (true for checked, or false for unchecked)
+      if (this._checkboxElement(el)) {
+        if (this.submitCheckboxesAsNative) {
+          // As native checkboxes.
+          const val = this.getFormElementValue(el.name)
+          if (val) r[el.name] = val
+        } else {
+          // As more app-friendly boolean value
+          r[el.name] = !!this.getFormElementValue(el.name)
+        }
+      } else {
+        r[el.name] = this.getFormElementValue(el.name)
+      }
     }
     return r
   }
@@ -122,11 +163,8 @@ class EnForm extends NnForm {
     // No validity = no sending
     if (!this.checkValidity()) return
 
-    // Gather the element
-    const elements = this._gatherFormElements('json-creator')
-
     // HOOK: Make up the submit object based on the passed elements
-    const submitObject = this.createSubmitObject(elements)
+    const submitObject = this.createSubmitObject(this.elements)
 
     // The element's method can only be null, POST or PUT.
     // If not null, and not "PUT", it's set to "POST"
@@ -159,8 +197,7 @@ class EnForm extends NnForm {
     this.presubmit(fetchOptions)
 
     // Disable the elements
-    const formElements = this._gatherFormElements('submitter')
-    this._disableElements(formElements)
+    this._disableElements(this.elements)
 
     // fetch() wants a stingified body
     fetchOptions.body = JSON.stringify(fetchOptions.body)
@@ -181,7 +218,7 @@ class EnForm extends NnForm {
       console.log('Network error!')
 
       // Re-enable the elements
-      this._enableElements(formElements)
+      this._enableElements(this.elements)
 
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-error', { detail: { type: 'network' }, bubbles: true, composed: true })
@@ -204,13 +241,12 @@ class EnForm extends NnForm {
 
       // Re-enable the elements
       // This must happen before setCustomValidity() and reportValidity()
-      this._enableElements(formElements)
+      this._enableElements(this.elements)
 
       // Set error messages
       if (errs.errors && errs.errors.length) {
-        const elements = this._gatherFormElements('errorSetter')
         const elHash = {}
-        for (const el of elements) {
+        for (const el of this.elements) {
           elHash[el.name] = el
         }
         for (const err of errs.errors) {
@@ -235,8 +271,10 @@ class EnForm extends NnForm {
       // passed to the form.
       if (this.setFormAfterSubmit) this.setFormElementValues(v)
 
+      if (this.setObjectAfterSubmit) this.setDataObject(v)
+
       // Re-enable the elements
-      this._enableElements(formElements)
+      this._enableElements(this.elements)
 
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true })
@@ -254,6 +292,9 @@ class EnForm extends NnForm {
     // simply give up: nothing to do
     if (this.getAttribute('no-autoload') || !changedProperties.has('recordId')) return
 
+    // Record ID must be "something"
+    if (typeof this.recordId === 'undefined' || this.recordId === null) return
+
     // Work out the action's URL, adding the record ID  at the end
     // (It will be a get)
     // If there is a result, fetch the element values
@@ -265,8 +306,7 @@ class EnForm extends NnForm {
       await this.updateComplete
 
       // Disable elements
-      const formElements = this._gatherFormElements('loader')
-      this._disableElements(formElements)
+      this._disableElements(this.elements)
 
       // Fetch the data and trasform it to json
       let v
@@ -283,7 +323,7 @@ class EnForm extends NnForm {
       this.setFormElementValues(v)
 
       // Re-enabled all disabled fields
-      this._enableElements(formElements)
+      this._enableElements(this.elements)
 
       // Run checkValidity if validateOnRender is on
       if (this.validateOnLoad) {
