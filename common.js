@@ -31,7 +31,7 @@ export const baseProperties = ['blur', 'click', 'focus', 'forceSpellCheck']
 //   - https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
 // - PLUS ALL methods and properties for the Constraint validation API
 //   - https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation
-//   - Applicable to Button, Input, Select, Textarea
+//   - Applicable to Button, Input, Select, TextArea
 // - PLUS ALL extra properties found here
 //   - <input> https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement
 //   - <button> https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement

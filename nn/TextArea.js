@@ -6,7 +6,7 @@ import { LabelsMixin } from '../mixins/LabelsMixin.js'
 import { StyleableMixin } from 'nn/mixins/StyleableMixin.js'
 import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
 
-export class NnTextarea extends ThemeableMixin('nn/Textarea')(StyleableMixin(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+export class NnTextArea extends ThemeableMixin('nn/TextArea')(StyleableMixin(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
     return [
       super.styles || [],
@@ -50,4 +50,4 @@ export class NnTextarea extends ThemeableMixin('nn/Textarea')(StyleableMixin(For
     `
   }
 }
-customElements.define('nn-textarea', NnTextarea)
+customElements.define('nn-textarea', NnTextArea)

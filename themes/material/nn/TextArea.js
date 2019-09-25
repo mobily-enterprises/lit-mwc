@@ -1,6 +1,6 @@
 import { css } from 'lit-element'
 
-export const NnTextarea = (base) => {
+export const NnTextArea = (base) => {
   return class Base extends base {
     constructor () {
       super()
