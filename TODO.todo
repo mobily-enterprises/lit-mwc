@@ -70,13 +70,12 @@ Validation and forms
   ☐ Implement real-time form submit of single fields
 ✔ Tidy up @done(2019-09-26 07:43)
   ✔ Rename element classes from Element to NnElement to facilitate subclassing @done(2019-09-26 07:43)
-  ✔ [WON'T] Rename files to lower case @done(2019-09-26 07:43)
+  ✔ [Rename files to lower case @done(2019-09-26 07:43)
 ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
 
 ☐ Extra elements
   ✔ Write ee-network (backport from existing) @done(2019-09-22 20:01)
   ✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
-  ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
   ✔ Implement ee-drawer @done (9/25/2019, 5:10:30 PM)
   ☐ Implement ee-tabs
   ☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
@@ -85,6 +84,21 @@ Validation and forms
   ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
   ☐ Add TP to https://github.com/web-padawan/awesome-lit-html
   ☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+
+(LATER)
+☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
+  ☐ Do nn elements work with normal forms?
+    ☐ IF NOT, Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
+  ☐ <form> has `target` (attribute). This value can be overridden by a formtarget attribute on a <button> or <input> element. Will this work through shadow DOM?
+    ☐ if not, can it be hacked so that it does?
+  ☐ document.forms returns the forms. Will the elements in the shadow dom be returned?
+    ☐ If not, can it be hacked to? (hint: setter)
+    ☐ Check that nn-form, using gather
+  ☐ HTMLFormElement.elements and HTMLFormElement.length are only <button>, <fieldset>, <input>, <object>, etc.
+    ☐ Can it be hacked to return all elements including nn ones?
+    ☐ If that happens, will it make any difference?
+  ☐ Submit the form when the user preses ENTER on a sole inputText
+
 
 Issues:
   ☐ #6: make sure focus is redirected to inputText (https://github.com/mobily-enterprises/tpe/issues/6)
@@ -101,20 +115,6 @@ Issues:
   ☐ implement it for all nn elements
   ☐ document it
   ☐ extend to en and ee elements
-
-(LATER)
-☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
-  ☐ Do nn elements work with normal forms?
-    ☐ IF NOT, Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
-  ☐ <form> has `target` (attribute). This value can be overridden by a formtarget attribute on a <button> or <input> element. Will this work through shadow DOM?
-    ☐ if not, can it be hacked so that it does?
-  ☐ document.forms returns the forms. Will the elements in the shadow dom be returned?
-    ☐ If not, can it be hacked to? (hint: setter)
-    ☐ Check that nn-form, using gather
-  ☐ HTMLFormElement.elements and HTMLFormElement.length are only <button>, <fieldset>, <input>, <object>, etc.
-    ☐ Can it be hacked to return all elements including nn ones?
-    ☐ If that happens, will it make any difference?
-  ☐ Submit the form when the user preses ENTER on a sole inputText
 
 EXTRA ELEMENTS:
 ✔ Write ee-network (backport from existing) @done(2019-09-22 20:01)
