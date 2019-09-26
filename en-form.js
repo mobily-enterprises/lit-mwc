@@ -27,6 +27,11 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         attribute: 'set-form-after-submit'
       },
 
+      resetFormAfterSubmit: {
+        type: Boolean,
+        attribute: 'reset-form-after-submit'
+      },
+
       validateOnLoad: {
         type: Boolean,
         attribute: 'validate-on-load'
@@ -37,21 +42,11 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         attribute: 'validate-on-render'
       },
 
-      setObjectAfterSubmit: {
-        type: Boolean,
-        attribute: 'set-object-after-submit'
-      },
-
       submitCheckboxesAsNative: {
         type: Boolean,
         attribute: 'submit-checkboxes-as-native'
-      },
 
-      dataObject: {
-        type: Object,
-        attribute: false
       },
-
       noAutoload: {
         type: Boolean,
         attribute: 'no-autoload'
@@ -97,13 +92,15 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     }
   }
 
-  setDataObject (o) {
+  setRecordObject (o) {
+    o = { ...o }
     const elHash = {}
     for (const el of this.elements) elHash[el.name] = el
 
-    for (const k in Object.keys(elHash)) {
+    for (const k of Object.keys(elHash)) {
       o[k] = this.getFormElementValue(k)
     }
+    return o
   }
 
   extrapolateErrors (o) {
@@ -277,7 +274,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       // passed to the form.
       if (this.setFormAfterSubmit) this.setFormElementValues(v)
 
-      if (this.setObjectAfterSubmit) this.setDataObject(v)
+      if (this.resetFormAfterSubmit) this.reset()
 
       // Re-enable the elements
       this._enableElements(this.elements)
