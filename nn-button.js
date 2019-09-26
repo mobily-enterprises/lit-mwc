@@ -1,8 +1,8 @@
 import { LitElement, html } from 'lit-element'
-import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
-import { FormElementMixin } from '../mixins/FormElementMixin.js'
-import { StyleableMixin } from '../mixins/StyleableMixin.js'
-import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
+import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
+import { FormElementMixin } from './mixins/FormElementMixin.js'
+import { StyleableMixin } from './mixins/StyleableMixin.js'
+import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
 class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(StyleableMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {

@@ -1,10 +1,10 @@
 import { html, css, LitElement } from 'lit-element'
-import { NativeReflectorMixin } from '../mixins/NativeReflectorMixin.js'
-import { InputMixin } from '../mixins/InputMixin.js'
-import { FormElementMixin } from '../mixins/FormElementMixin.js'
-import { LabelsMixin } from '../mixins/LabelsMixin.js'
-import { StyleableMixin } from '../mixins/StyleableMixin.js'
-import { ThemeableMixin } from '../mixins/ThemeableMixin.js'
+import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
+import { InputMixin } from './mixins/InputMixin.js'
+import { FormElementMixin } from './mixins/FormElementMixin.js'
+import { LabelsMixin } from './mixins/LabelsMixin.js'
+import { StyleableMixin } from './mixins/StyleableMixin.js'
+import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
 class NnInputRange extends ThemeableMixin('nn-input-range')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {

@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element'
-import { StyleableMixin } from '../mixins/StyleableMixin'
-import { ThemeableMixin } from '../mixins/ThemeableMixin'
+import { StyleableMixin } from './mixins/StyleableMixin'
+import { ThemeableMixin } from './mixins/ThemeableMixin'
 
 export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
   static get styles () {

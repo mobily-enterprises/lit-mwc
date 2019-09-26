@@ -1,6 +1,6 @@
 import { html } from 'lit-element'
 import { NnForm } from './nn-form.js'
-import { ThemeableMixin } from '../mixins/ThemeableMixin'
+import { ThemeableMixin } from './mixins/ThemeableMixin'
 
 /* globals customElements CustomEvent */
 class EnForm extends ThemeableMixin('en-form')(NnForm) {
