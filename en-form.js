@@ -228,7 +228,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       this.dispatchEvent(event)
 
       // Response hook
-      this.response(null, response)
+      this.response(response, null)
     //
     // CASE #2: HTTP error.
     // Invalidate the problem fields
@@ -262,7 +262,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       }
 
       // Response hook
-      this.response(originalErrs, response)
+      this.response(response, originalErrs)
     // CASE #3: NO error. Set fields to their
     // new values
     } else {
@@ -284,7 +284,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       this.dispatchEvent(event)
 
       // Response hook
-      this.response(v, response)
+      this.response(response, v)
     }
   }
 
