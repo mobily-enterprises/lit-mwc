@@ -6,6 +6,10 @@ export const EnForm = (base) => {
       return [
         ...super.styles || [],
         css`
+          :invalid {
+            border: unset;
+            border-bottom: var(--nn-input-border, var(--nn-theme-border));
+          }
         `
       ]
     }

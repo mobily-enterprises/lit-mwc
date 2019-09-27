@@ -1,8 +1,18 @@
 import { css } from 'lit-element'
 import { AddHasValueAttributeMixin } from 'tpe/mixins/AddHasValueAttributeMixin'
+import { fixedLabel, inputLabel } from '../shared-rules'
 
 export const NnSelect = (base) => {
   return class Base extends AddHasValueAttributeMixin(base) {
+    // Style depends on CSS being able to find label as sibling of the #native element.
+    // CSS can select next siblings, but not previous.  This guarantees label is rendered after #native in the shadowDOM
+    static get properties () {
+      return {
+        labelPosition: { type: String, attribute: false },
+        validationMessage: { type: String, attribute: false }
+      }
+    }
+
     constructor () {
       super()
       this.labelPosition = 'after'
@@ -17,11 +27,14 @@ export const NnSelect = (base) => {
     static get styles () {
       return [
         super.styles || [],
+        inputLabel,
+        fixedLabel,
         css`
           :host {
             position: relative;
-            height: var(--form-element-height);
+            height: var(--nn-form-element-height);
             padding: 12px;
+            margin: 10px;
             padding-top: 15px;
             width: fit-content;
           }
@@ -30,14 +43,13 @@ export const NnSelect = (base) => {
             display: inline-flex;
             border: unset;
             border-radius: var(--nn-select-border-radius, 4px 4px 0 0);
-            border-bottom: var(--nn-select-border, var(--theme-border));
+            border-bottom: var(--nn-select-border, var(--nn-theme-border));
             color: var(--nn-select-color, inherit);
-            background-color: var(--nn-select-background, var(--input-background));
+            background-color: var(--nn-select-background, var(--nn-input-background));
             width: 100%;
             font-size: 1em;
             padding: 0 15px;
-            margin-left: 4px;
-            height: var(--form-element-height);
+            height: var(--nn-form-element-height);
             -webkit-appearance: none;
           }
 
@@ -46,14 +58,14 @@ export const NnSelect = (base) => {
           }
 
           select:invalid {
-            background-color: var(--error-color);
-            color: var(--error-text);
-            border-color: var(--error-text);
+            background-color: var(--nn-error-color);
+            color: var(--nn-error-text);
+            border-color: var(--nn-error-text);
           }
 
           :invalid {
             border: unset;
-            border-bottom: var(--nn-input-border, var(--theme-border));
+            border-bottom: var(--nn-input-border, var(--nn-theme-border));
           }
 
           select:invalid + label, select:invalid ~ label {
@@ -61,13 +73,13 @@ export const NnSelect = (base) => {
             --nn-label-color: darkred;
           }
 
-          label {
+          /* label {
             position: absolute;
             font-size: 1em;
             border: var(--nn-label-border, none);
-            color: var(--nn-label-color,  var(--primary-color-light));
+            color: var(--nn-label-color,  var(--nn-primary-color-light));
             background-color: var(--nn-label-background, transparent);
-            border-radius: var(--nn-label-border-radius, var(--theme-border-radius));
+            border-radius: var(--nn-label-border-radius, var(--nn-theme-border-radius));
             padding-left: 8px;
             padding-right: 8px;
             min-width: fit-content;
@@ -76,7 +88,7 @@ export const NnSelect = (base) => {
             transform: translateY(-50%);
             will-change: transform, background-color;
             transition: all 0.3s ease-in-out;
-          }
+          } */
 
           select:required ~ label::after {
             content: '*';
@@ -84,45 +96,19 @@ export const NnSelect = (base) => {
             position: relative;
           }
 
-          label::before {
-            position: absolute;
-            content: '';
-            transform: translateY(-100%);
-            transition: all 0.4s ease-in-out;
-            opacity: 0;
-            user-select: none;
-            pointer-events: none;
-            z-index: -1;
-            will-change: transform;
-            transition: all 0.35s ease-in-out;
-          }
-
           /* If label issue is solved */
-          /* :host([has-value]) label::before, select:focus ~ label::before { */
-          label::before, select:focus ~ label::before {
-            left: 0;
-            content: '';
-            transform: translateY(0);
-            background-color: var(--floating-label-background, white);
-            border-radius: var(--nn-label-border-radius, 0 0 12px 0);
-            opacity: 1;
-            width: 100%;
-            height: 100%;
-            transition: all 0.35s ease-in-out;
-          }
 
           /* If label issue is solved */
           /* :host([has-value]) label, input:focus ~ label  { */
-          label, input:focus ~ label  {
+          /* label, input:focus ~ label  {
             transform: translateY(-155%);
             font-size: 80%;
             transition: all 0.3s ease-in-out;
-          }
+          } */
 
-          span.error-message {
+          /* span.error-message {
             position: absolute;
             top: calc(100% - 5px);
-            /* transform: translateY(0px); */
             left: 16px;
             font-size: 80%;
             white-space:nowrap;
@@ -135,17 +121,15 @@ export const NnSelect = (base) => {
             transform: translateY(-6px);
             opacity: 1;
             transition: all 0.3s ease-in-out;
-          }
+          } */
 
           :host::after {
             content: '';
-            /* border: 2px solid var(--primary-color); */
             border: 5px solid transparent;
-            border-top-color: var(--primary-color);
+            border-top-color: var(--nn-primary-color);
             position: absolute;
             right: 12px;
             bottom: 50%;
-            /* transform: translateY(40%); */
           }
         `
       ]

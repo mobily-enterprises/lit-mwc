@@ -2,6 +2,16 @@ import { css } from 'lit-element'
 
 export const NnInputCheckBox = (base) => {
   return class Base extends base {
+    // Style depends on CSS being able to find label as sibling of the #native element.
+    // CSS can select next siblings, but not previous.  This guarantees label is rendered after #native in the shadowDOM
+
+static get properties () {
+      return {
+        labelPosition: { type: String, attribute: false },
+        validationMessage: { type: String, attribute: false }
+      }
+    }
+
     constructor () {
       super()
       this.labelPosition = 'after'
@@ -32,18 +42,7 @@ export const NnInputCheckBox = (base) => {
             height: 0;
             width: 0;
           }
-
-          input:invalid {
-            background-color: var(--error-color);
-            color: var(--error-text);
-            border-color: var(--error-text);
-          }
-
-          :invalid {
-            border: unset;
-            border-bottom: var(--nn-input-border, var(--theme-border));
-          }
-
+          
           input:invalid + label, input:invalid ~ label {
             background-color: none;
             --nn-label-color: darkred;
@@ -56,14 +55,14 @@ export const NnInputCheckBox = (base) => {
             left: 0;
             height: 15px;
             width: 15px;
-            border: 2px solid var(--boundaries-color);
+            border: 2px solid var(--nn-boundaries-color);
             border-radius: 3px;
             transition: background-color 0.3s ease-in-out;
           }
 
           input:checked ~ label::before {
-            border-color: var(--primary-color);
-            background-color:  var(--primary-color);
+            border-color: var(--nn-primary-color);
+            background-color:  var(--nn-primary-color);
             transition: background-color 0.3s ease-in-out;
           }
 
@@ -73,14 +72,14 @@ export const NnInputCheckBox = (base) => {
           }
 
           input:focus ~ label::before {
-            box-shadow: var(--theme-box-shadow2);
-            background-color: var(--primary-color-light);
+            box-shadow: var(--nn-theme-box-shadow2);
+            background-color: var(--nn-primary-color-light);
             filter: brightness(115%);
           }
 
           input:not([checked]):hover ~ label::before {
             filter: brightness(130%);
-            background-color: var(--primary-color-light);
+            background-color: var(--nn-primary-color-light);
             transition: background-color 0.3s ease-in-out;
           }
 
