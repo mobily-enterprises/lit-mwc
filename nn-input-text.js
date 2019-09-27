@@ -48,5 +48,10 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(StyleableMixin(
       ${this.ifLabelAfter}
     `
   }
+
+  constructor () {
+    super()
+    this.realTimeEvent = 'input'
+  }
 }
 customElements.define('nn-input-text', NnInputText)
