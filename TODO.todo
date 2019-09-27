@@ -70,7 +70,7 @@ Validation and forms
 ✔ Tidy up @done(2019-09-26 07:43)
   ✔ Rename element classes from Element to NnElement to facilitate subclassing @done(2019-09-26 07:43)
   ✔ [Rename files to lower case @done(2019-09-26 07:43)
-☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
+☐ Implement en-autocomplete (using datalist) and ee-autocomplete (no datalist, manual selecting)
 
 ☐ Extra elements
   ✔ Implement ee-network (backport from existing) @done(2019-09-22 20:01)
@@ -78,12 +78,10 @@ Validation and forms
   ✔ Implement ee-drawer @done (9/25/2019, 5:10:30 PM)
   ☐ Implement ee-tabs
   ☐ Implement ee-drawer
-  ☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
-  ☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
-  ☐ Implement FAB en-fab
-  ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
-  ☐ Implement ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
-  ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
+  ☐ Implement ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
+  ☐ Implement en-nav -bar(or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
+  ☐ Implement en-fab
+  ☐ Implement en-switch (maybe deriving from nn-checkbox)
   ☐ (Later?) Implement ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
 (LATER)
