@@ -19,6 +19,11 @@ class NnInputRange extends ThemeableMixin('nn-input-range')(FormElementMixin(Sty
     ]
   }
 
+  constructor () {
+    super()
+    this.realTimeEvent = 'input'
+  }
+
   render () {
     return html`
       ${this.customStyle}

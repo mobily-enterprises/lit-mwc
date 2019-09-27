@@ -24,6 +24,11 @@ class NnInputRadio extends ThemeableMixin('nn-input-radio')(FormElementMixin(Lab
     `
   }
 
+  constructor () {
+    super()
+    this.realTimeEvent = 'input'
+  }
+
   _excludeOthers (e) {
     // All other elements with the same name, marked as `as-radio`
     const others = [...this.form.elements].filter(el =>

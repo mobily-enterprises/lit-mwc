@@ -4,11 +4,34 @@ export const FormElementMixin = (base) => {
   return class Base extends base {
     static get properties () {
       return {
-        nativeErrorMessages: { type: String, attribute: 'native-error-messages' },
-        shownValidationMessage: { type: String, attribute: false },
+        nativeErrorMessages: {
+          type: String,
+          attribute: 'native-error-messages'
+        },
+        shownValidationMessage: {
+          type: String,
+          attribute: false
+        },
         validator: { type: Function },
-        validationMessages: { type: Object, attribute: 'validition-messages' },
-        validationMessagePosition: { type: String, attribute: 'validation-message-position' }
+        validationMessages: {
+          type: Object,
+          attribute: 'validition-messages'
+        },
+        validationMessagePosition: {
+          type: String,
+          attribute: 'validation-message-position'
+        },
+        realTime: {
+          type: Boolean,
+          attribute: 'real-time',
+          reflected: true
+        },
+        realTimeEvent: {
+          type: String,
+          attribute: 'real-time-event',
+          reflected: true
+        }
+
       }
     }
 
@@ -39,12 +62,12 @@ export const FormElementMixin = (base) => {
     connectedCallback () {
       super.connectedCallback()
       this.assignFormProperty()
-      this.addEventListener('keydown', this.boundEventListener)
+      this.addEventListener('keydown', this._boundKeyEventListener)
     }
 
     disconnectedCallback () {
       super.disconnectedCallBack()
-      this.removeEventListener('keydown', this.boundEventListener)
+      this.removeEventListener('keydown', this._boundKeyEventListener)
     }
 
     constructor () {
@@ -65,7 +88,9 @@ export const FormElementMixin = (base) => {
       this.validationMessages = {}
       this.validationMessagePosition = 'before'
 
-      this.boundEventListener = this._eventListener.bind(this)
+      this._boundKeyEventListener = this._eventListener.bind(this)
+      this.realTime = false
+      this.realTimeEvent = ''
     }
 
     get skipAttributes () {

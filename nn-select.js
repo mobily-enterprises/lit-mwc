@@ -43,6 +43,7 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Label
   constructor () {
     super()
     this.options = []
+    this.realTimeEvent = 'selected'
   }
 
   render () {

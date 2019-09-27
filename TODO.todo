@@ -61,12 +61,12 @@ Validation and forms
 ✔ Made default themes directory structure @done(2019-09-19 07:05)
 ✔ Split nn-form into nn-form and en-form @done(2019-09-21 14:17)
 ✔ en-form will inherit from nn-form and add all of the error setting, preloading, etc. @done(2019-09-21 14:18)
-☐ Form
+✔ Form @done(2019-09-27 09:54)
   ✔ Implement validate-on-render and validate-on-load @done(2019-09-22 07:28)
   ✔ Honour the method specified by the user as a priority @done(2019-09-22 07:39)
   ✔ Make sure that if recordId is undefined a request isn't Made @done(2019-09-25 06:38)
   ✔ Check enter on submit: find out native behaviour, emulate it, offer option @done(2019-09-27 07:23)
-  ☐ Implement real-time form submit of single fields
+  ✔ Implement real-time form submit of single fields @done(2019-09-27 08:09)
 ✔ Tidy up @done(2019-09-26 07:43)
   ✔ Rename element classes from Element to NnElement to facilitate subclassing @done(2019-09-26 07:43)
   ✔ [Rename files to lower case @done(2019-09-26 07:43)

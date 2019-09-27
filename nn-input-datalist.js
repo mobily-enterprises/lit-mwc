@@ -40,6 +40,11 @@ export class NnInputDatalist extends ThemeableMixin('nn-input-datalist')(FormEle
     ]
   }
 
+  constructor () {
+    super()
+    this.realTimeEvent = 'input'
+  }
+
   render () {
     return html`
       ${this.customStyle}

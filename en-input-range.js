@@ -28,6 +28,11 @@ class EnInputRange extends ThemeableMixin('en-input-range')(FormElementMixin(Sty
     }
   }
 
+  constructor () {
+    super()
+    this.realTimeEvent = 'input'
+  }
+
   firstUpdated () {
     super.firstUpdated()
     this.shownValue = this.shadowRoot.querySelector('#native').value

@@ -33,6 +33,11 @@ export class NnTextArea extends ThemeableMixin('nn-textarea')(StyleableMixin(For
     ]
   }
 
+  constructor () {
+    super()
+    this.realTimeEvent = 'input'
+  }
+
   get reflectProperties () {
     return [
       ...super.reflectProperties,

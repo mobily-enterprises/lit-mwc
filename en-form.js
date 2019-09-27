@@ -68,22 +68,74 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.validateOnRender = false
     this.fetchingElement = null
     this.submitCheckboxesAsNative = false
+    this.submitNumber = 0
+    this._boundRealtimeSubmitter = this._realTimeSubmitter.bind(this)
+  }
+
+  async _allChildrenCompleted () {
+    // Wait for all children to be ready to rock and roll
+    for (const el of this.elements) {
+      // TODO: What about React, Vue, etc.? Uniform API across element libraries?
+      if (typeof el.updateComplete !== 'undefined') {
+        await el.updateComplete
+      }
+    }
+  }
+
+  _realTimeSubmitter (e) {
+    this.submit(e.target)
+  }
+
+  connectedCallback () {
+    super.connectedCallback()
+    this._allChildrenCompleted().then(() => {
+      for (const el of this.elements) {
+        let realTime
+        let realTimeEvent
+        realTime = el.getAttribute('real-time')
+        if (realTime === null) realTime = el.realTime
+        else realTime = true
+
+        realTimeEvent = el.getAttribute('real-time-event')
+        if (realTimeEvent === null) realTimeEvent = el.realTimeEvent
+
+        if (!realTime) continue
+        if (!realTimeEvent) continue
+
+        this.addEventListener(realTimeEvent, this._boundRealtimeSubmitter)
+      }
+    })
+  }
+
+  disconnectedCallback () {
+    super.disconnectedCallback()
+    for (const el of this.elements) {
+      const realTime = el.getAttribute('real-time')
+      if (realTime === null) continue
+      const realTimeEvent = el.getAttribute('real-time-event')
+      if (!realTimeEvent) continue
+
+      this.removeEventListener(realTimeEvent, this._boundRealtimeSubmitter)
+    }
   }
 
   async firstUpdated () {
     super.firstUpdated()
 
     if (this.validateOnRender) {
-      // Wait for all children to be ready to rock and roll
-      for (const el of this.elements) {
-        // TODO: What about React, Vue, etc.? Uniform API across element libraries?
-        if (typeof el.updateComplete !== 'undefined') {
-          await el.updateComplete
-        }
-      }
+      await this._allChildrenCompleted()
       // Check validity
       this.checkValidity()
     }
+
+    /*
+    const form = this
+    this.addEventListener('change', (e) => {
+      const el = form.elements.find(el => el === e.target)
+      const eventNameForElement = el.getAttribute('real-time-event')
+      if (el && el.realTime) form.submit(el)
+    })
+    */
   }
 
   setFormElementValues (o) {
@@ -162,12 +214,23 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     }
   }
 
-  async submit () {
-    // No validity = no sending
-    if (!this.checkValidity()) return
+  async submit (specificElement) {
+    this.submitNumber++
 
-    // HOOK: Make up the submit object based on the passed elements
-    const submitObject = this.createSubmitObject(this.elements)
+    // Clear all custom validities if they are set
+    // Native elements will NEED this, or any invalid state
+    // will persist even if validation passes
+    for (const el of this.elements) el.setCustomValidity('')
+
+    // No validity = no sending
+    let submitObject
+    if (specificElement) {
+      if (!specificElement.checkValidity()) return
+      submitObject = this.createSubmitObject([specificElement])
+    } else {
+      if (!this.checkValidity()) return
+      submitObject = this.createSubmitObject(this.elements)
+    }
 
     // The element's method can only be null, POST or PUT.
     // If not null, and not "PUT", it's set to "POST"
@@ -200,7 +263,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.presubmit(fetchOptions)
 
     // Disable the elements
-    this._disableElements(this.elements)
+    if (!specificElement) this._disableElements(this.elements)
 
     // fetch() wants a stingified body
     fetchOptions.body = JSON.stringify(fetchOptions.body)
@@ -208,8 +271,11 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // Attempt the submission
     let networkError = false
     let response
+    let thisSubmit
+    let errs
     try {
       const el = this._fetchEl()
+      thisSubmit = this.submitNumber
       response = await el.fetch(fetchOptions.url, fetchOptions)
     } catch (e) {
       console.log('ERROR!', e)
@@ -221,7 +287,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       console.log('Network error!')
 
       // Re-enable the elements
-      this._enableElements(this.elements)
+      if (!specificElement) this._enableElements(this.elements)
 
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-error', { detail: { type: 'network' }, bubbles: true, composed: true })
@@ -233,36 +299,38 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // CASE #2: HTTP error.
     // Invalidate the problem fields
     } else if (!response.ok) {
-      //
-      // Try and get the errors object from the reponse's json
-      const originalErrs = await response.json()
-      const errs = this.extrapolateErrors(originalErrs) || {}
+      if (this.submitNumber === thisSubmit) {
+        //
+        // Try and get the errors object from the reponse's json
+        const originalErrs = await response.json()
+        errs = this.extrapolateErrors(originalErrs) || {}
 
-      // Emit event to make it possible to tell the user via UI about the problem
-      const event = new CustomEvent('form-error', { detail: { type: 'http', response, errs }, bubbles: true, composed: true })
-      this.dispatchEvent(event)
+        // Emit event to make it possible to tell the user via UI about the problem
+        const event = new CustomEvent('form-error', { detail: { type: 'http', response, errs }, bubbles: true, composed: true })
+        this.dispatchEvent(event)
 
-      // Re-enable the elements
-      // This must happen before setCustomValidity() and reportValidity()
-      this._enableElements(this.elements)
+        // Re-enable the elements
+        // This must happen before setCustomValidity() and reportValidity()
+        if (!specificElement) this._enableElements(this.elements)
 
-      // Set error messages
-      if (errs.errors && errs.errors.length) {
-        const elHash = {}
-        for (const el of this.elements) {
-          elHash[el.name] = el
-        }
-        for (const err of errs.errors) {
-          const el = elHash[err.field]
-          if (el) {
-            el.setCustomValidity(err.message)
-            el.reportValidity()
+        // Set error messages
+        if (errs.errors && errs.errors.length) {
+          const elHash = {}
+          for (const el of this.elements) {
+            elHash[el.name] = el
+          }
+          for (const err of errs.errors) {
+            const el = elHash[err.field]
+            if (el) {
+              el.setCustomValidity(err.message)
+              el.reportValidity()
+            }
           }
         }
       }
 
       // Response hook
-      this.response(response, originalErrs)
+      this.response(response, errs)
     // CASE #3: NO error. Set fields to their
     // new values
     } else {

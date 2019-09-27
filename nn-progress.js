@@ -22,6 +22,11 @@ export class NnProgress extends ThemeableMixin('nn-progress')(FormElementMixin(I
     }
   }
 
+  constructor () {
+    super()
+    this.realTimeEvent = 'input'
+  }
+
   get reflectProperties () {
     return [
       ...super.reflectProperties,

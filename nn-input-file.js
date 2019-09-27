@@ -45,6 +45,7 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
   constructor () {
     super()
     this.manyFilesText = 'Many'
+    this.realTimeEvent = ''
   }
 
   render () {
