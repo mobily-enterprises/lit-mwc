@@ -2,6 +2,16 @@ import { css } from 'lit-element'
 
 export const NnInputRadio = (base) => {
   return class Base extends base {
+    // Style depends on CSS being able to find label as sibling of the #native element.
+    // CSS can select next siblings, but not previous.  This guarantees label is rendered after #native in the shadowDOM
+
+static get properties () {
+      return {
+        labelPosition: { type: String, attribute: false },
+        validationMessage: { type: String, attribute: false }
+      }
+    }
+
     constructor () {
       super()
       this.labelPosition = 'after'
@@ -34,14 +44,14 @@ export const NnInputRadio = (base) => {
           }
 
           input:invalid {
-            background-color: var(--error-color);
-            color: var(--error-text);
-            border-color: var(--error-text);
+            background-color: var(--nn-error-color);
+            color: var(--nn-error-text);
+            border-color: var(--nn-error-text);
           }
 
           :invalid {
             border: unset;
-            border-bottom: var(--nn-input-border, var(--theme-border));
+            border-bottom: var(--nn-input-border, var(--nn-theme-border));
           }
 
           input:invalid + label, input:invalid ~ label {
@@ -56,13 +66,13 @@ export const NnInputRadio = (base) => {
             left: 0;
             height: 15px;
             width: 15px;
-            border: 2px solid var(--boundaries-color);
+            border: 2px solid var(--nn-boundaries-color);
             border-radius: 50%;
             transition: background-color 0.3s ease-in-out;
           }
 
           input:checked ~ label::before {
-            border-color: var(--primary-color);
+            border-color: var(--nn-primary-color);
             background-color: transparent;
             transition: background-color 0.3s ease-in-out;
           }
@@ -73,14 +83,14 @@ export const NnInputRadio = (base) => {
           }
 
           input:focus ~ label::before {
-            box-shadow: var(--theme-box-shadow2);
-            background-color: var(--primary-color-light);
+            box-shadow: var(--nn-theme-box-shadow2);
+            background-color: var(--nn-primary-color-light);
             filter: brightness(115%);
           }
 
           input:not([checked]):hover ~ label::before {
             filter: brightness(130%);
-            background-color: var(--primary-color-light);
+            background-color: var(--nn-primary-color-light);
             transition: background-color 0.3s ease-in-out;
           }
 
@@ -99,7 +109,7 @@ export const NnInputRadio = (base) => {
             left: 0;
             top: 0;
             opacity: 1;
-            background-color:  var(--primary-color);
+            background-color:  var(--nn-primary-color);
             /* border: solid white; */
             border-radius: 50%;
             /* border-width: 0 3px 3px 0; */

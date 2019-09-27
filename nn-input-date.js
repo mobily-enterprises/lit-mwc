@@ -1,7 +1,8 @@
 import { html } from 'lit-element'
 import { NnInputText } from './nn-input-text'
+import { ThemeableMixin } from './mixins/ThemeableMixin'
 
-class NnInputDate extends NnInputText {
+class NnInputDate extends ThemeableMixin('nn-input-date')(NnInputText) {
   render () {
     return html`
       ${this.customStyle}
