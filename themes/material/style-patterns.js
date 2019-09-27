@@ -1,0 +1,162 @@
+import { css } from 'lit-element'
+
+// This is a light implementation of material guidelines.
+// It does not aim to be a complete, comprehensive, Material Design components library, but to showcase the flexiblity of the TPE theming system.
+// Guidelines can be found in: https://material.io/components
+
+export const requiredLabelAsterisk = css`
+  #native:required ~ label div#label-text::after {
+    content: '*';
+    padding-left: 2px;
+    position: relative;
+  }
+`
+
+// export const requiredStyle
+// export const invalidStyle
+export const hoverStyle = css`
+  :host(:hover) {
+    --nn-background: var(--nn-background-dark);
+    --nn-theme-box-shadow: var(--nn-theme-box-shadow2);
+  }
+`
+export const focusStyle = css`
+  :host([has-focus]) {
+    --nn-theme-border: 2px solid var(--nn-primary-color);
+    --nn-background: var(--nn-background-dark);
+    --nn-label-color: var(--nn-primary-color);
+  }
+
+  :host([has-focus]) #native {
+    padding-bottom: 5px;
+  }
+`
+
+export const inputField = css`
+  :host {
+    position: relative;
+    padding: 0 12px;
+    padding-bottom: 16px;
+    margin: 10px;
+    min-width: var(--nn-form-element-min-width, fit-content);
+    font-family: var(--font-family);
+    transition: all 0.3s ease-in-out;
+  }
+
+  #native {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    display: block;
+    border-radius: var(--nn-input-border-radius, 4px 4px 0 0);
+    border-width: 0;
+    border-style: none;
+    border-color: transparent; 
+    border-bottom: var(--nn-input-border, var(--nn-theme-border));
+    color: var(--nn-input-color, inherit);
+    background-color: var(--nn-background, #eee);
+    width: 100%;
+    font-size: 1em;
+    padding: 20px 16px 6px;
+    height: var(--nn-form-element-height);
+    box-shadow: var(--nn-theme-box-shadow);
+    transition: all 0.3s ease-in-out;
+  }
+
+  #native:focus,
+  #native:active {
+    outline: none
+  }
+
+  #native:invalid {
+    background-color: var(--nn-error-color);
+    color: var(--nn-error-text);
+    border-color: var(--nn-error-text);
+  }
+
+  ${hoverStyle}
+  ${focusStyle}
+`
+
+export const inputLabel = css`
+   label {
+    position: absolute;
+    display: inline-flex;
+    font-size: 1em;
+    border: var(--nn-label-border, none);
+    color: var(--nn-label-color,  var(--nn-primary-color-light));
+    padding-left: 12px;
+    padding-right: 12px;
+    min-width: fit-content;
+    white-space: nowrap;
+    top: calc(50% - 8px);
+    transform: translateY(-50%);
+    will-change: transform, background-color;
+    transition: all 0.3s ease-in-out;
+  }
+
+  #native:invalid + label,
+  #native:invalid ~ label {
+    background-color: none;
+    --nn-label-color: darkred;
+  }
+
+  ${requiredLabelAsterisk}
+`
+
+export const floatingLabel = css`
+ 
+  :host([has-value]) label, 
+  #native:focus ~ label, 
+  #native:placeholder-shown ~ label {
+    transform: translateY(-130%);
+    font-size: 80%;
+    transition: all 0.3s ease-in-out;
+    margin-left: 0px;
+  }
+
+`
+
+export const fixedLabel = css`
+  label, #native:focus ~ label,
+  :host([has-value]) label,
+  #native:placeholder-shown ~ label {
+    top: 12px !important;
+    transform: translateY(-50%);;
+    font-size: 80%;
+    transition: all 0.3s ease-in-out;
+  }
+
+`
+
+export const errorMessage = css`
+  span.error-message {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(100%);
+    left: 16px;
+    font-size: 80%;
+    white-space:nowrap;
+    opacity: 0;
+    will-change: transform, opacity;
+    transition: all 0.3s ease-in-out;
+  }
+
+  #native:invalid ~ span.error-message {
+    opacity: 1;
+    transform: translateY(10%);
+    transition: all 0.3s ease-in-out;
+  }
+`
+
+export const hideNativeWidget = css`
+  input {
+    position: unset;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+`

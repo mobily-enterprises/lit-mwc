@@ -6,9 +6,19 @@ export const AddHasValueAttributeMixin = (base) => {
       this.toggleAttribute('has-value', !!target.value.length)
     }
 
+    _observeFocus (e) {
+      this.toggleAttribute('has-focus', true)
+    }
+
+    _observeBlur (e) {
+      this.toggleAttribute('has-focus', false)
+    }
+
     firstUpdated () {
       super.firstUpdated()
       this.native.addEventListener('input', this._observeInput)
+      this.native.addEventListener('focus', this._observeFocus)
+      this.native.addEventListener('blur', this._observeBlur)
     }
 
     // It needs to have a specific setter fo the 'value' property. This means

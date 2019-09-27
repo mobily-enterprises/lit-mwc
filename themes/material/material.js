@@ -1,4 +1,4 @@
-import { CommonStyle } from './CommonStyle'
+import { Global } from './global'
 
 import { EeDrawer } from './elements/ee-drawer'
 import { EeNetwork } from './elements/ee-network'
@@ -36,7 +36,7 @@ import { NnSelect } from './elements/nn-select'
 import { NnTextArea } from './elements/nn-textarea'
 
 window.TP_THEME = {
-  common: CommonStyle,
+  common: Global,
 
   'ee-drawer': EeDrawer,
   'ee-network': EeNetwork,

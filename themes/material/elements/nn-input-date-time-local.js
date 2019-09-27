@@ -1,5 +1,4 @@
-import { css } from 'lit-element'
-import { inputLabel, fixedLabel, inputField } from '../shared-rules'
+import { inputLabel, fixedLabel, inputField, errorMessage } from '../style-patterns'
 
 export const NnInputDateTimeLocal = (base) => {
   return class Base extends base {
@@ -24,13 +23,7 @@ export const NnInputDateTimeLocal = (base) => {
         inputField,
         inputLabel,
         fixedLabel,
-        css`
-          #native {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-          }
-        `
+        errorMessage
       ]
     }
   }

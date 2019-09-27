@@ -1,11 +1,11 @@
 import { css } from 'lit-element'
+import { errorMessage, hideNativeWidget, requiredLabelAsterisk } from '../style-patterns'
 
 export const NnInputCheckBox = (base) => {
   return class Base extends base {
     // Style depends on CSS being able to find label as sibling of the #native element.
     // CSS can select next siblings, but not previous.  This guarantees label is rendered after #native in the shadowDOM
-
-static get properties () {
+    static get properties () {
       return {
         labelPosition: { type: String, attribute: false },
         validationMessage: { type: String, attribute: false }
@@ -22,6 +22,9 @@ static get properties () {
     static get styles () {
       return [
         ...super.styles || [],
+        errorMessage,
+        hideNativeWidget,
+        requiredLabelAsterisk,
         css`
           :host {
             display: block;
@@ -35,15 +38,38 @@ static get properties () {
             user-select: none;
           }
 
-          input {
+          :host::after {
+            content: '';
+            user-select: none;
             position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            left: 5px;
+            top: 5px;
+            will-change: transform;
+            z-index: 0;
           }
-          
-          input:invalid + label, input:invalid ~ label {
+
+          :host(:hover)::after {
+            background: var(--nn-primary-color);
+            opacity: 0.1;
+            transform: scale(4);
+            transition: all 0.3s ease-in-out;
+          }
+
+          :host([has-focus])::after {
+            background: var(--nn-primary-color);
+            opacity: 0.4 !important;
+            transform: scale(4);
+            transition: all 0.3s ease-in-out;
+          }
+
+          div#label-text {
+            padding-left: 16px;
+          }
+
+          #native:invalid + label, #native:invalid ~ label {
             background-color: none;
             --nn-label-color: darkred;
           }
@@ -58,26 +84,28 @@ static get properties () {
             border: 2px solid var(--nn-boundaries-color);
             border-radius: 3px;
             transition: background-color 0.3s ease-in-out;
+            z-index: 1;
           }
 
-          input:checked ~ label::before {
+          #native:checked ~ label::before {
             border-color: var(--nn-primary-color);
             background-color:  var(--nn-primary-color);
             transition: background-color 0.3s ease-in-out;
           }
 
-          input:hover ~ label::before {
+          :host(:hover) label::before {
             filter: brightness(115%);
             transition: filter 0.3s ease-in-out;
-          }
-
-          input:focus ~ label::before {
             box-shadow: var(--nn-theme-box-shadow2);
-            background-color: var(--nn-primary-color-light);
-            filter: brightness(115%);
           }
 
-          input:not([checked]):hover ~ label::before {
+          #native:focus ~ label::before {
+            box-shadow: var(--nn-theme-box-shadow2);
+            background-color: var(--nn-background-dark);
+            border-color: var(--nn-primary-color);
+          }
+
+          #native:not([checked]):hover ~ label::before {
             filter: brightness(130%);
             background-color: var(--nn-primary-color-light);
             transition: background-color 0.3s ease-in-out;
@@ -89,9 +117,10 @@ static get properties () {
             opacity: 0;
             will-change: transform, opacity;
             transition: opacity 0.3s ease-out;
+            z-index: 2;
           }
 
-          input:checked ~ label::after {
+          #native:checked ~ label::after {
             display: block;
             left: 6px;
             top: 2px;
@@ -105,24 +134,6 @@ static get properties () {
             -ms-transform: rotate(405deg);
             transform: rotate(405deg);
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in;
-          }
-
-          span.error-message {
-            position: absolute;
-            top: calc(100% - 3px);
-            /* transform: translateY(0px); */
-            left: 16px;
-            font-size: 80%;
-            white-space:nowrap;
-            opacity: 0;
-            will-change: transform, opacity;
-            transition: all 0.3s ease-in-out;
-          }
-
-          input:invalid ~ span.error-message {
-            transform: translateY(-6px);
-            opacity: 1;
-            transition: all 0.3s ease-in-out;
           }
         `
       ]

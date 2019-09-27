@@ -1,5 +1,4 @@
-import { css } from 'lit-element'
-import { fixedLabel, errorMessage, inputField } from '../shared-rules'
+import { fixedLabel, errorMessage, inputField, inputLabel } from '../style-patterns'
 
 export const NnInputDate = (base) => {
   return class Base extends base {
@@ -22,15 +21,9 @@ export const NnInputDate = (base) => {
       return [
         super.styles || [],
         inputField,
+        inputLabel,
         fixedLabel,
-        errorMessage,
-        css`
-          #native {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-          }
-        `
+        errorMessage
       ]
     }
   }

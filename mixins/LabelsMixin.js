@@ -11,24 +11,9 @@ export const LabelsMixin = (base) => {
       return [
         super.styles || [],
         css`
-          label {
-            display: inline-flex;
-            font-size: 1em;
-            color: var(--nn-label-color, inherit);
-            padding-left: 4px;
-            padding-right: 4px;
-            min-width: fit-content;
-            margin-right: -5px;
-            white-space: nowrap;
-          }
-
           label div#label-text, ::slotted(*) {
             align-self: center;
             width: var(--nn-input-label-width, auto);
-          }
-
-          input:invalid + label, input:invalid ~ label {
-            background-color: var(--nn-label-background-invalid, initial);
           }
 
         `

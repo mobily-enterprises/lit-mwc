@@ -1,5 +1,5 @@
 import { css } from 'lit-element'
-import { inputField, inputLabel, floatingLabel, errorMessage } from '../shared-rules'
+import { inputField, inputLabel, floatingLabel, errorMessage } from '../style-patterns'
 
 export const NnTextArea = (base) => {
   return class Base extends base {
@@ -27,13 +27,21 @@ export const NnTextArea = (base) => {
         errorMessage,
         css`
           :host {
-            height: 40px;
+            --nn-form-element-height: 80px;
           }
-
+          /* Following material design guidelines, non-resizeable textarea */
           textarea {
             font-family: var(--nn-font-family);
             padding-top: 12px;
-            height: 40px;
+            min-height: 80px;
+            max-height: 80px;
+            resize: none;
+          }
+
+          :host([has-value]) label, 
+          #native:focus ~ label, 
+          #native:placeholder-shown ~ label {
+            transform: translateY(-200%);
           }
         `
       ]
