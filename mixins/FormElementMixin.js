@@ -29,6 +29,24 @@ export const FormElementMixin = (base) => {
       ]
     }
 
+    // Submit on enter with forms with only one element
+    _eventListener (e) {
+      if (e.keyCode === 13 && [...this.form.elements].length === 1) {
+        this.form.submit()
+      }
+    }
+
+    connectedCallback () {
+      super.connectedCallback()
+      this.assignFormProperty()
+      this.addEventListener('keydown', this.boundEventListener)
+    }
+
+    disconnectedCallback () {
+      super.disconnectedCallBack()
+      this.removeEventListener('keydown', this.boundEventListener)
+    }
+
     constructor () {
       super()
       this.validator = () => ''
@@ -46,6 +64,8 @@ export const FormElementMixin = (base) => {
       ]
       this.validationMessages = {}
       this.validationMessagePosition = 'before'
+
+      this.boundEventListener = this._eventListener.bind(this)
     }
 
     get skipAttributes () {
@@ -53,11 +73,6 @@ export const FormElementMixin = (base) => {
         ...super.skipAttributes,
         ...['form']
       ]
-    }
-
-    connectedCallback () {
-      super.connectedCallback()
-      this.assignFormProperty()
     }
 
     get validationMessageTemplate () {
