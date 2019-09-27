@@ -68,7 +68,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.validateOnRender = false
     this.fetchingElement = null
     this.submitCheckboxesAsNative = false
-    this.submitNumber = 0
     this._boundRealtimeSubmitter = this._realTimeSubmitter.bind(this)
     this.inflight = false
     this.attemptedFlight = false
@@ -208,7 +207,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
   }
 
   async submit (specificElement) {
-    this.submitNumber++
 
     // Clear all custom validities if they are set
     // Native elements will NEED this, or any invalid state
@@ -270,11 +268,9 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // Attempt the submission
     let networkError = false
     let response
-    let thisSubmit
     let errs
     try {
       const el = this._fetchEl()
-      thisSubmit = this.submitNumber
       response = await el.fetch(fetchOptions.url, fetchOptions)
     } catch (e) {
       console.log('ERROR!', e)
@@ -298,32 +294,30 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // CASE #2: HTTP error.
     // Invalidate the problem fields
     } else if (!response.ok) {
-      if (this.submitNumber === thisSubmit) {
-        //
-        // Try and get the errors object from the reponse's json
-        const originalErrs = await response.json()
-        errs = this.extrapolateErrors(originalErrs) || {}
+      //
+      // Try and get the errors object from the reponse's json
+      const originalErrs = await response.json()
+      errs = this.extrapolateErrors(originalErrs) || {}
 
-        // Emit event to make it possible to tell the user via UI about the problem
-        const event = new CustomEvent('form-error', { detail: { type: 'http', response, errs }, bubbles: true, composed: true })
-        this.dispatchEvent(event)
+      // Emit event to make it possible to tell the user via UI about the problem
+      const event = new CustomEvent('form-error', { detail: { type: 'http', response, errs }, bubbles: true, composed: true })
+      this.dispatchEvent(event)
 
-        // Re-enable the elements
-        // This must happen before setCustomValidity() and reportValidity()
-        if (!specificElement) this._enableElements(this.elements)
+      // Re-enable the elements
+      // This must happen before setCustomValidity() and reportValidity()
+      if (!specificElement) this._enableElements(this.elements)
 
-        // Set error messages
-        if (errs.errors && errs.errors.length) {
-          const elHash = {}
-          for (const el of this.elements) {
-            elHash[el.name] = el
-          }
-          for (const err of errs.errors) {
-            const el = elHash[err.field]
-            if (el) {
-              el.setCustomValidity(err.message)
-              el.reportValidity()
-            }
+      // Set error messages
+      if (errs.errors && errs.errors.length) {
+        const elHash = {}
+        for (const el of this.elements) {
+          elHash[el.name] = el
+        }
+        for (const err of errs.errors) {
+          const el = elHash[err.field]
+          if (el) {
+            el.setCustomValidity(err.message)
+            el.reportValidity()
           }
         }
       }
