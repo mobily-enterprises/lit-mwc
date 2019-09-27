@@ -73,15 +73,18 @@ Validation and forms
 ☐ Implement nn-autocomplete (using datalist) and en-autocomplete (no datalist, manual selecting)
 
 ☐ Extra elements
-  ✔ Write ee-network (backport from existing) @done(2019-09-22 20:01)
+  ✔ Implement ee-network (backport from existing) @done(2019-09-22 20:01)
   ✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
   ✔ Implement ee-drawer @done (9/25/2019, 5:10:30 PM)
   ☐ Implement ee-tabs
+  ☐ Implement ee-drawer
   ☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
   ☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
   ☐ Implement FAB en-fab
   ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
-  ☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+  ☐ Implement ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+  ☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
+  ☐ (Later?) Implement ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 
 (LATER)
 ☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
@@ -98,7 +101,6 @@ Validation and forms
     ☐ If that happens, will it make any difference?
   ☐ Submit the form when the user preses ENTER on a sole inputText
 
-
 Issues:
   ☐ #6: make sure focus is redirected to inputText (https://github.com/mobily-enterprises/tpe/issues/6)
   ☐ #7: Improve focus visual feedback (https://github.com/mobily-enterprises/tpe/issues/7)
@@ -114,20 +116,6 @@ Issues:
   ☐ implement it for all nn elements
   ☐ document it
   ☐ extend to en and ee elements
-
-EXTRA ELEMENTS:
-✔ Write ee-network (backport from existing) @done(2019-09-22 20:01)
-✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
-☐ Implement ee-drawer
-☐ Implement ee-tabs
-☐ Implement Header ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
-☐ Implement Nav bar en-nav (or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
-☐ Implement FAB en-fab
-
-LATER:
-☐ Implement Switch en-switch (maybe deriving from nn-checkbox)
-☐ Write ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
-☐ Add TPE to https://github.com/web-padawan/awesome-lit-html
 
 DOCUMENT VALIDATION BLUEPRINT:
 ☐ OVERRIDE checkValidity (nn, in FormElementMixin)
@@ -154,3 +142,5 @@ DOCUMENT VALIDATION BLUEPRINT:
   ☐ Run submit
 
 ☐ Watch https://github.com/w3c/webcomponents/issues/187 VERY CRUCIAL TICKET ON ELEMENT-FORM ASSOCIATION
+
+☐ Add TPE to https://github.com/web-padawan/awesome-lit-html
