@@ -18,15 +18,10 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(StyleableMixin(
       ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input type="text" id="native">
+      <input type="text" id="native" real-time-event="input">
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
-  }
-
-  constructor () {
-    super()
-    this.realTimeEvent = 'input'
   }
 }
 customElements.define('nn-input-text', NnInputText)

@@ -28,11 +28,6 @@ class EnInputRange extends ThemeableMixin('en-input-range')(FormElementMixin(Sty
     }
   }
 
-  constructor () {
-    super()
-    this.realTimeEvent = 'input'
-  }
-
   firstUpdated () {
     super.firstUpdated()
     this.shownValue = this.shadowRoot.querySelector('#native').value
@@ -44,7 +39,7 @@ class EnInputRange extends ThemeableMixin('en-input-range')(FormElementMixin(Sty
       <slot @slotchange="${this.slotChanged}" id="range-amount-before" name="range-amount-before"></slot>
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input @change=${this.updateShownValue} type="range" id="native">
+      <input @change=${this.updateShownValue} type="range" id="native" real-time-event="input">
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
       <slot @slotchange="${this.slotChanged}" id="range-amount-after" name="range-amount-after"></slot>

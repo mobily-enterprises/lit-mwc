@@ -19,11 +19,6 @@ class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(StyleableMix
     }
   }
 
-  constructor () {
-    super()
-    this.realTimeEvent = ''
-  }
-
   get skipAttributes () {
     return [
       ...super.skipAttributes,

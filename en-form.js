@@ -70,6 +70,8 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.submitCheckboxesAsNative = false
     this.submitNumber = 0
     this._boundRealtimeSubmitter = this._realTimeSubmitter.bind(this)
+    this.inflight = false
+    this.attemptedFlight = false
   }
 
   async _allChildrenCompleted () {
@@ -90,18 +92,9 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     super.connectedCallback()
     this._allChildrenCompleted().then(() => {
       for (const el of this.elements) {
-        let realTime
-        let realTimeEvent
-        realTime = el.getAttribute('real-time')
-        if (realTime === null) realTime = el.realTime
-        else realTime = true
-
-        realTimeEvent = el.getAttribute('real-time-event')
-        if (realTimeEvent === null) realTimeEvent = el.realTimeEvent
-
-        if (!realTime) continue
-        if (!realTimeEvent) continue
-
+        const realTime = el.getAttribute('real-time') !== null
+        const realTimeEvent = el.getAttribute('real-time-event')
+        if (!realTime || !realTimeEvent) continue
         this.addEventListener(realTimeEvent, this._boundRealtimeSubmitter)
       }
     })
@@ -232,6 +225,12 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       submitObject = this.createSubmitObject(this.elements)
     }
 
+    if (this.inFlight) {
+      this.attemptedFlight = true
+      return
+    }
+    this.inFlight = true
+
     // The element's method can only be null, POST or PUT.
     // If not null, and not "PUT", it's set to "POST"
     let elementMethod = this.getAttribute('method')
@@ -340,7 +339,9 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       // HOOK Set the form values, in case the server processed some values
       // Note: this is only ever called if set-form-after-submit was
       // passed to the form.
-      if (this.setFormAfterSubmit) this.setFormElementValues(v)
+      if (this.setFormAfterSubmit) {
+        if (!this.attemptedFlight) this.setFormElementValues(v)
+      }
 
       if (this.resetFormAfterSubmit) this.reset()
 
@@ -353,6 +354,11 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
 
       // Response hook
       this.response(response, v)
+    }
+    this.inFlight = false
+    if (this.attemptedFlight) {
+      this.attemptedFlight = false
+      this.submit(specificElement)
     }
   }
 

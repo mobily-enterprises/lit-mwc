@@ -11,24 +11,6 @@ export class NnInputDatalist extends ThemeableMixin('nn-input-datalist')(FormEle
     return [
       super.styles || [],
       css`
-        /* :host {
-          display: flex;
-          height: 30px;
-        }
-
-        input {
-          display: inline-flex;
-          border-radius: var(--nn-input-border-radius, 0 4px 4px 0);
-          border: var(--nn-input-border, 1px solid #dddddd);
-          color: var(--nn-input-color, inherit);
-          background-color: var(--nn-input-background, initial);
-          -webkit-appearance: none;
-          width: 100%;
-          float: right;
-          font-size: 1em;
-          padding-left: 10px;
-          margin-left: 4px;
-        } */
       `
     ]
   }
@@ -40,17 +22,12 @@ export class NnInputDatalist extends ThemeableMixin('nn-input-datalist')(FormEle
     ]
   }
 
-  constructor () {
-    super()
-    this.realTimeEvent = 'input'
-  }
-
   render () {
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
       <slot @slotchange="${this.addSlotToSelect}"></slot>
-      <input type="text" id="native" list="_datalist" >
+      <input type="text" id="native" list="_datalist" real-time-event="input">
       <datalist id="_datalist">
       </datalist>
       ${this.ifLabelAfter}

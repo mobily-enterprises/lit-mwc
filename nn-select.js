@@ -43,7 +43,6 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Label
   constructor () {
     super()
     this.options = []
-    this.realTimeEvent = 'selected'
   }
 
   render () {
@@ -52,7 +51,7 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Label
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <slot @slotchange="${this.addSlotToSelect}"></slot>
-      <select id="native"></select>
+      <select id="native" real-time-event="selected"></select>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `

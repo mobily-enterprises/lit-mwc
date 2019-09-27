@@ -15,10 +15,5 @@ class NnInputButton extends ThemeableMixin('nn-input-button')(FormElementMixin(I
         <slot></slot>
      `
   }
-
-  constructor () {
-    super()
-    this.realTimeEvent = ''
-  }
 }
 customElements.define('nn-input-button', NnInputButton)

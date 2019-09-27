@@ -20,18 +20,7 @@ export const FormElementMixin = (base) => {
         validationMessagePosition: {
           type: String,
           attribute: 'validation-message-position'
-        },
-        realTime: {
-          type: Boolean,
-          attribute: 'real-time',
-          reflected: true
-        },
-        realTimeEvent: {
-          type: String,
-          attribute: 'real-time-event',
-          reflected: true
         }
-
       }
     }
 
@@ -89,8 +78,6 @@ export const FormElementMixin = (base) => {
       this.validationMessagePosition = 'before'
 
       this._boundKeyEventListener = this._eventListener.bind(this)
-      this.realTime = false
-      this.realTimeEvent = ''
     }
 
     get skipAttributes () {

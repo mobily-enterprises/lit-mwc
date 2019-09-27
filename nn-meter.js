@@ -20,15 +20,10 @@ export class NnMeter extends ThemeableMixin('nn-meter')(FormElementMixin(InputMi
     ]
   }
 
-  constructor () {
-    super()
-    this.realTimeEvent = 'input'
-  }
-
   render () {
     return html`
       ${this.customStyle}
-      <meter id="native"></meter>
+      <meter id="native" real-time-event="input"></meter>
     `
   }
 }

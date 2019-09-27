@@ -22,16 +22,11 @@ class NnInputCheckbox extends ThemeableMixin('nn-input-checkbox')(FormElementMix
     ]
   }
 
-  constructor () {
-    super()
-    this.realTimeEvent = 'checked'
-  }
-
   render () {
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
-      <input type="checkbox" as-checkbox value-source="checked" id="native">
+      <input type="checkbox" as-checkbox value-source="checked" id="native"  real-time-event="checked">
       ${this.ifLabelAfter}
     `
   }

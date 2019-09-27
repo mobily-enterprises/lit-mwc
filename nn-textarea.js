@@ -11,31 +11,8 @@ export class NnTextArea extends ThemeableMixin('nn-textarea')(StyleableMixin(For
     return [
       super.styles || [],
       css`
-        /* :host {
-          display: flex;
-          height: 30px;
-        } */
-
-        /* textarea {
-          display: inline-flex;
-          border-radius: var(--nn-textarea-border-radius, 0 4px 4px 0);
-          border: var(--nn-textarea-border, 1px solid #dddddd);
-          color: var(--nn-textarea-color, inherit);
-          background-color: var(--nn-textarea-background, initial);
-          -webkit-appearance: none;
-          float: right;
-          width: 100%;
-          font-size: 1em;
-          padding-left: 10px;
-          margin-left: 4px;
-        } */
       `
     ]
-  }
-
-  constructor () {
-    super()
-    this.realTimeEvent = 'input'
   }
 
   get reflectProperties () {
@@ -50,7 +27,7 @@ export class NnTextArea extends ThemeableMixin('nn-textarea')(StyleableMixin(For
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
-      <textarea name="" id="native"></textarea>
+      <textarea name="" id="native" real-time-event="input"></textarea>
       ${this.ifLabelAfter}
     `
   }

@@ -9,10 +9,6 @@ export class NnProgress extends ThemeableMixin('nn-progress')(FormElementMixin(I
     return [
       super.styles || [],
       css`
-        /* :host {
-          display: flex;
-          height: 30px;
-        } */
       `
     ]
   }
@@ -20,11 +16,6 @@ export class NnProgress extends ThemeableMixin('nn-progress')(FormElementMixin(I
   static get properties () {
     return {
     }
-  }
-
-  constructor () {
-    super()
-    this.realTimeEvent = 'input'
   }
 
   get reflectProperties () {
@@ -37,7 +28,7 @@ export class NnProgress extends ThemeableMixin('nn-progress')(FormElementMixin(I
   render () {
     return html`
       ${this.customStyle}
-      <progress id="native"></progress>
+      <progress id="native" real-time-event="input"></progress>
     `
   }
 }
