@@ -207,7 +207,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
   }
 
   async submit (specificElement) {
-
     // Clear all custom validities if they are set
     // Native elements will NEED this, or any invalid state
     // will persist even if validation passes
@@ -224,7 +223,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     }
 
     if (this.inFlight) {
-      this.attemptedFlight = true
+      this.attemptedFlight = specificElement
       return
     }
     this.inFlight = true
@@ -351,8 +350,9 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     }
     this.inFlight = false
     if (this.attemptedFlight) {
+      const oldEl = this.attemptedFlight
       this.attemptedFlight = false
-      this.submit(specificElement)
+      this.submit(oldEl)
     }
   }
 
