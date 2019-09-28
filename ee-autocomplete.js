@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
-import './nn-select'
+import './ee-autocomplete-li'
 
 export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(LitElement)) {
   static get styles () {
@@ -34,34 +34,33 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       url: {
         type: String
       },
-      mustMatch: {
-        type: Boolean,
-        attribute: 'must-match'
-      },
       informational: {
         type: Boolean
       },
       target: {
         type: String
       },
-      suggestionsPath: {
-        type: String,
-        attribute: 'suggestions-path'
-      },
       suggestions: {
         type: Array,
         attribute: false
+      },
+      itemElement: {
+        type: String,
+        attribute: 'item-element'
+      },
+      itemElementConfig: {
+        type: Object,
+        attribute: 'item-element-config'
       }
     }
   }
 
   constructor () {
     super()
-    this.method = 'get'
     this.url = ''
     this.target = ''
-    this.suggestionsPath = 'name'
     this.suggestions = []
+    this.itemElement = 'ee-autocomplete-li'
 
     this._boundInputEvent = this._inputEvent.bind(this)
   }
@@ -94,11 +93,26 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   render () {
     return html`
       <slot></slot>
-      
-      ${this.suggestions.map(suggestion => html`
-        <li>${suggestion[this.suggestionsPath]}</li>
-      `)}
+      <div @click="${this._pickedClick}" id="suggestions"></div>
     `
+  }
+
+  _pickedClick (e) {
+    if (this.informational) return
+    console.log(e.target.data)
+  }
+
+  async updated (cp) {
+    if (!cp.has('suggestions')) return
+    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
+    while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }
+
+    for (const suggestion of this.suggestions) {
+      const el = document.createElement(this.itemElement)
+      if (this.itemElementConfig) el.config = this.itemElementConfig
+      el.data = suggestion
+      suggestionsDiv.appendChild(el)
+    }
   }
 
   async _inputEvent (e) {
