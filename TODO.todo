@@ -71,6 +71,17 @@ Validation and forms
   ✔ Rename element classes from Element to NnElement to facilitate subclassing @done(2019-09-26 07:43)
   ✔ [Rename files to lower case @done(2019-09-26 07:43)
 ☐ Implement en-autocomplete (using datalist) and ee-autocomplete (no datalist, manual selecting)
+  ☐ Add 'id' property finder to default config of children elements
+  ☐ Write getIdValue() for -li elements
+  ☐ Let ee-autocomplete decide if selection will be visual or text (visual will only work with elements with pickedElement)
+  ☐ Implement 'value' in ee-span-list (comma separated, configurable separator, id in config)
+  ☐ Avoid duplicates
+  ☐ Allow "X" to delete items
+  ☐ KEYS: Keyboard bindings to navigate through elements (left/right arrows)
+  ☐ KEYS: Escape to close selection
+  ☐ Make sure element is FULLY aria compatible and usable
+  ☐ Make sure element has ALL API for input elements (no native reflection, we are on our own)
+
 ☐ Add WeakMap to form, so that it will set inflight per-element
 
 ☐ Extra elements

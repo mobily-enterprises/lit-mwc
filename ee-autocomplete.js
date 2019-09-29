@@ -10,6 +10,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       css`
         :host {
           display: block;
+          position: relative;
         }
 
         #suggestions {
@@ -51,7 +52,12 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       itemElementConfig: {
         type: Object,
         attribute: 'item-element-config'
+      },
+      itemElementAttributes: {
+        type: Object,
+        attribute: ''
       }
+
     }
   }
 
@@ -61,6 +67,8 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.target = ''
     this.suggestions = []
     this.itemElement = 'ee-autocomplete-li'
+    this.itemElementConfig = {}
+    this.itemElementAttributes = {}
 
     this._boundInputEvent = this._inputEvent.bind(this)
   }
@@ -93,12 +101,25 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   render () {
     return html`
       <slot></slot>
-      <div @click="${this._pickedClick}" id="suggestions"></div>
+      <div @click="${this._picked}" id="suggestions"></div>
     `
   }
 
-  _pickedClick (e) {
+  _picked (e) {
     if (this.informational) return
+    if (typeof this.targetElement.pickedElement === 'function') {
+      const parentEl = document.createElement(this.itemElement)
+      const el = new parentEl.constructor.PickedElement()
+
+      el.config = { ...el.config, ...this.itemElementConfig }
+      for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k])
+      el.data = e.target.data
+
+      this.targetElement.pickedElement(el)
+    } else {
+      this.targetElement.value = e.target.textValue
+    }
+    this.suggestions = []
     console.log(e.target.data)
   }
 
@@ -109,7 +130,8 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
 
     for (const suggestion of this.suggestions) {
       const el = document.createElement(this.itemElement)
-      if (this.itemElementConfig) el.config = this.itemElementConfig
+      el.config = { ...el.config, ...this.itemElementConfig }
+      for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k])
       el.data = suggestion
       suggestionsDiv.appendChild(el)
     }
@@ -135,7 +157,8 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this._autocompleteInFlight = true
 
     // Set the url, which will also depend on recordId
-    const url = this.url + target.value
+    const value = target.autocompleteValue || target.value
+    const url = this.url + value
 
     const fetchOptions = {
       method: 'GET',
