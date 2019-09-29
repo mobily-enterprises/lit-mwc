@@ -78,6 +78,7 @@ Validation and forms
   ☐ Avoid duplicates
   ☐ Allow "X" to delete items
   ☐ KEYS: Keyboard bindings to navigate through elements (left/right arrows)
+  ☐ KEYS: Make sure "backspace" and "delete" works (delete element)
   ☐ KEYS: Escape to close selection
   ☐ Make sure element is FULLY aria compatible and usable
   ☐ Make sure element has ALL API for input elements (no native reflection, we are on our own)
