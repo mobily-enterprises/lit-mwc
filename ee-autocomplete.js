@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
-import './ee-autocomplete-li'
+import './ee-autocomplete-item-li'
 
 export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(LitElement)) {
   static get styles () {
@@ -28,7 +28,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           width: 100%;
           padding: 10px;
         }
-        
+
         [hidden] {
           display: none !important;
         }
@@ -72,7 +72,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.url = ''
     this.target = ''
     this.suggestions = []
-    this.itemElement = 'ee-autocomplete-li'
+    this.itemElement = 'ee-autocomplete-item-li'
     this.itemElementConfig = {}
     this.itemElementAttributes = {}
 
@@ -134,7 +134,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
     suggestionsDiv.toggleAttribute('populated', !!this.suggestions.length)
     while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }
-    
+
     for (const suggestion of this.suggestions) {
       const el = document.createElement(this.itemElement)
       el.config = { ...el.config, ...this.itemElementConfig }
