@@ -45,6 +45,7 @@ export class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-l
   constructor () {
     super()
     this.config = {
+      id: 'id',
       path: 'name'
     }
   }

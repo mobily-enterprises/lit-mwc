@@ -96,6 +96,15 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     }
 
     this.targetElement.addEventListener('input', this._boundInputEvent)
+
+    // API USE: If the target input element has a
+    // pickElement() method, then set the basic parameters for all
+    // picked items (element name, config and attributes)
+    // The input element will need it to be able to render
+    // the "chosen" value once picked AND when setting the value
+    if (typeof this.targetElement.pickedElement === 'function') {
+      this.targetElement.setPickedElement(this.itemElement, this.itemElementConfig, this.itemElementAttributes)
+    }
   }
 
   disconnectedCallback () {
@@ -114,19 +123,11 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   _picked (e) {
     if (this.informational) return
     if (typeof this.targetElement.pickedElement === 'function') {
-      const parentEl = document.createElement(this.itemElement)
-      const el = new parentEl.constructor.PickedElement()
-
-      el.config = { ...el.config, ...this.itemElementConfig }
-      for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k])
-      el.data = e.target.data
-
-      this.targetElement.pickedElement(el)
+      this.targetElement.pickedElement(e.target.data)
     } else {
       this.targetElement.value = e.target.textValue
     }
     this.suggestions = []
-    console.log(e.target.data)
   }
 
   async updated (cp) {
