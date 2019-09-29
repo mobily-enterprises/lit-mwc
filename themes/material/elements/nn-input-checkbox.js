@@ -101,13 +101,13 @@ export const NnInputCheckBox = (base) => {
 
           #native:focus ~ label::before {
             box-shadow: var(--nn-theme-box-shadow2);
-            background-color: var(--nn-background-dark);
             border-color: var(--nn-primary-color);
+            filter: brightness(115%);
           }
 
           #native:not([checked]):hover ~ label::before {
             filter: brightness(130%);
-            background-color: var(--nn-primary-color-light);
+            background-color: var(--nn-primary-color);
             transition: background-color 0.3s ease-in-out;
           }
 
