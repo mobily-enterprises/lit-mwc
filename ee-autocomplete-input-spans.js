@@ -3,6 +3,26 @@ import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
 
 class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spans')(StyleableMixin(LitElement)) {
+  static get properties () {
+    return {
+      value: {
+        type: String
+      },
+      name: {
+        type: String
+      },
+      valueAsJson: {
+        type: Boolean,
+        attribute: 'value-as-json'
+      }
+    }
+  }
+
+  constructor () {
+    super()
+    this.valueAsJson = false
+  }
+
   static get styles () {
     return [
       super.styles || [],
@@ -27,6 +47,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       <textarea @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list"></textarea>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
+      <input type="hidden" name="${this.name}" value="${this.value}">
     `
   }
 
