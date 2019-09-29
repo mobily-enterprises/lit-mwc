@@ -210,7 +210,11 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // Clear all custom validities if they are set
     // Native elements will NEED this, or any invalid state
     // will persist even if validation passes
-    for (const el of this.elements) el.setCustomValidity('')
+    for (const el of this.elements) {
+      if (typeof el.setCustomValidity === 'function') {
+        el.setCustomValidity('')
+      }
+    }
 
     // No validity = no sending
     let submitObject
