@@ -8,7 +8,7 @@ class EeSpanList extends ThemeableMixin('ee-span-list')(StyleableMixin(LitElemen
       super.styles || [],
       css`
         :host {
-          dispay: block;
+          display: block;
         }
 
         #list {

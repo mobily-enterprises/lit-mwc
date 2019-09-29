@@ -14,6 +14,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         }
 
         #suggestions {
+          box-sizing: border-box;
           background-color: white;
           position: absolute;
           z-index: 1000;
@@ -23,6 +24,11 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.2), 0 0 2px 2px rgba(0, 0, 0, 0.05);
         }
 
+        #suggestions[populated] {
+          width: 100%;
+          padding: 10px;
+        }
+        
         [hidden] {
           display: none !important;
         }
@@ -126,8 +132,9 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   async updated (cp) {
     if (!cp.has('suggestions')) return
     const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
+    suggestionsDiv.toggleAttribute('populated', !!this.suggestions.length)
     while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }
-
+    
     for (const suggestion of this.suggestions) {
       const el = document.createElement(this.itemElement)
       el.config = { ...el.config, ...this.itemElementConfig }

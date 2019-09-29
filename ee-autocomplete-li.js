@@ -9,7 +9,18 @@ export class EeAutocompleteLi extends ThemeableMixin('ee-autocomplete-li')(Style
       css`
         :host {
           display: block;
+          padding: 10px;
+          border-bottom: 1px solid #ddd;
         }
+
+        :host(:last-child) {
+          border-bottom: unset;
+        }
+
+        :host(:hover) {
+          background-color: #eee;
+        }
+
       `
     ]
   }

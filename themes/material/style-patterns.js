@@ -69,6 +69,10 @@ export const inputField = css`
     outline: none
   }
 
+  #native::selection {
+    background-color: var(--nn-background-dark);
+  }
+
   #native:invalid {
     background-color: var(--nn-error-color);
     color: var(--nn-error-text);
