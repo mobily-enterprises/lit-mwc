@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
-export class EeAutocompleteLi extends ThemeableMixin('ee-autocomplete-li')(StyleableMixin(LitElement)) {
+export class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-li')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       super.styles || [],
@@ -19,6 +19,10 @@ export class EeAutocompleteLi extends ThemeableMixin('ee-autocomplete-li')(Style
 
         :host(:hover) {
           background-color: #eee;
+        }
+
+        li {
+          list-style: none;
         }
 
       `
@@ -58,12 +62,12 @@ export class EeAutocompleteLi extends ThemeableMixin('ee-autocomplete-li')(Style
   }
 
   static get PickedElement () {
-    return EeAutocompleteLiView
+    return EeAutocompleteItemLiView
   }
 }
-customElements.define('ee-autocomplete-li', EeAutocompleteLi)
+customElements.define('ee-autocomplete-item-li', EeAutocompleteItemLi)
 
-class EeAutocompleteLiView extends LitElement {
+class EeAutocompleteItemLiView extends LitElement {
   static get styles () {
     return [
       super.styles || [],
@@ -107,4 +111,4 @@ class EeAutocompleteLiView extends LitElement {
     `
   }
 }
-customElements.define('ee-autocomplete-li-view', EeAutocompleteLiView)
+customElements.define('ee-autocomplete-item-li-view', EeAutocompleteItemLiView)

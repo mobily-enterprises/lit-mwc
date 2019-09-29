@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
 
-class EeSpanList extends ThemeableMixin('ee-span-list')(StyleableMixin(LitElement)) {
+class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spans')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       super.styles || [],
@@ -51,4 +51,4 @@ class EeSpanList extends ThemeableMixin('ee-span-list')(StyleableMixin(LitElemen
   }
 }
 
-window.customElements.define('ee-span-list', EeSpanList)
+window.customElements.define('ee-autocomplete-input-spans', EeAutocompleteInputSpans)
