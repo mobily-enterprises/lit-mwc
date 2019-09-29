@@ -55,7 +55,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       },
       itemElementAttributes: {
         type: Object,
-        attribute: ''
+        attribute: 'item-element-attributes'
       }
 
     }
