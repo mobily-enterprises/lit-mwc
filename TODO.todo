@@ -82,6 +82,7 @@ Validation and forms
     ✔ Add error messages @done(2019-10-01 06:48) @project(☐ Tony)
     ☐ Implement text selection autocomplete
     ☐ allow-duplicates parameter
+    ☐ Develop implementation of "X" to delete an item (delete span)
   ☐ Raphael:
     ☐ Allow "X" to delete items, and just delete them for now
     ☐ Give visual feedback that an ID is selected
@@ -89,7 +90,7 @@ Validation and forms
     ☐ KEYS: Make sure "backspace" and "delete" works (delete element)
     ☐ KEYS: Escape to close selection
     ☐ Make sure element is FULLY aria compatible and usable
-    ☐ Make sure element has ALL API for input elements (no native reflection, we are on our own)
+    ✔ Make sure element has ALL API for input elements (no native reflection, we are on our own) @done(2019-10-01 07:40) @project(☐ Raphael)
 ☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
 ☐ Form: Add WeakMap to form, so that it will set inflight per-element
 
