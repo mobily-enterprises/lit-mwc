@@ -109,7 +109,7 @@ class EeAutocompleteItemCountryView extends LitElement {
 
   render () {
     return html`
-      ${this.data[this.config.countryName]};
+      ${this.data[this.config.countryName]}
     `
   }
 }
