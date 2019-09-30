@@ -9,7 +9,7 @@ export const EeAutocompleteInputSpans = (base) => {
         inputField,
         errorMessage,
         css`
-          textarea {
+          /* textarea {
             display: inline-block;
             box-sizing: border-box;
             font-family: var(--nn-font-family, 'sans-serif');
@@ -24,13 +24,12 @@ export const EeAutocompleteInputSpans = (base) => {
             border: 1px solid #ddd;
             border-radius: 1em;
             margin: 2px;
-            display: inline-block;
           }
 
           #list > span:hover {
             border-color: var(--nn-primary-color);
             box-shadow: var(--nn-theme-box-shadow1);
-          }
+          } */
 
         `
       ]

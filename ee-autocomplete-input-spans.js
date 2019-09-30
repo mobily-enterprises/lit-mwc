@@ -33,11 +33,32 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         }
 
         #list {
+          /* display: inline-block; */
+        }
+
+        #list > span {
           display: inline-block;
+          padding: 2px 5px;
+          border: 1px solid #ddd;
+          border-radius: 1em;
+          margin: 2px;
+          font-size: 0.9em;
         }
 
         textarea {
           box-sizing: border-box;
+          display: inline-block;
+          outline: none;
+          resize: none;
+          vertical-align: middle;
+          height: 1.8em;
+          border: none;
+          font-size: 1em;
+          width: 120px;
+        }
+
+        textarea:focus, textarea:hover {
+          outline: none
         }
       `
     ]
