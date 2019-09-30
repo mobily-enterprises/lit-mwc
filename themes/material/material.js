@@ -34,6 +34,8 @@ import { NnMeter } from './elements/nn-meter'
 import { NnProgress } from './elements/nn-progress'
 import { NnSelect } from './elements/nn-select'
 import { NnTextArea } from './elements/nn-textarea'
+import { EeAutocomplete } from './elements/ee-autocomplete'
+import { EeAutocompleteInputSpans } from './elements/ee-autocomplete-input-spans'
 
 window.TP_THEME = {
   common: Global,
@@ -42,6 +44,8 @@ window.TP_THEME = {
   'ee-network': EeNetwork,
   'ee-snack-bar': EeSnackBar,
   'ee-tabs': EeTabs,
+  'ee-autocomplete': EeAutocomplete,
+  'ee-autocomplete-input-spans': EeAutocompleteInputSpans,
 
   'en-form': EnForm,
   'en-input-Range': EnInputRange,
