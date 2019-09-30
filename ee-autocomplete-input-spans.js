@@ -1,8 +1,9 @@
 import { LitElement, html, css } from 'lit-element'
+import { LabelsMixin } from './mixins/LabelsMixin.js'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
 
-class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spans')(StyleableMixin(LitElement)) {
+class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spans')(LabelsMixin(StyleableMixin(LitElement))) {
   static get properties () {
     return {
       name: {
@@ -11,7 +12,16 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       valueAsJson: {
         type: Boolean,
         attribute: 'value-as-json'
-      }
+      },
+      validationMessagePosition: {
+        type: String,
+        attribute: 'validation-message-position'
+      },
+      shownValidationMessage: {
+        type: String,
+        attribute: false
+      },
+      validator: { type: Function }
     }
   }
 
@@ -22,6 +32,9 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this.itemElement = ''
     this.itemElementConfig = {}
     this.itemElementAttributes = {}
+    this.shownValidationMessage = ''
+    this.validator = () => ''
+    this.validationMessagePosition = 'before'
   }
 
   static get styles () {
@@ -104,15 +117,50 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     return ni.value
   }
 
+  /* CONSTRAINTS API */
   get validity () {
     return {
-      valid: true
+      valid: this.shownValidationMessage === ''
     }
   }
 
-  setCustomValidity () {
+  checkValidity () {
+    this.shownValidationMessage = ''
 
+    const ownErrorMessage = this.validator()
+    if (ownErrorMessage) {
+      this.setCustomValidity(ownErrorMessage)
+      return false
+    }
+    return true
   }
+
+  setCustomValidity (validationMessage) {
+    this.shownValidationMessage = validationMessage
+  }
+
+  reportValidity () {
+  }
+
+  get ifValidationMessageBefore () {
+    if (this.validationMessagePosition === 'after') return ''
+    return this.validationMessageTemplate
+  }
+
+  get ifValidationMessageAfter () {
+    if (this.validationMessagePosition === 'before') return ''
+    return this.validationMessageTemplate
+  }
+
+  get validationMessageTemplate () {
+    return html`
+      <span class="error-message">
+        ${this.shownValidationMessage}
+      </span>
+    `
+  }
+
+  /* END OF CONSTRAINTS API */
 
   _inputReceived (e) {
     this.autocompleteValue = this.shadowRoot.querySelector('#ta').value
