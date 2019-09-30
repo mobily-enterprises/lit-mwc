@@ -191,10 +191,12 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     if (!target) return
 
     // If the target element is not valid, don't take off at all
-    if (!target.validity.valid) {
-      this.suggestions = []
-      return
-    }
+    // TAKEN OUT as autocomplete might be necessary to actually make
+    // it valid
+    // if (!target.validity.valid) {
+    //  this.suggestions = []
+    //  return
+    // }
 
     // Check if it's inflight. If so, queue up an autocomplete
     // with the same 'e'
