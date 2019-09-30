@@ -47,6 +47,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       target: {
         type: String
       },
+      targetForId: {
+        type: String,
+        attribute: 'target-for-id'
+      },
       suggestions: {
         type: Array,
         attribute: false
@@ -73,7 +77,8 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   constructor () {
     super()
     this.url = ''
-    this.target = ''
+    this.target = null
+    this.targetForId = null
     this.suggestions = []
     this.itemElement = 'ee-autocomplete-item-li'
     this.itemElementConfig = {}
@@ -83,16 +88,45 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this._boundInputEvent = this._inputEvent.bind(this)
   }
 
+  // If if's not set, return the first child
+  // If it's set:
+  //   If it's a string, return the #element
+  //   If it's an object, return it directly (assumption that it's an element)
+  _findTarget (target) {
+    if (target !== null) {
+      if (typeof target === 'string') return this.querySelector(`#${target}`)
+      else if (typeof target === 'object') return target
+    } else {
+      return this.children[0]
+    }
+    return null
+  }
+
+  // If if's not set, don't do anything
+  // If it's set:
+  //   If it's an empty string, look for the first [name] element without no-submit,
+  //   If it's a string, return the #element
+  //   If it's an object, return it  directly (assumption that it's an element)
+  _findTargetForId (target) {
+    if (target !== 'null') {
+      if (typeof target === 'string') {
+        return target === ''
+          ? this.querySelector('[name]:not([no-submit])')
+          : this.querySelector(`#${target}`)
+      }
+      else if (typeof target === 'object') return target
+    }
+    return null
+  }
+
   connectedCallback () {
     super.connectedCallback()
 
-    if (this.target) {
-      if (typeof this.target === 'string') this.targetElement = this.querySelector(`#${this.target}`)
-      else this.targetElement = this.target
-    } else {
-      this.targetElement = this.children[0]
-    }
+    this.targetElement = this._findTarget(this.target)
+    this.targetForId = this._findTargetForId(this.targetForId)
+
     console.log('Target element:', this.targetElement)
+    console.log('Target for ID element:', this.targetForId)
 
     if (!this.targetElement) {
       console.error('Target element not found')
@@ -125,11 +159,13 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   }
 
   _picked (e) {
-    if (this.informational) return
+    if (this.informational || !this.targetElement) return
+
     if (typeof this.targetElement.pickedElement === 'function') {
       this.targetElement.pickedElement(e.target.data)
     } else {
       this.targetElement.value = e.target.textValue
+      if (this.targetForId) this.targetForId.value = e.target.idValue
     }
     this.suggestions = []
   }
