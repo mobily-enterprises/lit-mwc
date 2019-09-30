@@ -67,7 +67,6 @@ export class EeAutocompleteItemCountry extends ThemeableMixin('ee-autocomplete-i
     return this.data[this.config.path]
   }
 
-
   static get PickedElement () {
     return EeAutocompleteItemCountryView
   }
