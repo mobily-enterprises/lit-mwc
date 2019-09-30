@@ -10,18 +10,13 @@ export const EeAutocompleteInputSpans = (base) => {
         errorMessage,
         css`
           textarea {
+            display: inline-block;
             box-sizing: border-box;
             font-family: var(--nn-font-family, 'sans-serif');
             padding-top: 12px;
             resize: none;
-            width: 100%;
+            min-width: 150px;
             font-size: 1em;
-          }
-
-          #list {
-            border-bottom: 1px solid var(--nn-boundaries-color);
-            padding-bottom: 10px;
-            margin-bottom: 10px;
           }
 
           #list > span {

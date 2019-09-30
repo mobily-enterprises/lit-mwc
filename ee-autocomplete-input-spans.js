@@ -38,7 +38,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
         textarea {
           box-sizing: border-box;
-          width: 100%;
         }
       `
     ]
