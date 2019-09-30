@@ -62,8 +62,11 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       itemElementAttributes: {
         type: Object,
         attribute: 'item-element-attributes'
+      },
+      idData: {
+        type: Object,
+        attribute: 'id-data'
       }
-
     }
   }
 
@@ -75,6 +78,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.itemElement = 'ee-autocomplete-item-li'
     this.itemElementConfig = {}
     this.itemElementAttributes = {}
+    this.idData = {}
 
     this._boundInputEvent = this._inputEvent.bind(this)
   }

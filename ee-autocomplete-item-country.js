@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
-export class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-li')(StyleableMixin(LitElement)) {
+export class EeAutocompleteItemCountry extends ThemeableMixin('ee-autocomplete-item-country')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       super.styles || [],
@@ -46,13 +46,14 @@ export class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-l
     super()
     this.config = {
       id: 'id',
-      path: 'name'
+      countryName: 'name',
+      countryCapital: 'capital'
     }
   }
 
   render () {
     return html`
-    <li>${this.data[this.config.path]}</li>
+    <li>${this.data[this.config.countryName]} (Capital: ${this.data[this.config.countryCapital]})</li>
     `
   }
 
@@ -66,13 +67,14 @@ export class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-l
     return this.data[this.config.path]
   }
 
+
   static get PickedElement () {
-    return EeAutocompleteItemLiView
+    return EeAutocompleteItemCountryView
   }
 }
-customElements.define('ee-autocomplete-item-li', EeAutocompleteItemLi)
+customElements.define('ee-autocomplete-item-country', EeAutocompleteItemCountry)
 
-class EeAutocompleteItemLiView extends LitElement {
+class EeAutocompleteItemCountryView extends LitElement {
   static get styles () {
     return [
       super.styles || [],
@@ -101,14 +103,15 @@ class EeAutocompleteItemLiView extends LitElement {
     super()
     this.config = {
       id: 'id',
-      path: 'name'
+      countryName: 'name',
+      countryCapital: 'capital'
     }
   }
 
   render () {
     return html`
-      -${this.data[this.config.path]}-
+      ${this.data[this.config.countryName]} &nbsp;
     `
   }
 }
-customElements.define('ee-autocomplete-item-li-view', EeAutocompleteItemLiView)
+customElements.define('ee-autocomplete-item-country-view', EeAutocompleteItemCountryView)
