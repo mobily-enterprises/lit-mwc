@@ -9,19 +9,14 @@ export const EeAutocompleteInputSpans = (base) => {
         inputField,
         errorMessage,
         css`
-          textarea {
+          /* textarea {
+            display: inline-block;
             box-sizing: border-box;
             font-family: var(--nn-font-family, 'sans-serif');
             padding-top: 12px;
             resize: none;
-            width: 100%;
+            min-width: 150px;
             font-size: 1em;
-          }
-
-          #list {
-            border-bottom: 1px solid var(--nn-boundaries-color);
-            padding-bottom: 10px;
-            margin-bottom: 10px;
           }
 
           #list > span {
@@ -29,13 +24,12 @@ export const EeAutocompleteInputSpans = (base) => {
             border: 1px solid #ddd;
             border-radius: 1em;
             margin: 2px;
-            display: inline-block;
           }
 
           #list > span:hover {
             border-color: var(--nn-primary-color);
             box-shadow: var(--nn-theme-box-shadow1);
-          }
+          } */
 
         `
       ]

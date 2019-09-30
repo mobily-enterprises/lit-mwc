@@ -46,12 +46,52 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         }
 
         #list {
+          /* display: inline-block; */
+        }
+
+        #list > span {
+          position: relative;
           display: inline-block;
+          padding: 2px 5px;
+          border: 1px solid #ddd;
+          border-radius: 1em;
+          margin: 2px;
+          font-size: 0.9em;
+          padding-right: 20px;
+        }
+
+        #list > span::after {
+          content: 'x';
+          position: absolute;
+          right: 6px;
+          color: #999;
+          transform: scaleX(1.2);
+        }
+
+        #list > span:hover::after {
+          color: #333;
+        }
+
+        #list > span:hover {
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+          border-color: #ccc;
+          background-color: #eee;
         }
 
         textarea {
           box-sizing: border-box;
-          width: 100%;
+          display: inline-block;
+          outline: none;
+          resize: none;
+          vertical-align: middle;
+          height: 1.8em;
+          border: none;
+          font-size: 1em;
+          width: 120px;
+        }
+
+        textarea:focus, textarea:hover {
+          outline: none
         }
       `
     ]
