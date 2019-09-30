@@ -156,7 +156,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     for (const el of elements) {
       // Radio will only happen once thanks to checking for undefined
       if (typeof r[el.name] !== 'undefined') continue
-
+      if (el.getAttribute('no-submit') !== null) continue
       // Checkboxes are special: they might be handled as native ones,
       // (NOTHING set if unchecked, and their value set if checked) or
       // as booleans (true for checked, or false for unchecked)
