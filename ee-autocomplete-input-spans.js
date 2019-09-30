@@ -49,8 +49,9 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <div id="list"></div>
-      <textarea @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list"></textarea>
+      <div id="list">
+        <textarea @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list"></textarea>
+      </div>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
       <input id="ni" type="hidden" name="${this.name}">
@@ -66,6 +67,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     const r = []
     const list = this.shadowRoot.querySelector('#list')
     for (const span of list.children) {
+      if (span.id === 'ta') continue
       r.push(span.firstChild.data[span.firstChild.config.id])
     }
     return r.join(',')
@@ -75,7 +77,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     const list = this.shadowRoot.querySelector('#list')
 
     // Remove all children
-    while (list.firstChild) { list.removeChild(list.firstChild) }
+    while (list.firstChild) {
+      if (list.firstChild.id === 'ta') break
+      list.removeChild(list.firstChild)
+    }
 
     // Assign all children using pickedElement
     const ids = []
@@ -105,6 +110,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     }
   }
 
+  setCustomValidity () {
+
+  }
+
   _inputReceived (e) {
     this.autocompleteValue = this.shadowRoot.querySelector('#ta').value
   }
@@ -128,7 +137,8 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     const span = document.createElement('span')
     const ta = this.shadowRoot.querySelector('#ta')
     span.appendChild(el)
-    list.appendChild(span)
+
+    list.insertBefore(span, ta)
     ta.value = ''
 
     // Update the native input, which must always be the only true and final source
