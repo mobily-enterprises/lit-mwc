@@ -78,16 +78,19 @@ Validation and forms
   ✔ Make it work with textinput forms @done(2019-09-30 10:38)
   ☐ Tony:
     ✔ Find "bridge" way for text autocomplete, but sending ID @done(2019-09-30 15:06) @project(☐ Tony)
-    ☐ Give visual feedback that an ID is selected
+    ✔ Add formElement interface (constraint API, form) @done(2019-10-01 06:48) @project(☐ Tony)
+    ✔ Add error messages @done(2019-10-01 06:48) @project(☐ Tony)
     ☐ Implement text selection autocomplete
     ☐ allow-duplicates parameter
-    ☐ Allow "X" to delete items
   ☐ Raphael:
+    ☐ Allow "X" to delete items, and just delete them for now
+    ☐ Give visual feedback that an ID is selected
     ☐ KEYS: Keyboard bindings to navigate through elements (left/right arrows)
     ☐ KEYS: Make sure "backspace" and "delete" works (delete element)
     ☐ KEYS: Escape to close selection
     ☐ Make sure element is FULLY aria compatible and usable
     ☐ Make sure element has ALL API for input elements (no native reflection, we are on our own)
+☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
 ☐ Form: Add WeakMap to form, so that it will set inflight per-element
 
 ☐ Extra elements
