@@ -1,5 +1,5 @@
 import { css } from 'lit-element'
-import { inputField, errorMessage } from '../style-patterns.js'
+import { inputField } from '../style-patterns.js'
 
 export const EeAutocompleteInputSpans = (base) => {
   return class Base extends base {
@@ -7,7 +7,7 @@ export const EeAutocompleteInputSpans = (base) => {
       return [
         ...super.styles || [],
         inputField,
-        errorMessage,
+        // errorMessage,
         css`
           /* textarea {
             display: inline-block;
