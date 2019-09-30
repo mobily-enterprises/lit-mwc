@@ -77,9 +77,10 @@ Validation and forms
   ✔ Implement 'value' in ee-autocomplete-input-spans (comma separated, configurable separator, id in config) @done(2019-09-30 10:21)
   ✔ Make it work with textinput forms @done(2019-09-30 10:38)
   ☐ Tony:
-    ☐ Find "bridge" way for text autocomplete, but sending ID
+    ✔ Find "bridge" way for text autocomplete, but sending ID @done(2019-09-30 15:06) @project(☐ Tony)
+    ☐ Give visual feedback that an ID is selected
     ☐ Implement text selection autocomplete
-    ☐ Avoid duplicates
+    ☐ allow-duplicates parameter
     ☐ Allow "X" to delete items
   ☐ Raphael:
     ☐ KEYS: Keyboard bindings to navigate through elements (left/right arrows)
@@ -87,7 +88,7 @@ Validation and forms
     ☐ KEYS: Escape to close selection
     ☐ Make sure element is FULLY aria compatible and usable
     ☐ Make sure element has ALL API for input elements (no native reflection, we are on our own)
-☐ Add WeakMap to form, so that it will set inflight per-element
+☐ Form: Add WeakMap to form, so that it will set inflight per-element
 
 ☐ Extra elements
   ✔ Implement ee-network (backport from existing) @done(2019-09-22 20:01)
