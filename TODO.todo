@@ -106,7 +106,7 @@ nn-form:
     ✔ KEYS: If in the list of suggestions, up and down to go to next/prev and ENTER or TAB to pick @done (10/1/2019, 6:57:36 PM)
     ☐ KEYS: Arrow down to go to the list of suggestions (starting from number 2) // These won't work together with focusing the list as soon as suggestions appears
     ☐ KEYS: Tabs to pick first suggestion even if still in textbox // These won't work together with focusing the list as soon as suggestions appears
-    ☐ KEYS: Once picked, focus back to textbox
+    ✔ KEYS: Once picked, focus back to textbox @done (10/1/2019, 7:07:01 PM)
     ☐ Make sure element is FULLY aria compatible and usable
   ☐ Material
     ☐ implement it for all nn elements
