@@ -117,6 +117,14 @@ nn-form:
   ☐ Implement en-nav -bar(or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
 
 TICKETS (I will add them):
+  ☐ Write basic structure of web site for documentation
+    ☐ Docco docs
+    ☐ Quick start (developers)
+    ☐ Quick start (designers)
+    ☐ Tutorials (developers)
+    ☐ Tutorials (designers)
+    ☐ API (developers)
+    ☐ Usage (designers)
   ☐ Autocomplete: only make first query 200 msec after stopping typing
   ☐ Make ee-dialog
   ☐ Implement en-fab
@@ -137,14 +145,6 @@ TICKETS (I will add them):
       ☐ If that happens, will it make any difference?
     ☐ Submit the form when the user preses ENTER on a sole inputText
   ☐ Implement "basic" style
-  ☐ Write basic structure of web site for documentation
-    ☐ Docco docs
-    ☐ Quick start (developers)
-    ☐ Quick start (designers)
-    ☐ Tutorials (developers)
-    ☐ Tutorials (designers)
-    ☐ API (developers)
-    ☐ Usage (designers)
   ☐ Write test infrastructure
   ☐ Write tests for all elements (one TODO-list ticket)
 
