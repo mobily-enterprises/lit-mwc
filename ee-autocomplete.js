@@ -175,6 +175,8 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
 
   async updated (cp) {
     if (!cp.has('suggestions')) return
+    if (this._autocompleteInFlight) return
+
     const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
     suggestionsDiv.toggleAttribute('populated', !!this.suggestions.length)
     while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }
@@ -188,9 +190,28 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       el.setAttribute('tabindex', 1)
       suggestionsDiv.appendChild(el)
     }
-    if (this.suggestions.length) {
-      suggestionsDiv.firstChild.focus()
+
+    // Only 1 response and it's a plain text input? Autocomplete if text fully matches
+    // beginning of the only result
+    if (
+      this.suggestions.length === 1 &&
+      typeof this.targetElement.pickedElement !== 'function' &&
+      typeof this.targetElement.setSelectionRange === 'function'
+    ) {
+      const firstOption = suggestionsDiv.firstChild
+      const textValue = firstOption.textValue
+      if (textValue.toUpperCase().startsWith(this.targetElement.value.toUpperCase())) {
+        const oldValue = this.targetElement.value
+        this.targetElement.value = textValue
+        this.targetElement.setSelectionRange(oldValue.length, textValue.length)
+        if (this.targetForId) this.targetForId.value = firstOption.idValue
+        this.suggestions = []
+      }
     }
+
+    //if (this.suggestions.length) {
+    //  suggestionsDiv.firstChild.focus()
+    //}
   }
 
   _dismissSuggestions () {
