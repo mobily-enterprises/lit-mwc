@@ -47,10 +47,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           display: inline;
         }
 
-        :host(:focus) {
-          /* outline: none; */
-        }
-
         #list > span {
           position: relative;
           display: inline-block;
