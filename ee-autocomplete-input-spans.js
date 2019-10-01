@@ -241,7 +241,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this._removeItem(target.parentElement)
   }
 
-  _removeItem (target) { // @Tony Mobily This is called to remove items
+  _removeItem (target) {
     target.remove()
   }
 
