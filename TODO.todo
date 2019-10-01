@@ -50,8 +50,6 @@ nn-form:
 ✔ Wait for: https://stackoverflow.com/questions/56096524/which-elements-properties-are-reflected-into-attributes-in-html @done(2019-05-13 00:17) @project(☐ nn-form)
 ✔ Check if we need more reflected properties in common.js, added disabled now -- more? @done(2019-05-13 00:17) @project(☐ nn-form)
 ✔ Redefine setAttribute() rather than attrbute observer to carry on changes to contained elements @done(2019-05-14 09:28) @project(☐ nn-form)
-
-Validation and forms
 ✔ Highlight the problem fields if the form is NOT a success @done(2019-05-21 07:46) @project(☐ nn-form)
 ✔ https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation @done(2019-05-21 07:46) @project(☐ nn-form)
 ✔ Use default HTML methods, which nn- elements will style better @done(2019-05-21 07:46) @project(☐ nn-form)
@@ -70,73 +68,77 @@ Validation and forms
 ✔ Tidy up @done(2019-09-26 07:43)
   ✔ Rename element classes from Element to NnElement to facilitate subclassing @done(2019-09-26 07:43)
   ✔ [Rename files to lower case @done(2019-09-26 07:43)
-☐ Implement en-autocomplete (using datalist) and ee-autocomplete (no datalist, manual selecting)
+✔ Implement en-autocomplete (using datalist) and ee-autocomplete (no datalist, manual selecting) @done(2019-10-01 08:49)
   ✔ Add 'id' property finder to default config of children elements @done(2019-09-30 10:21)
   ✔ Write getIdValue() for -li elements @done(2019-09-30 10:21)
   ✔ Let ee-autocomplete decide if selection will be visual or text (visual will only work with elements with pickedElement) @done(2019-09-30 10:21)
   ✔ Implement 'value' in ee-autocomplete-input-spans (comma separated, configurable separator, id in config) @done(2019-09-30 10:21)
   ✔ Make it work with textinput forms @done(2019-09-30 10:38)
-  ☐ Tony:
+    ✔ Implement ee-network (backport from existing) @done(2019-10-01 08:49)
+    ✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
+    ✔ Implement ee-drawer @done (9/25/2019, 5:10:30 PM)
+  ✔ #6: make sure focus is redirected to inputText (https://github.com/mobily-enterprises/tpe/issues/6) @done (9/30/2019, 9:33:43 PM)
+  ✔ #7: Improve focus visual feedback (https://github.com/mobily-enterprises/tpe/issues/7) @done (9/30/2019, 9:33:44 PM)
+  ✔ Allow "X" to delete items, and just delete them for now @done (9/30/2019, 9:31:26 PM)
+  ✔ Tony @done(2019-10-01 08:51)
     ✔ Find "bridge" way for text autocomplete, but sending ID @done(2019-09-30 15:06) @project(☐ Tony)
     ✔ Add formElement interface (constraint API, form) @done(2019-10-01 06:48) @project(☐ Tony)
     ✔ Add error messages @done(2019-10-01 06:48) @project(☐ Tony)
     ✔ Make sure element has ALL API for input elements (no native reflection, we are on our own) @done(2019-10-01 07:40) @project(☐ Raphael)
+
+  FINAL TODO BEFORE TICKETS:
+
+  Tony:
     ☐ Implement text selection autocomplete
     ☐ allow-duplicates parameter
     ☐ Develop implementation of "X" to delete an item (delete span)
-  ☐ Raphael:
-    ✔ Allow "X" to delete items, and just delete them for now @done (9/30/2019, 9:31:26 PM)
-    ✔ Give visual feedback that an ID is selected @done (9/30/2019, 10:46:46 PM)
-    ✔ KEYS: Keyboard bindings to navigate through elements (left/right arrows) @done (9/30/2019, 10:46:27 PM)
-    ✔ KEYS: Make sure "backspace" and "delete" works (delete element) @done (9/30/2019, 10:46:29 PM)
-    ☐ KEYS: Escape to close selection
-    ☐ Make sure element is FULLY aria compatible and usable
-☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
-☐ Form: Add WeakMap to form, so that it will set inflight per-element
+  ☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
+  ☐ Form: Add WeakMap to form, so that it will set inflight per-element
 
-☐ Extra elements
-  ✔ Implement ee-network (backport from existing) @done(2019-09-22 20:01)
-  ✔ Implement Toast ee-toast (snack-bar) @done(2019-09-23 05:08)
-  ✔ Implement ee-drawer @done (9/25/2019, 5:10:30 PM)
+  Raphael:
+  ☐ Autocomplete
+    ✔ Give visual feedback that an ID is selected @done (9/30/2019, 11:23:43 PM)
+    ✔ KEYS: Keyboard bindings to navigate through elements (left/right arrows) @done (9/30/2019, 11:23:46 PM)
+    ✔ KEYS: Make sure "backspace" and "delete" works (delete element) @done (9/30/2019, 11:23:46 PM)
+    ☐ KEYS: Escape to close selection (WIP, needs more work)
+    ☐ Make sure element is FULLY aria compatible and usable
+  ☐ Material
+    ☐ implement it for all nn elements
+    ☐ extend to en and ee elements
   ☐ Implement ee-tabs
   ☐ Implement ee-drawer
   ☐ Implement ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
   ☐ Implement en-nav -bar(or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
+
+TICKETS (I will add them):
   ☐ Implement en-fab
   ☐ Implement en-switch (maybe deriving from nn-checkbox)
   ☐ (Later?) Implement ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
-
-(LATER)
-☐ Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
-  ☐ Check that autocomplete works
-  ☐ Make sure that 'submit' (type=submit) button really submits
-  ☐ Do nn elements work with normal forms?
-    ☐ IF NOT, Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
-  ☐ <form> has `target` (attribute). This value can be overridden by a formtarget attribute on a <button> or <input> element. Will this work through shadow DOM?
-    ☐ if not, can it be hacked so that it does?
-  ☐ document.forms returns the forms. Will the elements in the shadow dom be returned?
-    ☐ If not, can it be hacked to? (hint: setter)
-    ☐ Check that nn-form, using gather
-  ☐ HTMLFormElement.elements and HTMLFormElement.length are only <button>, <fieldset>, <input>, <object>, etc.
-    ☐ Can it be hacked to return all elements including nn ones?
-    ☐ If that happens, will it make any difference?
-  ☐ Submit the form when the user preses ENTER on a sole inputText
-
-Issues:
-  ✔ #6: make sure focus is redirected to inputText (https://github.com/mobily-enterprises/tpe/issues/6) @done (9/30/2019, 9:33:43 PM)
-  ✔ #7: Improve focus visual feedback (https://github.com/mobily-enterprises/tpe/issues/7) @done (9/30/2019, 9:33:44 PM)
-
-☐ Material Theme:
-  ✔ Base, custom css properties @done (9/30/2019, 9:33:46 PM)
-  ☐ implement it for all nn elements
-  ☐ document it
-  ☐ extend to en and ee elements
-
-☐ Basic (default) style:
-  ☐ Base, custom css properties
-  ☐ implement it for all nn elements
-  ☐ document it
-  ☐ extend to en and ee elements
+  ☐ (ONE BIG TICKET) Working with native forms https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
+    ☐ Check that autocomplete works
+    ☐ Make sure that 'submit' (type=submit) button really submits
+    ☐ Do nn elements work with normal forms?
+      ☐ IF NOT, Add hidden elements for each nn- element if parent form is native, so that form will submit if used natively
+    ☐ <form> has `target` (attribute). This value can be overridden by a formtarget attribute on a <button> or <input> element. Will this work through shadow DOM?
+      ☐ if not, can it be hacked so that it does?
+    ☐ document.forms returns the forms. Will the elements in the shadow dom be returned?
+      ☐ If not, can it be hacked to? (hint: setter)
+      ☐ Check that nn-form, using gather
+    ☐ HTMLFormElement.elements and HTMLFormElement.length are only <button>, <fieldset>, <input>, <object>, etc.
+      ☐ Can it be hacked to return all elements including nn ones?
+      ☐ If that happens, will it make any difference?
+    ☐ Submit the form when the user preses ENTER on a sole inputText
+  ☐ Implement "basic" style
+  ☐ Write basic structure of web site for documentation
+    ☐ Docco docs
+    ☐ Quick start (developers)
+    ☐ Quick start (designers)
+    ☐ Tutorials (developers)
+    ☐ Tutorials (designers)
+    ☐ API (developers)
+    ☐ Usage (designers)
+  ☐ Write test infrastructure
+  ☐ Write tests for all elements (one TODO-list ticket)
 
 DOCUMENT VALIDATION BLUEPRINT:
 ☐ OVERRIDE checkValidity (nn, in FormElementMixin)
