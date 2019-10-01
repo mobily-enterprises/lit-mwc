@@ -261,13 +261,14 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   _handleKeyEvents (e) {
     const target = e.currentTarget
-    console.log(e, target)
     if (e.key === 'ArrowLeft') {
       target.previousElementSibling ? target.previousElementSibling.focus() : target.parentElement.lastElementChild.focus()
     } else if (e.key === 'ArrowRight') {
       target.nextElementSibling ? target.nextElementSibling.focus() : target.parentElement.firstElementChild.focus()
     } else if (target.id !== 'ta' && (e.key === 'Backspace' || e.key === 'Delete')) {
       this._removeItem(target)
+    } else if (target.id === 'ta' && e.key === 'Escape') {
+      this.dispatchEvent(new CustomEvent('dismiss-suggestions'))
     }
   }
 

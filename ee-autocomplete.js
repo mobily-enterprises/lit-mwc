@@ -86,6 +86,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.idData = {}
 
     this._boundInputEvent = this._inputEvent.bind(this)
+    this._boundDismissEvent = this._dismissSuggestions.bind(this)
   }
 
   // If if's not set, return the first child
@@ -134,6 +135,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     }
 
     this.targetElement.addEventListener('input', this._boundInputEvent)
+    this.targetElement.addEventListener('dismiss-suggestions', this._boundDismissEvent)
 
     // API USE: If the target input element has a
     // pickElement() method, then set the basic parameters for all
@@ -183,6 +185,11 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       el.data = suggestion
       suggestionsDiv.appendChild(el)
     }
+  }
+
+  _dismissSuggestions (e) {
+    console.log(e)
+    this.suggestions = [] // @Tony Mobily This works, but we need a clean way to make it stick (to not show any other suggestions) until the user enters or clears the input
   }
 
   async _inputEvent (e) {
