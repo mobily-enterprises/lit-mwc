@@ -21,7 +21,8 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         type: String,
         attribute: false
       },
-      validator: { type: Function }
+      validator: { type: Function },
+      dismissSuggestions: { type: Boolean }
     }
   }
 
@@ -35,6 +36,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this.shownValidationMessage = ''
     this.validator = () => ''
     this.validationMessagePosition = 'before'
+    this.dismissSuggestions = false
   }
 
   static get styles () {
@@ -43,6 +45,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       css`
         :host {
           display: inline;
+        }
+
+        :host(:focus) {
+          /* outline: none; */
         }
 
         #list > span {
@@ -133,6 +139,11 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.ifLabelAfter}
       <input id="ni" type="hidden" name="${this.name}">
     `
+  }
+
+  connectedCallback () {
+    super.connectedCallback()
+    this.addEventListener('focus', this._getFocus)
   }
 
   firstUpdated () {
@@ -228,6 +239,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   _inputReceived (e) {
     this.autocompleteValue = this.shadowRoot.querySelector('#ta').value
+    if (!this.autocompleteValue) this.dismissSuggestions = false
   }
 
   setPickedElement (itemElement, itemElementConfig, itemElementAttributes) {
@@ -242,7 +254,9 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   _removeItem (target) {
+    const next = target.nextElementSibling
     target.remove()
+    next.focus()
   }
 
   _createRemoveBtn () {
@@ -255,8 +269,13 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   _getFocus (e) {
     const target = e.target
-    if (target.id === 'list') target.querySelector('#ta').focus()
-    else if (target.nodeName === 'SPAN') target.focus()
+    console.log('focus', target.nodeName, this.shadowRoot.querySelector('#ta'))
+    if (target.id === 'list' || target.nodeName === 'EE-AUTOCOMPLETE-INPUT-SPANS') {
+      e.preventDefault()
+      this.shadowRoot.querySelector('#ta').focus()
+    } else {
+      target.focus()
+    }
   }
 
   _handleKeyEvents (e) {
@@ -269,6 +288,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       this._removeItem(target)
     } else if (target.id === 'ta' && e.key === 'Escape') {
       this.dispatchEvent(new CustomEvent('dismiss-suggestions'))
+      if (this.autocompleteValue) this.dismissSuggestions = true
     }
   }
 
@@ -288,6 +308,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     const ta = this.shadowRoot.querySelector('#ta')
     ta.setAttribute('tabindex', 1)
     const removeBtn = this._createRemoveBtn()
+    removeBtn.setAttribute('tabindex', -1)
     span.appendChild(el)
     span.appendChild(removeBtn)
 

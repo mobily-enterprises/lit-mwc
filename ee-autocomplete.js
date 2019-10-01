@@ -114,8 +114,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         return target === ''
           ? this.querySelector('[name]:not([no-submit])')
           : this.querySelector(`#${target}`)
-      }
-      else if (typeof target === 'object') return target
+      } else if (typeof target === 'object') return target
     }
     return null
   }
@@ -145,6 +144,8 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     if (typeof this.targetElement.pickedElement === 'function') {
       this.targetElement.setPickedElement(this.itemElement, this.itemElementConfig, this.itemElementAttributes)
     }
+    // Guarantee the target element is focusable
+    this.targetElement.setAttribute('tabindex', 1)
   }
 
   disconnectedCallback () {
@@ -156,7 +157,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   render () {
     return html`
       <slot></slot>
-      <div @click="${this._picked}" id="suggestions"></div>
+      <div @click="${this._picked}" id="suggestions" @keydown=${this._handleKeyEvents}></div>
     `
   }
 
@@ -183,19 +184,40 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       el.config = { ...el.config, ...this.itemElementConfig }
       for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k])
       el.data = suggestion
+      el.onkeydown = this._handleKeyEvents.bind(this)
+      el.setAttribute('tabindex', 1)
       suggestionsDiv.appendChild(el)
+    }
+    if (this.suggestions.length) {
+      suggestionsDiv.firstChild.focus()
     }
   }
 
-  _dismissSuggestions (e) {
-    console.log(e)
-    this.suggestions = [] // @Tony Mobily This works, but we need a clean way to make it stick (to not show any other suggestions) until the user enters or clears the input
+  _dismissSuggestions () {
+    this.suggestions = []
+  }
+
+  _handleKeyEvents (e) {
+    const target = e.currentTarget
+    if (!this.suggestions.length) return
+    if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      target.previousElementSibling ? target.previousElementSibling.focus() : target.parentElement.lastElementChild.focus()
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      target.nextElementSibling ? target.nextElementSibling.focus() : target.parentElement.firstElementChild.focus()
+    } else if (e.key === 'Tab' || e.key === 'Enter') {
+      console.log(e.key)
+    } else if (e.key === 'Escape') {
+      this._dismissSuggestions()
+      this.targetElement.focus()
+    }
   }
 
   async _inputEvent (e) {
     // Nothing can nor should happen without a target
     const target = this.targetElement
-    if (!target) return
+    if (!target || target.dismissSuggestions) return
 
     // If the target element is not valid, don't take off at all
     // TAKEN OUT as autocomplete might be necessary to actually make
