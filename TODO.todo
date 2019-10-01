@@ -117,6 +117,7 @@ nn-form:
   ☐ Implement en-nav -bar(or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
 
 TICKETS (I will add them):
+  ☐ Autocomplete: only make first query 200 msec after stopping typing
   ☐ Implement en-fab
   ☐ Implement en-switch (maybe deriving from nn-checkbox)
   ☐ (Later?) Implement ee-input-file following https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
