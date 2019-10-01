@@ -50,8 +50,6 @@ nn-form:
 ✔ Wait for: https://stackoverflow.com/questions/56096524/which-elements-properties-are-reflected-into-attributes-in-html @done(2019-05-13 00:17) @project(☐ nn-form)
 ✔ Check if we need more reflected properties in common.js, added disabled now -- more? @done(2019-05-13 00:17) @project(☐ nn-form)
 ✔ Redefine setAttribute() rather than attrbute observer to carry on changes to contained elements @done(2019-05-14 09:28) @project(☐ nn-form)
-
-Validation and forms
 ✔ Highlight the problem fields if the form is NOT a success @done(2019-05-21 07:46) @project(☐ nn-form)
 ✔ https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation @done(2019-05-21 07:46) @project(☐ nn-form)
 ✔ Use default HTML methods, which nn- elements will style better @done(2019-05-21 07:46) @project(☐ nn-form)
