@@ -89,9 +89,11 @@ nn-form:
   FINAL TODO BEFORE TICKETS:
 
   Tony:
-    ☐ Implement text selection autocomplete
-    ☐ allow-duplicates parameter
-    ☐ Develop implementation of "X" to delete an item (delete span)
+    ✔ Develop implementation of "X" to delete an item (delete span) @done(2019-10-02 05:14) @project(Tony)
+    ✔ Implement text selection autocomplete @done(2019-10-02 05:39) @project(Tony)
+    ✔ Autocomplete: only make first query 200 msec after last typed @done(2019-10-02 05:49) @project(Tony)
+    ☐ allow-duplicate-ids parameter
+    ☐ Give visual feedback when item is selected
   ☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
   ☐ Form: Add WeakMap to form, so that it will set inflight per-element
 
@@ -125,7 +127,6 @@ TICKETS (I will add them):
     ☐ Tutorials (designers)
     ☐ API (developers)
     ☐ Usage (designers)
-  ☐ Autocomplete: only make first query 200 msec after stopping typing
   ☐ Make ee-dialog
   ☐ Implement en-fab
   ☐ Implement en-switch (maybe deriving from nn-checkbox)
