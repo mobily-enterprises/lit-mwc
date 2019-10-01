@@ -207,7 +207,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       e.preventDefault()
       target.nextElementSibling ? target.nextElementSibling.focus() : target.parentElement.firstElementChild.focus()
     } else if (e.key === 'Tab' || e.key === 'Enter') {
-      console.log(e.key)
+      this._picked(e)
     } else if (e.key === 'Escape') {
       this._dismissSuggestions()
       this.targetElement.focus()
