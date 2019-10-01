@@ -28,7 +28,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   constructor () {
     super()
     this.valueAsJson = false
-
+    this.removeIcon = '<svg class="icon" height="15" viewBox="0 0 24 24" width="15"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>'
     this.itemElement = ''
     this.itemElementConfig = {}
     this.itemElementAttributes = {}
@@ -48,8 +48,42 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         #list > span {
           position: relative;
           display: inline-block;
+          padding: 3px 6px;
+          padding-right: 24px;
+          border: 1px solid #ddd;
+          border-radius: 1em;
+          margin: 2px;
+          vertical-align: middle;
+          line-height: 1em;
         }
 
+        #list > span button.remove {
+          appearance: none;
+          -moz-appearance: none;
+          -webkit-appearance: none;
+          fill: #999;
+          border: none;
+          padding: 0;
+          display: inline-block;
+          position: absolute;
+          top: 50%;
+          right: 3px;
+          transform: translateY(-50%);
+          background: none;
+          z-index:0;
+        }
+
+        #list > span button.remove:focus, #list > span button.remove:active {
+          outline: none;
+        }
+
+        #list > span button.remove svg {
+          z-index: -1;
+        }
+
+        #list > span button.remove:hover {
+          fill: #555;
+        }
         textarea {
           box-sizing: border-box;
           display: inline-block;
@@ -193,6 +227,18 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this.itemElementAttributes = itemElementAttributes
   }
 
+  _removeItem (e) {
+    e.currentTarget.parentElement.remove()
+  }
+
+  _createRemoveBtn () {
+    const el = document.createElement('button')
+    el.innerHTML = this.removeIcon
+    el.onclick = this._removeItem
+    el.classList.add('remove')
+    return el
+  }
+
   /* API */
   pickedElement (data) {
     const parentEl = document.createElement(this.itemElement)
@@ -205,7 +251,9 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     const list = this.shadowRoot.querySelector('#list')
     const span = document.createElement('span')
     const ta = this.shadowRoot.querySelector('#ta')
+    const removeBtn = this._createRemoveBtn()
     span.appendChild(el)
+    span.appendChild(removeBtn)
 
     list.insertBefore(span, ta)
     ta.value = ''

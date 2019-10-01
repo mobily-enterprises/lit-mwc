@@ -20,7 +20,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           z-index: 1000;
           max-height: 480px;
           overflow-y: scroll;
-          top: 54px;
+          top: 90%;
           box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.2), 0 0 2px 2px rgba(0, 0, 0, 0.05);
         }
 
