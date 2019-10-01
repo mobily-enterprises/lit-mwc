@@ -57,6 +57,15 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           line-height: 1em;
         }
 
+        #list > span:active, #list > span:focus, #list > span:hover {
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+          background-color: #eee;
+          outline: none;
+        }
+        #list > span:active, #list > span:focus {
+          border-color: var(--nn-primary-color, #ccc);
+        }
+
         #list > span button.remove {
           appearance: none;
           -moz-appearance: none;
@@ -90,7 +99,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           outline: none;
           resize: none;
           vertical-align: middle;
-          height: 1.8em;
+          height: 1.5em;
           border: none;
           font-size: 1em;
           width: 120px;
@@ -117,8 +126,8 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <div id="list">
-        <textarea @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list"></textarea>
+      <div id="list" @click="${this._getFocus}">
+        <textarea @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list"></textarea>
       </div>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
@@ -227,16 +236,39 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this.itemElementAttributes = itemElementAttributes
   }
 
-  _removeItem (e) {
-    e.currentTarget.parentElement.remove()
+  _askToRemove (e) {
+    const target = e.currentTarget
+    this._removeItem(target.parentElement)
+  }
+
+  _removeItem (target) { // @Tony Mobily This is called to remove items
+    target.remove()
   }
 
   _createRemoveBtn () {
     const el = document.createElement('button')
     el.innerHTML = this.removeIcon
-    el.onclick = this._removeItem
+    el.onclick = this._askToRemove.bind(this)
     el.classList.add('remove')
     return el
+  }
+
+  _getFocus (e) {
+    const target = e.target
+    if (target.id === 'list') target.querySelector('#ta').focus()
+    else if (target.nodeName === 'SPAN') target.focus()
+  }
+
+  _handleKeyEvents (e) {
+    const target = e.currentTarget
+    console.log(e, target)
+    if (e.key === 'ArrowLeft') {
+      target.previousElementSibling ? target.previousElementSibling.focus() : target.parentElement.lastElementChild.focus()
+    } else if (e.key === 'ArrowRight') {
+      target.nextElementSibling ? target.nextElementSibling.focus() : target.parentElement.firstElementChild.focus()
+    } else if (target.id !== 'ta' && (e.key === 'Backspace' || e.key === 'Delete')) {
+      this._removeItem(target)
+    }
   }
 
   /* API */
@@ -250,7 +282,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
     const list = this.shadowRoot.querySelector('#list')
     const span = document.createElement('span')
+    span.setAttribute('tabindex', 2)
+    span.onkeydown = this._handleKeyEvents.bind(this)
     const ta = this.shadowRoot.querySelector('#ta')
+    ta.setAttribute('tabindex', 1)
     const removeBtn = this._createRemoveBtn()
     span.appendChild(el)
     span.appendChild(removeBtn)

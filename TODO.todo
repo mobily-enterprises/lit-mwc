@@ -86,9 +86,9 @@ Validation and forms
     ☐ Develop implementation of "X" to delete an item (delete span)
   ☐ Raphael:
     ✔ Allow "X" to delete items, and just delete them for now @done (9/30/2019, 9:31:26 PM)
-    ☐ Give visual feedback that an ID is selected
-    ☐ KEYS: Keyboard bindings to navigate through elements (left/right arrows)
-    ☐ KEYS: Make sure "backspace" and "delete" works (delete element)
+    ✔ Give visual feedback that an ID is selected @done (9/30/2019, 10:46:46 PM)
+    ✔ KEYS: Keyboard bindings to navigate through elements (left/right arrows) @done (9/30/2019, 10:46:27 PM)
+    ✔ KEYS: Make sure "backspace" and "delete" works (delete element) @done (9/30/2019, 10:46:29 PM)
     ☐ KEYS: Escape to close selection
     ☐ Make sure element is FULLY aria compatible and usable
 ☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
