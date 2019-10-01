@@ -11,11 +11,11 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           display: block
         }
 
-        div.backdrop {
+        div.scrim {
           height: 100vh;
           background-color: transparent;
           pointer-events:fill;
-          z-index: 0;
+          z-index: 1;
           position: fixed;
           opacity: 0;
           transition: opacity 0.5s ease-out, width 0.6s step-end ;
@@ -23,25 +23,28 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
         }
 
         div.container {
-          height: 100vh; /* 100% Full-height */
-          position: fixed; /* Stay in place */
-          z-index: 1; /* Stay on top */
-          top: 0; /* Stay at the top */
+          height: 100vh;
+          position: fixed;
+          z-index: 2;
+          top: 0;
           left: 0;
           will-change: transform;
           transform: translateX(-100%);
-          overflow-x: hidden; /* Disable horizontal scroll */
-          transition: transform 0.3s ease-out; /* 0.5 second transition effect to slide in the sidenav */
+          overflow-x: hidden;
+          transition: transform 0.3s ease-out;
           background-color: var(--drawer-background, initial);
         }
 
         :host([opened]) div.container {
           will-change: transform;
           transform: translateX(0);
+        }
+
+        :host([modal][opened]) div.container {
           box-shadow: var(--drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14))
         }
 
-        :host([opened]) div.backdrop {
+        :host([opened]) div.scrim {
           background-color: rgba(0, 0, 0, 0.25);
           opacity: 1;
           transition: opacity 0.4s ease-out;
@@ -61,36 +64,6 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           border: none;
         }
 
-        ::slotted(nav) {
-          box-sizing: border-box;
-          width: var(--drawer-width, 250px);
-          height: 100%;
-          padding: 24px;
-          background: var(--drawer-background-color, #323232);
-          position: relative;
-        }
-
-        ::slotted(nav) > a {
-          display: block;
-          text-decoration: none;
-          color: var(--drawer-text-color, #dfdfdf);
-          line-height: 40px;
-          padding: 0 24px;
-          cursor: pointer;
-        }
-
-        ::slotted(nav) > a[selected] {
-          color: var(--drawer-selected-color, white);
-          font-weight: bolder;
-          border-left: 3px solid var(--drawer-selected-accent, white);
-          background-color: rgba(255,255,255, 0.1);
-        }
-
-        ::slotted(nav) > a:hover {
-          background-color: rgba(255,255,255, 0.05);
-        }
-
-
         button#close:focus, button#close:active {
             outline: none !important;
           }
@@ -104,15 +77,24 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
 
   static get properties () {
     return {
-      opened: { type: Boolean, reflect: true }
+      opened: { type: Boolean, reflect: true },
+      modal: { type: Boolean },
+      closeButton: { type: Boolean, attribute: 'close-button' }
     }
+  }
+
+  constructor () {
+    super()
+    this.modal = false
+    this.closeButton = true
+    this.opened = false
   }
 
   render () {
     return html`
-      <div class="backdrop" @click="${this.close}"></div>
+      ${this.modal ? html`<div class="scrim" @click="${this.close}"></div>` : ''}
       <div class="container">
-        <button id="close" @click="${this.close}">${close}</button>
+        ${this.closeButton ? html`<button id="close" @click="${this.close}">${close}</button>` : ''}
         <slot></slot>
       </div>
     `
