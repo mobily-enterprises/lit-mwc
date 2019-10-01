@@ -17,8 +17,12 @@ export class EeAutocompleteItemCountry extends ThemeableMixin('ee-autocomplete-i
           border-bottom: unset;
         }
 
-        :host(:hover) {
+        :host(:hover), :host(:focus) {
           background-color: #eee;
+        }
+
+        :host(:focus), :host(:active) {
+          outline: none;
         }
 
         li {
