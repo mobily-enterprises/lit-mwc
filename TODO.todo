@@ -85,7 +85,7 @@ Validation and forms
     ☐ allow-duplicates parameter
     ☐ Develop implementation of "X" to delete an item (delete span)
   ☐ Raphael:
-    ☐ Allow "X" to delete items, and just delete them for now
+    ✔ Allow "X" to delete items, and just delete them for now @done (9/30/2019, 9:31:26 PM)
     ☐ Give visual feedback that an ID is selected
     ☐ KEYS: Keyboard bindings to navigate through elements (left/right arrows)
     ☐ KEYS: Make sure "backspace" and "delete" works (delete element)
@@ -123,11 +123,11 @@ Validation and forms
   ☐ Submit the form when the user preses ENTER on a sole inputText
 
 Issues:
-  ☐ #6: make sure focus is redirected to inputText (https://github.com/mobily-enterprises/tpe/issues/6)
-  ☐ #7: Improve focus visual feedback (https://github.com/mobily-enterprises/tpe/issues/7)
+  ✔ #6: make sure focus is redirected to inputText (https://github.com/mobily-enterprises/tpe/issues/6) @done (9/30/2019, 9:33:43 PM)
+  ✔ #7: Improve focus visual feedback (https://github.com/mobily-enterprises/tpe/issues/7) @done (9/30/2019, 9:33:44 PM)
 
 ☐ Material Theme:
-  ☐ Base, custom css properties
+  ✔ Base, custom css properties @done (9/30/2019, 9:33:46 PM)
   ☐ implement it for all nn elements
   ☐ document it
   ☐ extend to en and ee elements
