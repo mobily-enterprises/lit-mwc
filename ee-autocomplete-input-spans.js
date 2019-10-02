@@ -9,9 +9,9 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       name: {
         type: String
       },
-      valueAsJson: {
+      valueAsIds: {
         type: Boolean,
-        attribute: 'value-as-json'
+        attribute: 'value-as-ids'
       },
       validationMessagePosition: {
         type: String,
@@ -27,7 +27,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   constructor () {
     super()
-    this.valueAsJson = false
+    this.valueAsIds = false
     this.removeIcon = '<svg class="icon" height="15" viewBox="0 0 24 24" width="15"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>'
     this.itemElement = ''
     this.itemElementConfig = {}
@@ -146,8 +146,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   firstUpdated () {
-    const ni = this.shadowRoot.querySelector('#ni')
-    ni.value = this.value
+    this._updateNativeInputValue()
   }
 
   get value () {
@@ -155,7 +154,9 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     const list = this.shadowRoot.querySelector('#list')
     for (const span of list.children) {
       if (span.id === 'ta') continue
-      r.push(span.firstChild.data[span.firstChild.config.id])
+      this.valueAsIds
+        ? r.push(span.firstChild.idValue)
+        : r.push(span.firstChild.textValue)
     }
     return r.join(',')
   }
@@ -170,25 +171,23 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     }
 
     // Assign all children using pickedElement
-    const ids = []
     if (Array.isArray(v)) {
       for (const o of v) {
         this.pickedElement(o)
-        // ids.push(o[this.itemElementConfig.id])
       }
     } else if (typeof v === 'object' && v !== null) {
       for (const k of Object.keys(v)) {
         const $o = v[k]
         this.pickedElement($o)
-        ids.push($o[this.itemElementConfig.id])
+      }
+    } else if (typeof v === 'string') {
+      for (const s of v.split(',')) {
+        this.pickedElement(s)
       }
     }
 
     // Sets the native input
-    const ni = this.shadowRoot.querySelector('#ni')
-    ni.value = ids.join(',')
-
-    return ni.value
+    this._updateNativeInputValue()
   }
 
   /* CONSTRAINTS API */
@@ -256,9 +255,15 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this._removeItem(target.parentElement)
   }
 
+  _updateNativeInputValue () {
+    const ni = this.shadowRoot.querySelector('#ni')
+    ni.value = this.value
+  }
+
   _removeItem (target) {
     const next = target.nextElementSibling
     target.remove()
+    this._updateNativeInputValue()
     next.focus()
   }
 
@@ -358,6 +363,9 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
     el.config = { ...el.config, ...this.itemElementConfig }
     for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k])
+
+    // Convert string into data if necessary
+    if (typeof data === 'string') data = parentEl.stringToData(data)
     el.data = data
 
     const list = this.shadowRoot.querySelector('#list')
@@ -374,14 +382,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     list.insertBefore(span, ta)
     ta.value = ''
 
-    // Update the native input, which must always be the only true and final source
-    // of picked IDs
-    const ni = this.shadowRoot.querySelector('#ni')
-    if (ni.value === '') {
-      ni.value = data[el.config.id]
-    } else {
-      ni.value = [...ni.value.split(','), data[el.config.id]].join(',')
-    }
+    this._updateNativeInputValue()
   }
 }
 

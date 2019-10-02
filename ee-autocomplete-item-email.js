@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
-export class EeAutocompleteItemCountry extends ThemeableMixin('ee-autocomplete-item-country')(StyleableMixin(LitElement)) {
+export class EeAutocompleteItemEmail extends ThemeableMixin('ee-autocomplete-item-email')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       super.styles || [],
@@ -46,40 +46,55 @@ export class EeAutocompleteItemCountry extends ThemeableMixin('ee-autocomplete-i
     super()
     this.config = {
       id: 'id',
-      countryName: 'name',
-      countryCapital: 'capital'
+      emailName: 'name',
+      emailAddress: 'email'
     }
   }
 
   render () {
     return html`
-    <li>${this.data[this.config.countryName]} (Capital: ${this.data[this.config.countryCapital]})</li>
+    <li>${this.textValue}</li>
     `
   }
 
   /* API */
-
   get idValue () {
     return this.data[this.config.id]
   }
 
   get textValue () {
-    return this.data[this.config.countryName]
+    return `${this.data[this.config.emailName]} <${this.data[this.config.emailAddress]}>`
   }
 
   stringToData (string) {
+    let emailName
+    let emailAddress
+
+    const emails = string.match(/[^@<\s]+@[^@\s>]+/g)
+    if (emails) {
+      emailAddress = emails[0]
+    }
+
+    const names = string.split(/\s+/)
+
+    if (names.length > 1) {
+      names.pop()
+      emailName = names.join(' ').replace(/"/g, '')
+    }
+
     return {
-      [this.config.countryName]: string
+      [this.config.emailName]: emailName,
+      [this.config.emailAddress]: emailAddress
     }
   }
 
   static get PickedElement () {
-    return EeAutocompleteItemCountryView
+    return EeAutocompleteItemEmailView
   }
 }
-customElements.define('ee-autocomplete-item-country', EeAutocompleteItemCountry)
+customElements.define('ee-autocomplete-item-email', EeAutocompleteItemEmail)
 
-class EeAutocompleteItemCountryView extends ThemeableMixin('ee-autocomplete-item-country-view')(EeAutocompleteItemCountry) {
+class EeAutocompleteItemEmailView extends ThemeableMixin('ee-autocomplete-item-email-view')(EeAutocompleteItemEmail) {
   static get styles () {
     return [
       css`
@@ -94,8 +109,8 @@ class EeAutocompleteItemCountryView extends ThemeableMixin('ee-autocomplete-item
 
   render () {
     return html`
-      ${this.data[this.config.countryName]}
+      ${this.data[this.config.emailName]}
     `
   }
 }
-customElements.define('ee-autocomplete-item-country-view', EeAutocompleteItemCountryView)
+customElements.define('ee-autocomplete-item-email-view', EeAutocompleteItemEmailView)

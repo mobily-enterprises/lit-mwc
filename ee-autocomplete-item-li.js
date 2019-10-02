@@ -66,11 +66,17 @@ export class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-l
     return this.data[this.config.path]
   }
 
+  stringToData (string) {
+    return {
+      [this.config.path]: string
+    }
+  }
+
   static get PickedElement () {
     return EeAutocompleteItemLiView
   }
 }
-customElements.define('ee-autocomplete-item-li', EeAutocompleteItemLi)
+customElements.define('ee-autocomplete-item-li', ThemeableMixin('ee-autocomplete-item-li-view')(EeAutocompleteItemLi))
 
 class EeAutocompleteItemLiView extends LitElement {
   static get styles () {

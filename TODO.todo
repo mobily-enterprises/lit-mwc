@@ -92,8 +92,11 @@ nn-form:
     ✔ Develop implementation of "X" to delete an item (delete span) @done(2019-10-02 05:14) @project(Tony)
     ✔ Implement text selection autocomplete @done(2019-10-02 05:39) @project(Tony)
     ✔ Autocomplete: only make first query 200 msec after last typed @done(2019-10-02 05:49) @project(Tony)
-    ☐ allow-duplicate-ids parameter
-    ☐ Give visual feedback when item is selected
+    ✔ Allow sending list of IDs or list of submit values @done(2019-10-02 12:40) @project(Tony)
+    ☐ When not sending IDs, allow sending non-id value creating span (with validation check)
+    ☐ BUG: When server return problem, error is NOT displayed and form cannot be submitted anymore
+
+    ☐ implement allow-duplicate-ids parameter
   ☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
   ☐ Form: Add WeakMap to form, so that it will set inflight per-element
 
@@ -120,7 +123,7 @@ nn-form:
   ☐ Implement ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
   ☐ Implement en-nav -bar(or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
 
-TICKETS (I will add them):
+TICKETS (Tony will add them):
   ☐ Write basic structure of web site for documentation
     ☐ Docco docs
     ☐ Quick start (developers)
