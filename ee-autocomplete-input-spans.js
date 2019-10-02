@@ -140,7 +140,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <div id="list" @click="${this._getFocus}">
+      <div id="list">
         <input @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list">
       </div>
       ${this.ifValidationMessageAfter}
@@ -283,12 +283,22 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   _getFocus (e) {
+    /*
     const target = e.target
-    if (target.id === 'list' || target.nodeName === 'EE-AUTOCOMPLETE-INPUT-SPANS') {
+    console.log('Got focus', target.id, target.nodeName, target)
+    if (target.nodeName === 'EE-AUTOCOMPLETE-INPUT-SPANS') {
+      console.log('Got in here')
       e.preventDefault()
       this.shadowRoot.querySelector('#ta').focus()
-    } else {
-      target.focus()
+    }
+    */
+
+    const target = e.target
+    console.log('Got focus', target.id, target.nodeName, target)
+    if (target.id !== 'ta') {
+      console.log('In there')
+      e.preventDefault()
+      this.shadowRoot.querySelector('#ta').focus()
     }
   }
 
