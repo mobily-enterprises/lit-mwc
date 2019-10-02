@@ -240,7 +240,34 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
 
   _handleKeyEvents (e) {
     const target = e.currentTarget
+
     if (!this.suggestions.length || !target.parentElement) return
+
+    switch (e.key) {
+    case 'ArrowUp':
+      e.preventDefault()
+      target.previousElementSibling
+        ? target.previousElementSibling.focus()
+        : target.parentElement.lastElementChild.focus()
+      break
+    case 'ArrowDown':
+      e.preventDefault()
+      target.nextElementSibling
+        ? target.nextElementSibling.focus()
+        : target.parentElement.firstElementChild.focus()
+      break
+    case 'Tab':
+    case 'Enter':
+      this._picked(e)
+      e.preventDefault()
+      this.targetElement.focus()
+      break
+    case 'Escape':
+      this._dismissSuggestions()
+      this.targetElement.focus()
+      break
+    }
+    /*
     if (e.key === 'ArrowUp') {
       e.preventDefault()
       target.previousElementSibling ? target.previousElementSibling.focus() : target.parentElement.lastElementChild.focus()
@@ -255,6 +282,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       this._dismissSuggestions()
       this.targetElement.focus()
     }
+    */
   }
 
   async _inputEvent (e) {
