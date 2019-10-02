@@ -112,6 +112,7 @@ nn-form:
     ✔ KEYS: Tabs to pick first suggestion even if still in textbox @done (10/1/2019, 8:55:36 PM)
     ✔ KEYS: Backspace when the input is focussed should delete the last element (if present) @done (10/1/2019, 8:55:41 PM)
     ✔ KEYS: Once picked, focus back to textbox @done (10/1/2019, 7:07:01 PM)
+    ☐ BUG: When preing enter and NOTHING is selected, the textbox starts becoming multi line
     ☐ When using TAB to cycle though page elements, ee-autocomplete-input-spans captures focus, but it should retarget #ta input
     ☐ Make sure element is FULLY aria compatible and usable
   ☐ Material
