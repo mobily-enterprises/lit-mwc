@@ -333,7 +333,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       break
     case 'Tab':
     case 'Enter':
-      if (this.autocompleteValue) break
+      if (!this.autocompleteValue) break
       if (!this.parentElement.suggestions.length) {
         e.preventDefault()
         this._pickCurrentValue()

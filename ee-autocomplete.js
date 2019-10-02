@@ -190,8 +190,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       if (this.targetForId) this.targetForId.value = e.target.idValue
     }
     this._dismissSuggestions()
-    debugger
-    this.targetElement.focus()
+    // this.targetElement.focus()
   }
 
   async updated (cp) {
