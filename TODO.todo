@@ -93,11 +93,11 @@ nn-form:
     ✔ Implement text selection autocomplete @done(2019-10-02 05:39) @project(Tony)
     ✔ Autocomplete: only make first query 200 msec after last typed @done(2019-10-02 05:49) @project(Tony)
     ✔ Allow sending list of IDs or list of submit values @done(2019-10-02 12:40) @project(Tony)
-    ☐ When not sending IDs, allow sending non-id value creating span (with validation check)
-    ☐ BUG: When server return problem, error is NOT displayed and form cannot be submitted anymore
-    ☐ implement allow-duplicate-ids parameter (when using IDs)
+    ✔ When not sending IDs, allow sending non-id value creating span (with validation check) @done(2019-10-02 18:49) @project(Tony)
+    ☐ BUG: When server returns validation problem, error is NOT displayed and form cannot be submitted anymore
     ☐ Ability to send a JSON rather than a string IDs data
     ☐ Ability to pick the separator when sending a string
+
   ☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
   ☐ Form: Add WeakMap to form, so that it will set inflight per-element
 
