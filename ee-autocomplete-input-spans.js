@@ -141,7 +141,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <div id="list">
-        <input @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list">
+        <input @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="0" dir="ltr" role="combobox" aria-autocomplete="list">
       </div>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
@@ -156,6 +156,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   firstUpdated () {
     this._updateNativeInputValue()
+    this.setAttribute('tabindex', 0)
   }
 
   get value () {
@@ -400,10 +401,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
     const list = this.shadowRoot.querySelector('#list')
     const span = document.createElement('span')
-    span.setAttribute('tabindex', 2)
+    span.setAttribute('tabindex', -1)
     span.onkeydown = this._handleKeyEvents.bind(this)
     const ta = this.shadowRoot.querySelector('#ta')
-    ta.setAttribute('tabindex', 1)
+    // ta.setAttribute('_tabindex', 1)
     const removeBtn = this._createRemoveBtn()
     removeBtn.setAttribute('tabindex', -1)
     span.appendChild(el)

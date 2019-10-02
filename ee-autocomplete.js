@@ -147,7 +147,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       this.targetElement.setPickedElement(this.itemElement, this.itemElementConfig, this.itemElementAttributes)
     }
     // Guarantee the target element is focusable
-    this.targetElement.setAttribute('tabindex', 1)
+    this.targetElement.setAttribute('_tabindex', 1)
   }
 
   disconnectedCallback () {
@@ -216,7 +216,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k])
       el.data = suggestion
       el.onkeydown = this._handleKeyEvents.bind(this)
-      el.setAttribute('tabindex', 1)
+      el.setAttribute('_tabindex', 1)
       suggestionsDiv.appendChild(el)
     }
 
