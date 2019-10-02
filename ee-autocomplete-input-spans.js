@@ -246,13 +246,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this.autocompleteValue = this.shadowRoot.querySelector('#ta').value
   }
 
-  setPickedElement (itemElement, itemElementConfig, itemElementAttributes) {
-    this.itemElement = itemElement
-    this.itemElementConfig = itemElementConfig
-    this.itemElementAttributes = itemElementAttributes
-  }
-
-  // @Tony Mobily: Run this when there are no suggestions and the user hits Tab or Enter in #ta
+  // Run this when there are no suggestions and the user hits Tab or Enter in #ta
   _pickCurrentValue () {
     if (this.valueAsIds) return
     this.pickedElement(this.shadowRoot.querySelector('#ta').value, true)
@@ -366,6 +360,8 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   /* API */
+  get multiInputApi () { return true }
+
   pickedElement (data, force) {
     const parentEl = document.createElement(this.itemElement)
     const el = new parentEl.constructor.PickedElement()
@@ -399,6 +395,19 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     ta.value = ''
 
     this._updateNativeInputValue()
+  }
+
+  get textInputValue () {
+    const targetElementTextArea = this.shadowRoot.querySelector('#ta')
+    return targetElementTextArea
+      ? targetElementTextArea.value
+      : ''
+  }
+
+  setPickedElement (itemElement, itemElementConfig, itemElementAttributes) {
+    this.itemElement = itemElement
+    this.itemElementConfig = itemElementConfig
+    this.itemElementAttributes = itemElementAttributes
   }
 }
 

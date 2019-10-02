@@ -140,12 +140,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.targetElement.addEventListener('input', this._boundInputEvent)
     this.targetElement.addEventListener('dismiss-suggestions', this._boundDismissEvent)
 
-    // API USE: If the target input element has a
-    // pickedElement() method, then set the basic parameters for all
+    // API USE: If the target input element implements multiInputApi,
+    // then set the basic parameters for all
     // picked items (element name, config and attributes)
-    // The input element will need it to be able to render
-    // the "chosen" value once picked AND when setting the value
-    if (typeof this.targetElement.pickedElement === 'function') {
+    if (this.targetElement.multiInputApi) {
       this.targetElement.setPickedElement(this.itemElement, this.itemElementConfig, this.itemElementAttributes)
     }
     // Guarantee the target element is focusable
@@ -156,6 +154,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     if (!this.targetElement) return
 
     this.targetElement.removeEventListener('input', this._boundInputEvent)
+    this.targetElement.removeEventListener('dismiss-suggestions', this._boundDismissEvent)
   }
 
   render () {
@@ -184,23 +183,33 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   _picked (e) {
     if (this.informational || !this.targetElement) return
 
-    if (typeof this.targetElement.pickedElement === 'function') {
+    if (this.targetElement.multiInputApi) {
       this.targetElement.pickedElement(e.target.data)
     } else {
       this.targetElement.value = e.target.textValue
       if (this.targetForId) this.targetForId.value = e.target.idValue
     }
-    this.suggestions = []
+    this._dismissSuggestions()
+    debugger
+    this.targetElement.focus()
   }
 
   async updated (cp) {
     if (!cp.has('suggestions')) return
 
     const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
-    suggestionsDiv.toggleAttribute('populated', !!this.suggestions.length)
+
     while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }
 
     if (this._autocompleteInFlight) return
+
+    if (this.targetElement.multiInputApi) {
+      if (this.targetElement.textInputValue === '') {
+        // this.dismissSuggestions()
+        suggestionsDiv.toggleAttribute('populated', false)
+        return
+      }
+    }
 
     for (const suggestion of this.suggestions) {
       const el = document.createElement(this.itemElement)
@@ -216,7 +225,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     // beginning of the only result
     if (
       this.suggestions.length === 1 &&
-      typeof this.targetElement.pickedElement !== 'function' &&
+      !this.targetElement.multiInputApi &&
       typeof this.targetElement.setSelectionRange === 'function'
     ) {
       const firstOption = suggestionsDiv.firstChild
@@ -226,16 +235,22 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         this.targetElement.value = textValue
         this.targetElement.setSelectionRange(oldValue.length, textValue.length)
         if (this.targetForId) this.targetForId.value = firstOption.idValue
-        this.suggestions = []
       }
     }
 
+    if (!this.suggestions.length) {
+      suggestionsDiv.toggleAttribute('populated', false)
+    }
+
     if (this.suggestions.length) {
+      suggestionsDiv.toggleAttribute('populated', true)
       suggestionsDiv.firstChild.toggleAttribute('selected', true)
     }
   }
 
   _dismissSuggestions () {
+    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
+    suggestionsDiv.toggleAttribute('populated', false)
     this.suggestions = []
   }
 
@@ -261,7 +276,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     case 'Enter':
       this._picked(e)
       e.preventDefault()
-      this.targetElement.focus()
+      // this.targetElement.focus()
       break
     case 'Escape':
       this._dismissSuggestions()
