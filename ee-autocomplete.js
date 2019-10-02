@@ -141,7 +141,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.targetElement.addEventListener('dismiss-suggestions', this._boundDismissEvent)
 
     // API USE: If the target input element has a
-    // pickElement() method, then set the basic parameters for all
+    // pickedElement() method, then set the basic parameters for all
     // picked items (element name, config and attributes)
     // The input element will need it to be able to render
     // the "chosen" value once picked AND when setting the value
@@ -195,11 +195,12 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
 
   async updated (cp) {
     if (!cp.has('suggestions')) return
-    if (this._autocompleteInFlight) return
 
     const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
     suggestionsDiv.toggleAttribute('populated', !!this.suggestions.length)
     while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }
+
+    if (this._autocompleteInFlight) return
 
     for (const suggestion of this.suggestions) {
       const el = document.createElement(this.itemElement)
@@ -289,6 +290,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     // Nothing can nor should happen without a target
     const target = this.targetElement
     if (!target) return
+
+    // There is more input: a new query will be made,
+    // so the list is now stale
+    this._dismissSuggestions()
 
     // If the target element is not valid, don't take off at all
     // TAKEN OUT as autocomplete might be necessary to actually make

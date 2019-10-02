@@ -61,6 +61,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           line-height: 1em;
         }
 
+        #list > span > [invalid] {
+          background-color: red;
+        }
+
         #list > span:active, #list > span:focus, #list > span:hover {
           box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
           background-color: #eee;
@@ -154,9 +158,12 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     const list = this.shadowRoot.querySelector('#list')
     for (const span of list.children) {
       if (span.id === 'ta') continue
-      this.valueAsIds
-        ? r.push(span.firstChild.idValue)
-        : r.push(span.firstChild.textValue)
+      if (this.valueAsIds) {
+        r.push(span.firstChild.idValue)
+      } else {
+        // Won't push invalid spans to the final value
+        if (span.getAttribute('invalid') === null) r.push(span.firstChild.textValue)
+      }
     }
     return r.join(',')
   }
@@ -247,7 +254,8 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   // @Tony Mobily: Run this when there are no suggestions and the user hits Tab or Enter in #ta
   _pickCurrentValue () {
-
+    if (this.valueAsIds) return
+    this.pickedElement(this.shadowRoot.querySelector('#ta').value, true)
   }
 
   _askToRemove (e) {
@@ -325,6 +333,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     case 'Tab':
     case 'Enter':
       if (!this.parentElement.suggestions.length) {
+        e.preventDefault()
         this._pickCurrentValue()
       } else {
         e.preventDefault()
@@ -357,7 +366,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   /* API */
-  pickedElement (data) {
+  pickedElement (data, force) {
     const parentEl = document.createElement(this.itemElement)
     const el = new parentEl.constructor.PickedElement()
 
@@ -365,7 +374,14 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k])
 
     // Convert string into data if necessary
-    if (typeof data === 'string') data = parentEl.stringToData(data)
+    if (typeof data === 'string') {
+      if (!data.length) return
+      data = parentEl.stringToData(data)
+      if (!data.valid) {
+        if (!force) return
+        el.setAttribute('invalid', '')
+      }
+    }
     el.data = data
 
     const list = this.shadowRoot.querySelector('#list')

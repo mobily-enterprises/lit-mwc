@@ -63,12 +63,30 @@ export class EeAutocompleteItemEmail extends ThemeableMixin('ee-autocomplete-ite
   }
 
   get textValue () {
-    return `${this.data[this.config.emailName]} <${this.data[this.config.emailAddress]}>`
+    return this._textValueGetter()
+  }
+
+  _textValueGetter (short = false) {
+    if (short) return this.data[this.config.emailName] || this.data[this.config.emailAddress]
+    const name = this.data[this.config.emailName]
+    const address = this.data[this.config.emailAddress]
+    if (name && address) return `${name} <${address}>`
+    else if (name) return name
+    else if (address) return address
+    else return ''
   }
 
   stringToData (string) {
     let emailName
     let emailAddress
+
+    if (!string.match('@')) {
+      return {
+        [this.config.emailName]: string,
+        [this.config.emailAddress]: '',
+        valid: false
+      }
+    }
 
     const emails = string.match(/[^@<\s]+@[^@\s>]+/g)
     if (emails) {
@@ -82,9 +100,12 @@ export class EeAutocompleteItemEmail extends ThemeableMixin('ee-autocomplete-ite
       emailName = names.join(' ').replace(/"/g, '')
     }
 
+    const valid = !!emailAddress
+
     return {
       [this.config.emailName]: emailName,
-      [this.config.emailAddress]: emailAddress
+      [this.config.emailAddress]: emailAddress,
+      valid: valid
     }
   }
 
@@ -109,7 +130,7 @@ class EeAutocompleteItemEmailView extends ThemeableMixin('ee-autocomplete-item-e
 
   render () {
     return html`
-      ${this.data[this.config.emailName]}
+      ${this._textValueGetter(true)}
     `
   }
 }

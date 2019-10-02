@@ -69,7 +69,8 @@ export class EeAutocompleteItemCountry extends ThemeableMixin('ee-autocomplete-i
 
   stringToData (string) {
     return {
-      [this.config.countryName]: string
+      [this.config.countryName]: string,
+      valid: true
     }
   }
 
