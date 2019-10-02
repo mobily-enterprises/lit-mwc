@@ -44,10 +44,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         :host {
           display: inline;
         }
-
-        :host(:focus) {
+        /* @Tony Mobily: Uncomment this if you fix the tab index issue */
+        /* :host(:focus) {
           outline: none;
-        }
+        } */
 
         #list > span {
           position: relative;
