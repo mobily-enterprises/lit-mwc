@@ -108,19 +108,18 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           fill: #555;
         }
 
-        textarea {
+        input {
           box-sizing: border-box;
           display: inline-block;
           outline: none;
-          resize: none;
           vertical-align: middle;
           height: 1.5em;
           border: none;
-          font-size: 1em;
+          font-size: 0.9em;
           width: 120px;
         }
 
-        textarea:focus, textarea:hover {
+        input:focus, input:hover {
           outline: none
         }
 
@@ -142,7 +141,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <div id="list" @click="${this._getFocus}">
-        <textarea @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list"></textarea>
+        <input @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list">
       </div>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
