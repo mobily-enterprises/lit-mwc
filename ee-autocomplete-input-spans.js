@@ -52,6 +52,11 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         #list > span {
           position: relative;
           display: inline-block;
+        }
+
+        #list > span > *:not(button) {
+          position: relative;
+          display: inline-block;
           padding: 3px 6px;
           padding-right: 24px;
           border: 1px solid #ddd;
@@ -61,16 +66,17 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           line-height: 1em;
         }
 
-        #list > span > [invalid] {
-          background-color: red;
+        #list > span > *:not(button)[invalid] {
+          background-color: pink;
+          border-color: red;
         }
 
-        #list > span:active, #list > span:focus, #list > span:hover {
+        #list > span:active > *:not(button), #list > span:focus > *:not(button), #list > span:hover > *:not(button) {
           box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
           background-color: #eee;
           outline: none;
         }
-        #list > span:active, #list > span:focus {
+        #list > span:active > *:not(button), #list > span:focus > *:not(button) {
           border-color: var(--nn-primary-color, #ccc);
         }
 
@@ -83,14 +89,14 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           padding: 0;
           display: inline-block;
           position: absolute;
-          top: 50%;
-          right: 3px;
+          top: 55%;
+          right: 4px;
           transform: translateY(-50%);
           background: none;
           z-index:0;
         }
 
-        #list > span button.remove:focus, #list > span button.remove:active {
+        #list > *:focus, #list > span *:active {
           outline: none;
         }
 
@@ -102,19 +108,18 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           fill: #555;
         }
 
-        textarea {
+        input {
           box-sizing: border-box;
           display: inline-block;
           outline: none;
-          resize: none;
           vertical-align: middle;
           height: 1.5em;
           border: none;
-          font-size: 1em;
+          font-size: 0.9em;
           width: 120px;
         }
 
-        textarea:focus, textarea:hover {
+        input:focus, input:hover {
           outline: none
         }
 
@@ -136,7 +141,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <div id="list" @click="${this._getFocus}">
-        <textarea @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list"></textarea>
+        <input @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="1" dir="ltr" role="combobox" aria-autocomplete="list">
       </div>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
@@ -293,12 +298,14 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     switch (e.key) {
     case 'ArrowLeft':
       if (target.previousElementSibling) {
+        e.preventDefault()
         target.previousElementSibling.focus()
       }
       break
 
     case 'ArrowRight':
       if (target.id !== 'ta') {
+        e.preventDefault()
         target.nextElementSibling
           ? target.nextElementSibling.focus()
           : target.parentElement.firstElementChild.focus()
@@ -326,6 +333,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       break
     case 'Tab':
     case 'Enter':
+      if (!this.autocompleteValue) break
       if (!this.parentElement.suggestions.length) {
         e.preventDefault()
         this._pickCurrentValue()
