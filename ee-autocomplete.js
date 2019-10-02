@@ -29,6 +29,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           padding: 10px;
         }
 
+        #suggestions > *[selected], #suggestions > *:focus, #suggestions > *:hover  {
+          background-color: #eee;
+        }
+
         [hidden] {
           display: none !important;
         }
@@ -161,6 +165,22 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     `
   }
 
+  pickFirst () {
+    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
+    suggestionsDiv.querySelector('[selected]').click()
+  }
+
+  focusNext () {
+    if (!this.suggestions.length) return
+    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
+    let selected = suggestionsDiv.querySelector('[selected]') || suggestionsDiv.firstElementChild
+    if (this.suggestions.length > 1) {
+      selected.toggleAttribute('selected', false)
+      selected = selected.nextElementSibling || selected.previousElementSibling
+    }
+    if (selected) selected.focus()
+  }
+
   _picked (e) {
     if (this.informational || !this.targetElement) return
 
@@ -209,9 +229,9 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       }
     }
 
-    //if (this.suggestions.length) {
-    //  suggestionsDiv.firstChild.focus()
-    //}
+    if (this.suggestions.length) {
+      suggestionsDiv.firstChild.toggleAttribute('selected', true)
+    }
   }
 
   _dismissSuggestions () {
@@ -220,7 +240,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
 
   _handleKeyEvents (e) {
     const target = e.currentTarget
-    if (!this.suggestions.length) return
+    if (!this.suggestions.length || !target.parentElement) return
     if (e.key === 'ArrowUp') {
       e.preventDefault()
       target.previousElementSibling ? target.previousElementSibling.focus() : target.parentElement.lastElementChild.focus()
@@ -229,6 +249,8 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       target.nextElementSibling ? target.nextElementSibling.focus() : target.parentElement.firstElementChild.focus()
     } else if (e.key === 'Tab' || e.key === 'Enter') {
       this._picked(e)
+      e.preventDefault()
+      this.targetElement.focus()
     } else if (e.key === 'Escape') {
       this._dismissSuggestions()
       this.targetElement.focus()
@@ -238,7 +260,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   async _inputEvent (e) {
     // Nothing can nor should happen without a target
     const target = this.targetElement
-    if (!target || target.dismissSuggestions) return
+    if (!target) return
 
     // If the target element is not valid, don't take off at all
     // TAKEN OUT as autocomplete might be necessary to actually make

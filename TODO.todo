@@ -106,8 +106,9 @@ nn-form:
     ✔ KEYS: After deleting an item, select the one on the RIGHT. If there isn't one (see: it's the textbox), select the textbox @done (10/1/2019, 5:00:39 PM)
     ✔ KEYS: As soon as suggestions pop up, select first suggestion @done (10/1/2019, 5:24:36 PM)
     ✔ KEYS: If in the list of suggestions, up and down to go to next/prev and ENTER or TAB to pick @done (10/1/2019, 6:57:36 PM)
-    ☐ KEYS: Arrow down to go to the list of suggestions (starting from number 2) // These won't work together with focusing the list as soon as suggestions appears
-    ☐ KEYS: Tabs to pick first suggestion even if still in textbox // These won't work together with focusing the list as soon as suggestions appears
+    ✔ KEYS: Arrow down to go to the list of suggestions (starting from number 2) @done (10/1/2019, 8:49:38 PM)
+    ✔ KEYS: Tabs to pick first suggestion even if still in textbox @done (10/1/2019, 8:55:36 PM)
+    ✔ KEYS: Backspace when the input is focussed should delete the last element (if present) @done (10/1/2019, 8:55:41 PM)
     ✔ KEYS: Once picked, focus back to textbox @done (10/1/2019, 7:07:01 PM)
     ☐ Make sure element is FULLY aria compatible and usable
   ☐ Material

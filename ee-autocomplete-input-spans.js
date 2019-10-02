@@ -21,8 +21,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         type: String,
         attribute: false
       },
-      validator: { type: Function },
-      dismissSuggestions: { type: Boolean }
+      validator: { type: Function }
     }
   }
 
@@ -36,7 +35,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this.shownValidationMessage = ''
     this.validator = () => ''
     this.validationMessagePosition = 'before'
-    this.dismissSuggestions = false
   }
 
   static get styles () {
@@ -45,6 +43,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       css`
         :host {
           display: inline;
+        }
+
+        :host(:focus) {
+          outline: none;
         }
 
         #list > span {
@@ -95,6 +97,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         #list > span button.remove:hover {
           fill: #555;
         }
+
         textarea {
           box-sizing: border-box;
           display: inline-block;
@@ -235,13 +238,17 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   _inputReceived (e) {
     this.autocompleteValue = this.shadowRoot.querySelector('#ta').value
-    if (!this.autocompleteValue) this.dismissSuggestions = false
   }
 
   setPickedElement (itemElement, itemElementConfig, itemElementAttributes) {
     this.itemElement = itemElement
     this.itemElementConfig = itemElementConfig
     this.itemElementAttributes = itemElementAttributes
+  }
+
+  // @Tony Mobily: Run this when there are no suggestions and the user hits Tab or Enter in #ta
+  _pickCurrentValue () {
+
   }
 
   _askToRemove (e) {
@@ -265,7 +272,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   _getFocus (e) {
     const target = e.target
-    console.log('focus', target.nodeName, this.shadowRoot.querySelector('#ta'))
     if (target.id === 'list' || target.nodeName === 'EE-AUTOCOMPLETE-INPUT-SPANS') {
       e.preventDefault()
       this.shadowRoot.querySelector('#ta').focus()
@@ -280,11 +286,21 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       target.previousElementSibling ? target.previousElementSibling.focus() : target.parentElement.lastElementChild.focus()
     } else if (e.key === 'ArrowRight') {
       target.nextElementSibling ? target.nextElementSibling.focus() : target.parentElement.firstElementChild.focus()
-    } else if (target.id !== 'ta' && (e.key === 'Backspace' || e.key === 'Delete')) {
-      this._removeItem(target)
+    } if (e.key === 'ArrowDown' && this.parentElement.suggestions.length) {
+      e.preventDefault()
+      this.parentElement.focusNext()
+    } else if (e.key === 'Backspace' || e.key === 'Delete') {
+      if (target.id === 'ta' && target.parentElement.children.length > 1 && !target.value) this._removeItem(target.previousElementSibling)
+      else if (target.id !== 'ta') this._removeItem(target)
     } else if (target.id === 'ta' && e.key === 'Escape') {
       this.dispatchEvent(new CustomEvent('dismiss-suggestions'))
-      if (this.autocompleteValue) this.dismissSuggestions = true
+    } else if (target.id === 'ta' && (e.key === 'Tab' || e.key === 'Enter')) {
+      if (!this.parentElement.suggestions.length) {
+        this._pickCurrentValue()
+      } else {
+        e.preventDefault()
+        this.parentElement.pickFirst()
+      }
     }
   }
 
