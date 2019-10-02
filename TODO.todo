@@ -95,8 +95,7 @@ nn-form:
     ✔ Allow sending list of IDs or list of submit values @done(2019-10-02 12:40) @project(Tony)
     ☐ When not sending IDs, allow sending non-id value creating span (with validation check)
     ☐ BUG: When server return problem, error is NOT displayed and form cannot be submitted anymore
-
-    ☐ implement allow-duplicate-ids parameter
+    ☐ implement allow-duplicate-ids parameter (when using IDs)
   ☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
   ☐ Form: Add WeakMap to form, so that it will set inflight per-element
 
