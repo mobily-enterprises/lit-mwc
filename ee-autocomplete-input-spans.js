@@ -141,7 +141,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <div id="list">
-        <input @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="0" dir="ltr" role="combobox" aria-autocomplete="list">
+        <input @blur="${this._tabIn}" @focus="${this._tabOut}" @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="0" dir="ltr" role="combobox" aria-autocomplete="list">
       </div>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
@@ -157,6 +157,36 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   firstUpdated () {
     this._updateNativeInputValue()
     this.setAttribute('tabindex', 0)
+  }
+
+  _tabOut () {
+    console.log('TAB OUT')
+    this.setAttribute('tabindex', -1)
+  }
+
+  _tabIn () {
+    console.log('TAB IN')
+    this.setAttribute('tabindex', 0)
+  }
+
+  _getFocus (e) {
+    /*
+    const target = e.target
+    console.log('Got focus', target.id, target.nodeName, target)
+    if (target.nodeName === 'EE-AUTOCOMPLETE-INPUT-SPANS') {
+      console.log('Got in here')
+      e.preventDefault()
+      this.shadowRoot.querySelector('#ta').focus()
+    }
+    */
+
+    const target = e.target
+    console.log('Got focus', target.id, target.nodeName, target)
+    if (target.id !== 'ta') {
+      console.log('In there')
+      // e.preventDefault()
+      this.shadowRoot.querySelector('#ta').focus()
+    }
   }
 
   get value () {
@@ -281,26 +311,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     el.onclick = this._askToRemove.bind(this)
     el.classList.add('remove')
     return el
-  }
-
-  _getFocus (e) {
-    /*
-    const target = e.target
-    console.log('Got focus', target.id, target.nodeName, target)
-    if (target.nodeName === 'EE-AUTOCOMPLETE-INPUT-SPANS') {
-      console.log('Got in here')
-      e.preventDefault()
-      this.shadowRoot.querySelector('#ta').focus()
-    }
-    */
-
-    const target = e.target
-    console.log('Got focus', target.id, target.nodeName, target)
-    if (target.id !== 'ta') {
-      console.log('In there')
-      e.preventDefault()
-      this.shadowRoot.querySelector('#ta').focus()
-    }
   }
 
   _handleKeyEvents (e) {
