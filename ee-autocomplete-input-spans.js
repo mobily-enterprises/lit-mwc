@@ -282,6 +282,52 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   _handleKeyEvents (e) {
     const target = e.currentTarget
+
+    switch (e.key) {
+    case 'ArrowLeft':
+      if (target.previousElementSibling) {
+        target.previousElementSibling.focus()
+      }
+      break
+
+    case 'ArrowRight':
+      if (target.id !== 'ta') {
+        target.nextElementSibling
+          ? target.nextElementSibling.focus()
+          : target.parentElement.firstElementChild.focus()
+      }
+      break
+
+    case 'ArrowDown':
+      if (this.parentElement.suggestions.length) {
+        e.preventDefault()
+        this.parentElement.focusNext()
+      }
+      break
+    case 'Backspace':
+    case 'Delete':
+      if (target.id === 'ta' && target.parentElement.children.length > 1 && !target.value) {
+        this._removeItem(target.previousElementSibling)
+      } else if (target.id !== 'ta') {
+        this._removeItem(target)
+      }
+      break
+    case 'Escape':
+      if (target.id === 'ta') {
+        this.dispatchEvent(new CustomEvent('dismiss-suggestions'))
+      }
+      break
+    case 'Tab':
+    case 'Enter':
+      if (!this.parentElement.suggestions.length) {
+        this._pickCurrentValue()
+      } else {
+        e.preventDefault()
+        this.parentElement.pickFirst()
+      }
+    }
+
+    /*
     if (e.key === 'ArrowLeft') {
       target.previousElementSibling ? target.previousElementSibling.focus() : target.parentElement.lastElementChild.focus()
     } else if (e.key === 'ArrowRight') {
@@ -302,6 +348,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         this.parentElement.pickFirst()
       }
     }
+    */
   }
 
   /* API */
