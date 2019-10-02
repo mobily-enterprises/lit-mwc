@@ -109,7 +109,7 @@ nn-form:
     ✔ KEYS: Arrow down to go to the list of suggestions (starting from number 2) @done (10/1/2019, 8:49:38 PM)
     ✔ KEYS: Tabs to pick first suggestion even if still in textbox @done (10/1/2019, 8:55:36 PM)
     ✔ KEYS: Backspace when the input is focussed should delete the last element (if present) @done (10/1/2019, 8:55:41 PM)
-    ✔ KEYS: Once picked, focus back to textbox @done (10/1/2019, 7:07:01 PM)
+    ✔ KEYS: Once picked, focus back to textbox @done (10/1/2019, 7:07:01 P
     ☐ Make sure element is FULLY aria compatible and usable
   ☐ Material
     ☐ implement it for all nn elements
