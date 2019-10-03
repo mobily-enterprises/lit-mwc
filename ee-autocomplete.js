@@ -55,6 +55,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         type: String,
         attribute: 'target-for-id'
       },
+      picked: {
+        type: Boolean,
+        reflect: true
+      },
       suggestions: {
         type: Array,
         attribute: false
@@ -70,10 +74,6 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       itemElementAttributes: {
         type: Object,
         attribute: 'item-element-attributes'
-      },
-      idData: {
-        type: Object,
-        attribute: 'id-data'
       }
     }
   }
@@ -87,7 +87,6 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.itemElement = 'ee-autocomplete-item-li'
     this.itemElementConfig = {}
     this.itemElementAttributes = {}
-    this.idData = {}
 
     this._boundInputEvent = this._inputEvent.bind(this)
     this._boundDismissEvent = this._dismissSuggestions.bind(this)
@@ -185,7 +184,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       this.targetElement.pickedElement(e.target.data)
     } else {
       this.targetElement.value = e.target.textValue
-      if (this.targetForId) this.targetForId.value = e.target.idValue
+      if (this.targetForId) {
+        this.targetForId.value = e.target.idValue
+        this.picked = true
+      }
     }
     this._dismissSuggestions()
     this.targetElement.focus()
@@ -232,7 +234,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         const oldValue = this.targetElement.value
         this.targetElement.value = textValue
         this.targetElement.setSelectionRange(oldValue.length, textValue.length)
-        if (this.targetForId) this.targetForId.value = firstOption.idValue
+        if (this.targetForId) {
+          this.targetForId.value = firstOption.idValue
+          this.picked = true
+        }
       }
     }
 
@@ -307,6 +312,11 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       return
     }
     this._autocompleteInFlight = true
+
+    if (this.targetForId) {
+      this.targetForId.value = ''
+      this.picked = false
+    }
 
     // Set the url, which will also depend on recordId
     const value = target.autocompleteValue || target.value
