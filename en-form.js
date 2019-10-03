@@ -292,7 +292,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       this.dispatchEvent(event)
 
       // Response hook
-      this.response(response, null)
+      this.response(null, null)
     //
     // CASE #2: HTTP error.
     // Invalidate the problem fields
