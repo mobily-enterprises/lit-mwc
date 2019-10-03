@@ -146,8 +146,6 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     if (this.targetElement.multiInputApi) {
       this.targetElement.setPickedElement(this.itemElement, this.itemElementConfig, this.itemElementAttributes)
     }
-    // Guarantee the target element is focusable
-    this.targetElement.setAttribute('_tabindex', 1)
   }
 
   disconnectedCallback () {
@@ -190,7 +188,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       if (this.targetForId) this.targetForId.value = e.target.idValue
     }
     this._dismissSuggestions()
-    // this.targetElement.focus()
+    this.targetElement.focus()
   }
 
   async updated (cp) {
@@ -216,7 +214,8 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k])
       el.data = suggestion
       el.onkeydown = this._handleKeyEvents.bind(this)
-      el.setAttribute('_tabindex', 1)
+      // Make span focusable AND in the tab list
+      el.setAttribute('tabindex', 0)
       suggestionsDiv.appendChild(el)
     }
 
@@ -275,7 +274,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     case 'Enter':
       this._picked(e)
       e.preventDefault()
-      // this.targetElement.focus()
+      this.targetElement.focus()
       break
     case 'Escape':
       this._dismissSuggestions()

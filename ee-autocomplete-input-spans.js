@@ -27,6 +27,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   constructor () {
     super()
+    this.labelForElement = 'ni'
     this.valueAsIds = false
     this.removeIcon = '<svg class="icon" height="15" viewBox="0 0 24 24" width="15"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>'
     this.itemElement = ''
@@ -44,10 +45,9 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         :host {
           display: inline;
         }
-        /* @Tony Mobily: Uncomment this if you fix the tab index issue */
-        /* :host(:focus) {
+        :host(:focus) {
           outline: none;
-        } */
+        }
 
         #list > span {
           position: relative;
@@ -140,8 +140,8 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <div id="list">
-        <input @blur="${this._tabIn}" @focus="${this._tabOut}" @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" tabindex="0" dir="ltr" role="combobox" aria-autocomplete="list">
+      <div id="list" @click="${this._listClicked}">
+        <input @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" dir="ltr" role="combobox" aria-autocomplete="list">
       </div>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
@@ -151,42 +151,24 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   connectedCallback () {
     super.connectedCallback()
-    this.addEventListener('focus', this._getFocus)
+    this.addEventListener('click', this.focus)
+  }
+
+  disconnectedCallback () {
+    super.connectedCallback()
+    this.removeEventListener('click', this.focus)
   }
 
   firstUpdated () {
     this._updateNativeInputValue()
-    this.setAttribute('tabindex', 0)
   }
 
-  _tabOut () {
-    console.log('TAB OUT')
-    this.setAttribute('tabindex', -1)
+  focus () {
+    this.shadowRoot.querySelector('#ta').focus()
   }
 
-  _tabIn () {
-    console.log('TAB IN')
-    this.setAttribute('tabindex', 0)
-  }
-
-  _getFocus (e) {
-    /*
-    const target = e.target
-    console.log('Got focus', target.id, target.nodeName, target)
-    if (target.nodeName === 'EE-AUTOCOMPLETE-INPUT-SPANS') {
-      console.log('Got in here')
-      e.preventDefault()
-      this.shadowRoot.querySelector('#ta').focus()
-    }
-    */
-
-    const target = e.target
-    console.log('Got focus', target.id, target.nodeName, target)
-    if (target.id !== 'ta') {
-      console.log('In there')
-      // e.preventDefault()
-      this.shadowRoot.querySelector('#ta').focus()
-    }
+  _listClicked (e) {
+    e.stopPropagation()
   }
 
   get value () {
@@ -276,11 +258,13 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     `
   }
 
-  /* END OF CONSTRAINTS API */
-
-  _inputReceived (e) {
-    this.autocompleteValue = this.shadowRoot.querySelector('#ta').value
+  get autocompleteValue () {
+    const ta = this.shadowRoot.querySelector('#ta')
+    if (ta) return ta.value
+    return ''
   }
+
+  /* END OF CONSTRAINTS API */
 
   // Run this when there are no suggestions and the user hits Tab or Enter in #ta
   _pickCurrentValue () {
@@ -299,10 +283,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   _removeItem (target) {
-    const next = target.nextElementSibling
+    const previous = target.previousElementSibling
+    previous.focus()
     target.remove()
     this._updateNativeInputValue()
-    next.focus()
   }
 
   _createRemoveBtn () {
@@ -411,11 +395,16 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
     const list = this.shadowRoot.querySelector('#list')
     const span = document.createElement('span')
+    // -1 means that it will not in the list of tabs, but
+    // it will be focusable (spans aren't by default)
     span.setAttribute('tabindex', -1)
-    span.onkeydown = this._handleKeyEvents.bind(this)
     const ta = this.shadowRoot.querySelector('#ta')
-    // ta.setAttribute('_tabindex', 1)
     const removeBtn = this._createRemoveBtn()
+
+    span.onkeydown = this._handleKeyEvents.bind(this)
+    // Span will be not in the list of tabs
+    // Necessary since this is a button and it IS
+    // in tab list by default
     removeBtn.setAttribute('tabindex', -1)
     span.appendChild(el)
     span.appendChild(removeBtn)
