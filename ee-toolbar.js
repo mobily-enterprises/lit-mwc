@@ -5,7 +5,7 @@ export class MyToolbar extends LitElement {
     return [
       css`
         :host {
-          display: inline;
+          display: flex;
           width: 100%;
           align-items: center;
           position: relative;
@@ -27,6 +27,7 @@ export class MyToolbar extends LitElement {
         :host ::slotted([condensed-title]) {
           pointer-events: none;
           display: flex;
+          margin: auto
         }
 
         :host ::slotted([bottom-item]) {
