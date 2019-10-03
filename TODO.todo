@@ -97,12 +97,11 @@ nn-form:
     ✔ BUG: When preing enter and NOTHING is selected, the textbox starts becoming multi line @done(2019-10-02 21:39) @project(Raphael)
     ✔ Add "selection done" element to single ID picker @done(2019-10-04 05:29) @project(Tony)
     ✔ BUG: Remove event dismiss-suggestions, since native input elements won't emit it @done(2019-10-04 05:38) @project(Tony)
-    ☐ BUG: When server returns validation problem, error is NOT displayed and form cannot be submitted anymore
-    ☐ Ability to send a JSON rather than a string IDs data
+    ✔ BUG: When server returns validation problem, error is NOT displayed and form cannot be submitted anymore @done(2019-10-04 06:00) @project(Tony)
+    ✔ Ability to send a JSON rather than a string IDs data @done(2019-10-04 06:25) @project(Tony)
     ☐ Ability to pick the separator when sending a string
   ☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
   ☐ Form: Add WeakMap to form, so that it will set inflight per-element
-
 
   Raphael:
   ☐ Autocomplete

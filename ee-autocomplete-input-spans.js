@@ -9,9 +9,13 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       name: {
         type: String
       },
-      valueAsIds: {
-        type: Boolean,
-        attribute: 'value-as-ids'
+      valueAs: {
+        type: String,
+        attribute: 'value-as'
+      },
+      valueSeparator: {
+        type: String,
+        attribute: 'value-separator'
       },
       validationMessagePosition: {
         type: String,
@@ -28,7 +32,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   constructor () {
     super()
     this.labelForElement = 'ni'
-    this.valueAsIds = false
+    this.valueAs = 'text' // can be text, ids, json
     this.removeIcon = '<svg class="icon" height="15" viewBox="0 0 24 24" width="15"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>'
     this.itemElement = ''
     this.itemElementConfig = {}
@@ -36,6 +40,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this.shownValidationMessage = ''
     this.validator = () => ''
     this.validationMessagePosition = 'before'
+    this.valueSeparator = ','
   }
 
   static get styles () {
@@ -172,18 +177,32 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   get value () {
-    const r = []
-    const list = this.shadowRoot.querySelector('#list')
-    for (const span of list.children) {
-      if (span.id === 'ta') continue
-      if (this.valueAsIds) {
-        r.push(span.firstChild.idValue)
-      } else {
-        // Won't push invalid spans to the final value
-        if (span.getAttribute('invalid') === null) r.push(span.firstChild.textValue)
+    let r
+    let list
+    switch (this.valueAs) {
+    case 'json':
+      r = {}
+      list = this.shadowRoot.querySelector('#list')
+      for (const span of list.children) {
+        if (span.id === 'ta') continue
+        const idValue = span.firstChild.idValue
+        r[idValue] = span.firstChild.data
       }
+      return r
+    default:
+      r = []
+      list = this.shadowRoot.querySelector('#list')
+      for (const span of list.children) {
+        if (span.id === 'ta') continue
+        if (this.valueAs === 'text') {
+          // Won't push invalid spans to the final value
+          if (span.getAttribute('invalid') === null) r.push(span.firstChild.textValue)
+        } else {
+          r.push(span.firstChild.idValue)
+        }
+      }
+      return r.join(this.valueSeparator)
     }
-    return r.join(',')
   }
 
   set value (v) {
@@ -206,7 +225,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         this.pickedElement($o)
       }
     } else if (typeof v === 'string') {
-      for (const s of v.split(',')) {
+      for (const s of v.split(this.valueSeparator)) {
         this.pickedElement(s)
       }
     }
@@ -267,9 +286,12 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   /* END OF CONSTRAINTS API */
 
   // Run this when there are no suggestions and the user hits Tab or Enter in #ta
+  // This will run pickElement with a STRING, which will get the element to
+  // work out a data structure based on the string
   _pickCurrentValue () {
-    if (this.valueAsIds) return
-    this.pickedElement(this.shadowRoot.querySelector('#ta').value, true)
+    if (this.valueAs === 'text') {
+      this.pickedElement(this.shadowRoot.querySelector('#ta').value, true)
+    }
   }
 
   _askToRemove (e) {
