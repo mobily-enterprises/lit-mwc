@@ -79,7 +79,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
 
   static get properties () {
     return {
-      selected: { type: String },
+      selected: { type: String, reflect: true },
       eventBubbles: { type: Boolean }
     }
   }
@@ -104,14 +104,11 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
 
   connectedCallback () {
     super.connectedCallback()
+    // Listen to local clicked-slot event
     this.addEventListener('clicked-slot', this._fireSelectedEvent)
   }
 
-  _fireSelectedEvent (e) {
-    this.dispatchEvent(new CustomEvent('selected-changed', { detail: { action: e.detail.selected } }))
-    this.selected = e.detail.selected
-  }
-
+  // This adds a click event listener to all slotted children (the tabs)
   _manageSlotted (e) {
     const slot = e.currentTarget
     const slotted = slot.assignedNodes()
@@ -120,8 +117,15 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     }
   }
 
+  // Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the id of the slotted "tab"
   _clickedSlotted (e) {
     this.parentElement.dispatchEvent(new CustomEvent('clicked-slot', { detail: { event: e, selected: this.id } }))
   }
+
+  // This function runs when the host element receives a clicked-slot event from it's children. It sets the selected property and fires a 'selected-changed' event with that value.
+  _fireSelectedEvent (e) {
+    this.dispatchEvent(new CustomEvent('selected-changed', { detail: { action: e.detail.selected } }))
+    this.selected = e.detail.selected
+  }
 }
-customElements.define('nl-tabs', EeTabs)
+customElements.define('ee-tabs', EeTabs)
