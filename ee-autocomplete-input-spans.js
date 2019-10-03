@@ -283,7 +283,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   _removeItem (target) {
-    const previous = target.previousElementSibling
+    const previous = target.previousElementSibling || this.shadowRoot.querySelector('#ta').lastElementChild
     previous.focus()
     target.remove()
     this._updateNativeInputValue()
