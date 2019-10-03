@@ -347,29 +347,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         this.parentElement.pickFirst()
       }
     }
-
-    /*
-    if (e.key === 'ArrowLeft') {
-      target.previousElementSibling ? target.previousElementSibling.focus() : target.parentElement.lastElementChild.focus()
-    } else if (e.key === 'ArrowRight') {
-      target.nextElementSibling ? target.nextElementSibling.focus() : target.parentElement.firstElementChild.focus()
-    } if (e.key === 'ArrowDown' && this.parentElement.suggestions.length) {
-      e.preventDefault()
-      this.parentElement.focusNext()
-    } else if (e.key === 'Backspace' || e.key === 'Delete') {
-      if (target.id === 'ta' && target.parentElement.children.length > 1 && !target.value) this._removeItem(target.previousElementSibling)
-      else if (target.id !== 'ta') this._removeItem(target)
-    } else if (target.id === 'ta' && e.key === 'Escape') {
-      this.dispatchEvent(new CustomEvent('dismiss-suggestions'))
-    } else if (target.id === 'ta' && (e.key === 'Tab' || e.key === 'Enter')) {
-      if (!this.parentElement.suggestions.length) {
-        this._pickCurrentValue()
-      } else {
-        e.preventDefault()
-        this.parentElement.pickFirst()
-      }
-    }
-    */
   }
 
   /* API */

@@ -281,22 +281,6 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       this.targetElement.focus()
       break
     }
-    /*
-    if (e.key === 'ArrowUp') {
-      e.preventDefault()
-      target.previousElementSibling ? target.previousElementSibling.focus() : target.parentElement.lastElementChild.focus()
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault()
-      target.nextElementSibling ? target.nextElementSibling.focus() : target.parentElement.firstElementChild.focus()
-    } else if (e.key === 'Tab' || e.key === 'Enter') {
-      this._picked(e)
-      e.preventDefault()
-      this.targetElement.focus()
-    } else if (e.key === 'Escape') {
-      this._dismissSuggestions()
-      this.targetElement.focus()
-    }
-    */
   }
 
   async _inputEvent (e) {
