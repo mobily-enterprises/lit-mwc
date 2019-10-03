@@ -332,11 +332,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         this._removeItem(target)
       }
       break
-    case 'Escape':
-      if (target.id === 'ta') {
-        this.dispatchEvent(new CustomEvent('dismiss-suggestions'))
-      }
-      break
     case 'Tab':
     case 'Enter':
       if (!this.autocompleteValue) break

@@ -55,6 +55,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         type: String,
         attribute: 'target-for-id'
       },
+      picked: {
+        type: Boolean,
+        reflect: true
+      },
       suggestions: {
         type: Array,
         attribute: false
@@ -70,10 +74,6 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       itemElementAttributes: {
         type: Object,
         attribute: 'item-element-attributes'
-      },
-      idData: {
-        type: Object,
-        attribute: 'id-data'
       }
     }
   }
@@ -87,10 +87,9 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.itemElement = 'ee-autocomplete-item-li'
     this.itemElementConfig = {}
     this.itemElementAttributes = {}
-    this.idData = {}
 
     this._boundInputEvent = this._inputEvent.bind(this)
-    this._boundDismissEvent = this._dismissSuggestions.bind(this)
+    this._boundKeydownEvent = this._keydownEvent.bind(this)
   }
 
   // If if's not set, return the first child
@@ -138,7 +137,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     }
 
     this.targetElement.addEventListener('input', this._boundInputEvent)
-    this.targetElement.addEventListener('dismiss-suggestions', this._boundDismissEvent)
+    this.targetElement.addEventListener('keydown', this._boundKeydownEvent)
 
     // API USE: If the target input element implements multiInputApi,
     // then set the basic parameters for all
@@ -152,7 +151,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     if (!this.targetElement) return
 
     this.targetElement.removeEventListener('input', this._boundInputEvent)
-    this.targetElement.removeEventListener('dismiss-suggestions', this._boundDismissEvent)
+    this.targetElement.removeEventListener('keydown', this._boundKeydownEvent)
   }
 
   render () {
@@ -160,6 +159,14 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       <slot></slot>
       <div @click="${this._picked}" id="suggestions" @keydown=${this._handleKeyEvents}></div>
     `
+  }
+
+  _keydownEvent (e) {
+    switch (e.key) {
+    case 'Escape':
+      this._dismissSuggestions()
+      break
+    }
   }
 
   pickFirst () {
@@ -185,7 +192,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       this.targetElement.pickedElement(e.target.data)
     } else {
       this.targetElement.value = e.target.textValue
-      if (this.targetForId) this.targetForId.value = e.target.idValue
+      if (this.targetForId) {
+        this.targetForId.value = e.target.idValue
+        this.picked = true
+      }
     }
     this._dismissSuggestions()
     this.targetElement.focus()
@@ -202,7 +212,6 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
 
     if (this.targetElement.multiInputApi) {
       if (this.targetElement.textInputValue === '') {
-        // this.dismissSuggestions()
         suggestionsDiv.toggleAttribute('populated', false)
         return
       }
@@ -232,7 +241,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         const oldValue = this.targetElement.value
         this.targetElement.value = textValue
         this.targetElement.setSelectionRange(oldValue.length, textValue.length)
-        if (this.targetForId) this.targetForId.value = firstOption.idValue
+        if (this.targetForId) {
+          this.targetForId.value = firstOption.idValue
+          this.picked = true
+        }
       }
     }
 
@@ -307,6 +319,11 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       return
     }
     this._autocompleteInFlight = true
+
+    if (this.targetForId) {
+      this.targetForId.value = ''
+      this.picked = false
+    }
 
     // Set the url, which will also depend on recordId
     const value = target.autocompleteValue || target.value

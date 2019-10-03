@@ -95,13 +95,14 @@ nn-form:
     ✔ Allow sending list of IDs or list of submit values @done(2019-10-02 12:40) @project(Tony)
     ✔ When not sending IDs, allow sending non-id value creating span (with validation check) @done(2019-10-02 18:49) @project(Tony)
     ✔ BUG: When preing enter and NOTHING is selected, the textbox starts becoming multi line @done(2019-10-02 21:39) @project(Raphael)
-    ☐ BUG: Remove event dismiss-suggestions, since native input elements won't emit it
+    ✔ Add "selection done" element to single ID picker @done(2019-10-04 05:29) @project(Tony)
+    ✔ BUG: Remove event dismiss-suggestions, since native input elements won't emit it @done(2019-10-04 05:38) @project(Tony)
     ☐ BUG: When server returns validation problem, error is NOT displayed and form cannot be submitted anymore
-    ☐ Add "selection done" element to single ID picker
     ☐ Ability to send a JSON rather than a string IDs data
     ☐ Ability to pick the separator when sending a string
   ☐ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans
   ☐ Form: Add WeakMap to form, so that it will set inflight per-element
+
 
   Raphael:
   ☐ Autocomplete
@@ -120,6 +121,7 @@ nn-form:
     ✔ BUG: EMAIL List submitting EMAILS, type "ton", wait for suggestions, and press "enter": the focus doesn't go to input box @done (10/2/2019, 6:37:30 PM)
     ✔ BUG: When using TAB to cycle though page elements, ee-autocomplete-input-spans captures focus, but it should retarget #ta input @done(2019-10-03 10:17) @project(Raphael)
     ☐ Make sure element is FULLY aria compatible and usable
+    ☐ Style "picked" attribute (NOTE: will ONLY work on "Country Name (sent as ID)" BY DESIGN)
   ☐ Material
     ☐ implement it for all nn elements
     ☐ extend to en and ee elements
