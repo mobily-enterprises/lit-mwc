@@ -127,6 +127,5 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     this.dispatchEvent(new CustomEvent('selected-changed', { detail: { action: e.detail.selected } }))
     this.selected = e.detail.selected
   }
-
 }
 customElements.define('ee-tabs', EeTabs)
