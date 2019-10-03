@@ -95,6 +95,7 @@ nn-form:
     ✔ Allow sending list of IDs or list of submit values @done(2019-10-02 12:40) @project(Tony)
     ✔ When not sending IDs, allow sending non-id value creating span (with validation check) @done(2019-10-02 18:49) @project(Tony)
     ✔ BUG: When preing enter and NOTHING is selected, the textbox starts becoming multi line @done(2019-10-02 21:39) @project(Raphael)
+    ☐ BUG: Remove event dismiss-suggestions, since native input elements won't emit it
     ☐ BUG: When server returns validation problem, error is NOT displayed and form cannot be submitted anymore
     ☐ Ability to send a JSON rather than a string IDs data
     ☐ Ability to pick the separator when sending a string
