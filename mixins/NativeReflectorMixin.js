@@ -243,27 +243,25 @@ export const NativeReflectorMixin = (base) => {
 
       const uniqProps = [...new Set(this.reflectProperties)]
       uniqProps.forEach(prop => {
-        if (typeof dst[prop] === 'function') {
-          this[prop] = dst[prop].bind(dst)
-        } else {
-          Object.defineProperty(this, prop, {
-            get: function () {
-              return dst[prop]
-            },
-            set: function (newValue) {
-              const oldValue = dst[prop]
+        Object.defineProperty(this, prop, {
+          get: function () {
+            if (typeof dst[prop] === 'function') return dst[prop].bind(dst)
+            else return dst[prop]
+          },
+          set: function (newValue) {
+            if (typeof dst[prop] === 'function') return
+            const oldValue = dst[prop]
 
-              // Set the new value
-              dst[prop] = newValue
+            // Set the new value
+            dst[prop] = newValue
 
-              // This is required by litElement since it won't
-              // create a setter if there is already one
-              this._requestUpdate(prop, oldValue)
-            },
-            configurable: true,
-            enumerable: true
-          })
-        }
+            // This is required by litElement since it won't
+            // create a setter if there is already one
+            this._requestUpdate(prop, oldValue)
+          },
+          configurable: true,
+          enumerable: true
+        })
       })
     }
   }
