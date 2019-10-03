@@ -97,7 +97,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
   render () {
     return html`
     <nav>
-      <slot name="tabs" @slotchange="${this._manageSlotted}"></slot>
+      <slot @slotchange="${this._manageSlotted}"></slot>
     </nav>
     `
   }

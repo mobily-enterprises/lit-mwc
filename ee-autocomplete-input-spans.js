@@ -283,6 +283,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   _removeItem (target) {
+    // Focus previous item before deleting target. If it's the first/only, select the input
     const previous = target.previousElementSibling || this.shadowRoot.querySelector('#ta').lastElementChild
     previous.focus()
     target.remove()
