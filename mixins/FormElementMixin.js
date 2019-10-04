@@ -2,10 +2,14 @@ import { html, css } from 'lit-element'
 
 export const FormElementMixin = (base) => {
   return class Base extends base {
+    get reflectProperties () {
+      return super.reflectProperties.filter(attr => attr !== 'checkValidity' && attr !== 'reportValidity' && attr !== 'setCustomValidity')
+    }
+
     static get properties () {
       return {
         nativeErrorMessages: {
-          type: String,
+          type: Boolean,
           attribute: 'native-error-messages'
         },
         shownValidationMessage: {
@@ -78,6 +82,7 @@ export const FormElementMixin = (base) => {
       this.validationMessagePosition = 'before'
 
       this._boundKeyEventListener = this._eventListener.bind(this)
+      this._showPrettyError = false
     }
 
     get skipAttributes () {
@@ -112,38 +117,55 @@ export const FormElementMixin = (base) => {
       this.form = el
     }
 
-    checkValidity () {
-      // Clear up any hanging error message
-      this.setCustomValidity('')
-      this.shownValidationMessage = ''
+    setCustomValidity (m) {
+      if (m === '') this.shownValidationMessage = ''
+      return this.native.setCustomValidity(m)
+    }
 
-      // If the original checkValidity() fails, the @invalid event will be
-      // fired anyway
-      if (!this.native.checkValidity()) return false
-
-      // Check own validator. If error message, will set it with setCustomValidity()
-      // and will run reportValidity() which will fire the @invalid event
-      const ownErrorMessage = this.validator()
-      if (ownErrorMessage) {
-        this.setCustomValidity(ownErrorMessage)
-        this.reportValidity()
-        return false
+    reportValidity () {
+      // Run custom validator. Note that custom validator
+      // will only ever run on filed without an existing customError.
+      // This is because
+      if (!this.native.validity.customError) {
+        const ownErrorMessage = this.validator()
+        if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
       }
-      return true
+
+      // Run reportValidity which will display the native
+      // error messages.
+      // Suppress the pretty error messages
+      if (this.nativeErrorMessages) {
+        this._showPrettyError = false
+        return this.native.reportValidity()
+      } else {
+        // Since pretty errors will be shown, it will actually
+        // return checkValidity() which will not show the
+        // error messages
+        this._showPrettyError = true
+        return this.native.checkValidity()
+      }
+    }
+
+    checkValidity () {
+      if (!this.native.validity.customError) {
+        const ownErrorMessage = this.validator()
+        if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
+      }
+
+      this._showPrettyError = false
+      return this.native.checkValidity()
     }
 
     firstUpdated () {
       super.firstUpdated()
       this.native.oninput = (e) => {
-        this.checkValidity()
+        this.setCustomValidity('')
+        this.reportValidity()
       }
 
       this.native.oninvalid = (e) => {
         // For some reason user wants native error messages: this ends here
         if (this.nativeErrorMessages) return
-
-        // Prevent displaying of ugly native error messages
-        e.preventDefault()
 
         const validity = e.target.validity
 

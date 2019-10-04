@@ -117,7 +117,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     if (this.validateOnRender) {
       await this._allChildrenCompleted()
       // Check validity
-      this.checkValidity()
+      this.reportValidity()
     }
 
     /*
@@ -219,10 +219,10 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // No validity = no sending
     let submitObject
     if (specificElement) {
-      if (!specificElement.checkValidity()) return
+      if (!specificElement.reportValidity()) return
       submitObject = this.createSubmitObject([specificElement])
     } else {
-      if (!this.checkValidity()) return
+      if (!this.reportValidity()) return
       submitObject = this.createSubmitObject(this.elements)
     }
 
@@ -400,9 +400,9 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       // Re-enabled all disabled fields
       this._enableElements(this.elements)
 
-      // Run checkValidity if validateOnRender is on
+      // Run reportValidity if validateOnRender is on
       if (this.validateOnLoad) {
-        this.checkValidity()
+        this.reportValidity()
       }
     }
   }

@@ -8,9 +8,27 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
   get reflectProperties () {
     return [
       ...super.reflectProperties,
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement -checkValidity -reset -elements
-      ...['length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'reportValidity', 'requestAutocomplete', 'submit']
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement -checkValidity -reportValidity -reset -elements
+      ...['length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'requestAutocomplete', 'submit']
     ]
+  }
+
+  reportValidity () {
+    // Check validity in form
+    let valid = true
+
+    for (const el of this.elements) {
+      if (typeof el.reportValidity === 'function') {
+        // Native element may have customValidity set
+        // by a server response. Clear any existing custom
+        // errors and report validity
+        el.setCustomValidity('')
+        if (!el.reportValidity()) {
+          valid = false
+        }
+      }
+    }
+    return valid
   }
 
   checkValidity () {
@@ -21,12 +39,11 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
     for (const el of this.elements) {
       if (typeof el.checkValidity === 'function') {
         // Native element may have customValidity set
-        // by a server response
+        // by a server response. Clear any existing custom
+        // errors and report validity
         el.setCustomValidity('')
-
         if (!el.checkValidity()) {
           valid = false
-          el.reportValidity()
         }
       }
     }

@@ -132,12 +132,12 @@ nn-form:
 TICKETS (Tony will add them):
   ☐ Write basic structure of web site for documentation
     ☐ Docco docs
-    ☐ Quick start (developers)
     ☐ Quick start (designers)
-    ☐ Tutorials (developers)
+    ☐ Quick start (developers)
     ☐ Tutorials (designers)
-    ☐ API (developers)
+    ☐ Tutorials (developers)
     ☐ Usage (designers)
+    ☐ API (developers)
   ☐ Make ee-dialog
   ☐ Implement en-fab
   ☐ Implement en-switch (maybe deriving from nn-checkbox)
@@ -159,6 +159,42 @@ TICKETS (Tony will add them):
   ☐ Implement "basic" style
   ☐ Write test infrastructure
   ☐ Write tests for all elements (one TODO-list ticket)
+
+HOW VALIDATION WORKS:
+  ☐ `checkValidity()` -- check if an element is valid. True if valid, false if not. If false, also emits @invalid
+  ☐ `reportValidity()` -- identical to reportValidity (including firing @invalid), with the extra bonus of displaying validity using native agent's UI
+  ☐ `setCustomValidity(message)`
+    ☐ when message is "" -- sets the element as valid
+    ☐ wen message is not "", it sets the element as invalid. The "invalidity" will stick (see: checkValidity() and reportValidity() will fail) until this method is called again with an empty string.
+  ☐ `validity` -- a `validityState` object with a bunch of flags. The most important is `valid`. If setCustomValidity() was called with a message, the `customError` flag will always be true.
+    ☐ valid
+    ☐ customError
+    ☐ badInput
+    ☐ patternMismatch
+    ☐ rangeOverflow
+    ☐ rangeUnderflow
+    ☐ stepMismatch
+    ☐ tooLong
+    ☐ tooShort
+    ☐ typeMismatch
+    ☐ valueMissing
+  ☐ `validationMessage` -- empty if element is valid or if it doesn't have validation. Otherwise, a localised error message OR `message` set by setCustomValidity()
+  ☐ `willValidate` -- true if element is candidate for validation (see: implements this API)
+
+  COMMON VALIDATION WORKFLOW:
+    ☐ CASE #1: Native errors
+      ☐ `input` has a pattern validation
+      ☐ user adds input with error and presses "CHECK"
+        ☐ CHECK() runs input.reportValidity()
+        ☐ An `invalid` event is emitted, ignored
+        ☐ The native UI shows the error
+
+    ☐ CASE #2: Pretty UI errors using @invalid event
+      ☐ `input` has a pattern validation
+      ☐ user adds input with error and presses "CHECK"
+        ☐ CHECK() runs input.checkValidity()
+        ☐ An `invalid` event is emitted
+        ☐ Javascript listens to the event, and if validity.valid is false, displays input.validationMessage
 
 DOCUMENT VALIDATION BLUEPRINT:
 ☐ OVERRIDE checkValidity (nn, in FormElementMixin)

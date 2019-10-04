@@ -257,6 +257,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   reportValidity () {
+    return true
   }
 
   get ifValidationMessageBefore () {
