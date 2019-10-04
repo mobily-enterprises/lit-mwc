@@ -97,6 +97,8 @@ export class EeHeader extends LitElement {
 
   static get properties () {
     return {
+      // Users can set these attributes to get built-in basic controls and title text. 
+      // Otherwise, they can user their own with slot="controls" and slot="header-title"
       back: { type: Boolean, reflect: true },
       menu: { type: Boolean, reflect: true },
       headerTitle: { type: String, attribute: 'header-title' },

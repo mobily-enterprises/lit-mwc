@@ -57,7 +57,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           background: #cccccc;
           border-bottom: 4px inset #bdbdbd;
           box-shadow: none;
-          animation: fadeIn 0.5s ease-in;
+          animation: fadeIn 0.2s ease-in;
         }
 
         :host nav > ::slotted(*[disabled]) {
@@ -124,7 +124,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
 
   // This function runs when the host element receives a clicked-slot event from it's children. It sets the selected property and fires a 'selected-changed' event with that value.
   _fireSelectedEvent (e) {
-    this.dispatchEvent(new CustomEvent('selected-changed', { detail: { action: e.detail.selected } }))
+    this.dispatchEvent(new CustomEvent('selected-changed', { detail: { selected: e.detail.selected } }))
     this.selected = e.detail.selected
   }
 }
