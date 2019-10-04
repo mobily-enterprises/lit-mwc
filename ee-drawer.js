@@ -136,15 +136,14 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     e.preventDefault()
     const delta = Math.abs(this.xPos - e.clientX)
     if (delta > 25) {
-      this.container.style.transitionDelay = '0'
-      this.container.style.transform = `translateX(calc(-100% + ${delta *2}px))`
+      // this.container.style.transitionDelay = '0'
+      this.container.style.left = `${delta *2}`
     }
   }
   
   _stopDrag (e) {
     document.onmouseup  = null 
     document.onmousemove = null 
-    debugger
     const delta = e.clientX - this.xPos
     console.log(delta)
     if ( !this.opened && delta > 0 && delta > 100) {
