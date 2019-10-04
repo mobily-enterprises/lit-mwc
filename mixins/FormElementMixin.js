@@ -164,8 +164,8 @@ export const FormElementMixin = (base) => {
       }
 
       this.native.oninvalid = (e) => {
-        // For some reason user wants native error messages: this ends here
-        if (this.nativeErrorMessages) return
+        // No pretty error to be shown (probably running checkValidity())
+        if (!this._showPrettyError) return
 
         const validity = e.target.validity
 
