@@ -24,9 +24,16 @@
   },
   "homepage": "https://github.com/mobily-enterprises/nn#readme",
   "dependencies": {
+    "dialog-polyfill": "^0.5.0",
     "lit-element": "^2.1.0"
   },
   "standard": {
-    "globals": ["customElements", "MutationObserver", "LabelsMixin", "NativeReflectorMixin", "StyleableMixin"]
+    "globals": [
+      "customElements",
+      "MutationObserver",
+      "LabelsMixin",
+      "NativeReflectorMixin",
+      "StyleableMixin"
+    ]
   }
 }

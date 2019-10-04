@@ -9,7 +9,6 @@ export class EeHeader extends LitElement {
         :host {
           display: block;
           width: 100%;
-          z-index: 101;
         }
 
         div#header {
@@ -23,7 +22,6 @@ export class EeHeader extends LitElement {
           background-color: var(--header-background, var(--app-header-background-color));
           color: var(--header-color, var(--app-header-text-color));
           border-bottom: 1px solid #eee;
-          z-index: 1;
         }
 
         .toolbar .subtitle {
