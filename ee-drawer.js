@@ -81,7 +81,6 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
 
   connectedCallback() {
     super.connectedCallback()
-    this.addEventListener('focus', this.focus)
     this.addEventListener('click', this._handleOutsideClick)
   }
 
@@ -99,7 +98,6 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
   }
 
   _handleOutsideClick (e) {
-    console.log(e.target.nodeName)
     if (e.target.nodeName === 'EE-DRAWER') this.close()
   }
 
@@ -107,8 +105,5 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     this.opened = false
   }
 
-  focus () {
-    console.log('I have focus')
-  }
 }
 window.customElements.define('ee-drawer', EeDrawer)

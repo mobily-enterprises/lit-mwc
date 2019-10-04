@@ -124,9 +124,9 @@ nn-form:
   ☐ Material
     ☐ implement it for all nn elements
     ☐ extend to en and ee elements
-  ☐ Implement ee-tabs
-  ☐ Implement ee-drawer
-  ☐ Implement ee-header (or Top App bar https://material.io/design/components/app-bars-top.html)
+  ✔ Implement ee-tabs @done (10/4/2019, 6:51:13 PM)
+  ✔ Implement ee-drawer @done (10/4/2019, 5:21:07 PM)
+  ✔ Implement ee-header (or Top App bar https://material.io/design/components/app-bars-top.html) @done (10/4/2019, 6:51:16 PM)
   ☐ Implement en-nav -bar(or Bottom App Bar https://material.io/design/components/app-bars-bottom.html)
 
 TICKETS (Tony will add them):
