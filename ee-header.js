@@ -24,13 +24,47 @@ export class EeHeader extends LitElement {
           border-bottom: 1px solid #eee;
         }
 
+        :host([menu]) div[main-title], 
+        :host([back]) div[main-title] {
+          padding-right: 46px;
+        }
+
+        :host([menu][back]) div[main-title]{
+          padding-right: 92px;
+        }
+
         .toolbar .subtitle {
           color: rgba(255, 255, 255, 0.75);
         }
         .toolbar button.icon {
           appearance: none;
           -webkit-appearance: none;
+          font-size: inherit;
+          vertical-align: middle;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          -webkit-appearance: none;
+          height: 40px;
+          width: 40px;
+          padding: 6px ;
+          margin: auto 3px;
         }
+
+        .toolbar button.icon:focus, .toolbar button.icon:hover {
+          outline: 0;
+          background: #eeeeee;
+          /* border: 1px solid #bdbdbd; */
+        }
+
+        .toolbar button.icon:active {
+          outline: 0;
+          background: #cccccc;
+          border: 1px solid #bdbdbd;
+          box-shadow: none
+          /* animation: fadeIn 0.1s ease-in; */
+        }
+
         .toolbar button, .toolbar button svg {
           color: var(--app-header-text-color);
           fill: var(--app-header-text-color);
@@ -63,8 +97,8 @@ export class EeHeader extends LitElement {
 
   static get properties () {
     return {
-      back: { type: Boolean },
-      menu: { type: Boolean },
+      back: { type: Boolean, reflect: true },
+      menu: { type: Boolean, reflect: true },
       headerTitle: { type: String, attribute: 'header-title' },
       headerSubtitle: { type: String, attribute: 'header-subtitle' }
     }
