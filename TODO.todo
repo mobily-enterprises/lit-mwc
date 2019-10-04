@@ -196,30 +196,6 @@ HOW VALIDATION WORKS:
         ☐ An `invalid` event is emitted
         ☐ Javascript listens to the event, and if validity.valid is false, displays input.validationMessage
 
-DOCUMENT VALIDATION BLUEPRINT:
-☐ OVERRIDE checkValidity (nn, in FormElementMixin)
-  ☐ Set `shownValidationMessage` to ''
-  ☐ Run setCustomValidity('')
-  ☐ checkValidity will call the native one (which will emit event etc)
-    ☐ If native checkValidity FAILS, THE INVALID EVENT WILL BE FIRED NATIVELY
-    ☐ If native checkValidity WINS, we run own validator. So
-      ☐ If validator returns a problem
-        ☐ Run setCustomValidity() with custom error message
-        ☐ Run reportValidity(), so THE INVALID EVENT WILL BE FIRED NATIVELY
-
-☐ Listen to `invalid` events (nn, in FormElementMixin)
-  ☐ Set `shownValidationMessage`
-    ☐ If custom validator used (invalid has customError), use that
-    ☐ If not, use native messages OR a translation with helper function
-
-☐ OVERRIDE form.checkValidity (nn)
-  ☐ For each contained elements
-    ☐ Run checkValidity()
-
-☐ OVERRIDE form.submit (en)
-  ☐ Run checkValidity()
-  ☐ Run submit
-
 ☐ Watch https://github.com/w3c/webcomponents/issues/187 VERY CRUCIAL TICKET ON ELEMENT-FORM ASSOCIATION
 
 ☐ Add TPE to https://github.com/web-padawan/awesome-lit-html
