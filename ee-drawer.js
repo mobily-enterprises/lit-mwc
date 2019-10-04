@@ -8,24 +8,21 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     return [
       css`
         :host {
-          display: block
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
         }
 
-        div.scrim {
+        :host([opened]) {
+          width: 100vw;
           height: 100vh;
-          background-color: transparent;
-          pointer-events:fill;
-          z-index: 1;
-          position: fixed;
-          opacity: 0;
-          transition: opacity 0.5s ease-out, width 0.6s step-end ;
-          width: 0;
         }
 
         div.container {
           height: 100vh;
           position: fixed;
-          z-index: 2;
+          /* z-index: 2; */
           top: 0;
           left: 0;
           will-change: transform;
@@ -41,16 +38,8 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
         }
 
         :host([modal][opened]) div.container {
-          box-shadow: var(--drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14))
+          box-shadow: var(--drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14), 0 0 0 100vw rgba(0, 0, 0, 0.15)) 
         }
-
-        :host([opened]) div.scrim {
-          background-color: rgba(0, 0, 0, 0.25);
-          opacity: 1;
-          transition: opacity 0.4s ease-out;
-          width: 100vw;
-        }
-
 
         #close {
           -webkit-appearance: none;
@@ -90,9 +79,14 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     this.opened = false
   }
 
+  connectedCallback() {
+    super.connectedCallback()
+    this.addEventListener('focus', this.focus)
+    this.addEventListener('click', this._handleOutsideClick)
+  }
+
   render () {
     return html`
-      ${this.modal ? html`<div class="scrim" @click="${this.close}"></div>` : ''}
       <div class="container">
         ${this.closeButton ? html`<button id="close" @click="${this.close}">${close}</button>` : ''}
         <slot></slot>
@@ -104,9 +98,17 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     this.opened = true
   }
 
+  _handleOutsideClick (e) {
+    console.log(e.target.nodeName)
+    if (e.target.nodeName === 'EE-DRAWER') this.close()
+  }
+
   close () {
     this.opened = false
   }
-}
 
+  focus () {
+    console.log('I have focus')
+  }
+}
 window.customElements.define('ee-drawer', EeDrawer)
