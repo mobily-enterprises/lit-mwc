@@ -1,8 +1,11 @@
 import { LitElement, html, css } from 'lit-element'
+import { StyleableMixin } from './mixins/StyleableMixin'
+import { ThemeableMixin } from './mixins/ThemeableMixin'
 
-export class MyToolbar extends LitElement {
+export class EeToolbar extends ThemeableMixin('ee-toolbar')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
+      super.styles || [],
       css`
         :host {
           display: flex;
@@ -23,8 +26,7 @@ export class MyToolbar extends LitElement {
           font-size: 0;
         }
 
-        :host ::slotted([main-title]),
-        :host ::slotted([condensed-title]) {
+        :host ::slotted([title]) {
           pointer-events: none;
           display: flex;
           margin: auto
@@ -57,4 +59,4 @@ export class MyToolbar extends LitElement {
     `
   }
 }
-customElements.define('ee-toolbar', MyToolbar)
+customElements.define('ee-toolbar', EeToolbar)

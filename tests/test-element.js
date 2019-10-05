@@ -28,14 +28,6 @@ class TestElement extends LitElement {
         <span slot="label">Label text in span</span>
       </nn-input-text>
 
-      <nn-select class="field" id="recorrente" name="recorrente" label="Recorrente">
-         <option disabled selected> -- não recorrente -- </option>
-         <option value="diariamente">Diariamente</option>
-         <option value="Semanalmente">Semanalmente</option>
-         <option value="Mensalmente">Mensalmente</option>
-       </nn-select>
-
-
        <h2>Range in element</h2>
        <en-input-range .value=${'10'} id="input-range" label="Range" min=10 max=100>
          <div slot="range-amount-before">AMOUNT BEFORE: <span id="range-amount"></span></div>

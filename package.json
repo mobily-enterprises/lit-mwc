@@ -27,6 +27,15 @@
     "lit-element": "^2.1.0"
   },
   "standard": {
-    "globals": ["customElements", "MutationObserver", "LabelsMixin", "NativeReflectorMixin", "StyleableMixin"]
+    "globals": [
+      "customElements",
+      "MutationObserver",
+      "LabelsMixin",
+      "NativeReflectorMixin",
+      "StyleableMixin"
+    ]
+  },
+  "devDependencies": {
+    "standard": "^14.3.1"
   }
 }

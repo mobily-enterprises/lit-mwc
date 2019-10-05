@@ -80,6 +80,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
   static get properties () {
     return {
       selected: { type: String, reflect: true },
+      selectedAttribute: { type: String },
       eventBubbles: { type: Boolean }
     }
   }
@@ -88,6 +89,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     super()
     this.selected = ''
     this.eventBubbles = false
+    selectedAttribute = 'name'
   }
 
   /** Tabs usage
@@ -117,9 +119,9 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     }
   }
 
-  // Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the id of the slotted "tab"
+  // Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the name attribute of the slotted "tab"
   _clickedSlotted (e) {
-    this.parentElement.dispatchEvent(new CustomEvent('clicked-slot', { detail: { event: e, selected: this.id } }))
+    this.parentElement.dispatchEvent(new CustomEvent('clicked-slot', { detail: { event: e, selected: this.getAttribute(this.selectedAttribute) } }))
   }
 
   // This function runs when the host element receives a clicked-slot event from it's children. It sets the selected property and fires a 'selected-changed' event with that value.

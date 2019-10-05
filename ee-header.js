@@ -5,6 +5,7 @@ const menu = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><
 export class EeHeader extends LitElement {
   static get styles () {
     return [
+      super.styles || [],
       css`
         :host {
           display: block;
@@ -24,12 +25,12 @@ export class EeHeader extends LitElement {
           border-bottom: 1px solid #eee;
         }
 
-        :host([menu]) div[main-title], 
-        :host([back]) div[main-title] {
+        :host([menu]) div[title], 
+        :host([back]) div[title] {
           padding-right: 46px;
         }
 
-        :host([menu][back]) div[main-title]{
+        :host([menu][back]) div[title]{
           padding-right: 92px;
         }
 
@@ -120,7 +121,7 @@ export class EeHeader extends LitElement {
             ${this.back || this.history.length > 1 ? html`<button class="icon" title="Back" @click="${this._backEvent}">${arrowback}</button>` : ''}
             <slot name="controls"></slot>
           </div>
-          <div main-title>
+          <div title>
           ${this.headerTitle
             ? html`
                 ${this.headerTitle}
