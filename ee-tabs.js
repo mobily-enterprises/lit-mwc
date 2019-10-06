@@ -115,13 +115,14 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     const slot = e.currentTarget
     const slotted = slot.assignedNodes()
     for (const element of slotted) {
-      element.addEventListener('click', this._clickedSlotted)
+      element.addEventListener('click', this._clickedSlotted.bind(this))
     }
   }
 
   // Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the name attribute of the slotted "tab"
   _clickedSlotted (e) {
-    this.parentElement.dispatchEvent(new CustomEvent('clicked-slot', { detail: { event: e, selected: this.getAttribute(this.selectedAttribute) } }))
+    console.log('slot clicked', this.selectedAttribute)
+    this.dispatchEvent(new CustomEvent('clicked-slot', { detail: { event: e, selected: e.currentTarget.getAttribute(this.selectedAttribute) } }))
   }
 
   // This function runs when the host element receives a clicked-slot event from it's children. It sets the selected property and fires a 'selected-changed' event with that value.
