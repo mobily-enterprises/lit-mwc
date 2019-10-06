@@ -3,8 +3,7 @@ import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
 
 export class EeNavBar extends ThemeableMixin('ee-nav-bar')(StyleableMixin(LitElement)) {
-
-  static styles () {
+  static get styles () {
     return [
       super.styles || [],
       css`
@@ -33,7 +32,7 @@ export class EeNavBar extends ThemeableMixin('ee-nav-bar')(StyleableMixin(LitEle
 
       :host nav > ::slotted(*[selected]) {
         opacity: 1;
-      } 
+      }
     `
     ]
   }
