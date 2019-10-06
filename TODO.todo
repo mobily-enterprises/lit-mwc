@@ -122,7 +122,7 @@ nn-form:
     ☐ Make sure element is FULLY aria compatible and usable
     ☐ Style "picked" attribute (NOTE: will ONLY work on "Country Name (sent as ID)" BY DESIGN)
   ☐ Material
-    ☐ implement it for all nn elements
+    ☐ implement it for all nn elements (STATUS: somee ee elements and less used nn still missing theme)
     ☐ extend to en and ee elements
     ☐ Answer :invalid question in tickets
   ✔ Implement ee-tabs @done (10/4/2019, 6:51:13 PM)
