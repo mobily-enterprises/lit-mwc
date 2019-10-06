@@ -118,7 +118,6 @@ export const FormElementMixin = (base) => {
     }
 
     setCustomValidity (m) {
-      if (m === '') this.shownValidationMessage = ''
       return this.native.setCustomValidity(m)
     }
 
@@ -130,6 +129,9 @@ export const FormElementMixin = (base) => {
         const ownErrorMessage = this.validator()
         if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
       }
+
+      // Hide the fancy error message by default
+      this.shownValidationMessage = ''
 
       // Run reportValidity which will display the native
       // error messages.

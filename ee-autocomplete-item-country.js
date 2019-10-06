@@ -96,6 +96,7 @@ class EeAutocompleteItemCountryView extends ThemeableMixin('ee-autocomplete-item
   render () {
     return html`
       ${this.data[this.config.countryName]}
+      <slot></slot>
     `
   }
 }

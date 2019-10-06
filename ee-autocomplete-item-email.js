@@ -131,6 +131,7 @@ class EeAutocompleteItemEmailView extends ThemeableMixin('ee-autocomplete-item-e
   render () {
     return html`
       ${this._textValueGetter(true)}
+      <slot></slot>
     `
   }
 }

@@ -25,6 +25,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         type: String,
         attribute: false
       },
+      validity: {
+        type: Object,
+        attribute: false
+      },
       validator: { type: Function }
     }
   }
@@ -41,6 +45,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this.validator = () => ''
     this.validationMessagePosition = 'before'
     this.valueSeparator = ','
+    this.validity = { valid: true, _customValidationMessage: '' }
   }
 
   static get styles () {
@@ -217,46 +222,89 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     // Assign all children using pickedElement
     if (Array.isArray(v)) {
       for (const o of v) {
-        this.pickedElement(o)
+        this.pickedElement(o, false, true)
       }
     } else if (typeof v === 'object' && v !== null) {
       for (const k of Object.keys(v)) {
         const $o = v[k]
-        this.pickedElement($o)
+        this.pickedElement($o, false, true)
       }
     } else if (typeof v === 'string') {
       for (const s of v.split(this.valueSeparator)) {
-        this.pickedElement(s)
+        this.pickedElement(s, false, true)
       }
     }
-
     // Sets the native input
     this._updateNativeInputValue()
+
+    // Rerun validator
+    this.setCustomValidity('')
+    this.reportValidity()
   }
 
-  /* CONSTRAINTS API */
-  get validity () {
-    return {
-      valid: this.shownValidationMessage === ''
+  get validationMessage () {
+    return this.validity._customValidationMessage
+  }
+
+  setCustomValidity (m) {
+    if (m === '') {
+      this.validity = {
+        valid: true,
+        _customValidationMessage: ''
+      }
+      this.toggleAttribute('valid', true)
+      if (m === '') this.shownValidationMessage = ''
+    } else {
+      this.validity = {
+        valid: false,
+        customError: true,
+        _customValidationMessage: m
+      }
+      this.toggleAttribute('valid', false)
+    }
+  }
+
+  reportValidity () {
+    // Run custom validator. Note that custom validator
+    // will only ever run on filed without an existing customError.
+    // This is because
+    if (!this.validity.customError) {
+      const ownErrorMessage = this.validator()
+      if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
+    }
+
+    // Hide the error message by default
+    this.shownValidationMessage = ''
+
+    if (!this.validity.valid) {
+      this.toggleAttribute('valid', false)
+      this.shownValidationMessage = this.validity._customValidationMessage
+      this.dispatchEvent(new CustomEvent('invalid', {
+        cancelable: true,
+        bubbles: false,
+        composed: true
+      }))
+      return false
+    } else {
+      this.toggleAttribute('valid', true)
+      return true
     }
   }
 
   checkValidity () {
-    this.shownValidationMessage = ''
+    if (!this.native.validity.customError) {
+      const ownErrorMessage = this.validator()
+      if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
+    }
 
-    const ownErrorMessage = this.validator()
-    if (ownErrorMessage) {
-      this.setCustomValidity(ownErrorMessage)
+    if (!this.validity.valid) {
+      this.dispatchEvent(new CustomEvent('invalid', {
+        cancelable: true,
+        bubbles: false,
+        composed: true
+      }))
       return false
     }
-    return true
-  }
-
-  setCustomValidity (validationMessage) {
-    this.shownValidationMessage = validationMessage
-  }
-
-  reportValidity () {
     return true
   }
 
@@ -297,7 +345,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   _askToRemove (e) {
     const target = e.currentTarget
-    this._removeItem(target.parentElement)
+    this._removeItem(target.parentElement.parentElement)
   }
 
   _updateNativeInputValue () {
@@ -305,12 +353,15 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     ni.value = this.value
   }
 
-  _removeItem (target) {
+  _removeItem (target, which = 'previous') {
     // Focus previous item before deleting target. If it's the first/only, select the input
-    const previous = target.previousElementSibling || this.shadowRoot.querySelector('#ta').lastElementChild
+    const previous = target.previousElementSibling || target.nextElementSibling
     previous.focus()
     target.remove()
     this._updateNativeInputValue()
+    // Rerun validator
+    this.setCustomValidity('')
+    this.reportValidity()
   }
 
   _createRemoveBtn () {
@@ -371,7 +422,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   /* API */
   get multiInputApi () { return true }
 
-  pickedElement (data, force) {
+  pickedElement (data, force = false, skipValidation = false) {
     const parentEl = document.createElement(this.itemElement)
     const el = new parentEl.constructor.PickedElement()
 
@@ -383,8 +434,8 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       if (!data.length) return
       data = parentEl.stringToData(data)
       if (!data.valid) {
+        el.toggleAttribute('invalid', true)
         if (!force) return
-        el.setAttribute('invalid', '')
       }
     }
     el.data = data
@@ -403,12 +454,18 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     // in tab list by default
     removeBtn.setAttribute('tabindex', -1)
     span.appendChild(el)
-    span.appendChild(removeBtn)
+    el.appendChild(removeBtn)
 
     list.insertBefore(span, ta)
     ta.value = ''
 
     this._updateNativeInputValue()
+
+    // Rerun validator
+    if (!skipValidation) {
+      this.setCustomValidity('')
+      this.reportValidity()
+    }
   }
 
   get textInputValue () {
