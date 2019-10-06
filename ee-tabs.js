@@ -89,7 +89,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     super()
     this.selected = ''
     this.eventBubbles = false
-    selectedAttribute = 'name'
+    this.selectedAttribute = 'name'
   }
 
   /** Tabs usage
