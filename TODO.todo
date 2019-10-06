@@ -101,7 +101,7 @@ nn-form:
     ✔ Ability to send a JSON rather than a string IDs data @done(2019-10-04 06:25) @project(Tony)
     ✔ Ability to pick the separator when sending a string @done(2019-10-04 07:34) @project(Tony)
   ✔ Make sure constraints API is followed properly, so that formElementMixin uses it for real, and so does ee-autocomplete-input-spans @done(2019-10-06 08:52)
-  ☐ Form: Add WeakMap to form, so that it will set inflight per-element
+  ✔ Form: Add WeakMap to form, so that it will set inflight per-element @done(2019-10-07 07:25)
 
   Raphael:
   ☐ Autocomplete

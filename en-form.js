@@ -69,8 +69,10 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.fetchingElement = null
     this.submitCheckboxesAsNative = false
     this._boundRealtimeSubmitter = this._realTimeSubmitter.bind(this)
-    this.inflight = false
+    this.inFlight = false
     this.attemptedFlight = false
+    this.inFlightMap = new WeakMap()
+    this.attemptedFlightMap = new WeakMap()
   }
 
   async _allChildrenCompleted () {
@@ -92,7 +94,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this._allChildrenCompleted().then(() => {
       for (const el of this.elements) {
         const realTime = el.getAttribute('real-time') !== null
-        const realTimeEvent = el.getAttribute('real-time-event')
+        const realTimeEvent = el.getAttribute('real-time-event') || 'input'
         if (!realTime || !realTimeEvent) continue
         this.addEventListener(realTimeEvent, this._boundRealtimeSubmitter)
       }
@@ -190,19 +192,33 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     for (const el of elements) el.removeAttribute('disabled')
   }
 
-  _fetchEl () {
+  _fetchEl (specificElement) {
     // Tries to figure out what the fetching element is.
     // if fetching-element was passed, then it's either considered an ID
     // or the element itself.
     // Otherwise it will look for an ee-network or with an element with class
     // .network. Finally, it will use `window`
-    if (this.fetchingElement) {
-      if (typeof this.fetchingElement === 'string') return this.querySelector(`#${this.fetchingElement}`)
-      else return this.fetchingElement
+    if (specificElement) {
+      let pEl
+      pEl = specificElement
+      let found = false
+      while (pEl.parentElement) {
+        pEl = pEl.parentElement
+        if (pEl.tagName === 'EE-NETWORK' || pEl.classList.contains('network')) {
+          found = true
+          break
+        }
+      }
+      return found ? pEl : window
     } else {
-      let maybeNetwork = this.querySelector('ee-network')
-      if (!maybeNetwork) maybeNetwork = this.querySelector('.network')
-      return maybeNetwork || window
+      if (this.fetchingElement) {
+        if (typeof this.fetchingElement === 'string') return this.querySelector(`#${this.fetchingElement}`)
+        else return this.fetchingElement
+      } else {
+        let maybeNetwork = this.querySelector('ee-network')
+        if (!maybeNetwork) maybeNetwork = this.querySelector('.network')
+        return maybeNetwork || window
+      }
     }
   }
 
@@ -210,27 +226,33 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // Clear all custom validities if they are set
     // Native elements will NEED this, or any invalid state
     // will persist even if validation passes
-    for (const el of this.elements) {
-      if (typeof el.setCustomValidity === 'function') {
-        el.setCustomValidity('')
-      }
-    }
-
-    // No validity = no sending
     let submitObject
     if (specificElement) {
+      if (typeof specificElement.setCustomValidity === 'function') specificElement.setCustomValidity('')
       if (!specificElement.reportValidity()) return
       submitObject = this.createSubmitObject([specificElement])
     } else {
+      for (const el of this.elements) {
+        if (typeof el.setCustomValidity === 'function') el.setCustomValidity('')
+      }
       if (!this.reportValidity()) return
       submitObject = this.createSubmitObject(this.elements)
     }
 
-    if (this.inFlight) {
-      this.attemptedFlight = specificElement
+    // inFlightMap is a map of all connections, using the specificElement
+    // as key (or "window" if there is no specific element)
+    const mapIndex = specificElement || this
+
+    // The connection is ongoing: add a "specificElement" to the attempted
+    // field, and simply return.
+    // Towards the end, this function will check that "attempted" which,
+    // if set, means that the form needs to be resubmitted with that
+    // specificElement
+    if (this.inFlightMap.has(mapIndex)) {
+      this.inFlightMap.set(mapIndex, { attempted: true })
       return
     }
-    this.inFlight = true
+    this.inFlightMap.set(mapIndex, { attempted: false })
 
     // The element's method can only be null, POST or PUT.
     // If not null, and not "PUT", it's set to "POST"
@@ -273,7 +295,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     let response
     let errs
     try {
-      const el = this._fetchEl()
+      const el = this._fetchEl(specificElement)
       response = await el.fetch(fetchOptions.url, fetchOptions)
     } catch (e) {
       console.log('ERROR!', e)
@@ -333,17 +355,32 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       // Convert the result to JSON
       const v = await response.json()
 
+
+
+      let attempted
+      if (this.inFlightMap.has(mapIndex)) {
+        attempted = this.inFlightMap.get(mapIndex).attempted
+      }
+
       // HOOK Set the form values, in case the server processed some values
       // Note: this is only ever called if set-form-after-submit was
       // passed to the form.
       if (this.setFormAfterSubmit) {
-        if (!this.attemptedFlight) this.setFormElementValues(v)
+        // Won't overwrite fields if another attempt is queued
+        if (!attempted) {
+          if (!specificElement) {
+            this.setFormElementValues(v)
+          } else {
+            const name = mapIndex.name
+            this.setFormElementValues({ [name]: v[name] })
+          }
+        }
       }
 
-      if (this.resetFormAfterSubmit) this.reset()
+      if (this.resetFormAfterSubmit && !attempted && !specificElement) this.reset()
 
       // Re-enable the elements
-      this._enableElements(this.elements)
+      if (!specificElement) this._enableElements(this.elements)
 
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true })
@@ -352,12 +389,22 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       // Response hook
       this.response(response, v)
     }
+
+    if (this.inFlightMap.has(mapIndex)) {
+      const attempted = this.inFlightMap.get(mapIndex).attempted
+      this.inFlightMap.delete(mapIndex)
+      if (attempted) {
+        this.submit(specificElement)
+      }
+    }
+    /*
     this.inFlight = false
     if (this.attemptedFlight) {
       const oldEl = this.attemptedFlight
       this.attemptedFlight = false
       this.submit(oldEl)
     }
+    */
   }
 
   async updated (changedProperties) {
