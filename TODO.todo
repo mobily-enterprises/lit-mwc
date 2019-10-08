@@ -124,7 +124,7 @@ nn-form:
   ☐ Material
     ☐ implement it for all nn elements (STATUS: somee ee elements and less used nn still missing theme)
     ☐ extend to en and ee elements
-    ☐ Answer :invalid question in tickets
+    ✔ Answer :invalid question in tickets @done (10/7/2019, 5:36:51 PM)
   ✔ Implement ee-tabs @done (10/4/2019, 6:51:13 PM)
   ✔ Implement ee-drawer @done (10/4/2019, 5:21:07 PM)
   ✔ Implement ee-header (or Top App bar https://material.io/design/components/app-bars-top.html) @done (10/4/2019, 6:51:16 PM)
