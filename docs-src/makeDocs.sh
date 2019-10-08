@@ -4,7 +4,7 @@ rm -rf ../docs/*;
 	-c tpe.css\
        	-t tpe.ejs\
        	-o ../docs\
-       	welcome.md\
+       	index.md\
        	quickstart-designers.md\
        	tutorials-designers.md\
        	tutorials-designers/*\
