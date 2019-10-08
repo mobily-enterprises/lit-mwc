@@ -11,5 +11,5 @@ rm -rf ../docs/*;
        	quickstart-developers.md\
        	tutorials-developers.md\
        	tutorials-developers/*\
-				sources.md\
-       	sources/*.js
+				elements.md\
+       	elements/*.js
