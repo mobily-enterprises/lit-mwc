@@ -131,14 +131,13 @@ nn-form:
   ✔ Implement en-nav-bar (or Bottom navigation https://material.io/components/bottom-navigation/) @done (10/6/2019, 7:03:27 PM)
 
 TICKETS (Tony will add them):
-  ☐ Write basic structure of web site for documentation
-    ☐ Docco docs
-    ☐ Quick start (designers)
-    ☐ Quick start (developers)
-    ☐ Tutorials (designers)
-    ☐ Tutorials (developers)
-    ☐ Usage (designers)
-    ☐ API (developers)
+  ✔ Write basic structure of web site for documentation @done(2019-10-08 10:44) @project(TICKETS \(Tony will add them\))
+    ✔ Docco docs @done(2019-10-08 10:44) @project(TICKETS \(Tony will add them\))
+    ✔ Quick start (designers) @done(2019-10-08 10:44) @project(TICKETS \(Tony will add them\))
+    ✔ Quick start (developers) @done(2019-10-08 10:44) @project(TICKETS \(Tony will add them\))
+    ✔ Tutorials (designers) @done(2019-10-08 10:44) @project(TICKETS \(Tony will add them\))
+    ✔ Tutorials (developers) @done(2019-10-08 10:44) @project(TICKETS \(Tony will add them\))
+    ✔ Usage (designers) @done(2019-10-08 10:44) @project(TICKETS \(Tony will add them\))
   ☐ Make ee-dialog
   ☐ Implement en-fab
   ☐ Implement en-switch (maybe deriving from nn-checkbox)
