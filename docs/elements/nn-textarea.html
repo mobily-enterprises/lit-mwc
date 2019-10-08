@@ -10,13 +10,12 @@
 </head>
 <body>
   <div class="container">
-    <div class="main">
-
       <div class="header">
         <h1>nn-textarea.js</h1>
 
         
-
+      </div>
+      <div class="main">
         
           <div class="toc">
             <h3>Table of Contents</h3>
@@ -277,8 +276,8 @@
                 
                 
                   <li>
-                    <a class="source" href="nn-input-date.html">
-                      &nbsp; &nbsp; &nbsp;nn-input-date.js
+                    <a class="source" href="nn-input-date-time-local.html">
+                      &nbsp; &nbsp; &nbsp;nn-input-date-time-local.js
                     </a>
                   </li>
                 
@@ -286,8 +285,8 @@
                 
                 
                   <li>
-                    <a class="source" href="nn-input-date-time-local.html">
-                      &nbsp; &nbsp; &nbsp;nn-input-date-time-local.js
+                    <a class="source" href="nn-input-date.html">
+                      &nbsp; &nbsp; &nbsp;nn-input-date.js
                     </a>
                   </li>
                 
@@ -457,12 +456,12 @@
             </ol>
           </div>
         
-      </div>
-      
-        
-        
-        
-          <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
+        <div class="contentPage">
+          
+            
+            
+            
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
 <span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/InputMixin.js'</span>
 <span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/FormElementMixin.js'</span>
@@ -482,13 +481,13 @@
   <span class="hljs-keyword">get</span> reflectProperties () {
     <span class="hljs-keyword">return</span> [
       ...super.reflectProperties,</pre></div>
-        
-      
-        
-        <p>From <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement</a> -checkValidity -form</p>
+            
+          
+            
+            <p>From <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement</a> -checkValidity -form</p>
 
-        
-          <div class='highlight'><pre>      ...[<span class="hljs-string">'type'</span>, <span class="hljs-string">'value'</span>, <span class="hljs-string">'textLength'</span>, <span class="hljs-string">'defaultValue'</span>, <span class="hljs-string">'placeholder'</span>, <span class="hljs-string">'rows'</span>, <span class="hljs-string">'cols'</span>, <span class="hljs-string">'autofocus'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'disabled'</span>, <span class="hljs-string">'labels'</span>, <span class="hljs-string">'maxLength'</span>, <span class="hljs-string">'accessKey'</span>, <span class="hljs-string">'readOnly'</span>, <span class="hljs-string">'required'</span>, <span class="hljs-string">'tabIndex'</span>, <span class="hljs-string">'selectionStart'</span>, <span class="hljs-string">'selectionEnd'</span>, <span class="hljs-string">'selectionDirection'</span>, <span class="hljs-string">'validity'</span>, <span class="hljs-string">'willValidate'</span>, <span class="hljs-string">'validationMessage'</span>, <span class="hljs-string">'autocomplete '</span>, <span class="hljs-string">'autocapitalize '</span>, <span class="hljs-string">'inputMode '</span>, <span class="hljs-string">'wrap'</span>, <span class="hljs-string">'blur'</span>, <span class="hljs-string">'focus'</span>, <span class="hljs-string">'select'</span>, <span class="hljs-string">'setRangeText'</span>, <span class="hljs-string">'setSelectionRange'</span>, <span class="hljs-string">'reportValidity'</span>, <span class="hljs-string">'setCustomValidity'</span>]
+            
+              <div class='highlight'><pre>      ...[<span class="hljs-string">'type'</span>, <span class="hljs-string">'value'</span>, <span class="hljs-string">'textLength'</span>, <span class="hljs-string">'defaultValue'</span>, <span class="hljs-string">'placeholder'</span>, <span class="hljs-string">'rows'</span>, <span class="hljs-string">'cols'</span>, <span class="hljs-string">'autofocus'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'disabled'</span>, <span class="hljs-string">'labels'</span>, <span class="hljs-string">'maxLength'</span>, <span class="hljs-string">'accessKey'</span>, <span class="hljs-string">'readOnly'</span>, <span class="hljs-string">'required'</span>, <span class="hljs-string">'tabIndex'</span>, <span class="hljs-string">'selectionStart'</span>, <span class="hljs-string">'selectionEnd'</span>, <span class="hljs-string">'selectionDirection'</span>, <span class="hljs-string">'validity'</span>, <span class="hljs-string">'willValidate'</span>, <span class="hljs-string">'validationMessage'</span>, <span class="hljs-string">'autocomplete '</span>, <span class="hljs-string">'autocapitalize '</span>, <span class="hljs-string">'inputMode '</span>, <span class="hljs-string">'wrap'</span>, <span class="hljs-string">'blur'</span>, <span class="hljs-string">'focus'</span>, <span class="hljs-string">'select'</span>, <span class="hljs-string">'setRangeText'</span>, <span class="hljs-string">'setSelectionRange'</span>, <span class="hljs-string">'reportValidity'</span>, <span class="hljs-string">'setCustomValidity'</span>]
     ]
   }
 
@@ -502,8 +501,10 @@
   }
 }
 customElements.define(<span class="hljs-string">'nn-textarea'</span>, NnTextArea)</pre></div>
-        
-      
+            
+          
+        </div>
+      </div>
     </div>
   </div>
 </body>

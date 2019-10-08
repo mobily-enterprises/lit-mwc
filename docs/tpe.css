@@ -57,7 +57,8 @@ a {
   color: #2f6ec1;
   text-decoration: none;
   border-bottom: 2px solid #b8d0f9;
-
+  display: inline-block;
+  height: 14px;
 }
 
 a:hover {
@@ -76,20 +77,21 @@ b, strong {
   font-family: "Manjari Bold";
 }
 
-
+div.header {
+  color: white;
+}
 
 /* Layout */
 /* These are the actual layout rules. Includes responsive behavior rules */
 
 div.container {
   width: 100vw;
+  height: 100vh;
   background-color: #ededed;
   padding: 60px 0;
-  bac
   background: #000000;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
 
 div.main {
@@ -98,13 +100,23 @@ div.main {
   border-radius: 10px;
   display: flex;
   margin: auto;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  max-width: 800px;
+  max-width: 85vw;
 }
+
 
 div.main p {
   line-height: 1.3em
+}
+
+div.toc {
+  width: 30%;
+  margin-right: 2%; 
+}
+
+div.contentPage {
+  width: 65%;
 }
 
 pre, code {
@@ -113,6 +125,7 @@ pre, code {
   font-size: 0.9em;
   padding: 1px 6px;
   border-radius: 3px;
+  white-space: pre-wrap;
 }
 
 pre {

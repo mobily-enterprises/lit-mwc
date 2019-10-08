@@ -10,13 +10,12 @@
 </head>
 <body>
   <div class="container">
-    <div class="main">
-
       <div class="header">
         <h1>ee-nav-bar.js</h1>
 
         
-
+      </div>
+      <div class="main">
         
           <div class="toc">
             <h3>Table of Contents</h3>
@@ -277,8 +276,8 @@
                 
                 
                   <li>
-                    <a class="source" href="nn-input-date.html">
-                      &nbsp; &nbsp; &nbsp;nn-input-date.js
+                    <a class="source" href="nn-input-date-time-local.html">
+                      &nbsp; &nbsp; &nbsp;nn-input-date-time-local.js
                     </a>
                   </li>
                 
@@ -286,8 +285,8 @@
                 
                 
                   <li>
-                    <a class="source" href="nn-input-date-time-local.html">
-                      &nbsp; &nbsp; &nbsp;nn-input-date-time-local.js
+                    <a class="source" href="nn-input-date.html">
+                      &nbsp; &nbsp; &nbsp;nn-input-date.js
                     </a>
                   </li>
                 
@@ -457,12 +456,12 @@
             </ol>
           </div>
         
-      </div>
-      
-        
-        
-        
-          <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>;
+        <div class="contentPage">
+          
+            
+            
+            
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>;
 <span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin'</span>
 <span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin'</span>
 
@@ -548,51 +547,53 @@
 
   connectedCallback () {
     <span class="hljs-keyword">super</span>.connectedCallback()</pre></div>
-        
-      
-        
-        <p>Listen to local clicked-slot event</p>
+            
+          
+            
+            <p>Listen to local clicked-slot event</p>
 
-        
-          <div class='highlight'><pre>    <span class="hljs-keyword">this</span>.addEventListener(<span class="hljs-string">'clicked-slot'</span>, <span class="hljs-keyword">this</span>._fireSelectedEvent)
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">this</span>.addEventListener(<span class="hljs-string">'clicked-slot'</span>, <span class="hljs-keyword">this</span>._fireSelectedEvent)
   }</pre></div>
-        
-      
-        
-        <p>This adds a click event listener to all slotted children (the tabs)</p>
+            
+          
+            
+            <p>This adds a click event listener to all slotted children (the tabs)</p>
 
-        
-          <div class='highlight'><pre>  _manageSlotted (e) {
+            
+              <div class='highlight'><pre>  _manageSlotted (e) {
     <span class="hljs-keyword">const</span> slot = e.currentTarget
     <span class="hljs-keyword">const</span> slotted = slot.assignedNodes()
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> element <span class="hljs-keyword">of</span> slotted) {
       element.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-keyword">this</span>._clickedSlotted.bind(<span class="hljs-keyword">this</span>))
     }
   }</pre></div>
-        
-      
-        
-        <p>Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the name attribute of the slotted “tab”</p>
+            
+          
+            
+            <p>Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the name attribute of the slotted “tab”</p>
 
-        
-          <div class='highlight'><pre>  _clickedSlotted (e) {
+            
+              <div class='highlight'><pre>  _clickedSlotted (e) {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'slot clicked'</span>, <span class="hljs-keyword">this</span>.selectedAttribute)
     <span class="hljs-keyword">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">'clicked-slot'</span>, { <span class="hljs-attr">detail</span>: { <span class="hljs-attr">event</span>: e, <span class="hljs-attr">selected</span>: e.currentTarget.getAttribute(<span class="hljs-keyword">this</span>.selectedAttribute) } }))
   }</pre></div>
-        
-      
-        
-        <p>This function runs when the host element receives a clicked-slot event from it’s children. It sets the selected property and fires a ‘selected-changed’ event with that value.</p>
+            
+          
+            
+            <p>This function runs when the host element receives a clicked-slot event from it’s children. It sets the selected property and fires a ‘selected-changed’ event with that value.</p>
 
-        
-          <div class='highlight'><pre>  _fireSelectedEvent (e) {
+            
+              <div class='highlight'><pre>  _fireSelectedEvent (e) {
     <span class="hljs-keyword">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">'selected-changed'</span>, { <span class="hljs-attr">detail</span>: { <span class="hljs-attr">selected</span>: e.detail.selected } }))
     <span class="hljs-keyword">this</span>.selected = e.detail.selected
   }
 }
 customElements.define(<span class="hljs-string">'ee-nav-bar'</span>, EeNavBar);</pre></div>
-        
-      
+            
+          
+        </div>
+      </div>
     </div>
   </div>
 </body>

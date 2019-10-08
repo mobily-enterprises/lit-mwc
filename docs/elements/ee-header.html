@@ -10,13 +10,12 @@
 </head>
 <body>
   <div class="container">
-    <div class="main">
-
       <div class="header">
         <h1>ee-header.js</h1>
 
         
-
+      </div>
+      <div class="main">
         
           <div class="toc">
             <h3>Table of Contents</h3>
@@ -277,8 +276,8 @@
                 
                 
                   <li>
-                    <a class="source" href="nn-input-date.html">
-                      &nbsp; &nbsp; &nbsp;nn-input-date.js
+                    <a class="source" href="nn-input-date-time-local.html">
+                      &nbsp; &nbsp; &nbsp;nn-input-date-time-local.js
                     </a>
                   </li>
                 
@@ -286,8 +285,8 @@
                 
                 
                   <li>
-                    <a class="source" href="nn-input-date-time-local.html">
-                      &nbsp; &nbsp; &nbsp;nn-input-date-time-local.js
+                    <a class="source" href="nn-input-date.html">
+                      &nbsp; &nbsp; &nbsp;nn-input-date.js
                     </a>
                   </li>
                 
@@ -457,12 +456,12 @@
             </ol>
           </div>
         
-      </div>
-      
-        
-        
-        
-          <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
+        <div class="contentPage">
+          
+            
+            
+            
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">'./ee-toolbar'</span>
 <span class="hljs-keyword">const</span> arrowback = html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"icon"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"24"</span> <span class="hljs-attr">viewBox</span>=<span class="hljs-string">"0 0 24 24"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"24"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">path</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span>`</span>
 <span class="hljs-keyword">const</span> menu = html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"icon"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"24"</span> <span class="hljs-attr">viewBox</span>=<span class="hljs-string">"0 0 24 24"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"24"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">path</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span>`</span>
@@ -562,14 +561,14 @@
 
   <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
     <span class="hljs-keyword">return</span> {</pre></div>
-        
-      
-        
-        <p>Users can set these attributes to get built-in basic controls and title text. 
+            
+          
+            
+            <p>Users can set these attributes to get built-in basic controls and title text. 
 Otherwise, they can user their own with slot=”controls” and slot=”header-title”</p>
 
-        
-          <div class='highlight'><pre>      back: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">reflect</span>: <span class="hljs-literal">true</span> },
+            
+              <div class='highlight'><pre>      back: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">reflect</span>: <span class="hljs-literal">true</span> },
       <span class="hljs-attr">menu</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">reflect</span>: <span class="hljs-literal">true</span> },
       <span class="hljs-attr">headerTitle</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">'header-title'</span> },
       <span class="hljs-attr">headerSubtitle</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">'header-subtitle'</span> }
@@ -619,8 +618,10 @@ Otherwise, they can user their own with slot=”controls” and slot=”header-t
   }
 }
 customElements.define(<span class="hljs-string">'ee-header'</span>, EeHeader)</pre></div>
-        
-      
+            
+          
+        </div>
+      </div>
     </div>
   </div>
 </body>

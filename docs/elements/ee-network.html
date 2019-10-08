@@ -10,13 +10,12 @@
 </head>
 <body>
   <div class="container">
-    <div class="main">
-
       <div class="header">
         <h1>ee-network.js</h1>
 
         
-
+      </div>
+      <div class="main">
         
           <div class="toc">
             <h3>Table of Contents</h3>
@@ -277,8 +276,8 @@
                 
                 
                   <li>
-                    <a class="source" href="nn-input-date.html">
-                      &nbsp; &nbsp; &nbsp;nn-input-date.js
+                    <a class="source" href="nn-input-date-time-local.html">
+                      &nbsp; &nbsp; &nbsp;nn-input-date-time-local.js
                     </a>
                   </li>
                 
@@ -286,8 +285,8 @@
                 
                 
                   <li>
-                    <a class="source" href="nn-input-date-time-local.html">
-                      &nbsp; &nbsp; &nbsp;nn-input-date-time-local.js
+                    <a class="source" href="nn-input-date.html">
+                      &nbsp; &nbsp; &nbsp;nn-input-date.js
                     </a>
                   </li>
                 
@@ -457,12 +456,12 @@
             </ol>
           </div>
         
-      </div>
-      
-        
-        
-        
-          <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
+        <div class="contentPage">
+          
+            
+            
+            
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
 <span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
 
@@ -598,21 +597,21 @@
 
   _overlayClicked (e) {
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.noReloadOnTap) <span class="hljs-keyword">return</span></pre></div>
-        
-      
-        
-        <p>Stop the event here</p>
+            
+          
+            
+            <p>Stop the event here</p>
 
-        
-          <div class='highlight'><pre>    e.stopPropagation()
+            
+              <div class='highlight'><pre>    e.stopPropagation()
     e.preventDefault()</pre></div>
-        
-      
-        
-        <p>If the status is ‘error’, try to reload</p>
+            
+          
+            
+            <p>If the status is ‘error’, try to reload</p>
 
-        
-          <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-string">'loading-error'</span>) {
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-string">'loading-error'</span>) {
       <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.reloadMethod) <span class="hljs-keyword">this</span>.fetch(<span class="hljs-keyword">this</span>.lastUrl, <span class="hljs-keyword">this</span>.lastInitObject)
       <span class="hljs-keyword">else</span> <span class="hljs-keyword">this</span>.reloadMethod(<span class="hljs-keyword">this</span>.lastUrl, <span class="hljs-keyword">this</span>.lastInitObject)
     }
@@ -623,14 +622,14 @@
   <span class="hljs-keyword">async</span> fetch (url, initObject) {
     <span class="hljs-keyword">this</span>.lastUrl = url
     <span class="hljs-keyword">this</span>.lastInitObject = initObject</pre></div>
-        
-      
-        
-        <p>Work out manageErrors, which will only ever
+            
+          
+            
+            <p>Work out manageErrors, which will only ever
 applu to GET</p>
 
-        
-          <div class='highlight'><pre>    <span class="hljs-keyword">const</span> fetchMethod = (initObject &amp;&amp; initObject.method &amp;&amp; initObject.method.toUpperCase()) || <span class="hljs-string">'GET'</span>
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">const</span> fetchMethod = (initObject &amp;&amp; initObject.method &amp;&amp; initObject.method.toUpperCase()) || <span class="hljs-string">'GET'</span>
     <span class="hljs-keyword">const</span> isGet = fetchMethod === <span class="hljs-string">'GET'</span>
 
     <span class="hljs-keyword">this</span>.status = isGet ? <span class="hljs-string">'loading'</span> : <span class="hljs-string">'saving'</span>
@@ -655,8 +654,10 @@ applu to GET</p>
   }
 }
 customElements.define(<span class="hljs-string">'ee-network'</span>, EeNetwork)</pre></div>
-        
-      
+            
+          
+        </div>
+      </div>
     </div>
   </div>
 </body>

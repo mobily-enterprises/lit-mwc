@@ -30,8 +30,6 @@ function prettySource(s) {
 </head>
 <body>
   <div class="container">
-    <div class="main">
-
       <div class="header">
         <h1><%= title %></h1>
 
@@ -41,7 +39,8 @@ function prettySource(s) {
             <%- section.codeHtml %>
           <% } %>
         <% } %>
-
+      </div>
+      <div class="main">
         <% if (sources.length > 1) { %>
           <div class="toc">
             <h3>Table of Contents</h3>
@@ -59,14 +58,16 @@ function prettySource(s) {
             </ol>
           </div>
         <% } %>
+        <div class="contentPage">
+          <% for (var i = 0, l = sections.length; i<l; i++) { %>
+            <% var section = sections[i]; %>
+            <%- section.docsHtml %>
+            <% if (!(/^\s*$/).test(section.codeText)) { %>
+              <%- section.codeHtml %>
+            <% } %>
+          <% } %>
+        </div>
       </div>
-      <% for (var i = 0, l = sections.length; i<l; i++) { %>
-        <% var section = sections[i]; %>
-        <%- section.docsHtml %>
-        <% if (!(/^\s*$/).test(section.codeText)) { %>
-          <%- section.codeHtml %>
-        <% } %>
-      <% } %>
     </div>
   </div>
 </body>

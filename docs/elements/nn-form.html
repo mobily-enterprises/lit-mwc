@@ -10,13 +10,12 @@
 </head>
 <body>
   <div class="container">
-    <div class="main">
-
       <div class="header">
         <h1>nn-form.js</h1>
 
         
-
+      </div>
+      <div class="main">
         
           <div class="toc">
             <h3>Table of Contents</h3>
@@ -277,8 +276,8 @@
                 
                 
                   <li>
-                    <a class="source" href="nn-input-date.html">
-                      &nbsp; &nbsp; &nbsp;nn-input-date.js
+                    <a class="source" href="nn-input-date-time-local.html">
+                      &nbsp; &nbsp; &nbsp;nn-input-date-time-local.js
                     </a>
                   </li>
                 
@@ -286,8 +285,8 @@
                 
                 
                   <li>
-                    <a class="source" href="nn-input-date-time-local.html">
-                      &nbsp; &nbsp; &nbsp;nn-input-date-time-local.js
+                    <a class="source" href="nn-input-date.html">
+                      &nbsp; &nbsp; &nbsp;nn-input-date.js
                     </a>
                   </li>
                 
@@ -457,12 +456,12 @@
             </ol>
           </div>
         
-      </div>
-      
-        
-        
-        
-          <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
+        <div class="contentPage">
+          
+            
+            
+            
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
 <span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
 <span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin'</span>
@@ -472,36 +471,36 @@
   <span class="hljs-keyword">get</span> reflectProperties () {
     <span class="hljs-keyword">return</span> [
       ...super.reflectProperties,</pre></div>
-        
-      
-        
-        <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement</a> -checkValidity -reportValidity -reset -elements</p>
+            
+          
+            
+            <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement</a> -checkValidity -reportValidity -reset -elements</p>
 
-        
-          <div class='highlight'><pre>      ...[<span class="hljs-string">'length'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'method'</span>, <span class="hljs-string">'target'</span>, <span class="hljs-string">'action'</span>, <span class="hljs-string">'encoding'</span>, <span class="hljs-string">'enctype'</span>, <span class="hljs-string">'acceptCharset'</span>, <span class="hljs-string">'autocomplete'</span>, <span class="hljs-string">'noValidate'</span>, <span class="hljs-string">'requestAutocomplete'</span>, <span class="hljs-string">'submit'</span>]
+            
+              <div class='highlight'><pre>      ...[<span class="hljs-string">'length'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'method'</span>, <span class="hljs-string">'target'</span>, <span class="hljs-string">'action'</span>, <span class="hljs-string">'encoding'</span>, <span class="hljs-string">'enctype'</span>, <span class="hljs-string">'acceptCharset'</span>, <span class="hljs-string">'autocomplete'</span>, <span class="hljs-string">'noValidate'</span>, <span class="hljs-string">'requestAutocomplete'</span>, <span class="hljs-string">'submit'</span>]
     ]
   }
 
   reportValidity () {</pre></div>
-        
-      
-        
-        <p>Check validity in form</p>
+            
+          
+            
+            <p>Check validity in form</p>
 
-        
-          <div class='highlight'><pre>    <span class="hljs-keyword">let</span> valid = <span class="hljs-literal">true</span>
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">let</span> valid = <span class="hljs-literal">true</span>
 
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> el <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>.elements) {
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> el.reportValidity === <span class="hljs-string">'function'</span>) {</pre></div>
-        
-      
-        
-        <p>Native element may have customValidity set
+            
+          
+            
+            <p>Native element may have customValidity set
 by a server response. Clear any existing custom
 errors and report validity</p>
 
-        
-          <div class='highlight'><pre>        el.setCustomValidity(<span class="hljs-string">''</span>)
+            
+              <div class='highlight'><pre>        el.setCustomValidity(<span class="hljs-string">''</span>)
         <span class="hljs-keyword">if</span> (!el.reportValidity()) {
           valid = <span class="hljs-literal">false</span>
         }
@@ -511,30 +510,30 @@ errors and report validity</p>
   }
 
   checkValidity () {</pre></div>
-        
-      
-        
-        <p>Check validity in form</p>
+            
+          
+            
+            <p>Check validity in form</p>
 
-        
-          <div class='highlight'><pre>    <span class="hljs-keyword">let</span> valid = <span class="hljs-literal">true</span></pre></div>
-        
-      
-        
-        <p>if (!this.native.checkValidity()) valid = false</p>
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">let</span> valid = <span class="hljs-literal">true</span></pre></div>
+            
+          
+            
+            <p>if (!this.native.checkValidity()) valid = false</p>
 
-        
-          <div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> el <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>.elements) {
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> el <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>.elements) {
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> el.checkValidity === <span class="hljs-string">'function'</span>) {</pre></div>
-        
-      
-        
-        <p>Native element may have customValidity set
+            
+          
+            
+            <p>Native element may have customValidity set
 by a server response. Clear any existing custom
 errors and report validity</p>
 
-        
-          <div class='highlight'><pre>        el.setCustomValidity(<span class="hljs-string">''</span>)
+            
+              <div class='highlight'><pre>        el.setCustomValidity(<span class="hljs-string">''</span>)
         <span class="hljs-keyword">if</span> (!el.checkValidity()) {
           valid = <span class="hljs-literal">false</span>
         }
@@ -553,52 +552,52 @@ errors and report validity</p>
     })
 
     <span class="hljs-keyword">if</span> (!el) <span class="hljs-keyword">return</span></pre></div>
-        
-      
-        
-        <p>Get the original value</p>
+            
+          
+            
+            <p>Get the original value</p>
 
-        
-          <div class='highlight'><pre>    <span class="hljs-keyword">const</span> valueSource = <span class="hljs-keyword">this</span>._getElementValueSource(el)</pre></div>
-        
-      
-        
-        <p>CHECKBOXES</p>
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">const</span> valueSource = <span class="hljs-keyword">this</span>._getElementValueSource(el)</pre></div>
+            
+          
+            
+            <p>CHECKBOXES</p>
 
-        
-          <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._checkboxElement(el)) {
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._checkboxElement(el)) {
       el[valueSource] = !!value</pre></div>
-        
-      
-        
-        <p>RADIO
+            
+          
+            
+            <p>RADIO
 Radio elements</p>
 
-        
-          <div class='highlight'><pre>    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._radioElement(el)) {
+            
+              <div class='highlight'><pre>    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._radioElement(el)) {
       el[valueSource] = <span class="hljs-literal">true</span>
       <span class="hljs-keyword">const</span> others = [...this.elements].filter(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span>
         el !== e &amp;&amp;
         <span class="hljs-keyword">this</span>._radioElement(el)
       )
       <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> other <span class="hljs-keyword">of</span> others) other[valueSource] = <span class="hljs-literal">false</span></pre></div>
-        
-      
-        
-        <p>SELECT
+            
+          
+            
+            <p>SELECT
 Selectable elements (with prop selectedIndex)</p>
 
-        
-          <div class='highlight'><pre>    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._selectElement(el)) {
+            
+              <div class='highlight'><pre>    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._selectElement(el)) {
       <span class="hljs-keyword">if</span> (!value) el.selectedIndex = <span class="hljs-number">0</span>
       <span class="hljs-keyword">else</span> el[valueSource] = value</pre></div>
-        
-      
-        
-        <p>Any other case</p>
+            
+          
+            
+            <p>Any other case</p>
 
-        
-          <div class='highlight'><pre>    } <span class="hljs-keyword">else</span> {
+            
+              <div class='highlight'><pre>    } <span class="hljs-keyword">else</span> {
       el[valueSource] = value
     }
   }
@@ -644,13 +643,13 @@ Selectable elements (with prop selectedIndex)</p>
     <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.native) <span class="hljs-keyword">return</span>
 
     <span class="hljs-keyword">this</span>.native.reset()</pre></div>
-        
-      
-        
-        <p>TODO: Adjust this for radios in a nice sensible way</p>
+            
+          
+            
+            <p>TODO: Adjust this for radios in a nice sensible way</p>
 
-        
-          <div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> el <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>.elements) {
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> el <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>.elements) {
       <span class="hljs-keyword">const</span> valueSource = <span class="hljs-keyword">this</span>._getElementValueSource(el)
 
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._radioElement(el)) {
@@ -687,13 +686,13 @@ Selectable elements (with prop selectedIndex)</p>
   }
 
   <span class="hljs-keyword">get</span> elements () {</pre></div>
-        
-      
-        
-        <p>A tags (links) can have “name”, filter them out</p>
+            
+          
+            
+            <p>A tags (links) can have “name”, filter them out</p>
 
-        
-          <div class='highlight'><pre>    <span class="hljs-keyword">return</span> [...this.querySelectorAll(<span class="hljs-string">'[name]'</span>)].filter(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> el.tagName !== <span class="hljs-string">'A'</span>)
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">return</span> [...this.querySelectorAll(<span class="hljs-string">'[name]'</span>)].filter(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> el.tagName !== <span class="hljs-string">'A'</span>)
   }
 
   render () {
@@ -706,8 +705,10 @@ Selectable elements (with prop selectedIndex)</p>
   }
 }
 customElements.define(<span class="hljs-string">'nn-form'</span>, NnForm)</pre></div>
-        
-      
+            
+          
+        </div>
+      </div>
     </div>
   </div>
 </body>
