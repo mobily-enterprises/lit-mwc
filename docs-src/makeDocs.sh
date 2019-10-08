@@ -1,5 +1,4 @@
 rm -rf ../docs/*;
-cp ../README.md ./welcome.md;
 #node --inspect-brk\
   ../../docco/bin/docco\
 	-c tpe.css\
