@@ -14,7 +14,8 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav {
-          border-bottom: 1px solid var(--app-lines-color)
+          border-bottom: 1px solid var(--app-lines-color);
+          display: flex;
         }
 
         :host nav ::slotted(*) .icon {
@@ -26,7 +27,6 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav > ::slotted(*) {
-          display: inline-flex;
           color: var(--app-dark-text-color);
           text-decoration: none;
           line-height: 30px;
@@ -36,6 +36,8 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           border-bottom: 4px inset transparent;
           font-size: 0.9em;
           border-radius: 0;
+          width: 100%;
+          text-align: center;
         }
 
         :host nav > ::slotted(*:last-child) {
