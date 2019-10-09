@@ -13,3 +13,4 @@ rm -rf ../docs/*;
        	tutorials-developers/*\
 				elements.md\
        	elements/*.js
+cp -r ./images ../docs/

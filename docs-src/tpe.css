@@ -63,13 +63,11 @@ a {
 
 a:hover {
   cursor: pointer;
-  /* border-bottom: 3px solid #999999; */
   border-bottom: 3px solid #b8d0f9;
 }
 
 a:visited {
   color: #663399;
-  /* border-bottom: 3px solid #d5b8ff; */
   border-bottom: 3px solid #d5b8ff;
 }
 
@@ -85,13 +83,71 @@ div.header {
 /* These are the actual layout rules. Includes responsive behavior rules */
 
 div.container {
+  box-sizing: border-box;
   width: 100vw;
-  min-height: 100vh;
+  min-height: calc(100vh);
+  overflow: hidden;
+  padding-bottom: 40px;
   background-color: #ededed;
-  padding: 60px 0;
   background: #000000;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+div.header div.topbar {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 64px;
+  background-color: rgba(255,255,255,0.05);
+  margin-bottom: 45px;
+}
+
+div.header div.topbar #logo {
+  margin-left: 30px;
+  height: 64px;
+  width: 100%;
+  background-image: url("images/TPE_logo_white.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+div.header div.topbar div.links {
+  margin-right: 10px;
+  height: 64px;
+  padding: 12px;
+}
+
+div.links a, div.links a:hover, div.links a:active {
+  border: none;
+}
+
+div.links svg {
+  height: 36px;
+  fill: white;
+}
+
+div.bottombar {
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255,255,255,0.05);
+}
+
+div.header div.topbar::before, div.bottombar::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0;
+  height: 100%;
+  background-color: rgba(255,255,255,0.1);
+  filter: blur(5px);
+}
+
+div.bottombar::before {
+  top: unset;
 }
 
 div.main {
@@ -103,6 +159,9 @@ div.main {
   flex-direction: row;
   justify-content: center;
   max-width: 85vw;
+  height: calc(100vh - 290px);
+  max-height: calc(100vh - 290px);
+  overflow: hidden;
 }
 
 
@@ -113,10 +172,37 @@ div.main p {
 div.toc {
   width: 30%;
   margin-right: 2%; 
+  max-height: 100%;
+  overflow: auto;
+}
+
+div.toc ul, ol {
+  padding-inline-start: 0;
+}
+
+div.toc li {
+  margin: 5px auto;
+  list-style: none;
+}
+
+div.toc li a, div.toc li a:visited, div.toc li a:active {
+  cursor: pointer;
+  border-bottom: none;
+  color: #2f6ec1;
+}
+
+div.toc li a:hover {
+  border-bottom: 2px solid #b8d0f9;
+}
+
+div.toc li a:active {
+  font-weight: bold;
 }
 
 div.contentPage {
   width: 65%;
+  max-height: 100%;
+  overflow: auto;
 }
 
 pre, code {
@@ -126,6 +212,7 @@ pre, code {
   padding: 1px 6px;
   border-radius: 3px;
   white-space: pre-wrap;
+  overflow: hidden;
 }
 
 pre {
@@ -139,6 +226,10 @@ pre:hover {
   box-shadow: 0 2px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.3s ease-in-out;
   border: 1px solid #e7e7e7;
+}
+
+@media (max-width: 460px) {
+
 }
 
 
