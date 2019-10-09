@@ -22,7 +22,6 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
         div.container {
           height: 100vh;
           position: fixed;
-          /* z-index: 2; */
           top: 0;
           left: 0;
           will-change: transform;
@@ -60,6 +59,51 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
         button#close:active {
           filter: brightness(50%)
         }
+
+
+        .container > nav  {
+          box-sizing: border-box;
+          width: 100%;
+          min-width: 300px;
+          height: 100%;
+          padding: 24px;
+          background: var(--app-drawer-background-color);
+          position: relative;
+          overflow: scroll;
+          padding-bottom: 64px;
+        }
+
+        .container > nav ::slotted(a),
+        .container > nav ::slotted(.drawer-item) {
+          display: block;
+          text-decoration: none;
+          color: var(--app-drawer-text-color);
+          line-height: 40px;
+          padding: 0 24px;
+          cursor: pointer;
+        }
+
+        .container  > nav ::slotted(a[selected]),
+        .container  > nav ::slotted(.drawer-item[selected]) {
+          color: var(--app-drawer-selected-color);
+          font-weight: bolder;
+          border-left: 3px solid var(--app-drawer-selected-color);
+          background-color: rgba(255,255,255, 0.1);
+        }
+
+        .container  > nav ::slotted(a:hover),
+        .container  > nav ::slotted(.drawer-item:hover) {
+          background-color: rgba(255,255,255, 0.05);
+        }
+
+        .container  > nav ::slotted(* .head) {
+          color: white;
+          width: 100%;
+          border-bottom: 1px solid white;
+          padding: 6px 70% 6px 0;
+          font-size: 1.15em;
+          margin: 10px auto;
+        }
       `
     ]
   }
@@ -79,7 +123,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     this.opened = false
   }
 
-  connectedCallback() {
+  connectedCallback () {
     super.connectedCallback()
     this.addEventListener('click', this._handleOutsideClick)
   }
@@ -88,7 +132,9 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     return html`
       <div class="container">
         ${this.closeButton ? html`<button id="close" @click="${this.close}">${close}</button>` : ''}
-        <slot></slot>
+        <nav>
+          <slot></slot>
+        </nav>
       </div>
     `
   }
@@ -104,6 +150,5 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
   close () {
     this.opened = false
   }
-
 }
-window.customElements.define('ee-drawer', EeDrawer)
+customElements.define('ee-drawer', EeDrawer)
