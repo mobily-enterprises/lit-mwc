@@ -79,6 +79,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
 
   static get properties () {
     return {
+      default: { type: String },
       selected: { type: String, reflect: true },
       selectedAttribute: { type: String },
       eventBubbles: { type: Boolean }
@@ -104,6 +105,17 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     `
   }
 
+  firstUpdated () {
+    const slotted = this.shadowRoot.querySelector('slot').assignedElements()
+    if (!slotted.length) return
+    const defaultTab = this.default ? slotted.filter(i => i.getAttribute('name') === this.default)[0] : slotted[0]
+    const selected = defaultTab.getAttribute('name')
+    if (defaultTab) {
+      this.dispatchEvent(new CustomEvent('selected-changed', { detail: { selected: selected } }))
+      this.selected = selected
+    }
+  }
+
   connectedCallback () {
     super.connectedCallback()
     // Listen to local clicked-slot event
@@ -113,7 +125,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
   // This adds a click event listener to all slotted children (the tabs)
   _manageSlotted (e) {
     const slot = e.currentTarget
-    const slotted = slot.assignedNodes()
+    const slotted = slot.assignedElements()
     for (const element of slotted) {
       element.addEventListener('click', this._clickedSlotted.bind(this))
     }
