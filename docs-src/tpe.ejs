@@ -21,8 +21,10 @@ function prettySource(s) {
   return s
 }
 
-function needIndent(s) {
-  return s.match('/')
+function tocClasses(s, source) {
+  var indent = s.match('/') ? ' indented ' : ''
+  var current = s === source ? ' current ' : ''
+  return '' + indent + current
 }
 %>
 <html>
@@ -62,15 +64,9 @@ function needIndent(s) {
                 <% var s = sources[i]; %>
                 <% if (display(s)) { %>
                   <li>
-                    <% if (needIndent(s)) {%>
-                      <a class="source indented" href="<%= relativeToThisFile(finalPath(s)) %>">
+                      <a class="source <%= tocClasses(s, source) %>" href="<%= relativeToThisFile(finalPath(s)) %>">
                           <%- prettySource(s) %>
                       </a>
-                    <% } else {%>
-                    <a class="source top-level" href="<%= relativeToThisFile(finalPath(s)) %>">
-                      <%- prettySource(s) %>
-                    </a>
-                    <% } %>
                   </li>
                 <% } %>
               <% } %>

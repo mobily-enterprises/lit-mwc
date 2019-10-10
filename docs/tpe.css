@@ -1,7 +1,7 @@
 /* Fonts */
 /* FOnts used in this template. Link below contains all fonts from standard layouts */
 /* https://fonts.google.com/selection?category=Sans+Serif,Display&selection.family=Manjari:400,700|Montserrat:300,400,400i,700,700i,800,800i|Roboto:400,400i,500,500i,700,900 */
-@font-face {
+/* @font-face {
   font-family: 'Manjari';
   src: url('public/fonts/Manjari-Regular.ttf') format('truetype');
   font-weight: normal;
@@ -31,7 +31,7 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 /* Base */
 /* Sets up some default values for the HTML elements */
@@ -58,7 +58,7 @@ a {
   text-decoration: none;
   border-bottom: 2px solid #b8d0f9;
   display: inline-block;
-  height: 14px;
+  height: 16px;
 }
 
 a:hover {
@@ -170,7 +170,6 @@ div.main {
   overflow: hidden;
 }
 
-
 div.main p {
   line-height: 1.3em
 }
@@ -192,13 +191,20 @@ div.toc li {
 }
 
 div.toc li a, div.toc li a:visited, div.toc li a:active {
+  text-transform: capitalize;
   cursor: pointer;
   border-bottom: none;
   color: #2f6ec1;
+  height: 16px;
 }
 
 div.toc li a.indented {
   margin-left: 20px;
+  text-transform: unset;
+}
+
+div.toc li a.current { 
+  font-weight: bold;
 }
 
 div.toc li a:hover {
@@ -206,7 +212,9 @@ div.toc li a:hover {
 }
 
 div.toc li a:active {
-  font-weight: bold;
+  border-width: 3px;
+  height: 15px;
+  outline: 1px dashed #cdcdcd;
 }
 
 div.contentPage {
