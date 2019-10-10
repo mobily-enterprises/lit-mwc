@@ -88,10 +88,8 @@ div.container {
   min-height: calc(100vh);
   overflow: hidden;
   padding-bottom: 40px;
-  background-color: #ededed;
-  background: #000000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-color: white;
+  
 }
 
 div.header div.topbar {
@@ -99,17 +97,23 @@ div.header div.topbar {
   display: flex;
   width: 100%;
   height: 64px;
-  background-color: rgba(255,255,255,0.05);
-  margin-bottom: 45px;
+  background: #000000;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 div.header div.topbar #logo {
   margin-left: 30px;
   height: 64px;
-  width: 100%;
+  min-width: 148px;
+  width: 20%;
   background-image: url("images/TPE_logo_white.png");
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+div.header div.topbar h3 {
+  width: 100%;
 }
 
 div.header div.topbar div.links {
@@ -133,7 +137,9 @@ div.bottombar {
   height: 40px;
   bottom: 0;
   left: 0;
-  background-color: rgba(255,255,255,0.05);
+  background: #000000;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 div.header div.topbar::before, div.bottombar::before {
@@ -151,16 +157,16 @@ div.bottombar::before {
 }
 
 div.main {
+  box-sizing: border-box;
   background-color: white;
   padding: 30px;
-  border-radius: 10px;
   display: flex;
   margin: auto;
   flex-direction: row;
   justify-content: center;
-  max-width: 85vw;
-  height: calc(100vh - 290px);
-  max-height: calc(100vh - 290px);
+  max-width: 80vw;
+  height: calc(100vh - 104px);
+  max-height: calc(100vh - 104px);
   overflow: hidden;
 }
 
@@ -170,7 +176,7 @@ div.main p {
 }
 
 div.toc {
-  width: 30%;
+  width: 33%;
   margin-right: 2%; 
   max-height: 100%;
   overflow: auto;
@@ -191,6 +197,10 @@ div.toc li a, div.toc li a:visited, div.toc li a:active {
   color: #2f6ec1;
 }
 
+div.toc li a.indented {
+  margin-left: 20px;
+}
+
 div.toc li a:hover {
   border-bottom: 2px solid #b8d0f9;
 }
@@ -200,7 +210,7 @@ div.toc li a:active {
 }
 
 div.contentPage {
-  width: 65%;
+  width: 67%;
   max-height: 100%;
   overflow: auto;
 }

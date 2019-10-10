@@ -15,10 +15,14 @@ function prettySource(s) {
   if (s.endsWith('.md')) s = s.replace(/\.md$/g, '').replace(/\-/g, ' ')
 
   if (s.match('/')) {
-    s = '&nbsp; &nbsp; &nbsp;' + s.split('/')[1]
+    s = s.split('/')[1]
   }
 
   return s
+}
+
+function needIndent(s) {
+  return s.match('/')
 }
 %>
 <html>
@@ -32,7 +36,9 @@ function prettySource(s) {
   <div class="container">
       <div class="header">
         <div class="topbar">
-          <div id="logo" alt="TPE"></div>
+          <div id="logo" alt="TPE">
+          </div>
+          <h3><%= title %></h3>
           <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
           <div class="links">
             <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
@@ -40,7 +46,6 @@ function prettySource(s) {
             </a>
           </div>
         </div>
-        <h1><%= title %></h1>
 
         <% if (firstSectionIsTitle) { %>
           <% var section = sections.shift(); %>
@@ -52,15 +57,20 @@ function prettySource(s) {
       <div class="main">
         <% if (sources.length > 1) { %>
           <div class="toc">
-            <h3>Table of Contents</h3>
             <ul>
               <% for (var i=0, l = sources.length; i < l; i++) { %>
                 <% var s = sources[i]; %>
                 <% if (display(s)) { %>
                   <li>
+                    <% if (needIndent(s)) {%>
+                      <a class="source indented" href="<%= relativeToThisFile(finalPath(s)) %>">
+                          <%- prettySource(s) %>
+                      </a>
+                    <% } else {%>
                     <a class="source" href="<%= relativeToThisFile(finalPath(s)) %>">
                       <%- prettySource(s) %>
                     </a>
+                    <% } %>
                   </li>
                 <% } %>
               <% } %>
