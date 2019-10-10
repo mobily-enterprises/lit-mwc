@@ -161,10 +161,9 @@ div.main {
   background-color: white;
   padding: 30px;
   display: flex;
-  margin: auto;
+  margin: auto 80px;
   flex-direction: row;
   justify-content: center;
-  max-width: 80vw;
   height: calc(100vh - 104px);
   max-height: calc(100vh - 104px);
   overflow: hidden;
@@ -176,6 +175,8 @@ div.main p {
 
 div.toc {
   width: 33%;
+  min-width: 275px;
+  max-width: 375px;
   margin-right: 2%; 
   max-height: 100%;
   overflow: auto;
@@ -205,6 +206,7 @@ div.toc li a.indented {
 
 div.toc li a.current { 
   font-weight: bold;
+  color: #454545;  
 }
 
 div.toc li a:hover {
@@ -218,7 +220,6 @@ div.toc li a:active {
 }
 
 div.contentPage {
-  width: 67%;
   max-height: 100%;
   overflow: auto;
 }
