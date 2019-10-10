@@ -187,8 +187,9 @@ div.toc ul, ol {
 }
 
 div.toc li {
-  margin: 5px auto;
+  margin: 10px auto;
   list-style: none;
+
 }
 
 div.toc li a, div.toc li a:visited, div.toc li a:active {
