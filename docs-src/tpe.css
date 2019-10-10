@@ -201,6 +201,10 @@ div.toc li a.indented {
   margin-left: 20px;
 }
 
+div.toc li a.top-level {
+  text-transform: capitalize;
+}
+
 div.toc li a:hover {
   border-bottom: 2px solid #b8d0f9;
 }
