@@ -176,7 +176,7 @@ div.main p {
 div.toc {
   width: 33%;
   min-width: 275px;
-  max-width: 375px;
+  max-width: 335px;
   margin-right: 2%; 
   max-height: 100%;
   overflow: auto;
