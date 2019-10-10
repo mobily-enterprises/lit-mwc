@@ -221,6 +221,7 @@ div.toc li a:active {
 }
 
 div.contentPage {
+  width: 67%;
   max-height: 100%;
   overflow: auto;
 }
