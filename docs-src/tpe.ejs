@@ -4,7 +4,6 @@
 function display(s) {
   if (s.match('/')) {
     debugger
-    if (sourceClean == 'submitting-forms') debugger
     var sourceClean = source.replace(/\.[a-zA-Z]*$/, '')
     return s.split('/')[0] === sourceClean.split('/')[0]
   }

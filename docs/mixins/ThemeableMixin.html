@@ -3,10 +3,10 @@
 
 <html>
 <head>
-  <title>TPE: A quick start for designers</title>
+  <title>ThemeableMixin.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
-  <link rel="stylesheet" media="all" href="tpe.css" />
+  <link rel="stylesheet" media="all" href="../tpe.css" />
 </head>
 <body>
   <div class="container">
@@ -14,7 +14,7 @@
         <div class="topbar">
           <div id="logo" alt="TPE">
           </div>
-          <h3>TPE: A quick start for designers</h3>
+          <h3>ThemeableMixin.js</h3>
           <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
           <div class="links">
             <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
@@ -23,9 +23,6 @@
           </div>
         </div>
 
-        
-          
-          
         
       </div>
       <div class="main">
@@ -36,7 +33,7 @@
                 
                 
                   <li>
-                      <a class="source " href="index.html">
+                      <a class="source " href="../index.html">
                           index
                       </a>
                   </li>
@@ -45,7 +42,7 @@
                 
                 
                   <li>
-                      <a class="source  current " href="quickstart-designers.html">
+                      <a class="source " href="../quickstart-designers.html">
                           quickstart designers
                       </a>
                   </li>
@@ -54,7 +51,7 @@
                 
                 
                   <li>
-                      <a class="source " href="tutorials-designers.html">
+                      <a class="source " href="../tutorials-designers.html">
                           tutorials designers
                       </a>
                   </li>
@@ -69,7 +66,7 @@
                 
                 
                   <li>
-                      <a class="source " href="quickstart-developers.html">
+                      <a class="source " href="../quickstart-developers.html">
                           quickstart developers
                       </a>
                   </li>
@@ -78,7 +75,7 @@
                 
                 
                   <li>
-                      <a class="source " href="tutorials-developers.html">
+                      <a class="source " href="../tutorials-developers.html">
                           tutorials developers
                       </a>
                   </li>
@@ -90,7 +87,7 @@
                 
                 
                   <li>
-                      <a class="source " href="elements.html">
+                      <a class="source " href="../elements.html">
                           elements
                       </a>
                   </li>
@@ -222,7 +219,7 @@
                 
                 
                   <li>
-                      <a class="source " href="mixins.html">
+                      <a class="source " href="../mixins.html">
                           mixins
                       </a>
                   </li>
@@ -230,23 +227,65 @@
               
                 
                 
-              
-                
-                
-              
-                
-                
-              
-                
+                  <li>
+                      <a class="source  indented " href="AddHasValueAttributeMixin.html">
+                          AddHasValueAttributeMixin.js
+                      </a>
+                  </li>
                 
               
                 
                 
+                  <li>
+                      <a class="source  indented " href="FormElementMixin.html">
+                          FormElementMixin.js
+                      </a>
+                  </li>
+                
               
                 
                 
+                  <li>
+                      <a class="source  indented " href="InputMixin.html">
+                          InputMixin.js
+                      </a>
+                  </li>
+                
               
                 
+                
+                  <li>
+                      <a class="source  indented " href="LabelsMixin.html">
+                          LabelsMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="NativeReflectorMixin.html">
+                          NativeReflectorMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="StyleableMixin.html">
+                          StyleableMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented  current " href="ThemeableMixin.html">
+                          ThemeableMixin.js
+                      </a>
+                  </li>
                 
               
             </ul>
@@ -255,8 +294,13 @@
         <div class="contentPage">
           
             
-            <p>Jfdfldaflkd jfld jfldsk jfldf</p>
-
+            
+            
+              <div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> ThemeableMixin = <span class="hljs-function">(<span class="hljs-params">path</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> common = (<span class="hljs-built_in">window</span>.TP_THEME &amp;&amp; <span class="hljs-built_in">window</span>.TP_THEME.common) || (<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p)
+  <span class="hljs-keyword">const</span> theme = (<span class="hljs-built_in">window</span>.TP_THEME &amp;&amp; <span class="hljs-built_in">window</span>.TP_THEME[path]) || (<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p)
+  <span class="hljs-keyword">return</span> theme(common(base))
+}</pre></div>
             
           
         </div>

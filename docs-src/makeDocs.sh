@@ -11,6 +11,8 @@ rm -rf ../docs/*;
        	quickstart-developers.md\
        	tutorials-developers.md\
        	tutorials-developers/*\
-				elements.md\
-       	elements/*.js
+        elements.md\
+       	elements/*.js\
+        mixins.md\
+        mixins/*.js
 cp -r ./images ../docs/
