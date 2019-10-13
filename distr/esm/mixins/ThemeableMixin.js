@@ -1,0 +1,1 @@
+const ThemeableMixin=path=>base=>{const common=window.TP_THEME&&window.TP_THEME.common||(p=>p),theme=window.TP_THEME&&window.TP_THEME[path]||(p=>p);return theme(common(base))};var ThemeableMixin$1={ThemeableMixin:ThemeableMixin};export{ThemeableMixin$1 as $ThemeableMixin,ThemeableMixin};
