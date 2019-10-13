@@ -1,5 +1,5 @@
 import { html } from 'lit-element'
-import { NnInputText } from './nn-nput-text'
+import { NnInputText } from './nn-input-text'
 
 class NnInputWeek extends NnInputText {
   render () {
