@@ -1,5 +1,5 @@
 import { css } from 'lit-element'
-import { AddHasValueAttributeMixin } from 'tpe/mixins/AddHasValueAttributeMixin'
+import { AddHasValueAttributeMixin } from '../../../mixins/AddHasValueAttributeMixin'
 import { inputLabel, inputField, floatingLabel, errorMessage } from '../style-patterns'
 
 export const NnInputText = (base) => {
