@@ -1,6 +1,31 @@
-import{css}from"../../../node_modules/lit-element/lit-element.js";import{inputField,inputLabel,floatingLabel,errorMessage}from"../style-patterns.js";const NnTextArea=base=>{return class Base extends base{// Style depends on CSS being able to find label as sibling of the #native element.
-// CSS can select next siblings, but not previous.  This guarantees label is rendered after #native in the shadowDOM
-static get properties(){return{labelPosition:{type:String,attribute:!1},validationMessage:{type:String,attribute:!1}}}constructor(){super();this.labelPosition="after";this.validationMessagePosition="after"}static get styles(){return[super.styles||[],inputField,inputLabel,floatingLabel,errorMessage,css`
+import { css } from '../../../node_modules/lit-element/lit-element.js';
+import { inputField, inputLabel, floatingLabel, errorMessage } from '../style-patterns.js';
+
+const NnTextArea = base => {
+  return class Base extends base {
+    // Style depends on CSS being able to find label as sibling of the #native element.
+    // CSS can select next siblings, but not previous.  This guarantees label is rendered after #native in the shadowDOM
+    static get properties() {
+      return {
+        labelPosition: {
+          type: String,
+          attribute: false
+        },
+        validationMessage: {
+          type: String,
+          attribute: false
+        }
+      };
+    }
+
+    constructor() {
+      super();
+      this.labelPosition = 'after';
+      this.validationMessagePosition = 'after';
+    }
+
+    static get styles() {
+      return [super.styles || [], inputField, inputLabel, floatingLabel, errorMessage, css`
           :host {
             --nn-form-element-height: 80px;
           }
@@ -18,4 +43,13 @@ static get properties(){return{labelPosition:{type:String,attribute:!1},validati
           #native:placeholder-shown ~ label {
             transform: translateY(-200%);
           }
-        `]}}};var nnTextarea={NnTextArea:NnTextArea};export{nnTextarea as $nnTextarea,NnTextArea};
+        `];
+    }
+
+  };
+};
+
+var nnTextarea = {
+  NnTextArea: NnTextArea
+};
+export { nnTextarea as $nnTextarea, NnTextArea };

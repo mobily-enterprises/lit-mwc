@@ -1,4 +1,5 @@
-import{css}from"../../node_modules/lit-element/lit-element.js";const common=css`
+import { css } from '../../node_modules/lit-element/lit-element.js';
+const common = css`
   :host {
     --nn-font-family: var(--app-font-family, sans-serif);
     --nn-primary-color: var(--app-primary-color, inherit);
@@ -31,4 +32,8 @@ import{css}from"../../node_modules/lit-element/lit-element.js";const common=css`
     --nn-background-light: var(--app-background-light, inherit);
     --nn-background-dark: var(--app-background-light, inherit);
   }
-`;var CommonStyle={common:common};export{CommonStyle as $CommonStyle,common};
+`;
+var CommonStyle = {
+  common: common
+};
+export { CommonStyle as $CommonStyle, common };

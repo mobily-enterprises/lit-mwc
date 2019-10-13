@@ -1,4 +1,10 @@
-import{LitElement,css,html}from"./node_modules/lit-element/lit-element.js";import{StyleableMixin}from"./mixins/StyleableMixin.js";import{ThemeableMixin}from"./mixins/ThemeableMixin.js";class EeNavBar extends ThemeableMixin("ee-nav-bar")(StyleableMixin(LitElement)){static get styles(){return[super.styles||[],css`
+import { LitElement, css, html } from './node_modules/lit-element/lit-element.js';
+import { StyleableMixin } from './mixins/StyleableMixin.js';
+import { ThemeableMixin } from './mixins/ThemeableMixin.js';
+
+class EeNavBar extends ThemeableMixin('ee-nav-bar')(StyleableMixin(LitElement)) {
+  static get styles() {
+    return [super.styles || [], css`
         :host {
           display: block;
           position: fixed;
@@ -47,12 +53,80 @@ import{LitElement,css,html}from"./node_modules/lit-element/lit-element.js";impor
         :host nav > ::slotted(*[selected]) {
           opacity: 1;
         }
-      `]}static get properties(){return{selected:{type:String,reflect:!0},selectedAttribute:{type:String},eventBubbles:{type:Boolean}}}constructor(){super();this.selected="";this.eventBubbles=!1;this.selectedAttribute="name"}render(){return html`
+      `];
+  }
+
+  static get properties() {
+    return {
+      selected: {
+        type: String,
+        reflect: true
+      },
+      selectedAttribute: {
+        type: String
+      },
+      eventBubbles: {
+        type: Boolean
+      }
+    };
+  }
+
+  constructor() {
+    super();
+    this.selected = '';
+    this.eventBubbles = false;
+    this.selectedAttribute = 'name';
+  }
+
+  render() {
+    return html`
       <nav>
         <slot @slotchange="${this._manageSlotted}"></slot>
       </nav>
-    `}connectedCallback(){super.connectedCallback();// Listen to local clicked-slot event
-this.addEventListener("clicked-slot",this._fireSelectedEvent)}// This adds a click event listener to all slotted children (the tabs)
-_manageSlotted(e){const slot=e.currentTarget,slotted=slot.assignedNodes();for(const element of slotted){element.addEventListener("click",this._clickedSlotted.bind(this))}}// Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the name attribute of the slotted "tab"
-_clickedSlotted(e){console.log("slot clicked",this.selectedAttribute);this.dispatchEvent(new CustomEvent("clicked-slot",{detail:{event:e,selected:e.currentTarget.getAttribute(this.selectedAttribute)}}))}// This function runs when the host element receives a clicked-slot event from it's children. It sets the selected property and fires a 'selected-changed' event with that value.
-_fireSelectedEvent(e){this.dispatchEvent(new CustomEvent("selected-changed",{detail:{selected:e.detail.selected}}));this.selected=e.detail.selected}}customElements.define("ee-nav-bar",EeNavBar);var eeNavBar={EeNavBar:EeNavBar};export{eeNavBar as $eeNavBar,EeNavBar};
+    `;
+  }
+
+  connectedCallback() {
+    super.connectedCallback(); // Listen to local clicked-slot event
+
+    this.addEventListener('clicked-slot', this._fireSelectedEvent);
+  } // This adds a click event listener to all slotted children (the tabs)
+
+
+  _manageSlotted(e) {
+    const slot = e.currentTarget;
+    const slotted = slot.assignedNodes();
+
+    for (const element of slotted) {
+      element.addEventListener('click', this._clickedSlotted.bind(this));
+    }
+  } // Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the name attribute of the slotted "tab"
+
+
+  _clickedSlotted(e) {
+    console.log('slot clicked', this.selectedAttribute);
+    this.dispatchEvent(new CustomEvent('clicked-slot', {
+      detail: {
+        event: e,
+        selected: e.currentTarget.getAttribute(this.selectedAttribute)
+      }
+    }));
+  } // This function runs when the host element receives a clicked-slot event from it's children. It sets the selected property and fires a 'selected-changed' event with that value.
+
+
+  _fireSelectedEvent(e) {
+    this.dispatchEvent(new CustomEvent('selected-changed', {
+      detail: {
+        selected: e.detail.selected
+      }
+    }));
+    this.selected = e.detail.selected;
+  }
+
+}
+
+customElements.define('ee-nav-bar', EeNavBar);
+var eeNavBar = {
+  EeNavBar: EeNavBar
+};
+export { eeNavBar as $eeNavBar, EeNavBar };

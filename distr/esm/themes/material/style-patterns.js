@@ -1,17 +1,22 @@
-import{css}from"../../node_modules/lit-element/lit-element.js";// It does not aim to be a complete, comprehensive, Material Design components library, but to showcase the flexiblity of the TPE theming system.
+import { css } from '../../node_modules/lit-element/lit-element.js'; // It does not aim to be a complete, comprehensive, Material Design components library, but to showcase the flexiblity of the TPE theming system.
 // Guidelines can be found in: https://material.io/components
-const requiredLabelAsterisk=css`
+
+const requiredLabelAsterisk = css`
   #native:required ~ label div#label-text::after {
     content: '*';
     padding-left: 2px;
     position: relative;
   }
-`,hoverStyle=css`
+`; // export const requiredStyle
+// export const invalidStyle
+
+const hoverStyle = css`
   :host(:hover) {
     --nn-background: var(--nn-background-dark);
     --nn-theme-box-shadow: var(--nn-theme-box-shadow2);
   }
-`,focusStyle=css`
+`;
+const focusStyle = css`
   :host([has-focus]) {
     --nn-theme-border: 2px solid var(--nn-primary-color);
     --nn-background: var(--nn-background-dark);
@@ -21,7 +26,8 @@ const requiredLabelAsterisk=css`
   :host([has-focus]) #native {
     padding-bottom: 5px;
   }
-`,inputField=css`
+`;
+const inputField = css`
   :host {
     position: relative;
     padding: 0 12px;
@@ -70,7 +76,8 @@ const requiredLabelAsterisk=css`
 
   ${hoverStyle}
   ${focusStyle}
-`,inputLabel=css`
+`;
+const inputLabel = css`
    label {
     position: absolute;
     display: inline-flex;
@@ -94,7 +101,8 @@ const requiredLabelAsterisk=css`
   }
 
   ${requiredLabelAsterisk}
-`,floatingLabel=css`
+`;
+const floatingLabel = css`
  
   :host([has-value]) label, 
   #native:focus ~ label, 
@@ -105,7 +113,8 @@ const requiredLabelAsterisk=css`
     margin-left: 0px;
   }
 
-`,fixedLabel=css`
+`;
+const fixedLabel = css`
   label, #native:focus ~ label,
   :host([has-value]) label,
   #native:placeholder-shown ~ label {
@@ -115,7 +124,8 @@ const requiredLabelAsterisk=css`
     transition: all 0.3s ease-in-out;
   }
 
-`,errorMessage=css`
+`;
+const errorMessage = css`
   span.error-message {
     position: absolute;
     bottom: 0;
@@ -133,7 +143,8 @@ const requiredLabelAsterisk=css`
     transform: translateY(10%);
     transition: all 0.3s ease-in-out;
   }
-`,hideNativeWidget=css`
+`;
+const hideNativeWidget = css`
   input {
     position: unset;
     position: absolute;
@@ -142,6 +153,16 @@ const requiredLabelAsterisk=css`
     height: 0;
     width: 0;
   }
-`;// export const requiredStyle
-// export const invalidStyle
-var stylePatterns={requiredLabelAsterisk:requiredLabelAsterisk,hoverStyle:hoverStyle,focusStyle:focusStyle,inputField:inputField,inputLabel:inputLabel,floatingLabel:floatingLabel,fixedLabel:fixedLabel,errorMessage:errorMessage,hideNativeWidget:hideNativeWidget};export{stylePatterns as $stylePatterns,errorMessage,fixedLabel,floatingLabel,focusStyle,hideNativeWidget,hoverStyle,inputField,inputLabel,requiredLabelAsterisk};
+`;
+var stylePatterns = {
+  requiredLabelAsterisk: requiredLabelAsterisk,
+  hoverStyle: hoverStyle,
+  focusStyle: focusStyle,
+  inputField: inputField,
+  inputLabel: inputLabel,
+  floatingLabel: floatingLabel,
+  fixedLabel: fixedLabel,
+  errorMessage: errorMessage,
+  hideNativeWidget: hideNativeWidget
+};
+export { stylePatterns as $stylePatterns, errorMessage, fixedLabel, floatingLabel, focusStyle, hideNativeWidget, hoverStyle, inputField, inputLabel, requiredLabelAsterisk };

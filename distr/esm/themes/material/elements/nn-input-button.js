@@ -1,4 +1,9 @@
-import{css}from"../../../node_modules/lit-element/lit-element.js";const NnInputButton=base=>{return class Base extends base{static get styles(){return[...(super.styles||[]),css`
+import { css } from '../../../node_modules/lit-element/lit-element.js';
+
+const NnInputButton = base => {
+  return class Base extends base {
+    static get styles() {
+      return [...(super.styles || []), css`
           :host {
             display: inline-block;
             width: fit-content;
@@ -76,4 +81,13 @@ import{css}from"../../../node_modules/lit-element/lit-element.js";const NnInputB
             transition: box-shadow 0.2s ease-out;
             filter: brightness(90%);
           }
-        `]}}};var nnInputButton={NnInputButton:NnInputButton};export{nnInputButton as $nnInputButton,NnInputButton};
+        `];
+    }
+
+  };
+};
+
+var nnInputButton = {
+  NnInputButton: NnInputButton
+};
+export { nnInputButton as $nnInputButton, NnInputButton };

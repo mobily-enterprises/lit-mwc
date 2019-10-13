@@ -1,6 +1,32 @@
-import{css}from"../../../node_modules/lit-element/lit-element.js";import{errorMessage,hideNativeWidget,requiredLabelAsterisk}from"../style-patterns.js";const NnInputCheckBox=base=>{return class Base extends base{// Style depends on CSS being able to find label as sibling of the #native element.
-// CSS can select next siblings, but not previous.  This guarantees label is rendered after #native in the shadowDOM
-static get properties(){return{labelPosition:{type:String,attribute:!1},validationMessage:{type:String,attribute:!1}}}constructor(){super();this.labelPosition="after";this.validationMessagePosition="after";this.label=""}static get styles(){return[...(super.styles||[]),errorMessage,hideNativeWidget,requiredLabelAsterisk,css`
+import { css } from '../../../node_modules/lit-element/lit-element.js';
+import { errorMessage, hideNativeWidget, requiredLabelAsterisk } from '../style-patterns.js';
+
+const NnInputCheckBox = base => {
+  return class Base extends base {
+    // Style depends on CSS being able to find label as sibling of the #native element.
+    // CSS can select next siblings, but not previous.  This guarantees label is rendered after #native in the shadowDOM
+    static get properties() {
+      return {
+        labelPosition: {
+          type: String,
+          attribute: false
+        },
+        validationMessage: {
+          type: String,
+          attribute: false
+        }
+      };
+    }
+
+    constructor() {
+      super();
+      this.labelPosition = 'after';
+      this.validationMessagePosition = 'after';
+      this.label = '';
+    }
+
+    static get styles() {
+      return [...(super.styles || []), errorMessage, hideNativeWidget, requiredLabelAsterisk, css`
           :host {
             display: block;
             position: relative;
@@ -110,4 +136,13 @@ static get properties(){return{labelPosition:{type:String,attribute:!1},validati
             transform: rotate(405deg);
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in;
           }
-        `]}}};var nnInputCheckbox={NnInputCheckBox:NnInputCheckBox};export{nnInputCheckbox as $nnInputCheckbox,NnInputCheckBox};
+        `];
+    }
+
+  };
+};
+
+var nnInputCheckbox = {
+  NnInputCheckBox: NnInputCheckBox
+};
+export { nnInputCheckbox as $nnInputCheckbox, NnInputCheckBox };

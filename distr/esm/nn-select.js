@@ -1,4 +1,13 @@
-import{LitElement,css,html}from"./node_modules/lit-element/lit-element.js";import{NativeReflectorMixin}from"./mixins/NativeReflectorMixin.js";import{InputMixin}from"./mixins/InputMixin.js";import{FormElementMixin}from"./mixins/FormElementMixin.js";import{LabelsMixin}from"./mixins/LabelsMixin.js";import{ThemeableMixin}from"./mixins/ThemeableMixin.js";class NnSelect extends ThemeableMixin("nn-select")(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))){static get styles(){return[super.styles||[],css`
+import { LitElement, css, html } from './node_modules/lit-element/lit-element.js';
+import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js';
+import { InputMixin } from './mixins/InputMixin.js';
+import { FormElementMixin } from './mixins/FormElementMixin.js';
+import { LabelsMixin } from './mixins/LabelsMixin.js';
+import { ThemeableMixin } from './mixins/ThemeableMixin.js';
+
+class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
+  static get styles() {
+    return [super.styles || [], css`
         /* :host {
           display: flex;
           height: 30px;
@@ -17,8 +26,21 @@ import{LitElement,css,html}from"./node_modules/lit-element/lit-element.js";impor
           padding-left: 10px;
           margin-left: 4px;
         } */
-      `]}get reflectProperties(){return[...super.reflectProperties,// FROM https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement -checkValidity -form
-...["autofocus","disabled","labels","length","multiple","name","options","required","selectedIndex","selectedOptions","size","type","validationMessage","validity","value","willValidate","add","blur","focus","item","namedItem","remove","reportValidity","setCustomValidity"]]}constructor(){super();this.options=[]}render(){return html`
+      `];
+  }
+
+  get reflectProperties() {
+    return [...super.reflectProperties, // FROM https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement -checkValidity -form
+    ...['autofocus', 'disabled', 'labels', 'length', 'multiple', 'name', 'options', 'required', 'selectedIndex', 'selectedOptions', 'size', 'type', 'validationMessage', 'validity', 'value', 'willValidate', 'add', 'blur', 'focus', 'item', 'namedItem', 'remove', 'reportValidity', 'setCustomValidity']];
+  }
+
+  constructor() {
+    super();
+    this.options = [];
+  }
+
+  render() {
+    return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
@@ -26,4 +48,21 @@ import{LitElement,css,html}from"./node_modules/lit-element/lit-element.js";impor
       <select id="native" real-time-event="selected"></select>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
-    `}addSlotToSelect(e){const select=this.shadowRoot.querySelector("#native");for(const option of e.srcElement.assignedElements()){select.appendChild(option)}}}customElements.define("nn-select",NnSelect);var nnSelect={NnSelect:NnSelect};export{nnSelect as $nnSelect,NnSelect};
+    `;
+  }
+
+  addSlotToSelect(e) {
+    const select = this.shadowRoot.querySelector('#native');
+
+    for (const option of e.srcElement.assignedElements()) {
+      select.appendChild(option);
+    }
+  }
+
+}
+
+customElements.define('nn-select', NnSelect);
+var nnSelect = {
+  NnSelect: NnSelect
+};
+export { nnSelect as $nnSelect, NnSelect };

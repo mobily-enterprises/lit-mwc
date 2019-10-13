@@ -1,4 +1,11 @@
-import{html,LitElement,css}from"./node_modules/lit-element/lit-element.js";import{StyleableMixin}from"./mixins/StyleableMixin.js";import{ThemeableMixin}from"./mixins/ThemeableMixin.js";const close=html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`;class EeDrawer extends ThemeableMixin("ee-drawer")(StyleableMixin(LitElement)){static get styles(){return[css`
+import { html, LitElement, css } from './node_modules/lit-element/lit-element.js';
+import { StyleableMixin } from './mixins/StyleableMixin.js';
+import { ThemeableMixin } from './mixins/ThemeableMixin.js';
+const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`;
+
+class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
+  static get styles() {
+    return [css`
         :host {
           display: block;
           position: fixed;
@@ -96,11 +103,64 @@ import{html,LitElement,css}from"./node_modules/lit-element/lit-element.js";impor
           font-size: 1.15em;
           margin: 10px auto;
         }
-      `]}static get properties(){return{opened:{type:Boolean,reflect:!0},modal:{type:Boolean},closeButton:{type:Boolean,attribute:"close-button"}}}constructor(){super();this.modal=!1;this.closeButton=!0;this.opened=!1}connectedCallback(){super.connectedCallback();this.addEventListener("click",this._handleOutsideClick)}render(){return html`
+      `];
+  }
+
+  static get properties() {
+    return {
+      opened: {
+        type: Boolean,
+        reflect: true
+      },
+      modal: {
+        type: Boolean
+      },
+      closeButton: {
+        type: Boolean,
+        attribute: 'close-button'
+      }
+    };
+  }
+
+  constructor() {
+    super();
+    this.modal = false;
+    this.closeButton = true;
+    this.opened = false;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener('click', this._handleOutsideClick);
+  }
+
+  render() {
+    return html`
       <div class="container">
-        ${this.closeButton?html`<button id="close" @click="${this.close}">${close}</button>`:""}
+        ${this.closeButton ? html`<button id="close" @click="${this.close}">${close}</button>` : ''}
         <nav>
           <slot></slot>
         </nav>
       </div>
-    `}open(){this.opened=!0}_handleOutsideClick(e){if("EE-DRAWER"===e.target.nodeName)this.close()}close(){this.opened=!1}}customElements.define("ee-drawer",EeDrawer);var eeDrawer={EeDrawer:EeDrawer};export{eeDrawer as $eeDrawer,EeDrawer};
+    `;
+  }
+
+  open() {
+    this.opened = true;
+  }
+
+  _handleOutsideClick(e) {
+    if (e.target.nodeName === 'EE-DRAWER') this.close();
+  }
+
+  close() {
+    this.opened = false;
+  }
+
+}
+
+customElements.define('ee-drawer', EeDrawer);
+var eeDrawer = {
+  EeDrawer: EeDrawer
+};
+export { eeDrawer as $eeDrawer, EeDrawer };

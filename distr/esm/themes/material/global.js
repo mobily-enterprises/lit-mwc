@@ -1,4 +1,9 @@
-import{css}from"../../node_modules/lit-element/lit-element.js";const Global=base=>{return class Base extends base{static get styles(){return[...super.styles,css`
+import { css } from '../../node_modules/lit-element/lit-element.js';
+
+const Global = base => {
+  return class Base extends base {
+    static get styles() {
+      return [...super.styles, css`
           @-webkit-keyframes fadeIn {
             0%   { opacity: 0; }
             100% { opacity: 1; }
@@ -74,4 +79,13 @@ import{css}from"../../node_modules/lit-element/lit-element.js";const Global=base
           :host([hidden]) {
             display: none;
           }
-        `]}}};var global={Global:Global};export{global as $global,Global};
+        `];
+    }
+
+  };
+};
+
+var global = {
+  Global: Global
+};
+export { global as $global, Global };
