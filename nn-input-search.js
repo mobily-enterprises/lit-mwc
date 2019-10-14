@@ -11,4 +11,4 @@ class NnInputSearch extends NnInputText {
     `
   }
 }
-window.customElements.define('nn-input-tel', NnInputSearch)
+window.customElements.define('nn-input-search', NnInputSearch)
