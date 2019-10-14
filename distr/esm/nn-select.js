@@ -1,13 +1,8 @@
-import { LitElement, css, html } from './node_modules/lit-element/lit-element.js';
-import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js';
-import { InputMixin } from './mixins/InputMixin.js';
-import { FormElementMixin } from './mixins/FormElementMixin.js';
-import { LabelsMixin } from './mixins/LabelsMixin.js';
-import { ThemeableMixin } from './mixins/ThemeableMixin.js';
-
-class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
-  static get styles() {
-    return [super.styles || [], css`
+import {L as LitElement,c as css,h as html}from'./lit-element-97ae09cb.js';import {L as LabelsMixin}from'./LabelsMixin-c00a1c1e.js';import {T as ThemeableMixin}from'./ThemeableMixin-af62e1ed.js';import {N as NativeReflectorMixin}from'./NativeReflectorMixin-c4e18588.js';import {I as InputMixin}from'./InputMixin-83f5b637.js';import {F as FormElementMixin}from'./FormElementMixin-78f38eb0.js';class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
+  static get styles () {
+    return [
+      super.styles || [],
+      css`
         /* :host {
           display: flex;
           height: 30px;
@@ -26,20 +21,24 @@ class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(LabelsMixin(
           padding-left: 10px;
           margin-left: 4px;
         } */
-      `];
+      `
+    ]
   }
 
-  get reflectProperties() {
-    return [...super.reflectProperties, // FROM https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement -checkValidity -form
-    ...['autofocus', 'disabled', 'labels', 'length', 'multiple', 'name', 'options', 'required', 'selectedIndex', 'selectedOptions', 'size', 'type', 'validationMessage', 'validity', 'value', 'willValidate', 'add', 'blur', 'focus', 'item', 'namedItem', 'remove', 'reportValidity', 'setCustomValidity']];
+  get reflectProperties () {
+    return [
+      ...super.reflectProperties,
+      // FROM https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement -checkValidity -form
+      ...['autofocus', 'disabled', 'labels', 'length', 'multiple', 'name', 'options', 'required', 'selectedIndex', 'selectedOptions', 'size', 'type', 'validationMessage', 'validity', 'value', 'willValidate', 'add', 'blur', 'focus', 'item', 'namedItem', 'remove', 'reportValidity', 'setCustomValidity']
+    ]
   }
 
-  constructor() {
+  constructor () {
     super();
     this.options = [];
   }
 
-  render() {
+  render () {
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
@@ -48,21 +47,14 @@ class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(LabelsMixin(
       <select id="native" real-time-event="selected"></select>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
-    `;
+    `
   }
 
-  addSlotToSelect(e) {
+  addSlotToSelect (e) {
     const select = this.shadowRoot.querySelector('#native');
-
     for (const option of e.srcElement.assignedElements()) {
       select.appendChild(option);
     }
   }
-
 }
-
-customElements.define('nn-select', NnSelect);
-var nnSelect = {
-  NnSelect: NnSelect
-};
-export { nnSelect as $nnSelect, NnSelect };
+customElements.define('nn-select', NnSelect);export{NnSelect};

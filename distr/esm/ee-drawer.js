@@ -1,11 +1,9 @@
-import { html, LitElement, css } from './node_modules/lit-element/lit-element.js';
-import { StyleableMixin } from './mixins/StyleableMixin.js';
-import { ThemeableMixin } from './mixins/ThemeableMixin.js';
-const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`;
+import {L as LitElement,c as css,h as html}from'./lit-element-97ae09cb.js';import {S as StyleableMixin}from'./StyleableMixin-6a125586.js';import {T as ThemeableMixin}from'./ThemeableMixin-af62e1ed.js';const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`;
 
 class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
-  static get styles() {
-    return [css`
+  static get styles () {
+    return [
+      css`
         :host {
           display: block;
           position: fixed;
@@ -103,38 +101,31 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
           font-size: 1.15em;
           margin: 10px auto;
         }
-      `];
+      `
+    ]
   }
 
-  static get properties() {
+  static get properties () {
     return {
-      opened: {
-        type: Boolean,
-        reflect: true
-      },
-      modal: {
-        type: Boolean
-      },
-      closeButton: {
-        type: Boolean,
-        attribute: 'close-button'
-      }
-    };
+      opened: { type: Boolean, reflect: true },
+      modal: { type: Boolean },
+      closeButton: { type: Boolean, attribute: 'close-button' }
+    }
   }
 
-  constructor() {
+  constructor () {
     super();
     this.modal = false;
     this.closeButton = true;
     this.opened = false;
   }
 
-  connectedCallback() {
+  connectedCallback () {
     super.connectedCallback();
     this.addEventListener('click', this._handleOutsideClick);
   }
 
-  render() {
+  render () {
     return html`
       <div class="container">
         ${this.closeButton ? html`<button id="close" @click="${this.close}">${close}</button>` : ''}
@@ -142,25 +133,19 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
           <slot></slot>
         </nav>
       </div>
-    `;
+    `
   }
 
-  open() {
+  open () {
     this.opened = true;
   }
 
-  _handleOutsideClick(e) {
+  _handleOutsideClick (e) {
     if (e.target.nodeName === 'EE-DRAWER') this.close();
   }
 
-  close() {
+  close () {
     this.opened = false;
   }
-
 }
-
-customElements.define('ee-drawer', EeDrawer);
-var eeDrawer = {
-  EeDrawer: EeDrawer
-};
-export { eeDrawer as $eeDrawer, EeDrawer };
+customElements.define('ee-drawer', EeDrawer);export{EeDrawer};

@@ -1,10 +1,7 @@
-import { LitElement, css, html } from './node_modules/lit-element/lit-element.js';
-import { StyleableMixin } from './mixins/StyleableMixin.js';
-import { ThemeableMixin } from './mixins/ThemeableMixin.js';
-
-class EeSnackBar extends ThemeableMixin('ee-snack-bar')(StyleableMixin(LitElement)) {
-  static get styles() {
-    return [css`
+import {L as LitElement,c as css,h as html}from'./lit-element-97ae09cb.js';import {S as StyleableMixin}from'./StyleableMixin-6a125586.js';import {T as ThemeableMixin}from'./ThemeableMixin-af62e1ed.js';class EeSnackBar extends ThemeableMixin('ee-snack-bar')(StyleableMixin(LitElement)) {
+  static get styles () {
+    return [
+      css`
         :host {
           display: block;
           position: fixed;
@@ -48,59 +45,52 @@ class EeSnackBar extends ThemeableMixin('ee-snack-bar')(StyleableMixin(LitElemen
             margin: auto;
           }
         }
-      `];
+      `
+    ]
   }
 
-  render() {
+  render () {
     return html`
       ${this.message}
-    `;
+    `
   }
 
-  static get properties() {
+  static get properties () {
     return {
-      active: {
-        type: Boolean,
-        reflect: true
-      },
-      message: {
-        type: String
-      }
-    };
+      active: { type: Boolean, reflect: true },
+      message: { type: String }
+    }
   }
 
-  _eventListener(e) {
+  _eventListener (e) {
     const theme = e.detail.theme || 'info';
     this.setAttribute('theme', theme);
     this.message = e.detail.message;
     this.show();
   }
 
-  connectedCallback() {
+  connectedCallback () {
     super.connectedCallback();
     document.addEventListener('snack-bar', this.boundEventListener);
   }
 
-  disconnectedCallback() {
+  disconnectedCallback () {
     super.disconnectedCallBack();
     document.removeEventListener('snack-bar', this.boundEventListener);
   }
 
-  constructor() {
+  constructor () {
     super();
     this.active = false;
     this.boundEventListener = this._eventListener.bind(this);
     this.intervalId = null;
   }
 
-  show() {
+  show () {
     this.active = true;
     if (this.intervalId) clearInterval(this.intervalId);
-    this.intervalId = setInterval(() => {
-      this.active = false;
-    }, 3000);
+    this.intervalId = setInterval(() => { this.active = false; }, 3000);
   }
-
 }
 
 window.customElements.define('ee-snack-bar', EeSnackBar);

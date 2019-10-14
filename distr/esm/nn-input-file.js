@@ -1,14 +1,8 @@
-import { LitElement, css, html } from './node_modules/lit-element/lit-element.js';
-import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js';
-import { InputMixin } from './mixins/InputMixin.js';
-import { FormElementMixin } from './mixins/FormElementMixin.js';
-import { LabelsMixin } from './mixins/LabelsMixin.js';
-import { StyleableMixin } from './mixins/StyleableMixin.js';
-import { ThemeableMixin } from './mixins/ThemeableMixin.js';
-
-class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
-  static get styles() {
-    return [super.styles || [], css`
+import {L as LitElement,c as css,h as html}from'./lit-element-97ae09cb.js';import {L as LabelsMixin}from'./LabelsMixin-c00a1c1e.js';import {S as StyleableMixin}from'./StyleableMixin-6a125586.js';import {T as ThemeableMixin}from'./ThemeableMixin-af62e1ed.js';import {N as NativeReflectorMixin}from'./NativeReflectorMixin-c4e18588.js';import {I as InputMixin}from'./InputMixin-83f5b637.js';import {F as FormElementMixin}from'./FormElementMixin-78f38eb0.js';class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+  static get styles () {
+    return [
+      super.styles || [],
+      css`
         /* :host {
           display: flex;
           height: 30px;
@@ -26,27 +20,26 @@ class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixin(Style
           width: 1px;
           white-space: nowrap; /* 1 */
         }
-      `];
+      `
+    ]
   }
 
-  static get properties() {
+  static get properties () {
     return {
-      fileName: {
-        type: String
-      },
+      fileName: { type: String },
       manyFilesText: {
         type: String,
         attribute: 'many-files-text'
       }
-    };
+    }
   }
 
-  constructor() {
+  constructor () {
     super();
     this.manyFilesText = 'Many';
   }
 
-  render() {
+  render () {
     // From https://stackoverflow.com/a/25825731/829771
     return html`
       ${this.customStyle}
@@ -56,18 +49,12 @@ class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixin(Style
       ${this.ifValidationMessageAfter}
       ${this.fileName}
       ${this.ifLabelAfter}
-    `;
+    `
   }
 
-  fileNameChanged(e) {
+  fileNameChanged (e) {
     const native = this.shadowRoot.querySelector('#native');
     this.fileName = native.files.length > 1 ? this.manyFilesText : native.value;
   }
-
 }
-
-customElements.define('nn-input-file', NnInputFile);
-var nnInputFile = {
-  NnInputFile: NnInputFile
-};
-export { nnInputFile as $nnInputFile, NnInputFile };
+customElements.define('nn-input-file', NnInputFile);export{NnInputFile};

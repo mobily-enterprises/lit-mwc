@@ -1,22 +1,20 @@
-import { LitElement, css, html } from './node_modules/lit-element/lit-element.js';
-import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js';
-import { InputMixin } from './mixins/InputMixin.js';
-import { FormElementMixin } from './mixins/FormElementMixin.js';
-import { LabelsMixin } from './mixins/LabelsMixin.js';
-import { StyleableMixin } from './mixins/StyleableMixin.js';
-import { ThemeableMixin } from './mixins/ThemeableMixin.js';
-
-class NnInputDatalist extends ThemeableMixin('nn-input-datalist')(FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
-  static get styles() {
-    return [super.styles || [], css`
-      `];
+import {L as LitElement,c as css,h as html}from'./lit-element-97ae09cb.js';import {L as LabelsMixin}from'./LabelsMixin-c00a1c1e.js';import {S as StyleableMixin}from'./StyleableMixin-6a125586.js';import {T as ThemeableMixin}from'./ThemeableMixin-af62e1ed.js';import {N as NativeReflectorMixin}from'./NativeReflectorMixin-c4e18588.js';import {I as InputMixin}from'./InputMixin-83f5b637.js';import {F as FormElementMixin}from'./FormElementMixin-78f38eb0.js';class NnInputDatalist extends ThemeableMixin('nn-input-datalist')(FormElementMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+  static get styles () {
+    return [
+      super.styles || [],
+      css`
+      `
+    ]
   }
 
-  get skipAttributes() {
-    return [...super.skipAttributes, 'list'];
+  get skipAttributes () {
+    return [
+      ...super.skipAttributes,
+      'list'
+    ]
   }
 
-  render() {
+  render () {
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
@@ -25,21 +23,14 @@ class NnInputDatalist extends ThemeableMixin('nn-input-datalist')(FormElementMix
       <datalist id="_datalist">
       </datalist>
       ${this.ifLabelAfter}
-    `;
+    `
   }
 
-  addSlotToSelect(e) {
+  addSlotToSelect (e) {
     const select = this.shadowRoot.querySelector('#_datalist');
-
     for (const option of e.srcElement.assignedElements()) {
       select.appendChild(option);
     }
   }
-
 }
-
-customElements.define('nn-input-datalist', NnInputDatalist);
-var nnInputDatalist = {
-  NnInputDatalist: NnInputDatalist
-};
-export { nnInputDatalist as $nnInputDatalist, NnInputDatalist };
+customElements.define('nn-input-datalist', NnInputDatalist);export{NnInputDatalist};

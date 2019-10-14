@@ -1,10 +1,8 @@
-import { LitElement, css, html } from './node_modules/lit-element/lit-element.js';
-import { StyleableMixin } from './mixins/StyleableMixin.js';
-import { ThemeableMixin } from './mixins/ThemeableMixin.js';
-
-class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
-  static get styles() {
-    return [super.styles || [], css`
+import {L as LitElement,c as css,h as html}from'./lit-element-97ae09cb.js';import {S as StyleableMixin}from'./StyleableMixin-6a125586.js';import {T as ThemeableMixin}from'./ThemeableMixin-af62e1ed.js';class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
+  static get styles () {
+    return [
+      super.styles || [],
+      css`
         :host {
           width: 100%;
           height: 42px;
@@ -73,104 +71,74 @@ class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
         :host nav > ::slotted(*.icon:hover) svg, :host > ::slotted(*:hover) svg {
           fill: var(--app-primary-color);
         }
-      `];
+      `
+    ]
   }
 
-  static get properties() {
+  static get properties () {
     return {
-      default: {
-        type: String
-      },
-      selected: {
-        type: String,
-        reflect: true
-      },
-      selectedAttribute: {
-        type: String
-      },
-      eventBubbles: {
-        type: Boolean
-      }
-    };
+      default: { type: String },
+      selected: { type: String, reflect: true },
+      selectedAttribute: { type: String },
+      eventBubbles: { type: Boolean }
+    }
   }
 
-  constructor() {
+  constructor () {
     super();
     this.selected = '';
     this.eventBubbles = false;
     this.selectedAttribute = 'name';
   }
+
   /** Tabs usage
    * add elements with a slot="tabs" within the nl-tabs tags to create tabs.
    * Tab elements must have an id. Index support will be added soon
    */
-
-
-  render() {
+  render () {
     return html`
     <nav>
       <slot @slotchange="${this._manageSlotted}"></slot>
     </nav>
-    `;
+    `
   }
 
-  firstUpdated() {
+  firstUpdated () {
     const slotted = this.shadowRoot.querySelector('slot').assignedElements();
-    if (!slotted.length) return;
+    if (!slotted.length) return
     const defaultTab = this.default ? slotted.filter(i => i.getAttribute('name') === this.default)[0] : slotted[0];
     const selected = defaultTab.getAttribute('name');
-
     if (defaultTab) {
-      this.dispatchEvent(new CustomEvent('selected-changed', {
-        detail: {
-          selected: selected
-        }
-      }));
+      this.dispatchEvent(new CustomEvent('selected-changed', { detail: { selected: selected } }));
       this.selected = selected;
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback(); // Listen to local clicked-slot event
-
+  connectedCallback () {
+    super.connectedCallback();
+    // Listen to local clicked-slot event
     this.addEventListener('clicked-slot', this._fireSelectedEvent);
-  } // This adds a click event listener to all slotted children (the tabs)
+  }
 
-
-  _manageSlotted(e) {
+  // This adds a click event listener to all slotted children (the tabs)
+  _manageSlotted (e) {
     const slot = e.currentTarget;
     const slotted = slot.assignedElements();
-
     for (const element of slotted) {
       element.addEventListener('click', this._clickedSlotted.bind(this));
     }
-  } // Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the name attribute of the slotted "tab"
-
-
-  _clickedSlotted(e) {
-    console.log('slot clicked', this.selectedAttribute);
-    this.dispatchEvent(new CustomEvent('clicked-slot', {
-      detail: {
-        event: e,
-        selected: e.currentTarget.getAttribute(this.selectedAttribute)
-      }
-    }));
-  } // This function runs when the host element receives a clicked-slot event from it's children. It sets the selected property and fires a 'selected-changed' event with that value.
-
-
-  _fireSelectedEvent(e) {
-    this.dispatchEvent(new CustomEvent('selected-changed', {
-      detail: {
-        selected: e.detail.selected
-      }
-    }));
-    this.selected = e.detail.selected;
   }
 
-}
+  // Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the name attribute of the slotted "tab"
+  _clickedSlotted (e) {
+    console.log('slot clicked', this.selectedAttribute);
+    this.dispatchEvent(new CustomEvent('clicked-slot', { detail: { event: e, selected: e.currentTarget.getAttribute(this.selectedAttribute) } }));
+  }
 
-customElements.define('ee-tabs', EeTabs);
-var eeTabs = {
-  EeTabs: EeTabs
-};
-export { eeTabs as $eeTabs, EeTabs };
+  // This function runs when the host element receives a clicked-slot event from it's children. It sets the selected property and fires a 'selected-changed' event with that value.
+  _fireSelectedEvent (e) {
+    this.dispatchEvent(new CustomEvent('selected-changed', { detail: { selected: e.detail.selected } }));
+    this.selected = e.detail.selected;
+  }
+}
+customElements.define('ee-tabs', EeTabs);export{EeTabs};

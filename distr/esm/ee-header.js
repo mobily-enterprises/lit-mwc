@@ -1,11 +1,10 @@
-import { html, LitElement, css } from './node_modules/lit-element/lit-element.js';
-import './ee-toolbar.js';
-const arrowback = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>`;
+import {L as LitElement,c as css,h as html}from'./lit-element-97ae09cb.js';import'./StyleableMixin-6a125586.js';import'./ThemeableMixin-af62e1ed.js';import'./ee-toolbar.js';const arrowback = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>`;
 const menu = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>`;
-
 class EeHeader extends LitElement {
-  static get styles() {
-    return [super.styles || [], css`
+  static get styles () {
+    return [
+      super.styles || [],
+      css`
         :host {
           display: block;
           width: 100%;
@@ -91,38 +90,27 @@ class EeHeader extends LitElement {
         .toolbar div.controls ::slotted(*[slot="controls"]) {
         }
 
-      `];
+      `
+    ]
   }
 
-  static get properties() {
+  static get properties () {
     return {
       // Users can set these attributes to get built-in basic controls and title text. 
       // Otherwise, they can user their own with slot="controls" and slot="header-title"
-      back: {
-        type: Boolean,
-        reflect: true
-      },
-      menu: {
-        type: Boolean,
-        reflect: true
-      },
-      headerTitle: {
-        type: String,
-        attribute: 'header-title'
-      },
-      headerSubtitle: {
-        type: String,
-        attribute: 'header-subtitle'
-      }
-    };
+      back: { type: Boolean, reflect: true },
+      menu: { type: Boolean, reflect: true },
+      headerTitle: { type: String, attribute: 'header-title' },
+      headerSubtitle: { type: String, attribute: 'header-subtitle' }
+    }
   }
 
-  constructor() {
+  constructor () {
     super();
     this.headerTitle = '';
   }
 
-  render() {
+  render () {
     return html`
       <div id="header">
         <ee-toolbar class="toolbar">
@@ -132,12 +120,15 @@ class EeHeader extends LitElement {
             <slot name="controls"></slot>
           </div>
           <div title>
-          ${this.headerTitle ? html`
+          ${this.headerTitle
+            ? html`
                 ${this.headerTitle}
                 ${this.headerSubtitle ? html`<div class="subtitle">${this.headerSubtitle}</div>` : ''}
-            ` : html`
+            `
+            : html`
               <slot name="header-title"></slot>
-            `}
+            `
+          }
           </div>
           <div class="actions">
             <slot name="actions"></slot>
@@ -145,21 +136,15 @@ class EeHeader extends LitElement {
         </ee-toolbar>
         <slot name="sub-toolbar"></slot>
       </div>
-    `;
+    `
   }
 
-  _menuEvent() {
+  _menuEvent () {
     this.dispatchEvent(new CustomEvent('menu-clicked'));
   }
 
-  _backEvent() {
+  _backEvent () {
     this.dispatchEvent(new CustomEvent('back-clicked'));
   }
-
 }
-
-customElements.define('ee-header', EeHeader);
-var eeHeader = {
-  EeHeader: EeHeader
-};
-export { eeHeader as $eeHeader, EeHeader };
+customElements.define('ee-header', EeHeader);export{EeHeader};

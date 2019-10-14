@@ -1,10 +1,5 @@
-import { LitElement, css, html } from './node_modules/lit-element/lit-element.js';
-import { LabelsMixin } from './mixins/LabelsMixin.js';
-import { StyleableMixin } from './mixins/StyleableMixin.js';
-import { ThemeableMixin } from './mixins/ThemeableMixin.js';
-
-class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spans')(LabelsMixin(StyleableMixin(LitElement))) {
-  static get properties() {
+import {c as css,h as html,L as LitElement}from'./lit-element-97ae09cb.js';import {L as LabelsMixin}from'./LabelsMixin-c00a1c1e.js';import {S as StyleableMixin}from'./StyleableMixin-6a125586.js';import {T as ThemeableMixin}from'./ThemeableMixin-af62e1ed.js';class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spans')(LabelsMixin(StyleableMixin(LitElement))) {
+  static get properties () {
     return {
       name: {
         type: String
@@ -29,35 +24,29 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         type: Object,
         attribute: false
       },
-      validator: {
-        type: Function
-      }
-    };
+      validator: { type: Function }
+    }
   }
 
-  constructor() {
+  constructor () {
     super();
     this.labelForElement = 'ni';
     this.valueAs = 'text'; // can be text, ids, json
-
     this.removeIcon = '<svg class="icon" height="15" viewBox="0 0 24 24" width="15"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>';
     this.itemElement = '';
     this.itemElementConfig = {};
     this.itemElementAttributes = {};
     this.shownValidationMessage = '';
-
     this.validator = () => '';
-
     this.validationMessagePosition = 'before';
     this.valueSeparator = ',';
-    this.validity = {
-      valid: true,
-      _customValidationMessage: ''
-    };
+    this.validity = { valid: true, _customValidationMessage: '' };
   }
 
-  static get styles() {
-    return [super.styles || [], css`
+  static get styles () {
+    return [
+      super.styles || [],
+      css`
         :host {
           display: inline;
         }
@@ -147,10 +136,11 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           background-color: pink;
           border: var(--nn-input-border-invalid, 1px solid #bb7777);
         }
-      `];
+      `
+    ]
   }
 
-  render() {
+  render () {
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
@@ -161,76 +151,70 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
       <input id="ni" type="hidden" name="${this.name}">
-    `;
+    `
   }
 
-  connectedCallback() {
+  connectedCallback () {
     super.connectedCallback();
     this.addEventListener('click', this.focus);
   }
 
-  disconnectedCallback() {
+  disconnectedCallback () {
     super.connectedCallback();
     this.removeEventListener('click', this.focus);
   }
 
-  firstUpdated() {
+  firstUpdated () {
     this._updateNativeInputValue();
   }
 
-  focus() {
+  focus () {
     this.shadowRoot.querySelector('#ta').focus();
   }
 
-  _listClicked(e) {
+  _listClicked (e) {
     e.stopPropagation();
   }
 
-  get value() {
+  get value () {
     let r;
     let list;
-
     switch (this.valueAs) {
-      case 'json':
-        r = {};
-        list = this.shadowRoot.querySelector('#list');
-
-        for (const span of list.children) {
-          if (span.id === 'ta') continue;
-          const idValue = span.firstChild.idValue;
-          r[idValue] = span.firstChild.data;
+    case 'json':
+      r = {};
+      list = this.shadowRoot.querySelector('#list');
+      for (const span of list.children) {
+        if (span.id === 'ta') continue
+        const idValue = span.firstChild.idValue;
+        r[idValue] = span.firstChild.data;
+      }
+      return r
+    default:
+      r = [];
+      list = this.shadowRoot.querySelector('#list');
+      for (const span of list.children) {
+        if (span.id === 'ta') continue
+        if (this.valueAs === 'text') {
+          // Won't push invalid spans to the final value
+          if (span.getAttribute('invalid') === null) r.push(span.firstChild.textValue);
+        } else {
+          r.push(span.firstChild.idValue);
         }
-
-        return r;
-
-      default:
-        r = [];
-        list = this.shadowRoot.querySelector('#list');
-
-        for (const span of list.children) {
-          if (span.id === 'ta') continue;
-
-          if (this.valueAs === 'text') {
-            // Won't push invalid spans to the final value
-            if (span.getAttribute('invalid') === null) r.push(span.firstChild.textValue);
-          } else {
-            r.push(span.firstChild.idValue);
-          }
-        }
-
-        return r.join(this.valueSeparator);
+      }
+      return r.join(this.valueSeparator)
     }
   }
 
-  set value(v) {
-    const list = this.shadowRoot.querySelector('#list'); // Remove all children
+  set value (v) {
+    const list = this.shadowRoot.querySelector('#list');
 
+    // Remove all children
     while (list.firstChild) {
-      if (list.firstChild.id === 'ta') break;
+      if (list.firstChild.id === 'ta') break
       list.removeChild(list.firstChild);
-    } // Assign all children using pickedElement
+    }
 
-
+    // Assign all children using pickedElement
     if (Array.isArray(v)) {
       for (const o of v) {
         this.pickedElement(o, false, true);
@@ -244,21 +228,20 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       for (const s of v.split(this.valueSeparator)) {
         this.pickedElement(s, false, true);
       }
-    } // Sets the native input
+    }
+    // Sets the native input
+    this._updateNativeInputValue();
 
-
-    this._updateNativeInputValue(); // Rerun validator
-
-
+    // Rerun validator
     this.setCustomValidity('');
     this.reportValidity();
   }
 
-  get validationMessage() {
-    return this.validity._customValidationMessage;
+  get validationMessage () {
+    return this.validity._customValidationMessage
   }
 
-  setCustomValidity(m) {
+  setCustomValidity (m) {
     if (m === '') {
       this.validity = {
         valid: true,
@@ -276,16 +259,16 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     }
   }
 
-  reportValidity() {
+  reportValidity () {
     // Run custom validator. Note that custom validator
     // will only ever run on filed without an existing customError.
     // This is because
     if (!this.validity.customError) {
       const ownErrorMessage = this.validator();
       if (ownErrorMessage) this.setCustomValidity(ownErrorMessage);
-    } // Hide the error message by default
+    }
 
-
+    // Hide the error message by default
     this.shownValidationMessage = '';
 
     if (!this.validity.valid) {
@@ -296,14 +279,14 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         bubbles: false,
         composed: true
       }));
-      return false;
+      return false
     } else {
       this.toggleAttribute('valid', true);
-      return true;
+      return true
     }
   }
 
-  checkValidity() {
+  checkValidity () {
     if (!this.native.validity.customError) {
       const ownErrorMessage = this.validator();
       if (ownErrorMessage) this.setCustomValidity(ownErrorMessage);
@@ -315,199 +298,183 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         bubbles: false,
         composed: true
       }));
-      return false;
+      return false
     }
-
-    return true;
+    return true
   }
 
-  get ifValidationMessageBefore() {
-    if (this.validationMessagePosition === 'after') return '';
-    return this.validationMessageTemplate;
+  get ifValidationMessageBefore () {
+    if (this.validationMessagePosition === 'after') return ''
+    return this.validationMessageTemplate
   }
 
-  get ifValidationMessageAfter() {
-    if (this.validationMessagePosition === 'before') return '';
-    return this.validationMessageTemplate;
+  get ifValidationMessageAfter () {
+    if (this.validationMessagePosition === 'before') return ''
+    return this.validationMessageTemplate
   }
 
-  get validationMessageTemplate() {
+  get validationMessageTemplate () {
     return html`
       <span class="error-message">
         ${this.shownValidationMessage}
       </span>
-    `;
+    `
   }
 
-  get autocompleteValue() {
+  get autocompleteValue () {
     const ta = this.shadowRoot.querySelector('#ta');
-    if (ta) return ta.value;
-    return '';
+    if (ta) return ta.value
+    return ''
   }
+
   /* END OF CONSTRAINTS API */
+
   // Run this when there are no suggestions and the user hits Tab or Enter in #ta
   // This will run pickElement with a STRING, which will get the element to
   // work out a data structure based on the string
-
-
-  _pickCurrentValue() {
+  _pickCurrentValue () {
     if (this.valueAs === 'text') {
       this.pickedElement(this.shadowRoot.querySelector('#ta').value, true);
     }
   }
 
-  _askToRemove(e) {
+  _askToRemove (e) {
     const target = e.currentTarget;
-
     this._removeItem(target.parentElement.parentElement);
   }
 
-  _updateNativeInputValue() {
+  _updateNativeInputValue () {
     const ni = this.shadowRoot.querySelector('#ni');
     ni.value = this.value;
   }
 
-  _removeItem(target, which = 'previous') {
+  _removeItem (target, which = 'previous') {
     // Focus previous item before deleting target. If it's the first/only, select the input
     const previous = target.previousElementSibling || target.nextElementSibling;
     previous.focus();
     target.remove();
-
-    this._updateNativeInputValue(); // Rerun validator
-
-
+    this._updateNativeInputValue();
+    // Rerun validator
     this.setCustomValidity('');
     this.reportValidity();
   }
 
-  _createRemoveBtn() {
+  _createRemoveBtn () {
     const el = document.createElement('button');
     el.innerHTML = this.removeIcon;
     el.onclick = this._askToRemove.bind(this);
     el.classList.add('remove');
-    return el;
+    return el
   }
 
-  _handleKeyEvents(e) {
+  _handleKeyEvents (e) {
     const target = e.currentTarget;
 
     switch (e.key) {
-      case 'ArrowLeft':
-        if (target.previousElementSibling) {
-          e.preventDefault();
-          target.previousElementSibling.focus();
-        }
+    case 'ArrowLeft':
+      if (target.previousElementSibling) {
+        e.preventDefault();
+        target.previousElementSibling.focus();
+      }
+      break
 
-        break;
+    case 'ArrowRight':
+      if (target.id !== 'ta') {
+        e.preventDefault();
+        target.nextElementSibling
+          ? target.nextElementSibling.focus()
+          : target.parentElement.firstElementChild.focus();
+      }
+      break
 
-      case 'ArrowRight':
-        if (target.id !== 'ta') {
-          e.preventDefault();
-          target.nextElementSibling ? target.nextElementSibling.focus() : target.parentElement.firstElementChild.focus();
-        }
-
-        break;
-
-      case 'ArrowDown':
-        if (this.parentElement.suggestions.length) {
-          e.preventDefault();
-          this.parentElement.focusNext();
-        }
-
-        break;
-
-      case 'Backspace':
-      case 'Delete':
-        if (target.id === 'ta' && target.parentElement.children.length > 1 && !target.value) {
-          this._removeItem(target.previousElementSibling);
-        } else if (target.id !== 'ta') {
-          this._removeItem(target);
-        }
-
-        break;
-
-      case 'Tab':
-      case 'Enter':
-        if (!this.autocompleteValue) break;
-
-        if (!this.parentElement.suggestions.length) {
-          e.preventDefault();
-
-          this._pickCurrentValue();
-        } else {
-          e.preventDefault();
-          this.parentElement.pickFirst();
-        }
-
-    }
-  }
-  /* API */
-
-
-  get multiInputApi() {
-    return true;
-  }
-
-  pickedElement(data, force = false, skipValidation = false) {
-    const parentEl = document.createElement(this.itemElement);
-    const el = new parentEl.constructor.PickedElement();
-    el.config = { ...el.config,
-      ...this.itemElementConfig
-    };
-
-    for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k]); // Convert string into data if necessary
-
-
-    if (typeof data === 'string') {
-      if (!data.length) return;
-      data = parentEl.stringToData(data);
-
-      if (!data.valid) {
-        el.toggleAttribute('invalid', true);
-        if (!force) return;
+    case 'ArrowDown':
+      if (this.parentElement.suggestions.length) {
+        e.preventDefault();
+        this.parentElement.focusNext();
+      }
+      break
+    case 'Backspace':
+    case 'Delete':
+      if (target.id === 'ta' && target.parentElement.children.length > 1 && !target.value) {
+        this._removeItem(target.previousElementSibling);
+      } else if (target.id !== 'ta') {
+        this._removeItem(target);
+      }
+      break
+    case 'Tab':
+    case 'Enter':
+      if (!this.autocompleteValue) break
+      if (!this.parentElement.suggestions.length) {
+        e.preventDefault();
+        this._pickCurrentValue();
+      } else {
+        e.preventDefault();
+        this.parentElement.pickFirst();
       }
     }
+  }
 
+  /* API */
+  get multiInputApi () { return true }
+
+  pickedElement (data, force = false, skipValidation = false) {
+    const parentEl = document.createElement(this.itemElement);
+    const el = new parentEl.constructor.PickedElement();
+
+    el.config = { ...el.config, ...this.itemElementConfig };
+    for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k]);
+
+    // Convert string into data if necessary
+    if (typeof data === 'string') {
+      if (!data.length) return
+      data = parentEl.stringToData(data);
+      if (!data.valid) {
+        el.toggleAttribute('invalid', true);
+        if (!force) return
+      }
+    }
     el.data = data;
-    const list = this.shadowRoot.querySelector('#list');
-    const span = document.createElement('span'); // -1 means that it will not in the list of tabs, but
-    // it will be focusable (spans aren't by default)
 
+    const list = this.shadowRoot.querySelector('#list');
+    const span = document.createElement('span');
+    // -1 means that it will not in the list of tabs, but
+    // it will be focusable (spans aren't by default)
     span.setAttribute('tabindex', -1);
     const ta = this.shadowRoot.querySelector('#ta');
-
     const removeBtn = this._createRemoveBtn();
 
-    span.onkeydown = this._handleKeyEvents.bind(this); // Span will be not in the list of tabs
+    span.onkeydown = this._handleKeyEvents.bind(this);
+    // Span will be not in the list of tabs
     // Necessary since this is a button and it IS
     // in tab list by default
-
     removeBtn.setAttribute('tabindex', -1);
     span.appendChild(el);
     el.appendChild(removeBtn);
+
     list.insertBefore(span, ta);
     ta.value = '';
 
-    this._updateNativeInputValue(); // Rerun validator
+    this._updateNativeInputValue();
 
-
+    // Rerun validator
     if (!skipValidation) {
       this.setCustomValidity('');
       this.reportValidity();
     }
   }
 
-  get textInputValue() {
+  get textInputValue () {
     const targetElementTextArea = this.shadowRoot.querySelector('#ta');
-    return targetElementTextArea ? targetElementTextArea.value : '';
+    return targetElementTextArea
+      ? targetElementTextArea.value
+      : ''
   }
 
-  setPickedElement(itemElement, itemElementConfig, itemElementAttributes) {
+  setPickedElement (itemElement, itemElementConfig, itemElementAttributes) {
     this.itemElement = itemElement;
     this.itemElementConfig = itemElementConfig;
     this.itemElementAttributes = itemElementAttributes;
   }
-
 }
 
 window.customElements.define('ee-autocomplete-input-spans', EeAutocompleteInputSpans);
