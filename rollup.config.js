@@ -1,7 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve'
 import allFiles from './rollup/allFiles.js'
 import babel from 'rollup-plugin-babel'
-// import minify from 'rollup-plugin-babel-minify'
+import minify from 'rollup-plugin-babel-minify'
 
 module.exports = [
   {
@@ -10,8 +10,17 @@ module.exports = [
       dir: 'distr/amd',
       format: 'amd'
     },
-    plugins: [resolve({}), babel({})]
+    plugins: [resolve({}), babel({}), minify({})]
   },
+  {
+    input: './tpe.js',
+    output: {
+      file: 'distr/amd/tpe.js',
+      format: 'amd'
+    },
+    plugins: [resolve({}), babel({}), minify({})]
+  },
+
   {
     input: allFiles,
     output: {
@@ -22,16 +31,15 @@ module.exports = [
     plugins: [resolve({})]
   },
 
-/*
   {
-    input: allFiles,
+    input: './tpe.js',
     output: {
-      dir: 'distr/umd',
-      format: 'umd'
+      file: 'distr/esm/tpe.js',
+      format: 'esm',
+      compact: true
     },
     plugins: [resolve({})]
   },
-*/
 
   {
     input: 'themes/material/material.js',
@@ -40,7 +48,7 @@ module.exports = [
       format: 'amd',
       compact: true
     },
-    plugins: [resolve({}), babel({})]
+    plugins: [resolve({}), babel({}), minify({})]
   },
   {
     input: 'themes/material/material.js',
