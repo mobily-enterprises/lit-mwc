@@ -4,7 +4,23 @@
 <script type="module" src="https://unpkg.com/tpe/distr/nn-input-text"></script>
 -->
 
-<script type="module" src="./distr/esm/themes/material/material.js"></script>
-<script type="module" src="./distr/esm/nn-input-text.js"></script>
+<script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+<script src="https://unpkg.com/@babel/polyfill/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+
+<script>
+  require(['./distr/amd/themes/material/material.js'], function() {
+    require(['./distr/amd/nn-input-text.js'])
+  })
+</script>
 
 <nn-input-text name="aName"></nn-input-text>
+
+<script>//require(['./distr/amd/themes/material/material.js'])</script>
+<script>//require(['./distr/amd/nn-input-text.js'])</script>
+
+
+<!--
+<script type="module" src="./distr/esm/themes/material/material.js"></script>
+<script type="module" src="./distr/esm/nn-input-text.js"></script>
+-->
