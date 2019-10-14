@@ -5,10 +5,7 @@ module.exports = function (api) {
     [
       '@babel/env', {
         modules: false,
-        exclude: [],
-        targets: {
-          ie: '9'
-        }
+        exclude: []
       }
     ]
   ]
