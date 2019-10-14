@@ -1,5 +1,1 @@
-const ThemeableMixin = (path) => (base) => {
-  const common = (window.TP_THEME && window.TP_THEME.common) || (p => p);
-  const theme = (window.TP_THEME && window.TP_THEME[path]) || (p => p);
-  return theme(common(base))
-};export{ThemeableMixin as T};
+var ThemeableMixin=function(a){return function(b){var c=window.TP_THEME&&window.TP_THEME.common||function(a){return a},d=window.TP_THEME&&window.TP_THEME[a]||function(a){return a};return d(c(b))}};export{ThemeableMixin as T};
