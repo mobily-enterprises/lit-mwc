@@ -4,18 +4,12 @@ import babel from 'rollup-plugin-babel'
 import minify from 'rollup-plugin-babel-minify'
 
 module.exports = [
+
+  /* AMD */
   {
     input: allFiles,
     output: {
-      dir: 'distr/amd',
-      format: 'amd'
-    },
-    plugins: [resolve({}), babel({}), minify({})]
-  },
-  {
-    input: './tpe.js',
-    output: {
-      file: 'distr/amd/tpe.js',
+      dir: 'distr/amd', // AMD MINIFIED
       format: 'amd'
     },
     plugins: [resolve({}), babel({}), minify({})]
@@ -24,7 +18,37 @@ module.exports = [
   {
     input: allFiles,
     output: {
-      dir: 'distr/esm',
+      dir: 'distr/amd-maxi', // AMD UN-MINIFIED
+      format: 'amd'
+    },
+    plugins: [resolve({}), babel({})]
+  },
+
+  {
+    input: './tpe.js',
+    output: {
+      file: 'distr/amd/tpe.js', // AMD ONE FILE
+      format: 'amd'
+    },
+    plugins: [resolve({}), babel({}), minify({})]
+  },
+
+  /* ESM */
+
+  {
+    input: allFiles,
+    output: {
+      dir: 'distr/esm', // ESM MINIFIED
+      format: 'esm',
+      compact: true
+    },
+    plugins: [resolve({}), minify({})]
+  },
+
+  {
+    input: allFiles,
+    output: {
+      dir: 'distr/esm-maxi', // ESM UN-MINIFIED
       format: 'esm',
       compact: true
     },
@@ -34,13 +58,14 @@ module.exports = [
   {
     input: './tpe.js',
     output: {
-      file: 'distr/esm/tpe.js',
+      file: 'distr/esm/tpe.js', // ESM ONE FILE
       format: 'esm',
       compact: true
     },
-    plugins: [resolve({})]
+    plugins: [resolve({}), minify({})]
   },
 
+  /* THEMES */
   {
     input: 'themes/material/material.js',
     output: {
@@ -57,7 +82,7 @@ module.exports = [
       format: 'esm',
       compact: true
     },
-    plugins: [resolve({})]
+    plugins: [resolve({}), minify({})]
   }
 
 ]

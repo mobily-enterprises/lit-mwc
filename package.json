@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "rm -rf distr; polymer build;mkdir distr; mv build/esm-bundled distr/esm; rm -rf build"
+    "build": "rm -rf distr/**/*;rollup -c"
   },
   "repository": {
     "type": "git",
