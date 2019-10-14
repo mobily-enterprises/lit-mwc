@@ -8,4 +8,4 @@ import {h as html}from'./lit-element-97ae09cb.js';import'./LabelsMixin-c00a1c1e.
     `
   }
 }
-window.customElements.define('nn-input-tel', NnInputSearch);
+window.customElements.define('nn-input-search', NnInputSearch);
