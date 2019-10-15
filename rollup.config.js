@@ -13,7 +13,7 @@ module.exports = [
       format: 'iife'
     },
     // plugins: [resolve({}), babel({exclude: [/\/core-js\//]}), minify({})]
-    plugins: [resolve({}), babel({runtimeHelpers: true }), minify({})]
+    plugins: [resolve({}), babel({ runtimeHelpers: true }), minify({})]
   },
 
   {
@@ -26,15 +26,6 @@ module.exports = [
   },
 
   {
-    input: './themes/material/material.js',
-    output: {
-      file: 'distr/material-esm.js', // IIFE ONE FILE
-      format: 'esm'
-    },
-    plugins: [resolve({})]
-  },
-
-  {
     input: './tpe.js',
     output: {
       file: 'distr/tpe-esm.js', // IIFE ONE FILE
@@ -42,6 +33,15 @@ module.exports = [
     },
     plugins: [resolve({})]
   },
+
+  {
+    input: './themes/material/material.js',
+    output: {
+      file: 'distr/material-esm.js', // IIFE ONE FILE
+      format: 'esm'
+    },
+    plugins: [resolve({})]
+  }
 
 /*
   {
