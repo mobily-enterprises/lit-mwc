@@ -3,9 +3,12 @@ module.exports = function (api) {
 
   const presets = [
     [
+
       '@babel/env', {
-        modules: false,
-        exclude: []
+        // modules: false,
+        targets: {
+          browsers: ['ie < 8']
+        }
       }
     ]
   ]

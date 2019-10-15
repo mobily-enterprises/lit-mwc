@@ -1,6 +1,27 @@
 <!--
-<script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+WAY ONE -- ESM, NO POLYFILLS
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+<script type="module" src="./distr/material-esm.js"></script>
+<script type="module" src="./distr/tpe-esm.js"></script>
+
+-->
+
+
+WAY TWO -- ES5, POLYFILLS
+<script src="./distr/material.js"></script>
+<script src="./distr/tpe.js"></script>
+
+<nn-input-text id="input" name="aName"></nn-input-text>
+<script>
+  window.document.querySelector('#input').value = "SSSSS"
+</script>
+
+
+<!--
+USING AMD
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+<script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+<script src="https://unpkg.com/@babel/polyfill/dist/polyfill.min.js"></script>
 
 <script>
   require(['https://unpkg.com/tpe/distr/amd/themes/material/material.js'], function () {
@@ -32,10 +53,11 @@
 <script type="module" src="./distr/esm/nn-input-text.js"></script>
 -->
 
+<!--
 <script type="module" src="./distr/esm/themes/material/material.js"></script>
 <script type="module" src="./distr/esm-maxi/nn-input-text.js"></script>
+-->
 
-<nn-input-text name="aName"></nn-input-text>
 
 
 <!--

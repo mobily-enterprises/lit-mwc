@@ -1,11 +1,59 @@
 import resolve from 'rollup-plugin-node-resolve'
-import allFiles from './rollup/allFiles.js'
+// import allFiles from './rollup/allFiles.js'
 import babel from 'rollup-plugin-babel'
 import minify from 'rollup-plugin-babel-minify'
 
 module.exports = [
 
-  /* AMD */
+  // IIFE
+  {
+    input: './tpe-babel.js',
+    output: {
+      file: 'distr/tpe.js', // IIFE ONE FILE
+      format: 'iife'
+    },
+    // plugins: [resolve({}), babel({exclude: [/\/core-js\//]}), minify({})]
+    plugins: [resolve({}), babel({runtimeHelpers: true }), minify({})]
+  },
+
+  {
+    input: './themes/material/material.js',
+    output: {
+      file: 'distr/material.js', // IIFE ONE FILE
+      format: 'iife'
+    },
+    plugins: [resolve({}), minify({})]
+  },
+
+  {
+    input: './themes/material/material.js',
+    output: {
+      file: 'distr/material-esm.js', // IIFE ONE FILE
+      format: 'esm'
+    },
+    plugins: [resolve({})]
+  },
+
+  {
+    input: './tpe.js',
+    output: {
+      file: 'distr/tpe-esm.js', // IIFE ONE FILE
+      format: 'esm'
+    },
+    plugins: [resolve({})]
+  },
+
+/*
+  {
+    input: './themes/material/material.js',
+    output: {
+      file: 'distr/material.js', // IIFE ONE FILE
+      format: 'iife'
+    },
+    plugins: [resolve({}), babel({}), minify({})]
+  },
+
+  //
   {
     input: allFiles,
     output: {
@@ -33,7 +81,7 @@ module.exports = [
     plugins: [resolve({}), babel({}), minify({})]
   },
 
-  /* ESM */
+  // ESM
 
   {
     input: allFiles,
@@ -65,7 +113,7 @@ module.exports = [
     plugins: [resolve({}), minify({})]
   },
 
-  /* THEMES */
+  // THEMES
   {
     input: 'themes/material/material.js',
     output: {
@@ -84,5 +132,6 @@ module.exports = [
     },
     plugins: [resolve({}), minify({})]
   }
+  */
 
 ]
