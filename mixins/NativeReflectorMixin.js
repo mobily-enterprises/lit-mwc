@@ -92,6 +92,9 @@ export const NativeReflectorMixin = (base) => {
 
       /* Set the boot properties for the element */
       for (const prop of Object.keys(bootPropertiesValues)) {
+        // Deletion is NECESSARY because if there was an OBJECT'S OWN PROPERTY,
+        // THAT property will make the accessor from the prototype irrelevant
+        delete this[prop]
         this[prop] = bootPropertiesValues[prop]
       }
     }
