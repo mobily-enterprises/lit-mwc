@@ -96,6 +96,15 @@
                 
                 
                   <li>
+                      <a class="source  indented " href="babel.config.html">
+                          babel.config.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
                       <a class="source  indented " href="ee-autocomplete-input-spans.html">
                           ee-autocomplete-input-spans.js
                       </a>
@@ -465,6 +474,33 @@
                 
                 
                   <li>
+                      <a class="source  indented " href="rollup.config.html">
+                          rollup.config.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="tpe-babel.html">
+                          tpe-babel.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="tpe.html">
+                          tpe.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
                       <a class="source " href="../mixins.html">
                           mixins
                       </a>
@@ -500,23 +536,25 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin'</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin'</span>;
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin'</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeFab</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">ee</span>-<span class="hljs-title">fab</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LitElement</span>)) </span>{
-
-  <span class="hljs-keyword">static</span> styles = css`<span class="css">
-  <span class="hljs-selector-pseudo">:host</span> {
-    <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
+    <span class="hljs-keyword">return</span> css`<span class="css">
+      <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">display</span>: block;
+      }
+    `</span>
   }
-  `</span>;
 
-  render() {
-    <span class="hljs-keyword">return</span> html`<span class="xml">`</span>;
+  render () {
+    <span class="hljs-keyword">return</span> html`<span class="xml">
+    `</span>
   }
 }
-customElements.define(<span class="hljs-string">'ee-fab'</span>, EeFab);</pre></div>
+customElements.define(<span class="hljs-string">'ee-fab'</span>, EeFab)</pre></div>
             
           
         </div>

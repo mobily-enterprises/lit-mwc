@@ -218,6 +218,18 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
@@ -311,55 +323,20 @@
       <span class="hljs-keyword">this</span>.toggleAttribute(<span class="hljs-string">'has-focus'</span>, <span class="hljs-literal">false</span>)
     }
 
+    afterSettingProperty (prop, newValue) {
+      <span class="hljs-keyword">super</span>.afterSettingProperty()
+
+      <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">'value'</span>) {
+        <span class="hljs-keyword">this</span>.toggleAttribute(<span class="hljs-string">'has-value'</span>, !!newValue)
+      }
+    }
+
     firstUpdated () {
       <span class="hljs-keyword">super</span>.firstUpdated()
+
       <span class="hljs-keyword">this</span>.native.addEventListener(<span class="hljs-string">'input'</span>, <span class="hljs-keyword">this</span>._observeInput)
       <span class="hljs-keyword">this</span>.native.addEventListener(<span class="hljs-string">'focus'</span>, <span class="hljs-keyword">this</span>._observeFocus)
       <span class="hljs-keyword">this</span>.native.addEventListener(<span class="hljs-string">'blur'</span>, <span class="hljs-keyword">this</span>._observeBlur)
-    }</pre></div>
-            
-          
-            
-            <p>It needs to have a specific setter fo the ‘value’ property. This means
-that <code>value</code> will need to be out of the reflected properties list, and
-everything that NativeRefletorMixin does, needs to be re-done – plus
-the setting of the attribute</p>
-
-            
-              <div class='highlight'><pre>    <span class="hljs-keyword">get</span> reflectProperties () {
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.reflectProperties.filter(<span class="hljs-function"><span class="hljs-params">prop</span> =&gt;</span> prop !== <span class="hljs-string">'value'</span>)
-    }
-
-    <span class="hljs-keyword">set</span> value (newValue) {</pre></div>
-            
-          
-            
-            <p>This is what the setter by nativeReflectorMixin does
-(But doesn’t do it anymore for ‘value’)</p>
-
-            
-              <div class='highlight'><pre>      <span class="hljs-keyword">const</span> dst = <span class="hljs-keyword">this</span>.native
-      <span class="hljs-keyword">const</span> prop = <span class="hljs-string">'value'</span>
-      <span class="hljs-keyword">const</span> oldValue = dst.value[prop]
-      dst[prop] = newValue</pre></div>
-            
-          
-            
-            <p>This needs to happen manually to keep litElement happy</p>
-
-            
-              <div class='highlight'><pre>      <span class="hljs-keyword">this</span>._requestUpdate(prop, oldValue)</pre></div>
-            
-          
-            
-            <p>And finally, set the infamous attribute</p>
-
-            
-              <div class='highlight'><pre>      <span class="hljs-keyword">this</span>.toggleAttribute(<span class="hljs-string">'has-value'</span>, !!newValue)
-    }
-
-    <span class="hljs-keyword">get</span> value () {
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.native.value
     }
   }
 }</pre></div>

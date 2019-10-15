@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <title>nn-meter.js</title>
+  <title>babel.config.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
   <link rel="stylesheet" media="all" href="../tpe.css" />
@@ -14,7 +14,7 @@
         <div class="topbar">
           <div id="logo" alt="TPE">
           </div>
-          <h3>nn-meter.js</h3>
+          <h3>babel.config.js</h3>
           <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
           <div class="links">
             <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
@@ -96,7 +96,7 @@
                 
                 
                   <li>
-                      <a class="source  indented " href="babel.config.html">
+                      <a class="source  indented  current " href="babel.config.html">
                           babel.config.js
                       </a>
                   </li>
@@ -438,7 +438,7 @@
                 
                 
                   <li>
-                      <a class="source  indented  current " href="nn-meter.html">
+                      <a class="source  indented " href="nn-meter.html">
                           nn-meter.js
                       </a>
                   </li>
@@ -536,36 +536,32 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
-<span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/InputMixin.js'</span>
-<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/FormElementMixin.js'</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
+              <div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">api</span>) </span>{
+  api.cache(<span class="hljs-literal">true</span>)
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnMeter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">meter</span>')(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>)))) </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
-    <span class="hljs-keyword">return</span> [
-      <span class="hljs-keyword">super</span>.styles || [],
-      css`<span class="css">
-      `</span>
+  <span class="hljs-keyword">const</span> presets = [
+    [
+
+      <span class="hljs-string">'@babel/env'</span>, {</pre></div>
+            
+          
+            
+            <p>modules: false,</p>
+
+            
+              <div class='highlight'><pre>        targets: {
+          <span class="hljs-attr">browsers</span>: [<span class="hljs-string">'ie &lt; 8'</span>]
+        }
+      }
     ]
-  }
+  ]
+  <span class="hljs-keyword">const</span> plugins = []
 
-  <span class="hljs-keyword">get</span> reflectProperties () {
-    <span class="hljs-keyword">return</span> [
-      ...super.reflectProperties,
-      ...[<span class="hljs-string">'high'</span>, <span class="hljs-string">'low'</span>, <span class="hljs-string">'max'</span>, <span class="hljs-string">'min'</span>, <span class="hljs-string">'optimum'</span>, <span class="hljs-string">'value'</span>, <span class="hljs-string">'labels'</span>]
-    ]
+  <span class="hljs-keyword">return</span> {
+    presets,
+    plugins
   }
-
-  render () {
-    <span class="hljs-keyword">return</span> html`<span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.customStyle}</span><span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">meter</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span> <span class="hljs-attr">real-time-event</span>=<span class="hljs-string">"input"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">meter</span>&gt;</span>
-    `</span>
-  }
-}
-customElements.define(<span class="hljs-string">'nn-meter'</span>, NnMeter)</pre></div>
+}</pre></div>
             
           
         </div>

@@ -221,6 +221,18 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
@@ -325,14 +337,6 @@ Each element will provide a comprehensive list of reflected properties, which
 will depend on the HTML specs of the targeted <code>native</code> element.</li>
 <li>Some “boot” properties are assigned when the element is first updated.</li>
 </ul>
-<p>“Boot properties” are those properties (stressing <em>proproperties</em>, not
-<em>attributes</em>!) that are meaningful to the element and might be set when
-the element is declared – and <em>before</em> the element has a chance to run its
-code and therefore listen to property changes. For example:</p>
-<pre><code>&lt;nn-input name=<span class="hljs-string">"description"</span> .value=<span class="hljs-string">"${this.info.dbDescription}"</span>&gt;</code></pre><p>In this case, the <em>property</em> <code>value</code> of the input element is set before
-the element is declared. Therefore, <code>value</code> must be set as a boot property,
-guaranteeing that the <code>value</code> property will be assigned to the targeted
-<code>native</code> element.</p>
 <h2 id="into-the-code">Into the code</h2>
 
             
@@ -349,69 +353,17 @@ guaranteeing that the <code>value</code> property will be assigned to the target
             <p>The firstUpdated method is used to perform one-time work after the element’s
 template has been created. In this case, it will need to:</p>
 <p>1) Find the native element (marked with <code>id=&quot;native&quot;</code>)
-2) Map the values of the boot properties. At this stage, the property <code>value</code>
-   for example might have already been set.
-3) Start reflection of attributes and properties
-4) Assign boot properties to the element. NOTE: since reflection has
-   started, assigning <code>this[prop] = bootPropertiesValues[prop]</code> will also
-   assign the corresponding property down to the <code>native</code> element</p>
-<p>Boot properties are stored in <code>this.bootProperties</code>. However, users are given
-the option to add last-minute boot properties with the attribute
-<code>extra-boot-properties</code>. This is done by <code>_getBootProperties()</code>,
-explained shortly.</p>
+3) Start reflection of attributes and properties</p>
 
             
               <div class='highlight'><pre>    firstUpdated () {
       <span class="hljs-comment">/* Find the native element */</span>
       <span class="hljs-keyword">this</span>.native = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'#native'</span>)
 
-      <span class="hljs-comment">/* Get the boot property values which may have been set before the element */</span>
-      <span class="hljs-comment">/* had a chance to listen to property changes */</span>
-      <span class="hljs-keyword">const</span> bootProperties = <span class="hljs-keyword">this</span>._getBootProperties()
-      <span class="hljs-keyword">const</span> bootPropertiesValues = {}
-      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> prop <span class="hljs-keyword">of</span> bootProperties) {
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>[prop] !== <span class="hljs-string">'undefined'</span>) {
-          bootPropertiesValues[prop] = <span class="hljs-keyword">this</span>[prop]
-        }
-      }
-
       <span class="hljs-comment">/* Reflect all attributes and properties */</span>
       <span class="hljs-comment">/*  - all properties are reflected except some (listed in skipAttributes) */</span>
       <span class="hljs-comment">/*  - only elected properties are reflected (listed in reflectProperties) */</span>
       <span class="hljs-keyword">this</span>._reflectAttributesAndProperties()
-
-      <span class="hljs-comment">/* Set the boot properties for the element */</span>
-      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> prop <span class="hljs-keyword">of</span> <span class="hljs-built_in">Object</span>.keys(bootPropertiesValues)) {
-        <span class="hljs-keyword">this</span>[prop] = bootPropertiesValues[prop]
-      }
-    }</pre></div>
-            
-          
-            
-            <p>As mentoned above, boot properties are defined in the element, but
-users are able to add more by setting the attribute
-<code>extra-boot-properties</code>:</p>
-
-            
-              <div class='highlight'><pre>    _getBootProperties () {</pre></div>
-            
-          
-            
-            <p>Assign “boot properties”. This is an unfortunate hack that is
-necessary in order to assign custom properties added <em>before</em> the
-observer was on</p>
-
-            
-              <div class='highlight'><pre>      <span class="hljs-keyword">let</span> bootProperties = <span class="hljs-keyword">this</span>.bootProperties
-
-      <span class="hljs-comment">/* Users can have attribute `extra-boot-properties` */</span>
-      <span class="hljs-comment">/* to add boot properties */</span>
-      <span class="hljs-keyword">const</span> fromAttr = <span class="hljs-keyword">this</span>.getAttribute(<span class="hljs-string">'extra-boot-properties'</span>)
-      <span class="hljs-keyword">if</span> (fromAttr &amp;&amp; <span class="hljs-keyword">typeof</span> fromAttr === <span class="hljs-string">'string'</span>) {
-        bootProperties = [...bootProperties, ...fromAttr.split(<span class="hljs-string">' '</span>)]
-      }
-
-      <span class="hljs-keyword">return</span> bootProperties
     }</pre></div>
             
           
@@ -429,8 +381,8 @@ observer was on</p>
       <span class="hljs-keyword">return</span> [<span class="hljs-string">'id'</span>, <span class="hljs-string">'style'</span>, <span class="hljs-string">'class'</span>]
     }
 
-    <span class="hljs-keyword">get</span> bootProperties () {
-      <span class="hljs-keyword">return</span> [<span class="hljs-string">'value'</span>]
+    afterSettingProperty () {
+      
     }
 
     getAttribute (attr) {
@@ -611,12 +563,20 @@ might have been triggered by this very mixin</p>
             
               <div class='highlight'><pre>      <span class="hljs-keyword">const</span> uniqProps = [...new <span class="hljs-built_in">Set</span>(<span class="hljs-keyword">this</span>.reflectProperties)]
       uniqProps.forEach(<span class="hljs-function"><span class="hljs-params">prop</span> =&gt;</span> {
-        <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-keyword">this</span>, prop, {
+        <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">'value'</span>) <span class="hljs-keyword">debugger</span>
+        <span class="hljs-keyword">let</span> oldProp
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(<span class="hljs-keyword">this</span>, prop)) oldProp = <span class="hljs-keyword">this</span>[prop]
+        <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-keyword">this</span>), prop, {
           <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
             <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dst[prop] === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span> dst[prop].bind(dst)
             <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> dst[prop]
           },
           <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newValue</span>) </span>{
+            <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">'value'</span>) <span class="hljs-keyword">debugger</span>
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>.beforeSettingProperty === <span class="hljs-string">'function'</span>) {
+              <span class="hljs-keyword">this</span>.beforeSettingProperty(prop, newValue)
+            }
             <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dst[prop] === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span>
             <span class="hljs-keyword">const</span> oldValue = dst[prop]</pre></div>
             
@@ -634,10 +594,18 @@ create a setter if there is already one</p>
 
             
               <div class='highlight'><pre>            <span class="hljs-keyword">this</span>._requestUpdate(prop, oldValue)
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>.afterSettingProperty === <span class="hljs-string">'function'</span>) {
+              <span class="hljs-keyword">this</span>.afterSettingProperty(prop, newValue)
+            }
           },
           <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
           <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>
         })
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> oldProp !== <span class="hljs-string">'undefined'</span>) {
+          <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>[prop]
+          <span class="hljs-keyword">this</span>[prop] = oldProp
+        }
       })
     }
   }
