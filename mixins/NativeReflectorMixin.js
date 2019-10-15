@@ -38,18 +38,6 @@
 //    will depend on the HTML specs of the targeted `native` element.
 //  * Some "boot" properties are assigned when the element is first updated.
 //
-// "Boot properties" are those properties (stressing _proproperties_, not
-// _attributes_!) that are meaningful to the element and might be set when
-// the element is declared -- and _before_ the element has a chance to run its
-// code and therefore listen to property changes. For example:
-//
-//     <nn-input name="description" .value="${this.info.dbDescription}">
-//
-// In this case, the _property_ `value` of the input element is set before
-// the element is declared. Therefore, `value` must be set as a boot property,
-// guaranteeing that the `value` property will be assigned to the targeted
-// `native` element.
-//
 // ## Into the code
 //
 // First of all, NativeRefletorMixin is declared as a mixing in function:
@@ -60,63 +48,16 @@ export const NativeReflectorMixin = (base) => {
 // template has been created. In this case, it will need to:
 //
 // 1) Find the native element (marked with `id="native"`)
-// 2) Map the values of the boot properties. At this stage, the property `value`
-//    for example might have already been set.
 // 3) Start reflection of attributes and properties
-// 4) Assign boot properties to the element. NOTE: since reflection has
-//    started, assigning `this[prop] = bootPropertiesValues[prop]` will also
-//    assign the corresponding property down to the `native` element
 //
-// Boot properties are stored in `this.bootProperties`. However, users are given
-// the option to add last-minute boot properties with the attribute
-// `extra-boot-properties`. This is done by `_getBootProperties()`,
-// explained shortly.
     firstUpdated () {
       /* Find the native element */
       this.native = this.shadowRoot.querySelector('#native')
-
-      /* Get the boot property values which may have been set before the element */
-      /* had a chance to listen to property changes */
-      const bootProperties = this._getBootProperties()
-      const bootPropertiesValues = {}
-      for (const prop of bootProperties) {
-        if (typeof this[prop] !== 'undefined') {
-          bootPropertiesValues[prop] = this[prop]
-        }
-      }
 
       /* Reflect all attributes and properties */
       /*  - all properties are reflected except some (listed in skipAttributes) */
       /*  - only elected properties are reflected (listed in reflectProperties) */
       this._reflectAttributesAndProperties()
-
-      /* Set the boot properties for the element */
-      for (const prop of Object.keys(bootPropertiesValues)) {
-        // Deletion is NECESSARY because if there was an OBJECT'S OWN PROPERTY,
-        // THAT property will make the accessor from the prototype irrelevant
-        delete this[prop]
-        this[prop] = bootPropertiesValues[prop]
-      }
-    }
-
-// As mentoned above, boot properties are defined in the element, but
-// users are able to add more by setting the attribute
-// `extra-boot-properties`:
-
-    _getBootProperties () {
-      // Assign "boot properties". This is an unfortunate hack that is
-      // necessary in order to assign custom properties added *before* the
-      // observer was on
-      let bootProperties = this.bootProperties
-
-      /* Users can have attribute `extra-boot-properties` */
-      /* to add boot properties */
-      const fromAttr = this.getAttribute('extra-boot-properties')
-      if (fromAttr && typeof fromAttr === 'string') {
-        bootProperties = [...bootProperties, ...fromAttr.split(' ')]
-      }
-
-      return bootProperties
     }
 
     // From https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
@@ -130,8 +71,8 @@ export const NativeReflectorMixin = (base) => {
       return ['id', 'style', 'class']
     }
 
-    get bootProperties () {
-      return ['value']
+    afterSettingProperty () {
+      
     }
 
     getAttribute (attr) {
@@ -246,12 +187,20 @@ export const NativeReflectorMixin = (base) => {
 
       const uniqProps = [...new Set(this.reflectProperties)]
       uniqProps.forEach(prop => {
-        Object.defineProperty(this, prop, {
+        if (prop === 'value') debugger
+        let oldProp
+        if (Object.prototype.hasOwnProperty.call(this, prop)) oldProp = this[prop]
+        Object.defineProperty(Object.getPrototypeOf(this), prop, {
           get: function () {
             if (typeof dst[prop] === 'function') return dst[prop].bind(dst)
             else return dst[prop]
           },
           set: function (newValue) {
+            if (prop === 'value') debugger
+
+            if (typeof this.beforeSettingProperty === 'function') {
+              this.beforeSettingProperty(prop, newValue)
+            }
             if (typeof dst[prop] === 'function') return
             const oldValue = dst[prop]
 
@@ -261,10 +210,18 @@ export const NativeReflectorMixin = (base) => {
             // This is required by litElement since it won't
             // create a setter if there is already one
             this._requestUpdate(prop, oldValue)
+
+            if (typeof this.afterSettingProperty === 'function') {
+              this.afterSettingProperty(prop, newValue)
+            }
           },
           configurable: true,
           enumerable: true
         })
+        if (typeof oldProp !== 'undefined') {
+          delete this[prop]
+          this[prop] = oldProp
+        }
       })
     }
   }

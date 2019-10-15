@@ -15,13 +15,6 @@ class NnInputCheckbox extends ThemeableMixin('nn-input-checkbox')(FormElementMix
     ]
   }
 
-  get bootProperties () {
-    return [
-      super.bootProperties,
-      'checked'
-    ]
-  }
-
   render () {
     return html`
       ${this.customStyle}
