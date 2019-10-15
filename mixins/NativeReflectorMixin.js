@@ -72,7 +72,7 @@ export const NativeReflectorMixin = (base) => {
     }
 
     afterSettingProperty () {
-      
+
     }
 
     getAttribute (attr) {
@@ -187,7 +187,6 @@ export const NativeReflectorMixin = (base) => {
 
       const uniqProps = [...new Set(this.reflectProperties)]
       uniqProps.forEach(prop => {
-        if (prop === 'value') debugger
         let oldProp
         if (Object.prototype.hasOwnProperty.call(this, prop)) oldProp = this[prop]
         Object.defineProperty(Object.getPrototypeOf(this), prop, {
@@ -196,8 +195,6 @@ export const NativeReflectorMixin = (base) => {
             else return dst[prop]
           },
           set: function (newValue) {
-            if (prop === 'value') debugger
-
             if (typeof this.beforeSettingProperty === 'function') {
               this.beforeSettingProperty(prop, newValue)
             }
