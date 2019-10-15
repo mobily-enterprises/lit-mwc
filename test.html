@@ -3,10 +3,10 @@ WAY ONE -- ESM, NO POLYFILLS
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 <script type="module" src="./distr/material-esm.js"></script>
 <script type="module" src="./distr/tpe-esm.js"></script>
-
 -->
 
 
+<!--
 WAY TWO -- ES5, POLYFILLS
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 <script src="./distr/material.js"></script>
@@ -16,6 +16,21 @@ WAY TWO -- ES5, POLYFILLS
 <script>
   window.document.querySelector('#input').value = "SSSSS"
 </script>
+-->
+
+WAY TWO -- ES5, POLYFILLS, UNPKG
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+<script src="https://unpkg.com/tpe/distr/material.js"></script>
+<script src="https://unpkg.com/tpe/distr/tpe.js"></script>
+
+<nn-input-text id="input" name="aName" label="Emozionante"></nn-input-text>
+<script>
+  window.document.querySelector('#input').value = "SSSSS"
+</script>
+
+
+
+
 
 
 <!--
