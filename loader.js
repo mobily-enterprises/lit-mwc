@@ -1,5 +1,17 @@
 
 const script1 = window.document.createElement('SCRIPT')
+script1.src = 'https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js'
+const script2 = window.document.createElement('SCRIPT')
+script2.src = 'distr/material.js'
+const script3 = window.document.createElement('SCRIPT')
+script3.src = 'distr/tpe.js'
+
+window.document.head.appendChild(script1)
+window.document.head.appendChild(script2)
+window.document.head.appendChild(script3)
+
+/*
+const script1 = window.document.createElement('SCRIPT')
 script1.onload = function () {
   const script2 = window.document.createElement('SCRIPT')
   script2.onload = function () {
@@ -12,6 +24,7 @@ script1.onload = function () {
 }
 script1.src = 'https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js'
 window.document.head.appendChild(script1)
+*/
 
 /* IGNORE WHAT COMES AFTER THIS LINE */
 
