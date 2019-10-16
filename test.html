@@ -1,3 +1,22 @@
+
+<!-- EITHER THIS... -->
+
+WAY TWO -- ES5, POLYFILLS, UNPKG
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+<script src="https://unpkg.com/tpe/distr/material.js"></script>
+<script src="https://unpkg.com/tpe/distr/tpe.js"></script>
+
+<!-- ...OR THIS -->
+<!--<script src="./loader.js"></script>-->
+
+
+<body>
+<nn-input-text id="input" name="aName" label="The label"></nn-input-text>
+</body>
+
+
+<!-- IGNORE WHATEVER COMES AFTER THIS LINE -->
+
 <!--
 WAY ONE -- ESM, NO POLYFILLS
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
@@ -5,6 +24,11 @@ WAY ONE -- ESM, NO POLYFILLS
 <script type="module" src="./distr/tpe-esm.js"></script>
 -->
 
+<!--
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+<script src="https://unpkg.com/tpe/distr/material.js"></script>
+<script src="https://unpkg.com/tpe/distr/tpe.js"></script>
+-->
 
 <!--
 WAY TWO -- ES5, POLYFILLS
@@ -17,16 +41,6 @@ WAY TWO -- ES5, POLYFILLS
   window.document.querySelector('#input').value = "SSSSS"
 </script>
 -->
-
-WAY TWO -- ES5, POLYFILLS, UNPKG
-<script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-<script src="https://unpkg.com/tpe/distr/material.js"></script>
-<script src="https://unpkg.com/tpe/distr/tpe.js"></script>
-
-<nn-input-text id="input" name="aName" label="Emozionante"></nn-input-text>
-<script>
-  window.document.querySelector('#input').value = "SSSSS"
-</script>
 
 
 
