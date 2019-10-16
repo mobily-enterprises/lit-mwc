@@ -1,4 +1,4 @@
-import { inputLabel, fixedLabel, inputField, errorMessage } from '../style-patterns'
+import { inputLabel, fixedLabel, inputField, errorMessage } from '../style-patterns.js'
 
 export const NnInputDateTimeLocal = (base) => {
   return class Base extends base {

@@ -1,4 +1,4 @@
-import { fixedLabel, errorMessage, inputField, inputLabel } from '../style-patterns'
+import { fixedLabel, errorMessage, inputField, inputLabel } from '../style-patterns.js'
 
 export const NnInputDate = (base) => {
   return class Base extends base {

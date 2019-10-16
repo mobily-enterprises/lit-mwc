@@ -1,5 +1,5 @@
 import { css } from 'lit-element'
-import { inputField, inputLabel, floatingLabel, errorMessage } from '../style-patterns'
+import { inputField, inputLabel, floatingLabel, errorMessage } from '../style-patterns.js'
 
 export const NnTextArea = (base) => {
   return class Base extends base {

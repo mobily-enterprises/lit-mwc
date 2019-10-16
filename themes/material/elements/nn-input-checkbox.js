@@ -1,5 +1,5 @@
 import { css } from 'lit-element'
-import { errorMessage, hideNativeWidget, requiredLabelAsterisk } from '../style-patterns'
+import { errorMessage, hideNativeWidget, requiredLabelAsterisk } from '../style-patterns.js'
 
 export const NnInputCheckBox = (base) => {
   return class Base extends base {
