@@ -4511,9 +4511,7 @@ const NativeReflectorMixin = (base) => {
       return ['id', 'style', 'class']
     }
 
-    afterSettingProperty () {
-
-    }
+    afterSettingProperty () {}
 
     getAttribute (attr) {
       if (this.skipAttributes.indexOf(attr) !== -1) {

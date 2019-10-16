@@ -427,7 +427,7 @@ const inputField = css`
     margin: 10px;
     min-width: var(--nn-form-element-min-width, fit-content);
     font-family: var(--font-family);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out; /* @raphael: THIS IS THE LINE */
   }
 
   #native {
@@ -439,7 +439,7 @@ const inputField = css`
     border-radius: var(--nn-input-border-radius, 4px 4px 0 0);
     border-width: 0;
     border-style: none;
-    border-color: transparent; 
+    border-color: transparent;
     border-bottom: var(--nn-input-border, var(--nn-theme-border));
     color: var(--nn-input-color, inherit);
     background-color: var(--nn-background, #eee);
@@ -497,9 +497,9 @@ const inputLabel = css`
 `;
 
 const floatingLabel = css`
- 
-  :host([has-value]) label, 
-  #native:focus ~ label, 
+
+  :host([has-value]) label,
+  #native:focus ~ label,
   #native:placeholder-shown ~ label {
     transform: translateY(-130%);
     font-size: 80%;
@@ -1114,7 +1114,7 @@ const NnInputRadio = (base) => {
             -ms-user-select: none;
             user-select: none;
           }
-       
+
           :host::after {
             content: '';
             user-select: none;
