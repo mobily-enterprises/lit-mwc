@@ -19,7 +19,7 @@ module.exports = [
   {
     input: './themes/material/material.js',
     output: {
-      file: 'distr/material.js', // IIFE ONE FILE
+      file: 'distr/theme-material.js', // IIFE ONE FILE
       format: 'iife'
     },
     plugins: [resolve({}), minify({})]
@@ -37,7 +37,7 @@ module.exports = [
   {
     input: './themes/material/material.js',
     output: {
-      file: 'distr/material-esm.js', // IIFE ONE FILE
+      file: 'distr/theme-material-esm.js', // IIFE ONE FILE
       format: 'esm'
     },
     plugins: [resolve({})]
