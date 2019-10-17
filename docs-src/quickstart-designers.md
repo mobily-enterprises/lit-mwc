@@ -87,7 +87,7 @@ In terms of properties and methods, only the ones that are part of the native el
 
 ### en (Enhanced Native)
 
-`en-` elements are very similar to `nn-` ones, as they also implement full reflection; however, they also _extend_ native elements. For example [nn-form](elements/nn-form.html) is a thin wrap around the standard `<form>` element, with the advantage of validating all elements (whereas standard `<form>` elements will only ever validate native HTML form elements, missing anything in the shadow DOM). [nn-form](elements/nn-form.html), on the other hand, is a form on steroid that implements its own submit logic and is capable of preloading records, setting error messages, running hooks before and after submitting, and much more.
+`en-` elements are very similar to `nn-` ones, as they also implement full reflection; however, they also _extend_ native elements. For example [nn-form](elements/nn-form.html) is a thin wrap around the standard `<form>` element, with the advantage of validating all elements (whereas standard `<form>` elements will only ever validate native HTML form elements, missing anything in the shadow DOM). [nn-form](elements/nn-form.html), on the other hand, is a form on steroids that implements its own submit logic and is capable of preloading records, setting error messages, running hooks before and after submitting, and much more.
 
 ### ee (Enhanced Enhanced)
 
