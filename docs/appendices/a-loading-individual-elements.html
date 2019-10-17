@@ -3,10 +3,10 @@
 
 <html>
 <head>
-  <title>Welcome to The Platform</title>
+  <title>Loading individual elements</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
-  <link rel="stylesheet" media="all" href="tpe.css" />
+  <link rel="stylesheet" media="all" href="../tpe.css" />
 </head>
 <body>
   <div class="container">
@@ -14,7 +14,7 @@
         <div class="topbar">
           <div id="logo" alt="TPE">
           </div>
-          <h3>Welcome to The Platform</h3>
+          <h3>Loading individual elements</h3>
           <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
           <div class="links">
             <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
@@ -36,7 +36,7 @@
                 
                 
                   <li>
-                      <a class="source  current " href="index.html">
+                      <a class="source " href="../index.html">
                           index
                       </a>
                   </li>
@@ -45,7 +45,7 @@
                 
                 
                   <li>
-                      <a class="source " href="quickstart-designers.html">
+                      <a class="source " href="../quickstart-designers.html">
                           quickstart designers
                       </a>
                   </li>
@@ -54,7 +54,7 @@
                 
                 
                   <li>
-                      <a class="source " href="tutorials-designers.html">
+                      <a class="source " href="../tutorials-designers.html">
                           tutorials designers
                       </a>
                   </li>
@@ -69,7 +69,7 @@
                 
                 
                   <li>
-                      <a class="source " href="quickstart-developers.html">
+                      <a class="source " href="../quickstart-developers.html">
                           quickstart developers
                       </a>
                   </li>
@@ -78,7 +78,7 @@
                 
                 
                   <li>
-                      <a class="source " href="tutorials-developers.html">
+                      <a class="source " href="../tutorials-developers.html">
                           tutorials developers
                       </a>
                   </li>
@@ -90,7 +90,7 @@
                 
                 
                   <li>
-                      <a class="source " href="elements.html">
+                      <a class="source " href="../elements.html">
                           elements
                       </a>
                   </li>
@@ -222,7 +222,7 @@
                 
                 
                   <li>
-                      <a class="source " href="mixins.html">
+                      <a class="source " href="../mixins.html">
                           mixins
                       </a>
                   </li>
@@ -252,13 +252,19 @@
                 
                 
                   <li>
-                      <a class="source " href="appendices.html">
+                      <a class="source " href="../appendices.html">
                           appendices
                       </a>
                   </li>
                 
               
                 
+                
+                  <li>
+                      <a class="source  indented  current " href="a-loading-individual-elements.html">
+                          a loading individual elements
+                      </a>
+                  </li>
                 
               
             </ul>
@@ -267,34 +273,14 @@
         <div class="contentPage">
           
             
-            <p>The Platform Elements is a minimalist set of themable elements for web designers and web developers.
-There are three types of elements:</p>
-<ul>
-<li><code>nn-</code> elements work <em>exactly</em> like native elements (input, select, etc.)</li>
-<li><code>en-</code> elements work like <code>nn</code> elements, but with enhancements (forms, advanced range, etc.)</li>
-<li><code>ee-</code> elements are elements that do not resemble native ones (autocomplete, header, navbar, fab)</li>
-</ul>
-<h2 id="web-designers">Web designers</h2>
-
-            
-          
-            
-            <ul>
-<li>Use the <code>nn-</code> elements by simply replacing the corresponding native ones.</li>
-<li>Use enhanced elements to load data from a remote server, code autocomplete, and more</li>
-<li>Theme elements using custom CSS properties or custom stylesheets</li>
-</ul>
-<h2 id="web-developers">Web developers</h2>
-
-            
-          
-            
-            <ul>
-<li>Use <a href="">lit-element</a>‘s and web component’s full potential</li>
-<li>Create custom themes or derivative elements easily</li>
-<li>Enjoy the fully literate source code</li>
-<li>Use these elements in your web application or single page application</li>
-</ul>
+            <p>The files in <code>distr</code> contain the bundled version of the full TPE library, minified and converted to ES5, in order to make sure that it’s fully compatible with any browser.</p>
+<p>Although distributing individual elements as a bundled, minified ES5 files is technically possible, each file would need to be loaded using AMD – which would be cumbersome at best.</p>
+<p>Alternatively, it’s theoretically possible to load the elements using ES6, like so:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./node_modules/tpe/themes/material/material.js"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./node_modules/tpe/tpe.js"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre><p>However, since TPE depends on <code>lit-element</code>, it will import it with the statement <code>import &#39;lit-element&#39;</code> which will fail since 1) Import demands a relative path 2) There isn’t a web standard (yet?) to “resolve” the paths of root modules. Even if <code>lit-element</code> were to be copied into the TPE tree, and changed every import of lit-element to a relative path, there is still a problem in terms of browser adoption of ES6.</p>
+<p>Using the bundled, minified and ES5 version of TPE is the preferred way of using it in web sites. Complex web applications most likely have an established build pipeline which can easily include TPE.</p>
+<p>When (if?) module name resolution becomes a standard and ES6 features will be widespread, TPE’s individual elements will be usable directly.</p>
 
             
           

@@ -221,18 +221,6 @@
               
                 
                 
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
                   <li>
                       <a class="source " href="mixins.html">
                           mixins
@@ -261,14 +249,64 @@
                 
                 
               
+                
+                
+                  <li>
+                      <a class="source " href="appendices.html">
+                          appendices
+                      </a>
+                  </li>
+                
+              
+                
+                
+              
             </ul>
           </div>
         
         <div class="contentPage">
           
             
-            <p>Jfdfldaflkd jfld jfldsk jfldf</p>
+            <h2 id="loading-tpe">Loading TPE</h2>
 
+            
+          
+            
+            <p>TPE is loaded by adding three entries to your files:</p>
+<ul>
+<li>The <code>webcomponentsjs</code> polyfills for old browsers that do not support web components. Note that adding this file depends on your target audience.</li>
+<li>A TPE theme file, which will decide the theme of your elements</li>
+<li>TPE itself</li>
+</ul>
+<p>Designers using the files in <code>distr</code> do not have the option to load individual elements. For more information, see <a href="appendices/a-loading-individual-elements.html">Loading individual elements</a></p>
+<p>In this guide, it will be assumed that TPE is correctly loaded.</p>
+<p>Here are some common ways to load TPE.</p>
+<h3 id="using-unpkg">Using Unpkg</h3>
+
+            
+          
+            
+            <p>Add this to the HEAD section of your HTML document:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/tpe/distr/theme-material.js"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/tpe/distr/tpe.js"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre><p>And add a simple text input to see if things worked:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"input"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"aName"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"The label"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><h3 id="using-npm-to-install-packages-locally">Using NPM to install packages locally</h3>
+
+            
+          
+            
+            <p>If you want to serve TPE from your local web server, install TPE, as well as the webcomponentsjs polyfill, in your <code>node_modules</code> directory:</p>
+<pre><code>$ npm install @webcomponents/webcomponentsjs
+$ npm install tpe
+</code></pre><p>And add this to your HEAD section:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./node_modules/tpe/distr/material.js"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./node_modules/tpe/distr/tpe.js"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre><h2 id="using-tpe-elements">Using TPE elements</h2>
+
+            
+          
+            
+            
             
           
         </div>

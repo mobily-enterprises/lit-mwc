@@ -221,18 +221,6 @@
               
                 
                 
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
@@ -301,6 +289,18 @@
                           ThemeableMixin.js
                       </a>
                   </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source " href="../appendices.html">
+                          appendices
+                      </a>
+                  </li>
+                
+              
+                
                 
               
             </ul>
@@ -381,9 +381,7 @@ template has been created. In this case, it will need to:</p>
       <span class="hljs-keyword">return</span> [<span class="hljs-string">'id'</span>, <span class="hljs-string">'style'</span>, <span class="hljs-string">'class'</span>]
     }
 
-    afterSettingProperty () {
-      
-    }
+    afterSettingProperty () {}
 
     getAttribute (attr) {
       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.skipAttributes.indexOf(attr) !== <span class="hljs-number">-1</span>) {
@@ -563,7 +561,6 @@ might have been triggered by this very mixin</p>
             
               <div class='highlight'><pre>      <span class="hljs-keyword">const</span> uniqProps = [...new <span class="hljs-built_in">Set</span>(<span class="hljs-keyword">this</span>.reflectProperties)]
       uniqProps.forEach(<span class="hljs-function"><span class="hljs-params">prop</span> =&gt;</span> {
-        <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">'value'</span>) <span class="hljs-keyword">debugger</span>
         <span class="hljs-keyword">let</span> oldProp
         <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(<span class="hljs-keyword">this</span>, prop)) oldProp = <span class="hljs-keyword">this</span>[prop]
         <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-keyword">this</span>), prop, {
@@ -572,8 +569,6 @@ might have been triggered by this very mixin</p>
             <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> dst[prop]
           },
           <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newValue</span>) </span>{
-            <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">'value'</span>) <span class="hljs-keyword">debugger</span>
-
             <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>.beforeSettingProperty === <span class="hljs-string">'function'</span>) {
               <span class="hljs-keyword">this</span>.beforeSettingProperty(prop, newValue)
             }
