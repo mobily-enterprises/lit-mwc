@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "rm -rf distr/* distr/**/*;rollup -c"
+    "build": "rm -rf distr/* distr/**/*;rollup -c",
+    "docs": "cd docs-src;./makeDocs.sh"
   },
   "repository": {
     "type": "git",
