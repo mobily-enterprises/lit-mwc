@@ -222,6 +222,83 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     }
   }
 
+  getFormElementValue (elName) {
+    const elements = [...this.elements].filter(el => el.name === elName)
+
+    if (!elements.length) {
+      console.error('Trying to set', elName, 'but no such element in form')
+      return
+    }
+
+    if (elements.length === 1) {
+      const el = elements[0]
+
+      const valueSource = this._getElementValueSource(el)
+      if (this._checkboxElement(el)) {
+        return el[valueSource]
+          ? (el.value ? el.value : 'on')
+          : undefined
+      } else if (this._selectElement(el)) {
+        return el[valueSource]
+      } else {
+        return el[valueSource]
+      }
+    } else {
+      const nonRadio = elements.filter(el => !this._radioElement(el))
+      if (nonRadio.length) {
+        console.error('Duplicate name', elName, 'for non-radio elements')
+        return
+      }
+
+      const checked = elements.find(el => {
+        const valueSource = this._getElementValueSource(el)
+        return el[valueSource]
+      })
+      if (checked) return checked.value
+      else return undefined
+    }
+  }
+
+  setFormElementValue (elName, value) {
+    const el = [...this.elements].find(el => {
+      if (this._radioElement(el)) {
+        return el.name === elName && el.value === value
+      } else {
+        return el.name === elName
+      }
+    })
+
+    if (!el) return
+
+    // Get the original value
+    const valueSource = this._getElementValueSource(el)
+
+    // CHECKBOXES
+    if (this._checkboxElement(el)) {
+      el[valueSource] = !!value
+
+    // RADIO
+    // Radio elements
+    } else if (this._radioElement(el)) {
+      el[valueSource] = true
+      const others = [...this.elements].filter(e =>
+        el !== e &&
+        this._radioElement(el)
+      )
+      for (const other of others) other[valueSource] = false
+
+    // SELECT
+    // Selectable elements (with prop selectedIndex)
+    } else if (this._selectElement(el)) {
+      if (!value) el.selectedIndex = 0
+      else el[valueSource] = value
+
+    // Any other case
+    } else {
+      el[valueSource] = value
+    }
+  }
+
   async submit (specificElement) {
     // Clear all custom validities if they are set
     // Native elements will NEED this, or any invalid state
@@ -354,8 +431,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     } else {
       // Convert the result to JSON
       const v = await response.json()
-
-
 
       let attempted
       if (this.inFlightMap.has(mapIndex)) {
