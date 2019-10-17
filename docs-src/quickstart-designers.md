@@ -50,6 +50,33 @@ And add this to your HEAD section:
 
 ## The elements
 
-* nn-
-* en-
-* ee-
+# nn-
+
+Element includes a "native" one. Every attribute and property is reflected.
+
+# en-
+
+# ee-
+
+Pick an element
+
+See how it works
+
+See how to theme it
+
+## Using the input
+
+Adding it to your page
+Change some attributes (native ones)
+Change some attributes (non-standard ones)
+Change some CSS property
+Add some custom styling (native:style)
+Add some custom styling/2 (stylesheet=)
+
+## Using the elements in a standard HTML form
+
+## Using the elements in a en-form
+
+## Read on
+Tutorials
+Documentation
