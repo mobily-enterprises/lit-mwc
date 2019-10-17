@@ -12,7 +12,11 @@ rm -rf ../docs/*;
        	tutorials-developers.md\
        	tutorials-developers/*\
         elements.md\
-       	elements/*.js\
+       	elements/ee*.js\
+        elements/en*.js\
+        elements/nn*.js\
         mixins.md\
-        mixins/*.js
+        mixins/*.js\
+        appendices.md\
+        appendices/*.md
 cp -r ./images ../docs/
