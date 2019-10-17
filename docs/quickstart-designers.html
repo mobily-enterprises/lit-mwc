@@ -306,42 +306,77 @@ $ npm install tpe
             
           
             
-            <h1 id="nn-">nn-</h1>
+            <p>There are three categories of elements.</p>
+<h3 id="nn-nearly-native">nn (Nearly Native)</h3>
 
             
           
             
-            <p>Element includes a “native” one. Every attribute and property is reflected.</p>
-<h1 id="en-">en-</h1>
+            <p>The <code>nn-</code> elements are a thin wrapper to native elements. They include:</p>
+<ul>
+<li><p>All of the “type” variations of the <code>&lt;input&gt;</code> element. For example, <code>&lt;input type=&quot;text&quot;&gt;</code> has an equivalent <code>nn-</code> element called <a href="elements/nn-input-text.html">nn-input-text</a>. The full list of possible types is <code>button</code>, <code>checkbox</code>, <code>color</code>, <code>date</code>, <code>date-time-local</code>, <code>email</code>, <code>file</code>, <code>month</code>, <code>number</code>, <code>password</code>, <code>radio</code>, <code>range</code>, <code>search</code>, <code>submit</code>, <code>tel</code>, <code>text</code>, <code>time</code>, <code>url</code>, <code>week</code>. For each type, there is a corresponding <code>nn-</code> element.</p>
+</li>
+<li><p>The other standard HTML input elements: <code>&lt;button&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;meter&gt;</code>, <code>&lt;progress&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code>,</p>
+</li>
+</ul>
+<p>Every <code>nn-</code> element has a native element with id <code>native</code> in its shadow DOM, . <strong>If you know how to use HTML elements, you know how to use <code>nn-</code> ones too</strong>. This is the single most important concept of <code>nn-</code> elements: every attribute and every property of the “main” element is mirrored to the native element in the shadow DOM. This means that writing something like this:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"inp"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"firstName"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span>
+window.document.querySelector('#inp').value = "Tony Mobily"
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre><p>Will have the end result of creating an <code>&lt;input&gt;</code> element in the <code>nn-input-text</code>‘s shadow DOM where the attribute <code>name</code> is <code>firstName</code> and the property <code>value</code> is <code>Tony Mobily</code>. The parent element doesn’t reflect specific properties and values: it reflects <em>nearly everything</em>.</p>
+<h4 id="notes-on-reflection">Notes on reflection</h4>
 
             
           
             
-            <h1 id="ee-">ee-</h1>
+            <p>In terms of attributes, not everything should be reflected. For example the attributes <code>id</code>, <code>class</code> and <code>style</code> are never reflected from the parent element to the inner native one, since it would most definitely break things.</p>
+<p>If you need to assign a specific attribute of the native element in the shadow DOM, you can use a specific syntax:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">native::style</span>=<span class="hljs-string">"color: red"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"inp"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"firstName"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>This line will set the native’s style attribute as <code>color: red</code>. You can target any element with an ID in the shadow DOM this way, not just <code>native</code>.</p>
+<p>In terms of properties and methods, only the ones that are part of the native element’s API are reflected. For example the properties <code>value</code> and <code>alt</code> are part of the HTML standard for <code>&lt;input&gt;</code> elements, and are therefore reflected.</p>
+<h3 id="en-enhanced-native">en (Enhanced Native)</h3>
 
             
           
             
-            <p>Pick an element</p>
-<p>See how it works</p>
-<p>See how to theme it</p>
+            <p><code>en-</code> elements are very similar to <code>nn-</code> ones, as they also implement full reflection; however, they also <em>extend</em> native elements. For example <a href="elements/nn-form.html">nn-form</a> is a thin wrap around the standard <code>&lt;form&gt;</code> element, with the advantage of validating all elements (whereas standard <code>&lt;form&gt;</code> elements will only ever validate native HTML form elements, missing anything in the shadow DOM). <a href="elements/nn-form.html">nn-form</a>, on the other hand, is a form on steroid that implements its own submit logic and is capable of preloading records, setting error messages, running hooks before and after submitting, and much more.</p>
+<h3 id="ee-enhanced-enhanced">ee (Enhanced Enhanced)</h3>
+
+            
+          
+            
+            <p><code>en-</code> elements are those elements that are common in UIs but have no HTML native equivalent. Some examples are the <a href="elements/ee-autocomplete.html">ee-autocomplete</a> decorator, or the <a href="elements/ee-header.html">ee-header</a>, or <a href="elements/ee-tabs.html">ee-tabs</a>.</p>
 <h2 id="using-the-input">Using the input</h2>
 
             
           
             
-            <p>Adding it to your page
-Change some attributes (native ones)
-Change some attributes (non-standard ones)
-Change some CSS property
-Add some custom styling (native:style)
-Add some custom styling/2 (stylesheet=)</p>
-<h2 id="using-the-elements-in-a-standard-html-form">Using the elements in a standard HTML form</h2>
+            <p>Pick an element, see how it works, see how to theme it</p>
+<h3 id="adding-it-to-your-page">Adding it to your page</h3>
 
             
           
             
-            <h2 id="using-the-elements-in-a-en-form">Using the elements in a en-form</h2>
+            <h3 id="change-some-attributes-native-ones">Change some attributes (native ones)</h3>
+
+            
+          
+            
+            <h3 id="change-some-attributes-non-standard-ones">Change some attributes (non-standard ones)</h3>
+
+            
+          
+            
+            <h3 id="change-some-css-property">Change some CSS property</h3>
+
+            
+          
+            
+            <h3 id="add-some-custom-styling-nativestyle">Add some custom styling (native:style)</h3>
+
+            
+          
+            
+            <h3 id="add-some-custom-styling2-stylesheet">Add some custom styling/2 (stylesheet=)</h3>
 
             
           
@@ -351,8 +386,7 @@ Add some custom styling/2 (stylesheet=)</p>
             
           
             
-            <p>Tutorials
-Documentation</p>
+            <p>Tutorials</p>
 
             
           
