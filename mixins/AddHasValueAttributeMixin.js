@@ -28,6 +28,8 @@ export const AddHasValueAttributeMixin = (base) => {
       this.native.addEventListener('input', this._observeInput)
       this.native.addEventListener('focus', this._observeFocus)
       this.native.addEventListener('blur', this._observeBlur)
+
+      this.toggleAttribute('has-value', !!this.value)
     }
   }
 }
