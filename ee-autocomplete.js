@@ -128,9 +128,6 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.targetElement = this._findTarget(this.target)
     this.targetForId = this._findTargetForId(this.targetForId)
 
-    console.log('Target element:', this.targetElement)
-    console.log('Target for ID element:', this.targetForId)
-
     if (!this.targetElement) {
       console.error('Target element not found')
       return
@@ -146,11 +143,11 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       this.targetElement.setPickedElement(this.itemElement, this.itemElementConfig, this.itemElementAttributes)
     }
 
-    //Setup ARIA attributes on target
+    // Setup ARIA attributes on target
     this.targetElement.setAttribute('aria-autocomplete', 'list')
     this.targetElement.setAttribute('aria-controls', 'suggestions')
     this.targetElement.toggleAttribute('aria-activedescendant', true)
-    //Setup ARIA attributes on ee-autocomplete
+    // Setup ARIA attributes on ee-autocomplete
     this.setAttribute('role', 'combobox')
     this.setAttribute('aria-owns', 'suggestions')
   }
@@ -173,7 +170,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     switch (e.key) {
     case 'Escape':
       this._dismissSuggestions()
-      break; 
+      break
     case 'KeyDown':
       if (this.suggestions.length) {
         const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
