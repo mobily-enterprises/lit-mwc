@@ -140,8 +140,6 @@ export const NativeReflectorMixin = (base) => {
     }
 
     _reflectAttributesAndProperties () {
-      const dst = this.native
-
       // STEP #1: ATTRIBUTES FIRST
 
       // Assign all starting attribute to the destination element
@@ -183,16 +181,22 @@ export const NativeReflectorMixin = (base) => {
 
       // STEP #2: METHODS (as bound functions) AND PROPERTIES (as getters/setters)
 
+      // Don't do this unnecessarily
+      const proto = Object.getPrototypeOf(this)
+      if (proto._alreadyReflecting) return
+
       const uniqProps = [...new Set(this.reflectProperties)]
       uniqProps.forEach(prop => {
         let oldProp
         if (Object.prototype.hasOwnProperty.call(this, prop)) oldProp = this[prop]
         Object.defineProperty(Object.getPrototypeOf(this), prop, {
           get: function () {
+            const dst = this.native
             if (typeof dst[prop] === 'function') return dst[prop].bind(dst)
             else return dst[prop]
           },
           set: function (newValue) {
+            const dst = this.native
             if (typeof this.beforeSettingProperty === 'function') {
               this.beforeSettingProperty(prop, newValue)
             }
@@ -218,6 +222,7 @@ export const NativeReflectorMixin = (base) => {
           this[prop] = oldProp
         }
       })
+      proto._alreadyReflecting = true
     }
   }
 }
