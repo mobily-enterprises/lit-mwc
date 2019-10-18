@@ -128,6 +128,23 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.targetElement = this._findTarget(this.target)
     this.targetForId = this._findTargetForId(this.targetForId)
 
+    // The target for Id is the true source of the value
+    // in case of ID submission. So, two things must happen:
+    // 1) If it has a value already (it might have been set by a data load before the autocomplete), then picked is true
+    // 2) Its value needs to be observed, so that if a value is set at any point, picked becomes true
+    if (this.targetForId) {
+      this.picked = !!this.targetForId.getAttribute('value')
+
+      const thisObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
+            this.picked = !!this.targetForId.getAttribute('value')
+          }
+        })
+      })
+      thisObserver.observe(this.targetForId, { attributes: true })
+    }
+
     if (!this.targetElement) {
       console.error('Target element not found')
       return
