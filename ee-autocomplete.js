@@ -145,6 +145,14 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     if (this.targetElement.multiInputApi) {
       this.targetElement.setPickedElement(this.itemElement, this.itemElementConfig, this.itemElementAttributes)
     }
+
+    //Setup ARIA attributes on target
+    this.targetElement.setAttribute('aria-autocomplete', 'list')
+    this.targetElement.setAttribute('aria-controls', 'suggestions')
+    this.targetElement.toggleAttribute('aria-activedescendant', true)
+    //Setup ARIA attributes on ee-autocomplete
+    this.setAttribute('role', 'combobox')
+    this.setAttribute('aria-owns', 'suggestions')
   }
 
   disconnectedCallback () {
@@ -157,7 +165,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   render () {
     return html`
       <slot></slot>
-      <div @click="${this._picked}" id="suggestions" @keydown=${this._handleKeyEvents}></div>
+      <div @click="${this._picked}" id="suggestions" role="listbox" @keydown=${this._handleKeyEvents}></div>
     `
   }
 
@@ -165,7 +173,12 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     switch (e.key) {
     case 'Escape':
       this._dismissSuggestions()
-      break
+      break; 
+    case 'KeyDown':
+      if (this.suggestions.length) {
+        const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
+        suggestionsDiv.firstChild.focus()
+      }
     }
   }
 
