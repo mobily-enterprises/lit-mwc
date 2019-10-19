@@ -58,7 +58,7 @@ export const inputField = css`
     background-color: var(--nn-background, #eee);
     width: 100%;
     font-size: 1em;
-    padding: 20px 16px 6px;
+    padding: 20px 12px 6px;
     height: var(--nn-form-element-height);
     box-shadow: var(--nn-theme-box-shadow);
     transition: all 0.3s ease-in-out;
