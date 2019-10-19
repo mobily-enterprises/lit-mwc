@@ -285,8 +285,8 @@
                 
                 
                   <li>
-                      <a class="source  indented " href="nn-input-date-time-local.html">
-                          nn-input-date-time-local.js
+                      <a class="source  indented " href="nn-input-date.html">
+                          nn-input-date.js
                       </a>
                   </li>
                 
@@ -294,8 +294,8 @@
                 
                 
                   <li>
-                      <a class="source  indented " href="nn-input-date.html">
-                          nn-input-date.js
+                      <a class="source  indented " href="nn-input-date-time-local.html">
+                          nn-input-date-time-local.js
                       </a>
                   </li>
                 
@@ -504,6 +504,120 @@
                 
                 
               
+                
+                
+                  <li>
+                      <a class="source " href="../material-theme.html">
+                          material theme
+                      </a>
+                  </li>
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
             </ul>
           </div>
         
@@ -648,10 +762,28 @@ If it’s set:
     <span class="hljs-keyword">super</span>.connectedCallback()
 
     <span class="hljs-keyword">this</span>.targetElement = <span class="hljs-keyword">this</span>._findTarget(<span class="hljs-keyword">this</span>.target)
-    <span class="hljs-keyword">this</span>.targetForId = <span class="hljs-keyword">this</span>._findTargetForId(<span class="hljs-keyword">this</span>.targetForId)
+    <span class="hljs-keyword">this</span>.targetForId = <span class="hljs-keyword">this</span>._findTargetForId(<span class="hljs-keyword">this</span>.targetForId)</pre></div>
+            
+          
+            
+            <p>The target for Id is the true source of the value
+in case of ID submission. So, two things must happen:</p>
+<p>1) If it has a value already (it might have been set by a data load before the autocomplete), then picked is true
+2) Its value needs to be observed, so that if a value is set at any point, picked becomes true</p>
 
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Target element:'</span>, <span class="hljs-keyword">this</span>.targetElement)
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Target for ID element:'</span>, <span class="hljs-keyword">this</span>.targetForId)
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.targetForId) {
+      <span class="hljs-keyword">this</span>.picked = !!<span class="hljs-keyword">this</span>.targetForId.getAttribute(<span class="hljs-string">'value'</span>)
+
+      <span class="hljs-keyword">const</span> thisObserver = <span class="hljs-keyword">new</span> MutationObserver(<span class="hljs-function">(<span class="hljs-params">mutations</span>) =&gt;</span> {
+        mutations.forEach(<span class="hljs-function">(<span class="hljs-params">mutation</span>) =&gt;</span> {
+          <span class="hljs-keyword">if</span> (mutation.type === <span class="hljs-string">'attributes'</span> &amp;&amp; mutation.attributeName === <span class="hljs-string">'value'</span>) {
+            <span class="hljs-keyword">this</span>.picked = !!<span class="hljs-keyword">this</span>.targetForId.getAttribute(<span class="hljs-string">'value'</span>)
+          }
+        })
+      })
+      thisObserver.observe(<span class="hljs-keyword">this</span>.targetForId, { <span class="hljs-attr">attributes</span>: <span class="hljs-literal">true</span> })
+    }
 
     <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.targetElement) {
       <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'Target element not found'</span>)
@@ -670,7 +802,24 @@ picked items (element name, config and attributes)</p>
             
               <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.targetElement.multiInputApi) {
       <span class="hljs-keyword">this</span>.targetElement.setPickedElement(<span class="hljs-keyword">this</span>.itemElement, <span class="hljs-keyword">this</span>.itemElementConfig, <span class="hljs-keyword">this</span>.itemElementAttributes)
-    }
+    }</pre></div>
+            
+          
+            
+            <p>Setup ARIA attributes on target</p>
+
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">this</span>.targetElement.setAttribute(<span class="hljs-string">'aria-autocomplete'</span>, <span class="hljs-string">'list'</span>)
+    <span class="hljs-keyword">this</span>.targetElement.setAttribute(<span class="hljs-string">'aria-controls'</span>, <span class="hljs-string">'suggestions'</span>)
+    <span class="hljs-keyword">this</span>.targetElement.toggleAttribute(<span class="hljs-string">'aria-activedescendant'</span>, <span class="hljs-literal">true</span>)</pre></div>
+            
+          
+            
+            <p>Setup ARIA attributes on ee-autocomplete</p>
+
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">this</span>.setAttribute(<span class="hljs-string">'role'</span>, <span class="hljs-string">'combobox'</span>)
+    <span class="hljs-keyword">this</span>.setAttribute(<span class="hljs-string">'aria-owns'</span>, <span class="hljs-string">'suggestions'</span>)
   }
 
   disconnectedCallback () {
@@ -683,7 +832,7 @@ picked items (element name, config and attributes)</p>
   render () {
     <span class="hljs-keyword">return</span> html`<span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._picked}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"suggestions"</span> @<span class="hljs-attr">keydown</span>=</span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._handleKeyEvents}</span><span class="xml"><span class="hljs-tag">&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._picked}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"suggestions"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"listbox"</span> @<span class="hljs-attr">keydown</span>=</span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._handleKeyEvents}</span><span class="xml"><span class="hljs-tag">&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     `</span>
   }
 
@@ -692,6 +841,11 @@ picked items (element name, config and attributes)</p>
     <span class="hljs-keyword">case</span> <span class="hljs-string">'Escape'</span>:
       <span class="hljs-keyword">this</span>._dismissSuggestions()
       <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'KeyDown'</span>:
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.suggestions.length) {
+        <span class="hljs-keyword">const</span> suggestionsDiv = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'#suggestions'</span>)
+        suggestionsDiv.firstChild.focus()
+      }
     }
   }
 

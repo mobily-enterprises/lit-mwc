@@ -303,6 +303,120 @@
                 
                 
               
+                
+                
+                  <li>
+                      <a class="source " href="../material-theme.html">
+                          material theme
+                      </a>
+                  </li>
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
+                
+                
+              
             </ul>
           </div>
         
@@ -489,8 +603,7 @@ corresponding ID</p>
       }
     }
 
-    _reflectAttributesAndProperties () {
-      <span class="hljs-keyword">const</span> dst = <span class="hljs-keyword">this</span>.native</pre></div>
+    _reflectAttributesAndProperties () {</pre></div>
             
           
             
@@ -557,18 +670,24 @@ might have been triggered by this very mixin</p>
           
             
             <p>STEP #2: METHODS (as bound functions) AND PROPERTIES (as getters/setters)</p>
+<p>Don’t do this unnecessarily</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">const</span> uniqProps = [...new <span class="hljs-built_in">Set</span>(<span class="hljs-keyword">this</span>.reflectProperties)]
+              <div class='highlight'><pre>      <span class="hljs-keyword">const</span> proto = <span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-keyword">this</span>)
+      <span class="hljs-keyword">if</span> (proto._alreadyReflecting) <span class="hljs-keyword">return</span>
+
+      <span class="hljs-keyword">const</span> uniqProps = [...new <span class="hljs-built_in">Set</span>(<span class="hljs-keyword">this</span>.reflectProperties)]
       uniqProps.forEach(<span class="hljs-function"><span class="hljs-params">prop</span> =&gt;</span> {
         <span class="hljs-keyword">let</span> oldProp
         <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(<span class="hljs-keyword">this</span>, prop)) oldProp = <span class="hljs-keyword">this</span>[prop]
         <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-keyword">this</span>), prop, {
           <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">const</span> dst = <span class="hljs-keyword">this</span>.native
             <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dst[prop] === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span> dst[prop].bind(dst)
             <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> dst[prop]
           },
           <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newValue</span>) </span>{
+            <span class="hljs-keyword">const</span> dst = <span class="hljs-keyword">this</span>.native
             <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>.beforeSettingProperty === <span class="hljs-string">'function'</span>) {
               <span class="hljs-keyword">this</span>.beforeSettingProperty(prop, newValue)
             }
@@ -602,6 +721,7 @@ create a setter if there is already one</p>
           <span class="hljs-keyword">this</span>[prop] = oldProp
         }
       })
+      proto._alreadyReflecting = <span class="hljs-literal">true</span>
     }
   }
 }</pre></div>
