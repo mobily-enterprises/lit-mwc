@@ -18,5 +18,7 @@ rm -rf ../docs/*;
         mixins.md\
         mixins/*.js\
         appendices.md\
-        appendices/*.md
+        appendices/*.md\
+        material-theme.md\
+        material-theme/*.js
 cp -r ./images ../docs/
