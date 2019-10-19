@@ -174,7 +174,7 @@ HOW VALIDATION WORKS:
   ☐ `reportValidity()` -- identical to reportValidity (including firing @invalid), with the extra bonus of displaying validity using native agent's UI
   ☐ `setCustomValidity(message)`
     ☐ when message is "" -- sets the element as valid
-    ☐ wen message is not "", it sets the element as invalid. The "invalidity" will stick (see: checkValidity() and reportValidity() will fail) until this method is called again with an empty string.
+    ☐ when message is not "", it sets the element as invalid. The "invalidity" will stick (see: checkValidity() and reportValidity() will fail) until this method is called again with an empty string.
   ☐ `validity` -- a `validityState` object with a bunch of flags. The most important is `valid`. If setCustomValidity() was called with a message, the `customError` flag will always be true.
     ☐ valid
     ☐ customError
