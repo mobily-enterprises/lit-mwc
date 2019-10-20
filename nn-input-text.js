@@ -1,3 +1,24 @@
+
+// This element is a thin wrap to `<input type=text`>.
+//
+// ## Designers
+//
+// This is a simple text input element. Use it instead of `<input type="text">`.
+// Default themes:
+//
+// * [Material](../material-theme/nn-input-text.html)
+//
+//
+// <<[partials/validation.md]
+//
+// ## Developers
+//
+// ### Mixins
+// <<[mixin-descr/NativeReflectorMixin.md]
+// <<[mixin-descr/InputMixin.md]
+// <<[mixin-descr/FormElementMixin.md]
+// <<[mixin-descr/LabelsMixin.md]
+
 import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'
