@@ -93,12 +93,24 @@ In terms of properties and methods, only the ones that are part of the native el
 
 `en-` elements are those elements that are common in UIs but have no HTML native equivalent. Some examples are the [ee-autocomplete](elements/ee-autocomplete.html) decorator, or the [ee-header](elements/ee-header.html), or [ee-tabs](elements/ee-tabs.html).
 
-## Using the input
+## Using an element: `<nn-input-text>`
 
-Pick an element, see how it works, see how to theme it
+`nn-input` is a "nearly native" element; this means that it's a thin wrapper around `<input type="text">`
 
 ### Adding it to your page
+
+To add the element to your page, add this to your page source:
+
+````
+<nn-input-text name="field"></nn-input-text>
+````
+
+The element is documented in the `elements` section of this documentation: [nn-input-text](elements/nn-input-text.html). That's your first stop before using an element.
+
 ### Change some attributes (native ones)
+
+
+
 ### Change some attributes (non-standard ones)
 ### Change some CSS property
 ### Add some custom styling (native:style)
