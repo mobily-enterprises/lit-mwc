@@ -2,10 +2,6 @@ import { html, css } from 'lit-element'
 
 export const FormElementMixin = (base) => {
   return class Base extends base {
-    get reflectProperties () {
-      return super.reflectProperties.filter(attr => attr !== 'form' && attr !== 'checkValidity' && attr !== 'reportValidity' && attr !== 'setCustomValidity')
-    }
-
     static get properties () {
       return {
         nativeErrorMessages: {
@@ -87,9 +83,12 @@ export const FormElementMixin = (base) => {
 
     get skipAttributes () {
       return [
-        ...super.skipAttributes,
-        ...['form']
+        ...super.skipAttributes, 'form'
       ]
+    }
+
+    get skipProperties () {
+      return [...super.skipProperties, 'form', 'checkValidity', 'reportValidity', 'setCustomValidity']
     }
 
     get validationMessageTemplate () {

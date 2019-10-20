@@ -4,6 +4,7 @@ import { InputMixin } from './mixins/InputMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'
 import { LabelsMixin } from './mixins/LabelsMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
+import { selectElement } from './htmlApi.js'
 
 export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
   static get styles () {
@@ -33,11 +34,7 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Label
   }
 
   get reflectProperties () {
-    return [
-      ...super.reflectProperties,
-      // FROM https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement -checkValidity -form
-      ...['autofocus', 'disabled', 'labels', 'length', 'multiple', 'name', 'options', 'required', 'selectedIndex', 'selectedOptions', 'size', 'type', 'validationMessage', 'validity', 'value', 'willValidate', 'add', 'blur', 'focus', 'item', 'namedItem', 'remove', 'reportValidity', 'setCustomValidity']
-    ]
+    return [...super.reflectProperties, ...selectElement]
   }
 
   render () {

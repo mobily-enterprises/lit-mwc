@@ -3,6 +3,7 @@ import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
+import { meterElement } from './htmlApi'
 
 export class NnMeter extends ThemeableMixin('nn-meter')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
@@ -14,10 +15,7 @@ export class NnMeter extends ThemeableMixin('nn-meter')(FormElementMixin(InputMi
   }
 
   get reflectProperties () {
-    return [
-      ...super.reflectProperties,
-      ...['high', 'low', 'max', 'min', 'optimum', 'value', 'labels']
-    ]
+    return [...super.reflectProperties, ...meterElement]
   }
 
   render () {

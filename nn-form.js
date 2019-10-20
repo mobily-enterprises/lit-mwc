@@ -1,16 +1,17 @@
 import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
-import { ThemeableMixin } from './mixins/ThemeableMixin'
+import { ThemeableMixin } from './mixins/ThemeableMixin.js'
+import { formElement } from './htmlApi.js'
 
 /* globals customElements */
 export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeReflectorMixin(LitElement))) {
   get reflectProperties () {
-    return [
-      ...super.reflectProperties,
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement -checkValidity -reportValidity -reset -elements
-      ...['length', 'name', 'method', 'target', 'action', 'encoding', 'enctype', 'acceptCharset', 'autocomplete', 'noValidate', 'requestAutocomplete', 'submit']
-    ]
+    return [...super.reflectProperties, ...formElement]
+  }
+
+  get skipProperties () {
+    return [...super.skipProperties, 'elements', 'checkValidity', 'reportValidity', 'reset']
   }
 
   reportValidity () {

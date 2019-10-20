@@ -5,6 +5,7 @@ import { FormElementMixin } from './mixins/FormElementMixin.js'
 import { LabelsMixin } from './mixins/LabelsMixin.js'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
+import { textAreaElement } from './htmlApi.js'
 
 export class NnTextArea extends ThemeableMixin('nn-textarea')(StyleableMixin(FormElementMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   static get styles () {
@@ -16,11 +17,7 @@ export class NnTextArea extends ThemeableMixin('nn-textarea')(StyleableMixin(For
   }
 
   get reflectProperties () {
-    return [
-      ...super.reflectProperties,
-      // From https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement -checkValidity -form
-      ...['type', 'value', 'textLength', 'defaultValue', 'placeholder', 'rows', 'cols', 'autofocus', 'name', 'disabled', 'labels', 'maxLength', 'accessKey', 'readOnly', 'required', 'tabIndex', 'selectionStart', 'selectionEnd', 'selectionDirection', 'validity', 'willValidate', 'validationMessage', 'autocomplete ', 'autocapitalize ', 'inputMode ', 'wrap', 'blur', 'focus', 'select', 'setRangeText', 'setSelectionRange', 'reportValidity', 'setCustomValidity']
-    ]
+    return [...super.reflectProperties, ...textAreaElement]
   }
 
   render () {

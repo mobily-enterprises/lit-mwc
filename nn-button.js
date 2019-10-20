@@ -3,6 +3,7 @@ import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
+import { buttonElement } from './htmlApi.js'
 
 class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(StyleableMixin(NativeReflectorMixin(LitElement)))) {
   static get styles () {
@@ -20,18 +21,11 @@ class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(StyleableMix
   }
 
   get skipAttributes () {
-    return [
-      ...super.skipAttributes,
-      'form'
-    ]
+    return [...super.skipAttributes, 'form']
   }
 
   get reflectProperties () {
-    return [
-      ...super.reflectProperties,
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement (-form -checkValidity)
-      ...['accessKey', 'autofocus', 'disabled', 'formAction', 'formEnctype', 'formMethod', 'formNoValidate', 'formTarget', 'labels', 'menu ', 'name', 'tabIndex', 'type', 'willValidate', 'validationMessage', 'validity', 'value', 'reportValidity', 'setCustomValidity']
-    ]
+    return [...super.reflectProperties, ...buttonElement]
   }
 
   render () {

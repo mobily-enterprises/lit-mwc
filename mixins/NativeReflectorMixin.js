@@ -41,6 +41,8 @@
 // ## Into the code
 //
 // First of all, NativeRefletorMixin is declared as a mixing in function:
+import { element } from '../htmlApi.js'
+
 export const NativeReflectorMixin = (base) => {
   return class Base extends base { // eslint-disable-line
 
@@ -60,11 +62,12 @@ export const NativeReflectorMixin = (base) => {
       this._reflectAttributesAndProperties()
     }
 
-    // From https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
     get reflectProperties () {
-      return [
-        'accessKey', 'accessKeyLabel', 'contentEditable', 'isContentEditable', 'contextMenu ', 'dataset', 'dir', 'draggable', 'dropzone', 'hidden', 'inert', 'innerText', 'itemScope ', 'itemType', 'itemId ', 'itemRef', 'itemProp', 'itemValue ', 'lang', 'noModule', 'nonce', 'offsetHeight', 'offsetLeft', 'offsetParent', 'offsetTop', 'offsetWidth', 'properties', 'spellcheck', 'style', 'tabIndex', 'title', 'translate', 'attachInternals', 'blur', 'click', 'focus', 'forceSpellCheck'
-      ]
+      return element
+    }
+
+    get skipProperties () {
+      return ['style']
     }
 
     get skipAttributes () {
@@ -187,6 +190,8 @@ export const NativeReflectorMixin = (base) => {
 
       const uniqProps = [...new Set(this.reflectProperties)]
       uniqProps.forEach(prop => {
+        if (this.skipProperties.indexOf(prop) !== -1) return
+
         let oldProp
         if (Object.prototype.hasOwnProperty.call(this, prop)) oldProp = this[prop]
         Object.defineProperty(Object.getPrototypeOf(this), prop, {
