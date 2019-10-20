@@ -427,7 +427,7 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> FormElementMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{
     <span class="hljs-keyword">get</span> reflectProperties () {
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.reflectProperties.filter(<span class="hljs-function"><span class="hljs-params">attr</span> =&gt;</span> attr !== <span class="hljs-string">'checkValidity'</span> &amp;&amp; attr !== <span class="hljs-string">'reportValidity'</span> &amp;&amp; attr !== <span class="hljs-string">'setCustomValidity'</span>)
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.reflectProperties.filter(<span class="hljs-function"><span class="hljs-params">attr</span> =&gt;</span> attr !== <span class="hljs-string">'form'</span> &amp;&amp; attr !== <span class="hljs-string">'checkValidity'</span> &amp;&amp; attr !== <span class="hljs-string">'reportValidity'</span> &amp;&amp; attr !== <span class="hljs-string">'setCustomValidity'</span>)
     }
 
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
@@ -476,7 +476,7 @@
             
               <div class='highlight'><pre>    _eventListener (e) {
       <span class="hljs-keyword">if</span> (e.keyCode === <span class="hljs-number">13</span> &amp;&amp; [...this.form.elements].length === <span class="hljs-number">1</span>) {
-        <span class="hljs-keyword">this</span>.form.submit()
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.form) <span class="hljs-keyword">this</span>.form.submit()
       }
     }
 

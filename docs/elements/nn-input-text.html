@@ -285,8 +285,8 @@
                 
                 
                   <li>
-                      <a class="source  indented " href="nn-input-date.html">
-                          nn-input-date.js
+                      <a class="source  indented " href="nn-input-date-time-local.html">
+                          nn-input-date-time-local.js
                       </a>
                   </li>
                 
@@ -294,8 +294,8 @@
                 
                 
                   <li>
-                      <a class="source  indented " href="nn-input-date-time-local.html">
-                          nn-input-date-time-local.js
+                      <a class="source  indented " href="nn-input-date.html">
+                          nn-input-date.js
                       </a>
                   </li>
                 
@@ -624,7 +624,42 @@
         <div class="contentPage">
           
             
+            <p>This element is a thin wrap to <code>&lt;input type=text</code>&gt;.</p>
+<h2 id="designers">Designers</h2>
+
             
+          
+            
+            <p>This is a simple text input element. Use it instead of <code>&lt;input type=&quot;text&quot;&gt;</code>.
+Default themes:</p>
+<ul>
+<li><a href="../material-theme/nn-input-text.html">Material</a></li>
+</ul>
+<p> This element implements the validation API, extending it. It allows you to
+ set custom validators, as well as custom error messages for native regexp-based
+ validation. See <a href="../mixins/FormElementMixin.html">FormElementMixin</a> to see how
+ to use the custom validation abilities of this element.</p>
+<h2 id="developers">Developers</h2>
+
+            
+          
+            
+            <h3 id="mixins">Mixins</h3>
+
+            
+          
+            
+            <ul>
+<li><p><a href="../mixins/NativeReflectorMixin.html">NativeReflectorMixin</a> - It reflects every attribute and every API property/method from the native element to the outer element.</p>
+</li>
+<li><p><a href="../mixins/InputMixin.html">InputMixin</a> - Will skip reflection for the <code>type</code> attribute (since <code>type</code> is <em>always</em> <code>text</code>), and will reflect all of the properties and methods of <code>&lt;input&gt;</code> elements according to the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement API</a></p>
+</li>
+<li><p><a href="../mixins/FormElementMixin.html">FormElementMixin</a> - Implements the full <a href="https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation">Contraint Validation API</a>.</p>
+</li>
+<li><p><a href="../mixins/LabelsMixin.html">LabelsMixin</a> - Implements labels for form elements.</p>
+</li>
+</ul>
+
             
               <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
