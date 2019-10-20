@@ -1,6 +1,7 @@
 rm -rf ../docs/*;
 #node --inspect-brk\
   ../../docco/bin/docco\
+  -p ./plugin.js\
 	-c tpe.css\
        	-t tpe.ejs\
        	-o ../docs\
