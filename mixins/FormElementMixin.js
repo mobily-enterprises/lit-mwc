@@ -3,7 +3,7 @@ import { html, css } from 'lit-element'
 export const FormElementMixin = (base) => {
   return class Base extends base {
     get reflectProperties () {
-      return super.reflectProperties.filter(attr => attr !== 'checkValidity' && attr !== 'reportValidity' && attr !== 'setCustomValidity')
+      return super.reflectProperties.filter(attr => attr !== 'form' && attr !== 'checkValidity' && attr !== 'reportValidity' && attr !== 'setCustomValidity')
     }
 
     static get properties () {
@@ -48,7 +48,7 @@ export const FormElementMixin = (base) => {
     // Submit on enter with forms with only one element
     _eventListener (e) {
       if (e.keyCode === 13 && [...this.form.elements].length === 1) {
-        this.form.submit()
+        if (this.form) this.form.submit()
       }
     }
 
