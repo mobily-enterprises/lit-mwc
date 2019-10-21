@@ -19,6 +19,22 @@ export const NnInputText = (base) => {
       this.validationMessagePosition = 'after'
     }
 
+    firstUpdated () {
+      super.firstUpdated()
+      const slot = document.createElement('slot')
+      slot.addEventListener('slotchange', this._observeSlot.bind(this))
+      this.shadowRoot.appendChild(slot)
+    }
+
+    _observeSlot (e) {
+      const slot = e.target
+      const slotted = slot.assignedElements()
+      if (slot.assignedElements().length) {
+        this.toggleAttribute('has-leading', slotted.filter(i => i.hasAttribute('leading')).length)
+        this.toggleAttribute('has-trailing', slotted.filter(i => i.hasAttribute('trailing')).length)
+      }
+    }
+
     static get styles () {
       return [
         super.styles || [],
@@ -27,6 +43,28 @@ export const NnInputText = (base) => {
         floatingLabel,
         errorMessage,
         css`
+          :host([has-leading]) #native {
+            padding-left: 36px;
+          }
+
+          :host([has-trailing]) #native {
+            padding-right: 36px;
+          }
+
+          ::slotted([leading]),
+          ::slotted([trailing]) {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            height: 24px;
+            width: 24px;
+          }
+
+          ::slotted([trailing]) {
+            left: unset;
+            right: 16px;
+          }
+
         `
       ]
     }
