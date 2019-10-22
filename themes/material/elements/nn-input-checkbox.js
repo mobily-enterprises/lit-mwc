@@ -1,4 +1,4 @@
-import { css } from 'lit-element'
+import { css, html } from 'lit-element'
 import { errorMessage, hideNativeWidget, requiredLabelAsterisk } from '../style-patterns.js'
 
 export const NnInputCheckBox = (base) => {
@@ -140,9 +140,14 @@ export const NnInputCheckBox = (base) => {
     }
 
     // @tony
-    render () {
-      console.log('testing')
-      debugger
+    themeRender () {
+      return html`
+        FROM THEME
+        ${this.customStyle}
+        ${this.ifLabelBefore}
+        <input type="checkbox" as-checkbox value-source="checked" id="native"  real-time-event="checked">
+        ${this.ifLabelAfter}
+      `
     }
   }
 }
