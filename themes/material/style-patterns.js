@@ -40,7 +40,6 @@ export const inputField = css`
     margin: 10px;
     min-width: var(--nn-form-element-min-width, fit-content);
     font-family: var(--font-family);
-    transition: all 0.3s ease-in-out; /* @raphael: THIS IS THE LINE */
   }
 
   #native {
@@ -61,7 +60,9 @@ export const inputField = css`
     padding: 20px 16px 6px;
     height: var(--nn-form-element-height);
     box-shadow: var(--nn-theme-box-shadow);
-    transition: all 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out,
+      color 0.3s ease-in-out, 
+      box-shadow 0.3s ease-in-out;
   }
 
   #native:focus,
