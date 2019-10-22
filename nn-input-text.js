@@ -43,12 +43,13 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
   firstUpdated () {
     super.firstUpdated()
 
-    debugger
-    const datalistOptions = this.shadowRoot.querySelector('#datalist-slot').assignedElements()[0].children
-    if (datalistOptions.length) {
+    const slot = this.shadowRoot.querySelector('#datalist-slot')
+    const slotFirstAssignedElement = slot && slot.assignedElements()[0]
+    const datalistOptions = slotFirstAssignedElement && slotFirstAssignedElement.children
+    if (datalistOptions && datalistOptions.length) {
       const datalistElement = document.createElement('datalist')
       datalistElement.setAttribute('id', '_datalist')
-      this.setAttribute('datalist', '_datalist')
+      this.setAttribute('list', '_datalist')
       for (const el of datalistOptions) {
         const optionElement = document.createElement('option')
         optionElement.setAttribute('value', el.getAttribute('value'))
@@ -57,6 +58,5 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
       this.shadowRoot.appendChild(datalistElement)
     }
   }
-
 }
 customElements.define('nn-input-text', NnInputText)
