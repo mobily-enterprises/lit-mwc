@@ -31,12 +31,32 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
   render () {
     return html`
       ${this.customStyle}
-      ${this.ifValidationMessageBefore}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <input type="text" id="native" real-time-event="input">
-      ${this.ifLabelAfter}
       ${this.ifValidationMessageAfter}
+      ${this.ifLabelAfter}
+      <slot id="datalist-slot" name="datalist"></slot>
     `
   }
+
+  firstUpdated () {
+    super.firstUpdated()
+
+    debugger
+    const datalistOptions = this.shadowRoot.querySelector('#datalist-slot').assignedElements()[0].children
+    if (datalistOptions.length) {
+      const datalistElement = document.createElement('datalist')
+      datalistElement.setAttribute('id', '_datalist')
+      this.setAttribute('datalist', '_datalist')
+      for (const el of datalistOptions) {
+        const optionElement = document.createElement('option')
+        optionElement.setAttribute('value', el.getAttribute('value'))
+        datalistElement.appendChild(optionElement)
+      }
+      this.shadowRoot.appendChild(datalistElement)
+    }
+  }
+
 }
 customElements.define('nn-input-text', NnInputText)
