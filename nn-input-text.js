@@ -31,11 +31,11 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
   render () {
     return html`
       ${this.customStyle}
-      ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
+      ${this.ifLabelBefore}
       <input type="text" id="native" real-time-event="input">
-      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
+      ${this.ifValidationMessageAfter}
     `
   }
 }

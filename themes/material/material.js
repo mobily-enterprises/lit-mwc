@@ -4,6 +4,7 @@ import { EeDrawer } from './elements/ee-drawer.js'
 import { EeNetwork } from './elements/ee-network.js'
 import { EeSnackBar } from './elements/ee-snack-bar.js'
 import { EeTabs } from './elements/ee-tabs.js'
+import { EeFab } from './elements/ee-fab.js'
 
 import { EnForm } from './elements/en-form.js'
 import { EnInputRange } from './elements/en-input-range.js'
@@ -44,6 +45,7 @@ window.TP_THEME = {
   'ee-network': EeNetwork,
   'ee-snack-bar': EeSnackBar,
   'ee-tabs': EeTabs,
+  'ee-fab': EeFab,
   'ee-autocomplete': EeAutocomplete,
   'ee-autocomplete-input-spans': EeAutocompleteInputSpans,
 

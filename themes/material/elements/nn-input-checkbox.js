@@ -138,5 +138,11 @@ export const NnInputCheckBox = (base) => {
         `
       ]
     }
+
+    // @tony
+    render () {
+      console.log('testing')
+      debugger
+    }
   }
 }

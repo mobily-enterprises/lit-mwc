@@ -1,4 +1,4 @@
-import { css } from 'lit-element'
+import { html, css } from 'lit-element'
 
 export const EeAutocomplete = (base) => {
   return class Base extends base {
@@ -8,6 +8,13 @@ export const EeAutocomplete = (base) => {
         css`
         `
       ]
+    }
+
+    // @tony
+    render () {
+      console.log('No template')
+      return html`
+      `
     }
   }
 }

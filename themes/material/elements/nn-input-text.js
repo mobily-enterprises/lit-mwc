@@ -1,4 +1,4 @@
-import { html, css } from 'lit-element'
+import { css } from 'lit-element'
 import { AddHasValueAttributeMixin } from '../../../mixins/AddHasValueAttributeMixin'
 import { inputLabel, inputField, floatingLabel, errorMessage } from '../style-patterns.js'
 
@@ -21,7 +21,7 @@ export const NnInputText = (base) => {
 
     firstUpdated () {
       super.firstUpdated()
-      for (const k of ['leading', 'trailing']) { 
+      for (const k of ['leading', 'trailing']) {
         const el = document.createElement('slot')
         el.setAttribute('name', k)
         this.shadowRoot.appendChild(el)
