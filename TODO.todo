@@ -127,7 +127,7 @@ nn-form:
     ✔ BUG: EMAIL List submitting EMAILS, type "ton", wait for suggestions, and press "enter": the focus doesn't go to input box @done (10/2/2019, 6:37:30 PM)
     ✔ BUG: When using TAB to cycle though page elements, ee-autocomplete-input-spans captures focus, but it should retarget #ta input @done(2019-10-03 10:17) @project(Raphael)
     ☐ Make sure element is FULLY aria compatible and usable (https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html)
-    ☐ Style "picked" attribute (NOTE: will ONLY work on "Country Name (sent as ID)" BY DESIGN)
+    ✔ Style "picked" attribute (NOTE: will ONLY work on "Country Name (sent as ID)" BY DESIGN) @done (10/22/2019, 10:17:12 AM)
     ✔ BUG: "picked" attr is not set if value comes initially from the server @done(2019-10-19 07:27) @project(Raphael)
   ☐ Material
     ☐ implement it for all nn elements (STATUS: somee ee elements and less used nn still missing theme)

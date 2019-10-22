@@ -1,4 +1,4 @@
-import { css } from 'lit-element'
+import { html, css } from 'lit-element'
 import { AddHasValueAttributeMixin } from '../../../mixins/AddHasValueAttributeMixin'
 import { inputLabel, inputField, floatingLabel, errorMessage } from '../style-patterns.js'
 
@@ -21,17 +21,10 @@ export const NnInputText = (base) => {
 
     firstUpdated () {
       super.firstUpdated()
-      const slot = document.createElement('slot')
-      slot.addEventListener('slotchange', this._observeSlot.bind(this))
-      this.shadowRoot.appendChild(slot)
-    }
-
-    _observeSlot (e) {
-      const slot = e.target
-      const slotted = slot.assignedElements()
-      if (slot.assignedElements().length) {
-        this.toggleAttribute('has-leading', slotted.filter(i => i.hasAttribute('leading')).length)
-        this.toggleAttribute('has-trailing', slotted.filter(i => i.hasAttribute('trailing')).length)
+      for (const k of ['leading', 'trailing']) { 
+        const el = document.createElement('slot')
+        el.setAttribute('name', k)
+        this.shadowRoot.appendChild(el)
       }
     }
 
@@ -51,8 +44,8 @@ export const NnInputText = (base) => {
             padding-right: 36px;
           }
 
-          ::slotted([leading]),
-          ::slotted([trailing]) {
+          ::slotted([slot=leading]),
+          ::slotted([slot=trailing]) {
             position: absolute;
             top: 16px;
             left: 16px;
@@ -60,7 +53,7 @@ export const NnInputText = (base) => {
             width: 24px;
           }
 
-          ::slotted([trailing]) {
+          ::slotted([slot=trailing]) {
             left: unset;
             right: 16px;
           }
