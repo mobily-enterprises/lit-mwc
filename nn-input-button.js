@@ -10,6 +10,7 @@ class NnInputButton extends ThemeableMixin('nn-input-button')(FormElementMixin(I
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       <input type="button" id="native">
         <slot></slot>

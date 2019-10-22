@@ -129,6 +129,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       <div class="container">
         ${this.closeButton ? html`<button id="close" @click="${this.close}">${close}</button>` : ''}

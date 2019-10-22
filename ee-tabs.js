@@ -100,6 +100,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
    * Tab elements must have an id. Index support will be added soon
    */
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
     <nav>
       <slot @slotchange="${this._manageSlotted}"></slot>

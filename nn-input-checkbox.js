@@ -16,6 +16,7 @@ class NnInputCheckbox extends ThemeableMixin('nn-input-checkbox')(FormElementMix
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}

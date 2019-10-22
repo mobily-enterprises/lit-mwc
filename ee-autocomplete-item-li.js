@@ -51,6 +51,7 @@ export class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-l
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
     <li>${this.data[this.config.path]}</li>
     `
@@ -112,6 +113,7 @@ class EeAutocompleteItemLiView extends LitElement {
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       -${this.data[this.config.path]}-
     `

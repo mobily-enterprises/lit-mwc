@@ -75,6 +75,7 @@ export class EeNavBar extends ThemeableMixin('ee-nav-bar')(StyleableMixin(LitEle
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       <nav>
         <slot @slotchange="${this._manageSlotted}"></slot>

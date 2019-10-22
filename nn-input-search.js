@@ -3,6 +3,7 @@ import { NnInputText } from './nn-input-text'
 
 class NnInputSearch extends NnInputText {
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}

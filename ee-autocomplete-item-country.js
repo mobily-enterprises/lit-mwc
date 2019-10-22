@@ -52,6 +52,7 @@ export class EeAutocompleteItemCountry extends ThemeableMixin('ee-autocomplete-i
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
     <li>${this.data[this.config.countryName]} (Capital: ${this.data[this.config.countryCapital]})</li>
     `
@@ -94,6 +95,7 @@ class EeAutocompleteItemCountryView extends ThemeableMixin('ee-autocomplete-item
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.data[this.config.countryName]}
       <slot></slot>

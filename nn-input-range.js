@@ -20,6 +20,7 @@ class NnInputRange extends ThemeableMixin('nn-input-range')(FormElementMixin(Sty
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}

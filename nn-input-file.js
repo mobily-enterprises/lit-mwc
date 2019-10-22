@@ -48,6 +48,7 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     // From https://stackoverflow.com/a/25825731/829771
     return html`
       ${this.customStyle}

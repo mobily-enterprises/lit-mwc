@@ -3,6 +3,7 @@ import { NnInputText } from './nn-input-text'
 
 class NnInputWeek extends NnInputText {
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}

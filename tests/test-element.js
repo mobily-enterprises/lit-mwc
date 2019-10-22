@@ -23,6 +23,7 @@ class TestElement extends LitElement {
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       <nn-input-text elementStyle.="${this.myStyle}" label2="Eheh" .value="${'THIS NEEDS TO SHOW'}" stylesheet="${this.path}">
         <span slot="label">Label text in span</span>

@@ -54,6 +54,7 @@ export class EeToolbar extends ThemeableMixin('ee-toolbar')(StyleableMixin(LitEl
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       <slot></slot>
     `

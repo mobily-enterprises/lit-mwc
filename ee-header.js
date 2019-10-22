@@ -113,6 +113,7 @@ export class EeHeader extends LitElement {
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       <div id="header">
         <ee-toolbar class="toolbar">

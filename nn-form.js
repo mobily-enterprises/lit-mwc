@@ -99,6 +99,7 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       <form id="native">

@@ -16,6 +16,7 @@ class NnInputRadio extends ThemeableMixin('nn-input-radio')(FormElementMixin(Lab
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}

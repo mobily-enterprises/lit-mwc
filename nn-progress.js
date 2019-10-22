@@ -24,6 +24,7 @@ export class NnProgress extends ThemeableMixin('nn-progress')(FormElementMixin(I
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       <progress id="native" real-time-event="input"></progress>

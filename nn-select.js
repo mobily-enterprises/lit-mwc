@@ -38,6 +38,7 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Label
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}

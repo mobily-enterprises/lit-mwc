@@ -52,6 +52,7 @@ export class EeAutocompleteItemEmail extends ThemeableMixin('ee-autocomplete-ite
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
     <li>${this.textValue}</li>
     `
@@ -129,6 +130,7 @@ class EeAutocompleteItemEmailView extends ThemeableMixin('ee-autocomplete-item-e
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this._textValueGetter(true)}
       <slot></slot>

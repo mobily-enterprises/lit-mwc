@@ -29,6 +29,7 @@ class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(StyleableMix
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       <button @click="${this._clicked}" id="native">

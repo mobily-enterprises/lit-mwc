@@ -29,6 +29,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
 export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}

@@ -6,6 +6,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
 class NnInputSubmit extends ThemeableMixin('nn-input-submit')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       <input @click="${this._formSubmit}" type="submit" id="native">

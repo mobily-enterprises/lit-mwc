@@ -102,6 +102,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       <div id="overlay" class="${this.overlayClass}" @click="${this._overlayClicked}">
         ${this.statusMessages[this.status]}

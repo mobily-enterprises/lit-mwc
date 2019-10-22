@@ -54,6 +54,7 @@ class EeSnackBar extends ThemeableMixin('ee-snack-bar')(StyleableMixin(LitElemen
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.message}
     `

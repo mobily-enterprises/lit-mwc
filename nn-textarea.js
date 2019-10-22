@@ -21,6 +21,7 @@ export class NnTextArea extends ThemeableMixin('nn-textarea')(StyleableMixin(For
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}

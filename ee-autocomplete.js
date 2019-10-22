@@ -177,6 +177,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   }
 
   render () {
+    if (this.themeRender) return this.themeRender()
     return html`
       <slot></slot>
       <div @click="${this._picked}" id="suggestions" role="listbox" @keydown=${this._handleKeyEvents}></div>
