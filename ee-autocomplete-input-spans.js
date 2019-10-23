@@ -29,6 +29,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this.itemElement = ''
     this.itemElementConfig = {}
     this.itemElementAttributes = {}
+    this.valueSeparator = ','
   }
 
   static get styles () {
