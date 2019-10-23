@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element'
+import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'
@@ -8,20 +8,14 @@ import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
 class NnInputRadio extends ThemeableMixin('nn-input-radio')(FormElementMixin(NativeValidatorMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
-  static get styles () {
-    return [
-      super.styles || [],
-      css`
-      `
-    ]
-  }
-
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <input as-radio value-source="checked" @change="${this._excludeOthers}" type="radio" id="native"  real-time-event="input">
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }

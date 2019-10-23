@@ -12,11 +12,6 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
     return [
       super.styles || [],
       css`
-        /* :host {
-          display: flex;
-          height: 30px;
-        } */
-
         /* From https://zellwk.com/blog/hide-content-accessibly/ */
         [hidden] {
           border: 0;

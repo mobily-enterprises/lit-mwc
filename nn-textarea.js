@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element'
+import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'
@@ -9,14 +9,6 @@ import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 import { textAreaElement } from './htmlApi.js'
 
 export class NnTextArea extends ThemeableMixin('nn-textarea')(StyleableMixin(FormElementMixin(NativeValidatorMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
-  static get styles () {
-    return [
-      super.styles || [],
-      css`
-      `
-    ]
-  }
-
   get reflectProperties () {
     return [...super.reflectProperties, ...textAreaElement]
   }
@@ -26,7 +18,9 @@ export class NnTextArea extends ThemeableMixin('nn-textarea')(StyleableMixin(For
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <textarea name="" id="native" real-time-event="input"></textarea>
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }

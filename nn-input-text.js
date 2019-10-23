@@ -19,7 +19,7 @@
 // <<[mixin-descr/FormElementMixin.md]
 // <<[mixin-descr/LabelsMixin.md]
 
-import { LitElement, html } from 'lit-element'
+import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'

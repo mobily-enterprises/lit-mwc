@@ -34,7 +34,7 @@ export class EeFab extends ThemeableMixin('ee-fab')(StyleableMixin(NativeReflect
     return html`
       ${this.customStyle}
       <button data-descr=${ifDefined(this.label)} id="native">
-        ${this.icon ? html`<slot name="icon"></slot>` : plusIcon}
+        ${this.icon ? this.icon : plusIcon}
       </button>
     `
   }

@@ -6,10 +6,6 @@ import { InputMixin } from './mixins/InputMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
 class NnInputButton extends ThemeableMixin('nn-input-button')(FormElementMixin(NativeValidatorMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
-  static get properties () {
-    return {}
-  }
-
   render () {
     if (this.themeRender) return this.themeRender()
     return html`

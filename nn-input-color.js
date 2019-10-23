@@ -7,7 +7,9 @@ class NnInputColor extends NnInputText {
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <input type="color" id="native">
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }

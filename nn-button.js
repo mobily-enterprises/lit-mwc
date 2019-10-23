@@ -7,20 +7,6 @@ import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 import { buttonElement } from './htmlApi.js'
 
 class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(NativeValidatorMixin(StyleableMixin(NativeReflectorMixin(LitElement))))) {
-  static get styles () {
-    return [
-      super.styles || []
-    ]
-  }
-
-  static get properties () {
-    return {
-      stylesheet: { type: String },
-      customCSS: { type: Object },
-      raised: { type: Boolean, reflect: true }
-    }
-  }
-
   get skipAttributes () {
     return [...super.skipAttributes, 'form']
   }

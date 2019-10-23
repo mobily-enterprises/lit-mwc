@@ -8,14 +8,6 @@ import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
 export class NnInputDatalist extends ThemeableMixin('nn-input-datalist')(FormElementMixin(NativeValidatorMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
-  static get styles () {
-    return [
-      super.styles || [],
-      css`
-      `
-    ]
-  }
-
   get skipAttributes () {
     return [
       ...super.skipAttributes,
@@ -29,7 +21,9 @@ export class NnInputDatalist extends ThemeableMixin('nn-input-datalist')(FormEle
       ${this.customStyle}
       ${this.ifLabelBefore}
       <slot @slotchange="${this.addSlotToSelect}"></slot>
+      ${this.ifValidationMessageBefore}
       <input type="text" id="native" list="_datalist" real-time-event="input">
+      ${this.ifValidationMessageAfter}
       <datalist id="_datalist">
       </datalist>
       ${this.ifLabelAfter}

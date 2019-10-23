@@ -7,7 +7,9 @@ class NnInputPassword extends NnInputText {
     return html`
       ${this.customStyle}
       ${this.ifLabelBefore}
+      ${this.ifValidationMessageBefore}
       <input type="password" id="native">
+      ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }
