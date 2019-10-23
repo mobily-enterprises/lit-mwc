@@ -2,11 +2,12 @@ import { html, css, LitElement } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'
+import { NativeValidatorMixin } from './mixins/NativeValidatorMixin.js'
 import { LabelsMixin } from './mixins/LabelsMixin.js'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
-class EnInputRange extends ThemeableMixin('en-input-range')(FormElementMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+class EnInputRange extends ThemeableMixin('en-input-range')(FormElementMixin(NativeValidatorMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
   static get styles () {
     return [
       super.styles || [],

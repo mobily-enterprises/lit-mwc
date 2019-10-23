@@ -1,10 +1,11 @@
 import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'
+import { NativeValidatorMixin } from './mixins/NativeValidatorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
-class NnInputButton extends ThemeableMixin('nn-input-button')(FormElementMixin(InputMixin(NativeReflectorMixin(LitElement)))) {
+class NnInputButton extends ThemeableMixin('nn-input-button')(FormElementMixin(NativeValidatorMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
   static get properties () {
     return {}
   }

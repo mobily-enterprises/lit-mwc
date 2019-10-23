@@ -112,6 +112,14 @@ The element is documented in the `elements` section of this documentation: [nn-i
 
 
 ### Change some attributes (non-standard ones)
+
+Each input element has a label  
+
+````
+<nn-input-text name="field"></nn-input-text>
+````
+
+
 ### Change some CSS property
 ### Add some custom styling (native:style)
 ### Add some custom styling/2 (stylesheet=)
