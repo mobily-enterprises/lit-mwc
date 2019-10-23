@@ -497,23 +497,31 @@ window.document.querySelector('#inp').value = "Tony Mobily"
 <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"The label"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Alternatively, for labels containing more than text, add a span:</p>
 <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span>&gt;</span></span>
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"label"</span>&gt;</span></span>This is a <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span></span>very<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span></span> complex label<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
-<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Please note that labels and error messages are the extent to which TPE goes in terms of non-native behaviour on native elements.</p>
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Please note that labels, error messages and handling of <code>datalist</code> tags are the extent to which TPE goes in terms of non-native behaviour on native elements.</p>
 <h3 id="change-some-css-property">Change some CSS property</h3>
 
             
           
             
-            <h3 id="add-some-custom-styling-nativestyle">Add some custom styling (native:style)</h3>
+            <p>As a designer, you can expect TPE elements to behave like any other HTML element, and apply CSS to them as you normally would.
+There are two main ways to change the look of elements when the CSS inside the elements themselves needs to be changed.</p>
+<h3 id="add-some-custom-styling-nativestyle">Add some custom styling (native:style)</h3>
 
             
           
             
-            <h3 id="add-some-custom-styling2-stylesheet">Add some custom styling/2 (stylesheet=)</h3>
+            <p>Each element has a template which contains sub-elements. For example an <code>nn-input-text</code> declared as such:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"The label"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Will contain this in its shadow DOM:</p>
+<p>&lt;&lt;IMAGE[./images/shadowDomText.jpg]</p>
+<p>The shadow DOM contains a label, with ID <code>label</code>. This is the critical piece of information you need to then write:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span> <span class="hljs-attr">label::style</span>=<span class="hljs-string">"color: blue"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"The label"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Basically, <code>some_id::something</code> will set the attribute <code>something</code> of the element with ID <code>some_id</code> in <code>nn-input-text</code>‘s shadow DOM. This effectively allows you to set <em>any</em> attribute of any meaningful element in the shadow DOM (assuming that the template was well written, and anything important does have an ID)</p>
+<h3 id="add-some-custom-styling2-stylesheet">Add some custom styling/2 (stylesheet=)</h3>
 
             
           
             
-            <h2 id="read-on">Read on</h2>
+            <p>A possibly neater way to style elements is by assigning a <code>stylesheet</code> attribute to them.</p>
+<h2 id="read-on">Read on</h2>
 
             
           

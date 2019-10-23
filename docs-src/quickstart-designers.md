@@ -133,15 +133,37 @@ Alternatively, for labels containing more than text, add a span:
 </nn-input-text>
 ````
 
-Please note that labels and error messages are the extent to which TPE goes in terms of non-native behaviour on native elements.
+Please note that labels, error messages and handling of `datalist` tags are the extent to which TPE goes in terms of non-native behaviour on native elements.
 
 ### Change some CSS property
 
-
+As a designer, you can expect TPE elements to behave like any other HTML element, and apply CSS to them as you normally would.
+There are two main ways to change the look of elements when the CSS inside the elements themselves needs to be changed.
 
 ### Add some custom styling (native:style)
 
+Each element has a template which contains sub-elements. For example an `nn-input-text` declared as such:
+
+````
+<nn-input-text name="field" label="The label"></nn-input-text>
+````
+
+Will contain this in its shadow DOM:
+
+<<IMAGE[./images/shadowDomText.jpg]
+
+The shadow DOM contains a label, with ID `label`. This is the critical piece of information you need to then write:
+
+````
+<nn-input-text name="field" label::style="color: blue" label="The label"></nn-input-text>
+````
+
+Basically, `some_id::something` will set the attribute `something` of the element with ID `some_id` in `nn-input-text`'s shadow DOM. This effectively allows you to set _any_ attribute of any meaningful element in the shadow DOM (assuming that the template was well written, and anything important does have an ID)
+
 ### Add some custom styling/2 (stylesheet=)
+
+A possibly neater way to style elements is by assigning a `stylesheet` attribute to them.
+
 
 ## Read on
 Tutorials
