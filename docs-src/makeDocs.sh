@@ -1,4 +1,5 @@
 rm -rf ../docs/*;
+echo "tpelements.com" > ../docs/CNAME
 #node --inspect-brk\
   ../../docco/bin/docco\
   -p ./plugin.js\
