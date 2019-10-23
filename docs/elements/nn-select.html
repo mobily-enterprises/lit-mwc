@@ -635,7 +635,7 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
 <span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/InputMixin.js'</span>
 <span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/FormElementMixin.js'</span>
@@ -645,32 +645,6 @@
 <span class="hljs-keyword">import</span> { selectElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./htmlApi.js'</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnSelect</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">select</span>')(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>)))))) </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
-    <span class="hljs-keyword">return</span> [
-      <span class="hljs-keyword">super</span>.styles || [],
-      css`<span class="css">
-        <span class="hljs-comment">/* :host {
-          display: flex;
-          height: 30px;
-        } */</span>
-
-        <span class="hljs-comment">/* select {
-          display: inline-flex;
-          border-radius: var(--nn-select-border-radius, 0 4px 4px 0);
-          border: var(--nn-select-border, 1px solid #dddddd);
-          color: var(--nn-select-color, inherit);
-          background-color: var(--nn-select-background, initial);
-          -webkit-appearance: select;
-          width: 100%;
-          float: right;
-          font-size: 1em;
-          padding-left: 10px;
-          margin-left: 4px;
-        } */</span>
-      `</span>
-    ]
-  }
-
   <span class="hljs-keyword">get</span> reflectProperties () {
     <span class="hljs-keyword">return</span> [...super.reflectProperties, ...selectElement]
   }

@@ -606,13 +606,41 @@
             
             
               <div class='highlight'><pre><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
+<span class="hljs-keyword">import</span> { hoverStyle, focusStyle } <span class="hljs-keyword">from</span> <span class="hljs-string">'../style-patterns'</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> NnInputColor = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
       <span class="hljs-keyword">return</span> [
         ...super.styles || [],
+        hoverStyle,
+        focusStyle,
         css`<span class="css">
+         <span class="hljs-selector-pseudo">:host</span> {
+            <span class="hljs-attribute">position</span>: relative;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">12px</span>;
+            <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">16px</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">10px</span>;
+          }
+
+          <span class="hljs-selector-id">#native</span> {
+            <span class="hljs-attribute">appearance</span>: none;
+            <span class="hljs-attribute">-moz-appearance</span>: none;
+            <span class="hljs-attribute">-webkit-appearance</span>: none;
+            <span class="hljs-attribute">box-sizing</span>: border-box;
+            <span class="hljs-attribute">display</span>: block;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-built_in">var</span>(--nn-input-border-radius, 4px 4px 0 0);
+            <span class="hljs-attribute">border-width</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">border-style</span>: none;
+            <span class="hljs-attribute">border-color</span>: transparent;
+            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--nn-background, #eee);
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">6px</span>;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--nn-theme-box-shadow);
+            <span class="hljs-attribute">transition</span>: background-color <span class="hljs-number">0.3s</span> ease-in-out,
+                        color <span class="hljs-number">0.3s</span> ease-in-out, 
+                        box-shadow <span class="hljs-number">0.3s</span> ease-in-out;
+          }
         `</span>
       ]
     }
