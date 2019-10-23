@@ -138,16 +138,5 @@ export const NnInputCheckBox = (base) => {
         `
       ]
     }
-
-    // @tony
-    themeRender () {
-      return html`
-        FROM THEME
-        ${this.customStyle}
-        ${this.ifLabelBefore}
-        <input type="checkbox" as-checkbox value-source="checked" id="native"  real-time-event="checked">
-        ${this.ifLabelAfter}
-      `
-    }
   }
 }

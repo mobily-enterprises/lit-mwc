@@ -20,7 +20,7 @@ export class EeNavBar extends ThemeableMixin('ee-nav-bar')(StyleableMixin(LitEle
         :host nav {
           display: flex;
           width: 100%;
-          height: 64px;
+          height: 56px;
           background: var(--ee-nav-bar-background, var(--app-primary-color));
           color: var(--ee-nav-bar-color, var(--app-light-text-color));
           fill: var(--ee-nav-bar-color, var(--app-light-text-color));

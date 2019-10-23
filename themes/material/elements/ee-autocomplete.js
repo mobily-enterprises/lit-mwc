@@ -9,12 +9,5 @@ export const EeAutocomplete = (base) => {
         `
       ]
     }
-
-    // @tony
-    render () {
-      console.log('No template')
-      return html`
-      `
-    }
   }
 }

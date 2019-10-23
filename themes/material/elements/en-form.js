@@ -10,6 +10,17 @@ export const EnForm = (base) => {
             border: unset;
             border-bottom: var(--nn-input-border, var(--nn-theme-border));
           }
+
+          ::slotted(*) fieldset {
+            border-radius: 5px;
+            border-style: solid;
+            padding: 16px;
+          }
+
+          ::slotted(*) legend {
+            padding-inline-start: 10px;
+            padding-inline-end: 10px;
+          }
         `
       ]
     }

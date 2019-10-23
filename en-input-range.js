@@ -12,10 +12,10 @@ class EnInputRange extends ThemeableMixin('en-input-range')(FormElementMixin(Nat
     return [
       super.styles || [],
       css`
-        /* :host {
+        :host {
           display: flex;
           height: 30px;
-        } */
+        }
       `
     ]
   }
