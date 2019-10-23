@@ -494,6 +494,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -511,6 +517,9 @@
                           material theme
                       </a>
                   </li>
+                
+              
+                
                 
               
                 
@@ -757,6 +766,7 @@
   }
 
   render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span>&gt;</span>
         </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.closeButton ? html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"close"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.close}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span></span><span class="hljs-subst">${close}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>`</span> : <span class="hljs-string">''</span>}</span><span class="xml">

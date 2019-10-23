@@ -494,6 +494,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -618,6 +624,9 @@
                 
                 
               
+                
+                
+              
             </ul>
           </div>
         
@@ -629,21 +638,17 @@
               <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
 <span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin'</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
+<span class="hljs-keyword">import</span> { formElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./htmlApi.js'</span>
 
 <span class="hljs-comment">/* globals customElements */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnForm</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">form</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))) </span>{
   <span class="hljs-keyword">get</span> reflectProperties () {
-    <span class="hljs-keyword">return</span> [
-      ...super.reflectProperties,</pre></div>
-            
-          
-            
-            <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement</a> -checkValidity -reportValidity -reset -elements</p>
+    <span class="hljs-keyword">return</span> [...super.reflectProperties, ...formElement]
+  }
 
-            
-              <div class='highlight'><pre>      ...[<span class="hljs-string">'length'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'method'</span>, <span class="hljs-string">'target'</span>, <span class="hljs-string">'action'</span>, <span class="hljs-string">'encoding'</span>, <span class="hljs-string">'enctype'</span>, <span class="hljs-string">'acceptCharset'</span>, <span class="hljs-string">'autocomplete'</span>, <span class="hljs-string">'noValidate'</span>, <span class="hljs-string">'requestAutocomplete'</span>, <span class="hljs-string">'submit'</span>]
-    ]
+  <span class="hljs-keyword">get</span> skipProperties () {
+    <span class="hljs-keyword">return</span> [...super.skipProperties, <span class="hljs-string">'elements'</span>, <span class="hljs-string">'checkValidity'</span>, <span class="hljs-string">'reportValidity'</span>, <span class="hljs-string">'reset'</span>]
   }
 
   reportValidity () {</pre></div>
@@ -764,6 +769,7 @@ errors and report validity</p>
   }
 
   render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
       </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.customStyle}</span><span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span>&gt;</span>

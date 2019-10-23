@@ -494,6 +494,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -511,6 +517,9 @@
                           material theme
                       </a>
                   </li>
+                
+              
+                
                 
               
                 
@@ -746,6 +755,7 @@ Otherwise, they can user their own with slot=”controls” and slot=”header-t
   }
 
   render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"header"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">ee-toolbar</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"toolbar"</span>&gt;</span>

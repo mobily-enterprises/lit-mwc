@@ -494,6 +494,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -618,6 +624,9 @@
                 
                 
               
+                
+                
+              
             </ul>
           </div>
         
@@ -632,14 +641,8 @@
 
 <span class="hljs-comment">/* globals customElements CustomEvent */</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EnForm</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">en</span>-<span class="hljs-title">form</span>')(<span class="hljs-title">NnForm</span>) </span>{
-  <span class="hljs-keyword">get</span> reflectProperties () {</pre></div>
-            
-          
-            
-            <p>The <code>submit</code> and <code>elements</code> properties have been redefined</p>
-
-            
-              <div class='highlight'><pre>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.reflectProperties.filter(<span class="hljs-function"><span class="hljs-params">attr</span> =&gt;</span> attr !== <span class="hljs-string">'submit'</span>)
+  <span class="hljs-keyword">get</span> skipProperties () {
+    <span class="hljs-keyword">return</span> [...super.skipProperties, <span class="hljs-string">'submit'</span>]
   }
 
   <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
@@ -1376,6 +1379,7 @@ before doing the fetch</p>
   }
 
   render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
       </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.customStyle}</span><span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span>&gt;</span>

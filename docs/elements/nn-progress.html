@@ -494,6 +494,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -618,6 +624,9 @@
                 
                 
               
+                
+                
+              
             </ul>
           </div>
         
@@ -628,11 +637,12 @@
             
               <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
-<span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/InputMixin.js'</span>
-<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/FormElementMixin.js'</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
+<span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/LabelsMixin.js'</span>
 <span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
+<span class="hljs-keyword">import</span> { progressElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./htmlApi'</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnProgress</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">progress</span>')(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>)))) </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnProgress</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">progress</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>)))) </span>{
   <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
     <span class="hljs-keyword">return</span> [
       <span class="hljs-keyword">super</span>.styles || [],
@@ -647,16 +657,18 @@
   }
 
   <span class="hljs-keyword">get</span> reflectProperties () {
-    <span class="hljs-keyword">return</span> [
-      ...super.reflectProperties,
-      ...[<span class="hljs-string">'max'</span>, <span class="hljs-string">'position'</span>, <span class="hljs-string">'value'</span>, <span class="hljs-string">'labels'</span>]
-    ]
+    <span class="hljs-keyword">return</span> [...super.reflectProperties, ...progressElement]
   }
 
   render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
       </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.customStyle}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelBefore}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageBefore}</span><span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">progress</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span> <span class="hljs-attr">real-time-event</span>=<span class="hljs-string">"input"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">progress</span>&gt;</span>
+      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelAfter}</span><span class="xml">
     `</span>
   }
 }

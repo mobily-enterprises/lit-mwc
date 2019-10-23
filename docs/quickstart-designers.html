@@ -251,6 +251,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="appendices.html">
                           appendices
@@ -268,6 +274,9 @@
                           material theme
                       </a>
                   </li>
+                
+              
+                
                 
               
                 
@@ -477,12 +486,19 @@ window.document.querySelector('#inp').value = "Tony Mobily"
             
           
             
-            <h3 id="change-some-attributes-non-standard-ones">Change some attributes (non-standard ones)</h3>
+            <p>Adding a native attribute is very simple:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">maxlength</span>=<span class="hljs-string">"5"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"The label"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Please note that unlike other element libraries, TPE is totally unaware of what <code>maxlength</code> is or does, and it’s not explicitly forwarded to the contained element. You can use <em>any</em> attribute that is part of the HTML standard, since nearly everything is reflected.</p>
+<h3 id="change-some-attributes-non-standard-ones">Change some attributes (non-standard ones)</h3>
 
             
           
             
-            <h3 id="change-some-css-property">Change some CSS property</h3>
+            <p>The <code>label</code> attribute is not part of the native HTML specifications. To add a label to an element, simply add a “label” attribute:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"The label"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Alternatively, for labels containing more than text, add a span:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"label"</span>&gt;</span></span>This is a <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span></span>very<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span></span> complex label<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Please note that labels and error messages are the extent to which TPE goes in terms of non-native behaviour on native elements.</p>
+<h3 id="change-some-css-property">Change some CSS property</h3>
 
             
           

@@ -276,8 +276,26 @@
                 
                 
                   <li>
+                      <a class="source  indented " href="NativeValidatorMixin.html">
+                          NativeValidatorMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
                       <a class="source  indented " href="StyleableMixin.html">
                           StyleableMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="SyntheticValidatorMixin.html">
+                          SyntheticValidatorMixin.js
                       </a>
                   </li>
                 
@@ -310,6 +328,9 @@
                           material theme
                       </a>
                   </li>
+                
+              
+                
                 
               
                 
@@ -459,7 +480,9 @@ will depend on the HTML specs of the targeted <code>native</code> element.</li>
             <p>First of all, NativeRefletorMixin is declared as a mixing in function:</p>
 
             
-              <div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> NativeReflectorMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { element } <span class="hljs-keyword">from</span> <span class="hljs-string">'../htmlApi.js'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> NativeReflectorMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{ <span class="hljs-comment">// eslint-disable-line</span></pre></div>
             
           
@@ -478,17 +501,14 @@ template has been created. In this case, it will need to:</p>
       <span class="hljs-comment">/*  - all properties are reflected except some (listed in skipAttributes) */</span>
       <span class="hljs-comment">/*  - only elected properties are reflected (listed in reflectProperties) */</span>
       <span class="hljs-keyword">this</span>._reflectAttributesAndProperties()
-    }</pre></div>
-            
-          
-            
-            <p>From <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement</a></p>
+    }
 
-            
-              <div class='highlight'><pre>    <span class="hljs-keyword">get</span> reflectProperties () {
-      <span class="hljs-keyword">return</span> [
-        <span class="hljs-string">'accessKey'</span>, <span class="hljs-string">'accessKeyLabel'</span>, <span class="hljs-string">'contentEditable'</span>, <span class="hljs-string">'isContentEditable'</span>, <span class="hljs-string">'contextMenu '</span>, <span class="hljs-string">'dataset'</span>, <span class="hljs-string">'dir'</span>, <span class="hljs-string">'draggable'</span>, <span class="hljs-string">'dropzone'</span>, <span class="hljs-string">'hidden'</span>, <span class="hljs-string">'inert'</span>, <span class="hljs-string">'innerText'</span>, <span class="hljs-string">'itemScope '</span>, <span class="hljs-string">'itemType'</span>, <span class="hljs-string">'itemId '</span>, <span class="hljs-string">'itemRef'</span>, <span class="hljs-string">'itemProp'</span>, <span class="hljs-string">'itemValue '</span>, <span class="hljs-string">'lang'</span>, <span class="hljs-string">'noModule'</span>, <span class="hljs-string">'nonce'</span>, <span class="hljs-string">'offsetHeight'</span>, <span class="hljs-string">'offsetLeft'</span>, <span class="hljs-string">'offsetParent'</span>, <span class="hljs-string">'offsetTop'</span>, <span class="hljs-string">'offsetWidth'</span>, <span class="hljs-string">'properties'</span>, <span class="hljs-string">'spellcheck'</span>, <span class="hljs-string">'style'</span>, <span class="hljs-string">'tabIndex'</span>, <span class="hljs-string">'title'</span>, <span class="hljs-string">'translate'</span>, <span class="hljs-string">'attachInternals'</span>, <span class="hljs-string">'blur'</span>, <span class="hljs-string">'click'</span>, <span class="hljs-string">'focus'</span>, <span class="hljs-string">'forceSpellCheck'</span>
-      ]
+    <span class="hljs-keyword">get</span> reflectProperties () {
+      <span class="hljs-keyword">return</span> element
+    }
+
+    <span class="hljs-keyword">get</span> skipProperties () {
+      <span class="hljs-keyword">return</span> [<span class="hljs-string">'style'</span>]
     }
 
     <span class="hljs-keyword">get</span> skipAttributes () {
@@ -678,6 +698,8 @@ might have been triggered by this very mixin</p>
 
       <span class="hljs-keyword">const</span> uniqProps = [...new <span class="hljs-built_in">Set</span>(<span class="hljs-keyword">this</span>.reflectProperties)]
       uniqProps.forEach(<span class="hljs-function"><span class="hljs-params">prop</span> =&gt;</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.skipProperties.indexOf(prop) !== <span class="hljs-number">-1</span>) <span class="hljs-keyword">return</span>
+
         <span class="hljs-keyword">let</span> oldProp
         <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(<span class="hljs-keyword">this</span>, prop)) oldProp = <span class="hljs-keyword">this</span>[prop]
         <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-keyword">this</span>), prop, {

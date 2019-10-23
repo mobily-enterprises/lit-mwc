@@ -248,6 +248,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -290,6 +296,15 @@
                   <li>
                       <a class="source  indented " href="ee-drawer.html">
                           ee-drawer.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="ee-fab.html">
+                          ee-fab.js
                       </a>
                   </li>
                 
@@ -616,6 +631,15 @@ CSS can select next siblings, but not previous.  This guarantees label is render
       <span class="hljs-keyword">this</span>.validationMessagePosition = <span class="hljs-string">'after'</span>
     }
 
+    firstUpdated () {
+      <span class="hljs-keyword">super</span>.firstUpdated()
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> k <span class="hljs-keyword">of</span> [<span class="hljs-string">'leading'</span>, <span class="hljs-string">'trailing'</span>]) {
+        <span class="hljs-keyword">const</span> el = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'slot'</span>)
+        el.setAttribute(<span class="hljs-string">'name'</span>, k)
+        <span class="hljs-keyword">this</span>.shadowRoot.appendChild(el)
+      }
+    }
+
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
       <span class="hljs-keyword">return</span> [
         <span class="hljs-keyword">super</span>.styles || [],
@@ -624,6 +648,28 @@ CSS can select next siblings, but not previous.  This guarantees label is render
         floatingLabel,
         errorMessage,
         css`<span class="css">
+          <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[has-leading]</span>) <span class="hljs-selector-id">#native</span> {
+            <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">36px</span>;
+          }
+
+          <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[has-trailing]</span>) <span class="hljs-selector-id">#native</span> {
+            <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">36px</span>;
+          }
+
+          <span class="hljs-selector-pseudo">::slotted(</span><span class="hljs-selector-attr">[slot=leading]</span>),
+          <span class="hljs-selector-pseudo">::slotted(</span><span class="hljs-selector-attr">[slot=trailing]</span>) {
+            <span class="hljs-attribute">position</span>: absolute;
+            <span class="hljs-attribute">top</span>: <span class="hljs-number">16px</span>;
+            <span class="hljs-attribute">left</span>: <span class="hljs-number">16px</span>;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">24px</span>;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">24px</span>;
+          }
+
+          <span class="hljs-selector-pseudo">::slotted(</span><span class="hljs-selector-attr">[slot=trailing]</span>) {
+            <span class="hljs-attribute">left</span>: unset;
+            <span class="hljs-attribute">right</span>: <span class="hljs-number">16px</span>;
+          }
+
         `</span>
       ]
     }

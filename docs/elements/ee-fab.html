@@ -494,6 +494,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -618,6 +624,9 @@
                 
                 
               
+                
+                
+              
             </ul>
           </div>
         
@@ -629,18 +638,38 @@
               <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin'</span>
 <span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin'</span>
+<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin'</span>
+<span class="hljs-keyword">import</span> { ifDefined } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-html/directives/if-defined'</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeFab</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">ee</span>-<span class="hljs-title">fab</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LitElement</span>)) </span>{
+<span class="hljs-keyword">const</span> plusIcon = html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"icon"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"24"</span> <span class="hljs-attr">viewBox</span>=<span class="hljs-string">"0 0 24 24"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"24"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M0 0h24v24H0z"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"none"</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span>`</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeFab</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">ee</span>-<span class="hljs-title">fab</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))) </span>{
   <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
     <span class="hljs-keyword">return</span> css`<span class="css">
       <span class="hljs-selector-pseudo">:host</span> {
-        <span class="hljs-attribute">display</span>: block;
+        <span class="hljs-attribute">position</span>: <span class="hljs-built_in">var</span>(--ee-fab-position, fixed);
+        <span class="hljs-attribute">right</span>: <span class="hljs-built_in">var</span>(--ee-fab-right, 16px);
+        <span class="hljs-attribute">left</span>: <span class="hljs-built_in">var</span>(--ee-fab-left, initial);
+        <span class="hljs-attribute">bottom</span>: <span class="hljs-built_in">var</span>(--ee-fab-bottom, 16px);
+        <span class="hljs-attribute">top</span>: <span class="hljs-built_in">var</span>(--ee-fab-top, initial);
       }
     `</span>
   }
 
+  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">icon</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Object</span> },
+      <span class="hljs-attr">label</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span> }
+    }
+  }
+
   render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.customStyle}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">data-descr</span>=</span></span><span class="hljs-subst">${ifDefined(<span class="hljs-keyword">this</span>.label)}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span>&gt;</span>
+        </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.icon ? html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"icon"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>`</span> : plusIcon}</span><span class="xml">
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     `</span>
   }
 }

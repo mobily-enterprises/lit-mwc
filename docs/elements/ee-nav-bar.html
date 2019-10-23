@@ -494,6 +494,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -511,6 +517,9 @@
                           material theme
                       </a>
                   </li>
+                
+              
+                
                 
               
                 
@@ -703,6 +712,7 @@
   }
 
   render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> @<span class="hljs-attr">slotchange</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._manageSlotted}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>

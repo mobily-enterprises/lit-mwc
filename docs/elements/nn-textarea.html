@@ -494,6 +494,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -618,6 +624,9 @@
                 
                 
               
+                
+                
+              
             </ul>
           </div>
         
@@ -630,11 +639,13 @@
 <span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
 <span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/InputMixin.js'</span>
 <span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/FormElementMixin.js'</span>
+<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeValidatorMixin.js'</span>
 <span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/LabelsMixin.js'</span>
 <span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
 <span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
+<span class="hljs-keyword">import</span> { textAreaElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./htmlApi.js'</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnTextArea</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">textarea</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>)))))) </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnTextArea</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">textarea</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))))) </span>{
   <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
     <span class="hljs-keyword">return</span> [
       <span class="hljs-keyword">super</span>.styles || [],
@@ -644,19 +655,11 @@
   }
 
   <span class="hljs-keyword">get</span> reflectProperties () {
-    <span class="hljs-keyword">return</span> [
-      ...super.reflectProperties,</pre></div>
-            
-          
-            
-            <p>From <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement">https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement</a> -checkValidity -form</p>
-
-            
-              <div class='highlight'><pre>      ...[<span class="hljs-string">'type'</span>, <span class="hljs-string">'value'</span>, <span class="hljs-string">'textLength'</span>, <span class="hljs-string">'defaultValue'</span>, <span class="hljs-string">'placeholder'</span>, <span class="hljs-string">'rows'</span>, <span class="hljs-string">'cols'</span>, <span class="hljs-string">'autofocus'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'disabled'</span>, <span class="hljs-string">'labels'</span>, <span class="hljs-string">'maxLength'</span>, <span class="hljs-string">'accessKey'</span>, <span class="hljs-string">'readOnly'</span>, <span class="hljs-string">'required'</span>, <span class="hljs-string">'tabIndex'</span>, <span class="hljs-string">'selectionStart'</span>, <span class="hljs-string">'selectionEnd'</span>, <span class="hljs-string">'selectionDirection'</span>, <span class="hljs-string">'validity'</span>, <span class="hljs-string">'willValidate'</span>, <span class="hljs-string">'validationMessage'</span>, <span class="hljs-string">'autocomplete '</span>, <span class="hljs-string">'autocapitalize '</span>, <span class="hljs-string">'inputMode '</span>, <span class="hljs-string">'wrap'</span>, <span class="hljs-string">'blur'</span>, <span class="hljs-string">'focus'</span>, <span class="hljs-string">'select'</span>, <span class="hljs-string">'setRangeText'</span>, <span class="hljs-string">'setSelectionRange'</span>, <span class="hljs-string">'reportValidity'</span>, <span class="hljs-string">'setCustomValidity'</span>]
-    ]
+    <span class="hljs-keyword">return</span> [...super.reflectProperties, ...textAreaElement]
   }
 
   render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
       </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.customStyle}</span><span class="xml">
       </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelBefore}</span><span class="xml">

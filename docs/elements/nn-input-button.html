@@ -494,6 +494,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -618,6 +624,9 @@
                 
                 
               
+                
+                
+              
             </ul>
           </div>
         
@@ -629,15 +638,17 @@
               <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
 <span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/FormElementMixin.js'</span>
+<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeValidatorMixin.js'</span>
 <span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/InputMixin.js'</span>
 <span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnInputButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">input</span>-<span class="hljs-title">button</span>')(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>)))) </span>{
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnInputButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">input</span>-<span class="hljs-title">button</span>')(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))) </span>{
   <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
     <span class="hljs-keyword">return</span> {}
   }
 
   render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>

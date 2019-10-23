@@ -494,6 +494,12 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../appendices.html">
                           appendices
@@ -618,6 +624,9 @@
                 
                 
               
+                
+                
+              
             </ul>
           </div>
         
@@ -631,6 +640,7 @@
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnInputNumber</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">NnInputText</span> </span>{
   render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
       </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.customStyle}</span><span class="xml">
       </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelBefore}</span><span class="xml">

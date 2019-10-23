@@ -109,19 +109,38 @@ The element is documented in the `elements` section of this documentation: [nn-i
 
 ### Change some attributes (native ones)
 
+Adding a native attribute is very simple:
 
+````
+<nn-input-text maxlength="5" name="field" label="The label"></nn-input-text>
+````
+
+Please note that unlike other element libraries, TPE is totally unaware of what `maxlength` is or does, and it's not explicitly forwarded to the contained element. You can use _any_ attribute that is part of the HTML standard, since nearly everything is reflected.
 
 ### Change some attributes (non-standard ones)
 
-Each input element has a label  
+The `label` attribute is not part of the native HTML specifications. To add a label to an element, simply add a "label" attribute:
 
 ````
-<nn-input-text name="field"></nn-input-text>
+<nn-input-text name="field" label="The label"></nn-input-text>
 ````
 
+Alternatively, for labels containing more than text, add a span:
+
+````
+<nn-input-text name="field">
+  <span slot="label">This is a <b>very</b> complex label</span>
+</nn-input-text>
+````
+
+Please note that labels and error messages are the extent to which TPE goes in terms of non-native behaviour on native elements.
 
 ### Change some CSS property
+
+
+
 ### Add some custom styling (native:style)
+
 ### Add some custom styling/2 (stylesheet=)
 
 ## Read on
