@@ -129,7 +129,7 @@ Alternatively, for labels containing more than text, add a span:
 
 ````
 <nn-input-text name="field">
-  <span slot="label">This is a <b>very</b> complex label</span>
+    <span slot="label">This is a <b>very</b> complex label</span>
 </nn-input-text>
 ````
 
