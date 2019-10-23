@@ -10,22 +10,9 @@ export const FormElementMixin = (base) => {
       return [...super.skipProperties, 'form']
     }
 
-    // Submit on enter with forms with only one element
-    _eventListener (e) {
-      if (e.keyCode === 13 && [...this.form.elements].length === 1) {
-        if (this.form) this.form.submit()
-      }
-    }
-
     connectedCallback () {
       super.connectedCallback()
       this.assignFormProperty()
-      this.addEventListener('keydown', this._boundKeyEventListener)
-    }
-
-    disconnectedCallback () {
-      super.disconnectedCallBack()
-      this.removeEventListener('keydown', this._boundKeyEventListener)
     }
 
     assignFormProperty () {

@@ -58,8 +58,6 @@ export const NativeValidatorMixin = (base) => {
       ]
       this.validationMessages = {}
       this.validationMessagePosition = 'before'
-
-      this._boundKeyEventListener = this._eventListener.bind(this)
       this._showPrettyError = false
     }
 
