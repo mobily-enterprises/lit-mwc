@@ -114,6 +114,7 @@ nn-form:
   ☐ TPE
     ☐ Add ErrorMessage in all for elements templates
     ☐ Review all elements unthemed CSS
+    ☐ Style datalist
   ☐ Autocomplete
     ✔ Give visual feedback that an ID is selected @done (9/30/2019, 11:23:43 PM)
     ✔ KEYS: Keyboard bindings to navigate through elements (left/right arrows) @done (9/30/2019, 11:23:46 PM)
