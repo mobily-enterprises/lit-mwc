@@ -613,16 +613,6 @@
       <span class="hljs-keyword">return</span> [
         ...super.styles || [],
         css`<span class="css">
-          <span class="hljs-selector-pseudo">::slotted(</span>*) <span class="hljs-selector-tag">fieldset</span>, <span class="hljs-selector-pseudo">::slotted(fieldset)</span> {
-            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">5px</span>;
-            <span class="hljs-attribute">border-style</span>: solid;
-            <span class="hljs-attribute">padding</span>: <span class="hljs-number">16px</span>;
-          }
-
-          <span class="hljs-selector-pseudo">::slotted(</span>*) <span class="hljs-selector-tag">legend</span>, <span class="hljs-selector-pseudo">::slotted(legend)</span> {
-            <span class="hljs-attribute">padding-inline-start</span>: <span class="hljs-number">10px</span> <span class="hljs-meta">!important</span>;
-            <span class="hljs-attribute">padding-inline-end</span>: <span class="hljs-number">10px</span> <span class="hljs-meta">!important</span>;
-          }
         `</span>
       ]
     }

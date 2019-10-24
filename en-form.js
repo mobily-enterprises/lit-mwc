@@ -397,7 +397,12 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     } else if (!response.ok) {
       //
       // Try and get the errors object from the reponse's json
-      const originalErrs = await response.json()
+      let originalErrs
+      try {
+        originalErrs = await response.json()
+      } catch (e) {
+        originalErrs = {}
+      }
       errs = this.extrapolateErrors(originalErrs) || {}
 
       // Emit event to make it possible to tell the user via UI about the problem

@@ -613,75 +613,75 @@
       <span class="hljs-keyword">return</span> [
         ...super.styles || [],
         css`<span class="css">
-        <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:focus</span>, <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:active</span> {
-        <span class="hljs-attribute">outline</span>:<span class="hljs-number">0</span> ;
-      }
+          <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:focus</span>, <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:active</span> {
+            <span class="hljs-attribute">outline</span>:<span class="hljs-number">0</span> ;
+          }
 
-      <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:active</span> {
-       <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">brightness</span>(1.15)
-      }
+          <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:active</span> {
+            <span class="hljs-attribute">border</span>: none;
+            <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">brightness</span>(130%);
+          }
 
-      <span class="hljs-selector-tag">button</span><span class="hljs-selector-attr">[disabled]</span> {
-        <span class="hljs-attribute">box-shadow</span>: none;
-        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.5</span>;
-        <span class="hljs-attribute">pointer-events</span>: none;
-      }
+          <span class="hljs-selector-tag">button</span><span class="hljs-selector-attr">[disabled]</span> {
+            <span class="hljs-attribute">box-shadow</span>: none;
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.5</span>;
+            <span class="hljs-attribute">pointer-events</span>: none;
+          }
 
-      <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.icon</span><span class="hljs-selector-pseudo">:active</span> {
-        <span class="hljs-attribute">background</span>: <span class="hljs-number">#cccccc</span>;
-        <span class="hljs-attribute">border</span>: unset;
-        <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
-      }
+          <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.icon</span><span class="hljs-selector-pseudo">:active</span> {
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#cccccc</span>;
+            <span class="hljs-attribute">border</span>: unset;
+          }
 
-      <span class="hljs-selector-tag">button</span> {
-        <span class="hljs-attribute">cursor</span>: pointer;
-        <span class="hljs-attribute">height</span>: <span class="hljs-number">56px</span>;
-        <span class="hljs-attribute">width</span>: <span class="hljs-number">56px</span>;
-        <span class="hljs-attribute">margin</span>: <span class="hljs-number">6px</span>;
-        <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
-        <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">4px</span> <span class="hljs-number">2px</span> <span class="hljs-number">10px</span> <span class="hljs-number">0</span> <span class="hljs-built_in">rgba</span>(0,0,0,0.12);
-        <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">5px</span>;
-        <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--ee-fab-color, var(--app-primary-color));
-        <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-fab-background, var(--app-secondary-color));
-        <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-fab-color, var(--app-primary-color));
-      }
+          <span class="hljs-selector-tag">button</span> {
+            <span class="hljs-attribute">cursor</span>: pointer;
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">56px</span>;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">56px</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">6px</span>;
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">4px</span> <span class="hljs-number">2px</span> <span class="hljs-number">10px</span> <span class="hljs-number">0</span> <span class="hljs-built_in">rgba</span>(0,0,0,0.12);
+            <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">5px</span>;
+            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--ee-fab-color, white);
+            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-fab-background, var(--app-secondary-color));
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-fab-color, white);
+          }
 
-      <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[mini]</span>) <span class="hljs-selector-tag">button</span> {
-        <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>;
-        <span class="hljs-attribute">width</span>: <span class="hljs-number">40px</span>; 
-      }
+          <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[mini]</span>) <span class="hljs-selector-tag">button</span> {
+            <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">40px</span>; 
+          }
 
-      <span class="hljs-selector-tag">button</span><span class="hljs-selector-attr">[data-descr]</span><span class="hljs-selector-pseudo">::after</span> {
-        <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
-        <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
-        <span class="hljs-attribute">display</span>: inline-block;
-        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
-        <span class="hljs-attribute">position</span>: absolute;
-        <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;
-      }
+          <span class="hljs-selector-tag">button</span><span class="hljs-selector-attr">[data-descr]</span><span class="hljs-selector-pseudo">::after</span> {
+            <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
+            <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">display</span>: inline-block;
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">position</span>: absolute;
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;
+            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-50%);
+            <span class="hljs-attribute">top</span>: <span class="hljs-number">50%</span>;
+            <span class="hljs-attribute">text-align</span>: center;
+            <span class="hljs-attribute">white-space</span>: nowrap;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">16px</span>;
+          }
 
-      <span class="hljs-selector-tag">button</span><span class="hljs-selector-attr">[data-descr]</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::after</span>,
-      <span class="hljs-selector-tag">button</span><span class="hljs-selector-attr">[data-descr]</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">::after</span> {
-        <span class="hljs-attribute">content</span>: <span class="hljs-built_in">attr</span>(data-descr);
-        <span class="hljs-attribute">width</span>: fit-content;
-        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
-        <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-fab-background, var(--app-secondary-color));
-        <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-fab-color, var(--app-primary-color));
-        <span class="hljs-attribute">text-align</span>: center;
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">5px</span> <span class="hljs-number">0</span>;
-        <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">6px</span>;
-        <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
-        <span class="hljs-attribute">top</span>: <span class="hljs-number">50%</span>;
-        <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-50%);
-        <span class="hljs-attribute">right</span>: <span class="hljs-number">105%</span>;
-        <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
-        <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease-in-out;
-      }
+          <span class="hljs-selector-tag">button</span><span class="hljs-selector-attr">[data-descr]</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::after</span> {
+            <span class="hljs-attribute">content</span>: <span class="hljs-built_in">attr</span>(data-descr);
+            <span class="hljs-attribute">width</span>: fit-content;
+            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-fab-background, var(--app-secondary-color));
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-fab-color, white);
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-built_in">calc</span>(1em + 20px);
+            <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
+            <span class="hljs-attribute">right</span>: <span class="hljs-number">105%</span>;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
+            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease-in-out;
+          }
 
-       <span class="hljs-selector-tag">button</span> <span class="hljs-selector-tag">svg</span> {
-        <span class="hljs-attribute">width</span>: <span class="hljs-built_in">var</span>(--icon-width, 30px);
-        <span class="hljs-attribute">height</span>: <span class="hljs-built_in">var</span>(--icon-height, 30px);
-       }
+          <span class="hljs-selector-tag">button</span> <span class="hljs-selector-tag">svg</span> {
+            <span class="hljs-attribute">width</span>: <span class="hljs-built_in">var</span>(--icon-width, 24px);
+            <span class="hljs-attribute">height</span>: <span class="hljs-built_in">var</span>(--icon-height, 24px);
+          }
         `</span>
       ]
     }

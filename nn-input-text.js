@@ -19,7 +19,7 @@
 // <<[mixin-descr/FormElementMixin.md]
 // <<[mixin-descr/LabelsMixin.md]
 
-import { LitElement, html, css } from 'lit-element'
+import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'
@@ -40,6 +40,34 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
       ${this.ifLabelAfter}
       <slot id="datalist-slot" name="datalist"></slot>
     `
+  }
+
+  static get properties () {
+    return {
+      enterOnSubmit: { type: Boolean, attribute: 'enter-on-submit' }
+    }
+  }
+
+  constructor () {
+    super()
+    this._boundKeyEventListener = this._eventListener.bind(this)
+  }
+
+  // Submit on enter with forms with only one element
+  _eventListener (e) {
+    if (e.keyCode === 13 && ([...this.form.elements].length === 1 || this.enterOnSubmit)) {
+      if (this.form) this.form.submit()
+    }
+  }
+
+  connectedCallback () {
+    super.connectedCallback()
+    this.addEventListener('keydown', this._boundKeyEventListener)
+  }
+
+  disconnectedCallback () {
+    super.disconnectedCallBack()
+    this.removeEventListener('keydown', this._boundKeyEventListener)
   }
 
   firstUpdated () {

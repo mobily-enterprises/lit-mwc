@@ -617,6 +617,17 @@
             <span class="hljs-attribute">border</span>: unset;
             <span class="hljs-attribute">border-bottom</span>: <span class="hljs-built_in">var</span>(--nn-input-border, var(--nn-theme-border));
           }
+
+          <span class="hljs-selector-pseudo">::slotted(</span>*) <span class="hljs-selector-tag">fieldset</span> {
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">5px</span>;
+            <span class="hljs-attribute">border-style</span>: solid;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">16px</span>;
+          }
+
+          <span class="hljs-selector-pseudo">::slotted(</span>*) <span class="hljs-selector-tag">legend</span> {
+            <span class="hljs-attribute">padding-inline-start</span>: <span class="hljs-number">10px</span>;
+            <span class="hljs-attribute">padding-inline-end</span>: <span class="hljs-number">10px</span>;
+          }
         `</span>
       ]
     }

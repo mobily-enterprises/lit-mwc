@@ -645,15 +645,18 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeFab</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">ee</span>-<span class="hljs-title">fab</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))) </span>{
   <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
-    <span class="hljs-keyword">return</span> css`<span class="css">
-      <span class="hljs-selector-pseudo">:host</span> {
-        <span class="hljs-attribute">position</span>: <span class="hljs-built_in">var</span>(--ee-fab-position, fixed);
-        <span class="hljs-attribute">right</span>: <span class="hljs-built_in">var</span>(--ee-fab-right, 16px);
-        <span class="hljs-attribute">left</span>: <span class="hljs-built_in">var</span>(--ee-fab-left, initial);
-        <span class="hljs-attribute">bottom</span>: <span class="hljs-built_in">var</span>(--ee-fab-bottom, 16px);
-        <span class="hljs-attribute">top</span>: <span class="hljs-built_in">var</span>(--ee-fab-top, initial);
-      }
-    `</span>
+    <span class="hljs-keyword">return</span> [
+      <span class="hljs-keyword">super</span>.styles || [],
+      css`<span class="css">
+        <span class="hljs-selector-pseudo">:host</span> {
+          <span class="hljs-attribute">position</span>: fixed;
+          <span class="hljs-attribute">right</span>: <span class="hljs-number">16px</span>;
+          <span class="hljs-attribute">left</span>: initial;
+          <span class="hljs-attribute">bottom</span>: <span class="hljs-number">16px</span>;
+          <span class="hljs-attribute">top</span>: initial;
+        }
+      `</span>
+    ]
   }
 
   <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
@@ -668,7 +671,7 @@
     <span class="hljs-keyword">return</span> html`<span class="xml">
       </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.customStyle}</span><span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">data-descr</span>=</span></span><span class="hljs-subst">${ifDefined(<span class="hljs-keyword">this</span>.label)}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span>&gt;</span>
-        </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.icon ? html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"icon"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>`</span> : plusIcon}</span><span class="xml">
+        </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.icon ? <span class="hljs-keyword">this</span>.icon : plusIcon}</span><span class="xml">
       <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     `</span>
   }

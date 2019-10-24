@@ -644,20 +644,6 @@
 <span class="hljs-keyword">import</span> { buttonElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./htmlApi.js'</span>
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">button</span>')(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))) </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
-    <span class="hljs-keyword">return</span> [
-      <span class="hljs-keyword">super</span>.styles || []
-    ]
-  }
-
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
-    <span class="hljs-keyword">return</span> {
-      <span class="hljs-attr">stylesheet</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span> },
-      <span class="hljs-attr">customCSS</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Object</span> },
-      <span class="hljs-attr">raised</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">reflect</span>: <span class="hljs-literal">true</span> }
-    }
-  }
-
   <span class="hljs-keyword">get</span> skipAttributes () {
     <span class="hljs-keyword">return</span> [...super.skipAttributes, <span class="hljs-string">'form'</span>]
   }
