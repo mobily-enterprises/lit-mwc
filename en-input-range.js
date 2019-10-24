@@ -16,6 +16,10 @@ class EnInputRange extends ThemeableMixin('en-input-range')(FormElementMixin(Nat
           display: flex;
           height: 30px;
         }
+
+        #native {
+          margin: auto 20px;
+        }
       `
     ]
   }
