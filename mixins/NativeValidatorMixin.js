@@ -90,7 +90,6 @@ export const NativeValidatorMixin = (base) => {
     reportValidity () {
       // Run custom validator. Note that custom validator
       // will only ever run on filed without an existing customError.
-      // This is because
       if (!this.native.validity.customError) {
         const ownErrorMessage = this.validator()
         if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
