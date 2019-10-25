@@ -9,10 +9,12 @@ export class EeToolbar extends ThemeableMixin('ee-toolbar')(StyleableMixin(LitEl
       css`
         :host {
           display: flex;
+          box-sizing: border-box;
           width: 100%;
           align-items: center;
           position: relative;
-          height: 64px;
+          height: var(--ee-toolbar-height, 100%);
+          max-height: var(--ee-toolbar-max-height, 96px);
           padding: 0 5px;
           pointer-events: none;
           font-size: var(--toolbar-font-size, 20px);
@@ -29,7 +31,7 @@ export class EeToolbar extends ThemeableMixin('ee-toolbar')(StyleableMixin(LitEl
         :host ::slotted([title]) {
           pointer-events: none;
           display: flex;
-          margin: auto
+          margin: auto 40px;
         }
 
         :host ::slotted([bottom-item]) {

@@ -12,6 +12,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           position: fixed;
           top: 0;
           left: 0;
+          z-index: 1;
         }
 
         :host([opened]) {
@@ -37,7 +38,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
         }
 
         :host([modal][opened]) div.container {
-          box-shadow: var(--drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14), 0 0 0 100vw rgba(0, 0, 0, 0.15)) 
+          box-shadow: var(--drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14), 0 0 0 100vw rgba(0, 0, 0, 0.15))
         }
 
         #close {
@@ -60,13 +61,12 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           filter: brightness(50%)
         }
 
-
         .container > nav  {
           box-sizing: border-box;
           width: 100%;
           min-width: 300px;
           height: 100%;
-          padding: 24px;
+          padding: 30px 24px;
           background: var(--app-drawer-background-color);
           position: relative;
           overflow: scroll;
@@ -96,8 +96,8 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           background-color: rgba(255,255,255, 0.05);
         }
 
-        .container  > nav ::slotted(* .head) {
-          color: white;
+        .container  > nav ::slotted(.head) {
+          color: var(--app-drawer-text-color);
           width: 100%;
           border-bottom: 1px solid white;
           padding: 6px 70% 6px 0;

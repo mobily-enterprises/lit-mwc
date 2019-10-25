@@ -25,7 +25,7 @@ export class EeHeader extends LitElement {
           border-bottom: 1px solid #eee;
         }
 
-        :host([menu]) div[title], 
+        :host([menu]) div[title],
         :host([back]) div[title] {
           padding-right: 46px;
         }
@@ -48,19 +48,19 @@ export class EeHeader extends LitElement {
           -webkit-appearance: none;
           height: 40px;
           width: 40px;
-          padding: 6px ;
+          padding: 4px;
           margin: auto 3px;
+          border: 1px solid transparent;
+          color: var(--header-color, var(--app-header-text-color));
         }
 
         .toolbar button.icon:focus, .toolbar button.icon:hover {
           outline: 0;
-          background: #eeeeee;
-          /* border: 1px solid #bdbdbd; */
+          border: 1px solid var(--header-color, var(--app-header-text-color));
         }
 
         .toolbar button.icon:active {
           outline: 0;
-          background: #cccccc;
           border: 1px solid #bdbdbd;
           box-shadow: none
           /* animation: fadeIn 0.1s ease-in; */
@@ -98,7 +98,7 @@ export class EeHeader extends LitElement {
 
   static get properties () {
     return {
-      // Users can set these attributes to get built-in basic controls and title text. 
+      // Users can set these attributes to get built-in basic controls and title text.
       // Otherwise, they can user their own with slot="controls" and slot="header-title"
       back: { type: Boolean, reflect: true },
       menu: { type: Boolean, reflect: true },
@@ -119,7 +119,7 @@ export class EeHeader extends LitElement {
         <ee-toolbar class="toolbar">
           <div class="controls">
             ${this.menu ? html`<button class="icon" title="Menu" @click="${this._menuEvent}">${menu}</button>` : ''}
-            ${this.back || this.history.length > 1 ? html`<button class="icon" title="Back" @click="${this._backEvent}">${arrowback}</button>` : ''}
+            ${this.back || this.history && this.history.length > 1 ? html`<button class="icon" title="Back" @click="${this._backEvent}">${arrowback}</button>` : ''}
             <slot name="controls"></slot>
           </div>
           <div title>
@@ -143,11 +143,11 @@ export class EeHeader extends LitElement {
   }
 
   _menuEvent () {
-    this.dispatchEvent(new CustomEvent('menu-clicked'))
+    window.dispatchEvent(new CustomEvent('menu-clicked'))
   }
 
   _backEvent () {
-    this.dispatchEvent(new CustomEvent('back-clicked'))
+    window.dispatchEvent(new CustomEvent('back-clicked'))
   }
 }
 customElements.define('ee-header', EeHeader)
