@@ -33,9 +33,7 @@ export const NnButton = (base) => {
           }
 
           button:focus {
-            border-color: rgba(255, 255, 255, 0.7);
-            border-color: var(--nn-primary-color);
-            box-shadow: var(--nn-theme-box-shadow2);
+            border-color: var(--nn-primary-color, rgba(255, 255, 255, 0.7));
             filter: brightness(115%);
           }
 
