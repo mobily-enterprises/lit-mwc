@@ -102,6 +102,8 @@ export class EeHeader extends LitElement {
       // Otherwise, they can user their own with slot="controls" and slot="header-title"
       back: { type: Boolean, reflect: true },
       menu: { type: Boolean, reflect: true },
+      backEvent: { type: Function, attribute: 'back-event' },
+      menuEvent: { type: Function, attribute: 'menu-event' },
       headerTitle: { type: String, attribute: 'header-title' },
       headerSubtitle: { type: String, attribute: 'header-subtitle' }
     }
@@ -143,11 +145,13 @@ export class EeHeader extends LitElement {
   }
 
   _menuEvent () {
-    window.dispatchEvent(new CustomEvent('menu-clicked'))
+    this.dispatchEvent(new CustomEvent('menu-clicked'))
+    if (this.menuEvent) this.menuEvent()
   }
 
   _backEvent () {
-    window.dispatchEvent(new CustomEvent('back-clicked'))
+    this.dispatchEvent(new CustomEvent('back-clicked'))
+    if (this.backEvent) this.backEvent()
   }
 }
 customElements.define('ee-header', EeHeader)
