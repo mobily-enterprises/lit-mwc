@@ -55,7 +55,7 @@ export const Global = (base) => {
             --nn-secondary-color: var(--app-secondary-color, #512da8);
             --nn-secondary-color-light: var(--app-secondary-color-light, #8559da);
             --nn-secondary-color-dark: var(--app-secondary-color-dark, #140078);
-            --nn-boundaries-color: var(--app-boundaries-color, #777);
+            --nn-boundaries-color: var(--app-boundaries-color, #999);
             --nn-primary-text: var(--app-primary-text, #777);
             --nn-secondary-text: var(--app-secondary-text, #000);
             --nn-text-on-dark: var(--app-text-on-dark, #fff);
@@ -65,7 +65,7 @@ export const Global = (base) => {
             --nn-theme-border-style: var(--app-theme-border-style, solid);
             --nn-theme-border-width: var(--app-theme-border-width, 1px);
             --nn-theme-border-color: var(--nn-boundaries-color);
-            --nn-theme-border-radius: var(--app-theme-border-radius, 5px);
+            --nn-theme-border-radius: var(--app-theme-border-radius, 4px);
             --nn-theme-border: var(--app-theme-border, var(--nn-theme-border-width) var(--nn-theme-border-style) var(--nn-theme-border-color));
             --nn-theme-box-shadow: var(--app-theme-box-shadow, none);
             --nn-theme-box-shadow1: var(--app-theme-box-shadow1, 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06));
@@ -75,7 +75,7 @@ export const Global = (base) => {
             --nn-theme-box-shadow5: var(--app-theme-box-shadow5, 0 25px 50px -12px rgba(0, 0, 0, 0.25));
             --nn-theme-shadow-transition: var(--app-theme-shadow-transition, box-shadow 0.3s cubic-bezier(.25,.8,.25,1));
             --nn-form-element-height: var(--app-form-element-height, 56px);
-            --nn-form-element-min-width: var(--app-form-element-height, 280px);
+            --nn-form-element-min-width: var(--app-form-element-min-width, 280px);
             --nn-background: var(--app-background, #eee);
             --nn-background-dark: var(--app-background-dark, #ccc);
           }

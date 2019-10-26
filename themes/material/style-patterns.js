@@ -21,7 +21,7 @@ export const hoverStyle = css`
   }
 `
 export const focusStyle = css`
-  :host([has-focus]) {
+  :host([has-focus]), :host([has-focus][outlined]) {
     --nn-theme-border: 2px solid var(--nn-primary-color);
     --nn-background: var(--nn-background-dark);
     --nn-label-color: var(--nn-primary-color);
@@ -37,12 +37,34 @@ export const inputField = css`
     position: relative;
     padding: 0 12px;
     padding-bottom: 16px;
-    margin: 10px;
+    margin: 5px;
     min-width: var(--nn-form-element-min-width, fit-content);
     font-family: var(--font-family);
   }
 
+  :host([dense]) {
+    --nn-form-element-height: 40px;
+    padding-bottom: 8px;
+  }
+
+  :host([dense]) #native {
+    padding: 8px 8px 6px;
+  }
+
+  :host([outlined]) {
+    --nn-background: var(--app-background, transparent);
+    --nn-background-dark: var(--app-background-dark, transparent);
+    --nn-theme-border: 2px solid #ccc;
+  }
+
+  :host([outlined]) #native {
+    border-bottom: unset;
+    border: var(--nn-input-border, var(--nn-theme-border));
+    border-radius: var(--nn-input-border-radius, 4px);
+  }
+
   #native {
+    box-sizing: border-box;
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -56,12 +78,12 @@ export const inputField = css`
     color: var(--nn-input-color, inherit);
     background-color: var(--nn-background, #eee);
     width: 100%;
-    font-size: 1em;
+    font-size: 14px;
     padding: 20px 16px 6px;
     height: var(--nn-form-element-height);
     box-shadow: var(--nn-theme-box-shadow);
     transition: background-color 0.3s ease-in-out,
-      color 0.3s ease-in-out, 
+      color 0.3s ease-in-out,
       box-shadow 0.3s ease-in-out;
   }
 
@@ -88,14 +110,15 @@ export const inputLabel = css`
    label {
     position: absolute;
     display: inline-flex;
-    font-size: 1em;
+    font-size: 16px;
     border: var(--nn-label-border, none);
     color: var(--nn-label-color,  var(--nn-primary-color-light));
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 6px;
+    padding-right: 6px;
+    margin-left: 8px;
     min-width: fit-content;
     white-space: nowrap;
-    top: calc(50% - 8px);
+    top: calc(50% - 5px);
     transform: translateY(-50%);
     will-change: transform, background-color;
     transition: all 0.3s ease-in-out;
@@ -115,12 +138,24 @@ export const floatingLabel = css`
   :host([has-value]) label,
   #native:focus ~ label,
   #native:placeholder-shown ~ label {
-    transform: translateY(-130%);
-    font-size: 80%;
-    transition: all 0.3s ease-in-out;
-    margin-left: 0px;
+    transform: translateY(-130%) scale(0.8);
+    transition: all 0.3s ease-in-out, background 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-timing-function: ;
+    margin-left: 4px;
   }
 
+  :host([dense][has-value]) label,
+  :host([dense]) #native:focus ~ label,
+  :host([dense]) #native:placeholder-shown ~ label {
+    background: var(--app-background, white)
+  }
+
+  :host([outlined]:not([dense][has-value]) label,
+  :host([outlined]:not([dense]) #native:focus ~ label,
+  :host([outlined]:not([dense]) #native:placeholder-shown ~ label {
+    transform: translateY(-170%) scale(0.8);
+    background: var(--app-background, white);
+  }
 `
 
 export const fixedLabel = css`
@@ -128,8 +163,7 @@ export const fixedLabel = css`
   :host([has-value]) label,
   #native:placeholder-shown ~ label {
     top: 12px !important;
-    transform: translateY(-50%);;
-    font-size: 80%;
+    transform: translateY(-50%) scale(0.8);
     transition: all 0.3s ease-in-out;
   }
 
