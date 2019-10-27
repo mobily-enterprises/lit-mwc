@@ -9,10 +9,11 @@ export const NnButton = (base) => {
           :host {
             display: inline-block;
             width: fit-content;
-            padding: 10px;
+            padding: 4px 10px;
           }
 
           button {
+            display: flex;
             height: var(--nn-button-height, 30px);
             -webkit-appearance: none;
             background-color: var(--nn-button-background, var(--nn-primary-color));
@@ -20,8 +21,16 @@ export const NnButton = (base) => {
             border: var(--nn-button-border, var(--nn-theme-border));
             border-color: transparent;
             text-transform: uppercase;
+            font-size: 14px;
             color: var(--nn-button-color, var(--nn-text-on-dark));
+            fill: var(--nn-button-color, var(--nn-text-on-dark));
             border-image: none;
+            width: 100%;
+            align-items: center;
+          }
+
+          :host ::slotted(svg) {
+            margin-right: 10px
           }
 
           button:hover {
@@ -33,9 +42,7 @@ export const NnButton = (base) => {
           }
 
           button:focus {
-            border-color: rgba(255, 255, 255, 0.7);
-            border-color: var(--nn-primary-color);
-            box-shadow: var(--nn-theme-box-shadow2);
+            border-color: var(--nn-primary-color, rgba(255, 255, 255, 0.7));
             filter: brightness(115%);
           }
 
