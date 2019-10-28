@@ -38,8 +38,8 @@ export const NnTextArea = (base) => {
             resize: none;
           }
 
-          :host([has-value]) label, 
-          #native:focus ~ label, 
+          :host([has-value]) label,
+          #native:focus ~ label,
           #native:placeholder-shown ~ label {
             transform: translateY(-200%);
           }

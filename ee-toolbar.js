@@ -36,14 +36,16 @@ export class EeToolbar extends ThemeableMixin('ee-toolbar')(StyleableMixin(LitEl
 
         :host ::slotted([bottom-item]) {
           position: absolute;
-          right: 0;
+          top: unset;
           bottom: 0;
+          right: 0;
           left: 0;
         }
 
         :host ::slotted([top-item]) {
           position: absolute;
           top: 0;
+          bottom: unset;
           right: 0;
           left: 0;
         }

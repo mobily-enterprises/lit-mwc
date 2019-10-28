@@ -1,6 +1,6 @@
 import { css } from 'lit-element'
 import { AddHasValueAttributeMixin } from '../../../mixins/AddHasValueAttributeMixin'
-import { fixedLabel, inputLabel, inputField } from '../style-patterns.js'
+import { fixedLabel, inputLabel, inputField, floatingLabel } from '../style-patterns.js'
 
 export const NnSelect = (base) => {
   return class Base extends AddHasValueAttributeMixin(base) {
@@ -29,13 +29,13 @@ export const NnSelect = (base) => {
         super.styles || [],
         inputField,
         inputLabel,
-        fixedLabel,
+        floatingLabel,
         css`
           :host::after {
             position: absolute;
             content: '';
             border: 4px solid transparent;
-            border-top-color: var(--nn-boundaries-color-color);
+            border-top-color: var(--nn-boundaries-color);
             right: 20px;
             bottom: 50%;
             user-select: none;
