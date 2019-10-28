@@ -13,6 +13,7 @@ export const NnButton = (base) => {
 
           button {
             display: inline-block;
+            white-space: nowrap;
             height: var(--nn-button-height, 30px);
             -webkit-appearance: none;
             background-color: var(--nn-button-background, var(--nn-primary-color));
@@ -60,12 +61,14 @@ export const NnButton = (base) => {
           :host([text]:not([raised])) button {
             background-color: transparent;
             color: var(--nn-button-color, var(--nn-primary-color));
+            fill: var(--nn-button-color, var(--nn-primary-color));
           }
 
           :host([text]:not([outlined])) button:focus,
           :host([text]:not([raised])) button:focus {
             background-color: transparent;
             color: var(--nn-button-color, var(--primary-color));
+            fill: var(--nn-button-color, var(--primary-color));
             box-shadow: var(--nn-theme-box-shadow2);
           }
 
@@ -79,20 +82,23 @@ export const NnButton = (base) => {
           :host([text]:not([outlined])) button:hover,
           :host([text]:not([raised])) button:hover {
             background-color: var(--nn-primary-color-light);
-            color: var(--nn-primary-color-dark)
+            color: var(--nn-primary-color-dark);
+            fill: var(--nn-primary-color-dark);
           }
 
           :host([outlined]:not([text])) button,
           :host([outlined]:not([raised])) button {
             background-color: transparent;
             color: var(--nn-button-color, var(--nn-primary-color));
+            fill: var(--nn-button-color, var(--nn-primary-color));
             border: var(--nn-button-border, var(--nn-theme-border));
           }
 
           :host([outlined]:not([text])) button:hover,
           :host([outlined]:not([raised])) button:hover {
             background-color: var(--nn-primary-color-light);
-            color: var(--nn-primary-color-dark)
+            color: var(--nn-primary-color-dark);
+            fill: var(--nn-primary-color-dark);
           }
 
           :host([raised]:not([text])) button,
