@@ -34,7 +34,6 @@ export const NnButton = (base) => {
 
           :host ::slotted(svg) {
             display: inline-block;
-            margin: auto 10px;
             vertical-align: middle;
           }
 
