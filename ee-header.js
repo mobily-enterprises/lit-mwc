@@ -114,6 +114,10 @@ export class EeHeader extends LitElement {
     this.headerTitle = ''
   }
 
+  menuEvent () {}
+
+  backEvent () {}
+
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
@@ -121,7 +125,7 @@ export class EeHeader extends LitElement {
         <ee-toolbar class="toolbar">
           <div class="controls">
             ${this.menu ? html`<button class="icon" title="Menu" @click="${this._menuEvent}">${menu}</button>` : ''}
-            ${this.back || this.history && this.history.length > 1 ? html`<button class="icon" title="Back" @click="${this._backEvent}">${arrowback}</button>` : ''}
+            ${this.back ? html`<button class="icon" title="Back" @click="${this._backEvent}">${arrowback}</button>` : ''}
             <slot name="controls"></slot>
           </div>
           <div title>
@@ -145,13 +149,13 @@ export class EeHeader extends LitElement {
   }
 
   _menuEvent () {
-    this.dispatchEvent(new CustomEvent('menu-clicked'))
-    if (this.menuEvent) this.menuEvent()
+    this.dispatchEvent(new CustomEvent('menu-clicked', { bubbles: true, composed: true }))
+    this.menuEvent()
   }
 
   _backEvent () {
-    this.dispatchEvent(new CustomEvent('back-clicked'))
-    if (this.backEvent) this.backEvent()
+    this.dispatchEvent(new CustomEvent('back-clicked', { bubbles: true, composed: true }))
+    this.backEvent()
   }
 }
 customElements.define('ee-header', EeHeader)
