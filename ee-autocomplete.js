@@ -227,6 +227,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     }
     this._dismissSuggestions()
     this.targetElement.focus()
+
+    // Dispatch input event since input happened
+    const inputEvent = new CustomEvent('input', { composed: true, bubbles: true, cancelable: false, detail: { synthetic: true } })
+    this.targetElement.dispatchEvent(inputEvent)
   }
 
   async updated (cp) {
@@ -324,6 +328,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   }
 
   async _inputEvent (e) {
+    // This is a synthetic event triggered by autocomplete itself
+    // once a selection was made: ignore
+    if (e.detail && e.detail.synthetic) return
+
     // Nothing can nor should happen without a target
     const target = this.targetElement
     if (!target) return
