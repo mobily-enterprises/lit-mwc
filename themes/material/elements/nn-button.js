@@ -7,13 +7,12 @@ export const NnButton = (base) => {
         ...super.styles || [],
         css`
           :host {
-            display: inline-block;
             width: fit-content;
             padding: 4px 10px;
           }
 
           button {
-            display: flex;
+            display: inline-block;
             height: var(--nn-button-height, 30px);
             -webkit-appearance: none;
             background-color: var(--nn-button-background, var(--nn-primary-color));
@@ -29,8 +28,14 @@ export const NnButton = (base) => {
             align-items: center;
           }
 
+          :host ::slotted(*) {
+            vertical-align: middle;
+          }
+
           :host ::slotted(svg) {
-            margin-right: 10px
+            display: inline-block;
+            margin: auto 10px;
+            vertical-align: middle;
           }
 
           button:hover {
