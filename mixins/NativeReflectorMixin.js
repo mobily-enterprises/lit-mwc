@@ -193,7 +193,11 @@ export const NativeReflectorMixin = (base) => {
         if (this.skipProperties.indexOf(prop) !== -1) return
 
         let oldProp
-        if (Object.prototype.hasOwnProperty.call(this, prop)) oldProp = this[prop]
+        let oldPropWasPresent = false
+        if (Object.prototype.hasOwnProperty.call(this, prop)) {
+          oldProp = this[prop]
+          oldPropWasPresent = true
+        }
         Object.defineProperty(Object.getPrototypeOf(this), prop, {
           get: function () {
             const dst = this.native
@@ -222,7 +226,7 @@ export const NativeReflectorMixin = (base) => {
           configurable: true,
           enumerable: true
         })
-        if (typeof oldProp !== 'undefined') {
+        if (oldPropWasPresent) {
           delete this[prop]
           this[prop] = oldProp
         }
