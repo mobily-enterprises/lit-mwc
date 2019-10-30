@@ -81,7 +81,9 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
       overlayClass: {
         type: String,
         attribute: false
-      }
+      },
+      response: { type: Function, attribute: false },
+      prefetch: { type: Function, attribute: false }
     }
   }
 
@@ -159,12 +161,15 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     // applu to GET
     const fetchMethod = (initObject && initObject.method && initObject.method.toUpperCase()) || 'GET'
     const isGet = fetchMethod === 'GET'
+    initObject.url = url
 
     this.status = isGet ? 'loading' : 'saving'
     this._setOverlay()
     this.messenger(this.status, url, initObject)
+    this.prefetch(initObject)
+
     try {
-      const response = await fetch(url, initObject)
+      const response = await fetch(initObject.url, initObject)
       if (response.ok) {
         this.status = isGet ? 'loaded' : 'saved'
       } else {
@@ -180,6 +185,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
       this.status = isGet ? 'loading-error' : 'saving-error'
       this._setOverlay()
       this.messenger(this.status, url, initObject)
+      this.response(null)
       throw (e)
     }
   }
