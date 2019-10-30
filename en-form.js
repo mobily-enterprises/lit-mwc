@@ -52,11 +52,11 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       },
 
       // This will allow users to redefine methods declaratively
-      createSubmitObject: Function,
-      presubmit: Function,
-      response: Function,
-      setFormElementValues: Function,
-      extrapolateErrors: Function
+      createSubmitObject: { type: Function, attribute: false },
+      presubmit: { type: Function, attribute: false },
+      response: { type: Function, attribute: false },
+      setFormElementValues: { type: Function, attribute: false },
+      extrapolateErrors: { type: Function, attribute: false }
 
     }
   }
@@ -476,14 +476,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         this.submit(specificElement)
       }
     }
-    /*
-    this.inFlight = false
-    if (this.attemptedFlight) {
-      const oldEl = this.attemptedFlight
-      this.attemptedFlight = false
-      this.submit(oldEl)
-    }
-    */
   }
 
   async updated (changedProperties) {
