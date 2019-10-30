@@ -147,6 +147,8 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     }
   }
 
+  response () {}
+
   messenger () {}
 
   async fetch (url, initObject) {
@@ -170,6 +172,9 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
       }
       this._setOverlay()
       this.messenger(this.status, url, initObject, response)
+      // Response hook
+      this.response(response)
+
       return response
     } catch (e) {
       this.status = isGet ? 'loading-error' : 'saving-error'
