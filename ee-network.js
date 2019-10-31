@@ -101,6 +101,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
 
     this.lastInitObject = null
     this.lastUrl = null
+    this.response = this.prefetch = () => {}
   }
 
   render () {
@@ -153,7 +154,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
 
   messenger () {}
 
-  async fetch (url, initObject) {
+  async fetch (url, initObject = {}) {
     this.lastUrl = url
     this.lastInitObject = initObject
 
