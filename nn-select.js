@@ -30,6 +30,15 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Nativ
     for (const option of e.srcElement.assignedElements()) {
       select.appendChild(option)
     }
+
+    // The element's value depends on what it can contain. For example
+    // the first selected option will be the element's value.
+    // The assign will ensure that the value is updated as a property
+    // This will trigger the setter, which will in turn trigger
+    // `afterSettingProperty` (which is used for example by
+    // AddHasValueAttributeMixin to set the has-value property)
+    //
+    this.value = this.value // eslint-disable-line
   }
 }
 customElements.define('nn-select', NnSelect)
