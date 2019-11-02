@@ -1,7 +1,7 @@
 // NativeReflectorMixin
 // ====================
 //
-// This is the centrepiece of the `nn-`` elements. Every `nn-` element has the
+// This is the centrepiece of the `nn-` elements. Every `nn-` element has the
 // characteristic of being basically a native element with theming steroids.
 // Each `nn-` element has, in its template, a native element marked as
 // `id="native"` which identifies the element they represent. For example
