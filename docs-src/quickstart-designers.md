@@ -135,12 +135,31 @@ Alternatively, for labels containing more than text, add a span:
 
 Please note that labels, error messages and handling of `datalist` tags are the extent to which TPE goes in terms of non-native behaviour on native elements.
 
-### Change some CSS property
+### Changing the way elements look
 
-As a designer, you can expect TPE elements to behave like any other HTML element, and apply CSS to them as you normally would.
-There are two main ways to change the look of elements when the CSS inside the elements themselves needs to be changed.
+There are three ways to change the way your elements will look. Please note that the changes you make will largely depend on the theme you use.
 
-### Add some custom styling (native:style)
+#### Custom CSS properties
+
+The first stop to change how elements look is by changing their custom CSS properties. Each element provides a set of custom CSS properties that can be set and that will influence the way the element looks.
+
+For example, you might have this in your file
+
+````
+<style>
+  nn-input-text {
+    --nn-label-color: blue
+  }  
+</style>
+````
+
+Each theme will provide a set of custom properties you can set.
+
+TODO: rework where custom properties are defined, document them.
+
+#### Add some custom styling (native:style)
+
+You can style the inner parts of the element by assigning a `style` attribute to the inner elements.
 
 Each element has a template which contains sub-elements. For example an `nn-input-text` declared as such:
 
@@ -150,7 +169,7 @@ Each element has a template which contains sub-elements. For example an `nn-inpu
 
 Will contain this in its shadow DOM:
 
-<<IMAGE[./images/shadowDomText.jpg]
+<<IMG[./images/shadowDomText.png]
 
 The shadow DOM contains a label, with ID `label`. This is the critical piece of information you need to then write:
 
@@ -160,10 +179,25 @@ The shadow DOM contains a label, with ID `label`. This is the critical piece of 
 
 Basically, `some_id::something` will set the attribute `something` of the element with ID `some_id` in `nn-input-text`'s shadow DOM. This effectively allows you to set _any_ attribute of any meaningful element in the shadow DOM (assuming that the template was well written, and anything important does have an ID)
 
-### Add some custom styling/2 (stylesheet=)
+### Add some custom styling (external stylesheet)
 
-A possibly neater way to style elements is by assigning a `stylesheet` attribute to them.
+There is a third way of styling TPE elements: using external stylesheets. While this is theoretically a much better solution compared to assigning a style via `label::style="color: blue"`, the major drawback is that it will only work on browsers that support Shadow DOM natively.
 
+This is achieved by assigning a `stylesheet` attribute to the element:
+
+````
+<nn-input-text stylesheet="/custom-input.css" name="field" label="The label"></nn-input-text>
+````
+
+And `custom-input.css` is:
+
+````
+#label {
+  color: blue
+}
+````
+
+Note that the styling will only apply to the element itself; that's why there is no need to have a rule for `nn-input-text`. This also mean that CSS is encapsulated.
 
 ## Read on
 Tutorials

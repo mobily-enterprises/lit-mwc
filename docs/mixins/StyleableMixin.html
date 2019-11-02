@@ -467,10 +467,24 @@
       ]
     }
 
+    firstUpdated () {
+      <span class="hljs-keyword">super</span>.firstUpdated()
+
+      <span class="hljs-keyword">const</span> styleSlot = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'#style-slot'</span>)
+      <span class="hljs-keyword">if</span> (styleSlot) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> styleElement <span class="hljs-keyword">of</span> styleSlot.assignedElements()) {
+          <span class="hljs-keyword">if</span> (styleElement.tagName === <span class="hljs-string">'STYLE'</span>) {
+            <span class="hljs-keyword">this</span>.shadowRoot.appendChild(styleElement)
+          }
+        }
+      }
+    }
+
     <span class="hljs-keyword">get</span> customStyle () {
       <span class="hljs-keyword">return</span> html`<span class="xml">
           </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.stylesheet ? html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.stylesheet}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>`</span> : <span class="hljs-string">''</span>}</span><span class="xml">
           </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.elementStyle ? html`<span class="xml"></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.elementStyle}</span><span class="xml">`</span> : <span class="hljs-string">''</span>}</span><span class="xml">
+          <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"style"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"style-slot"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
         `</span>
     }
   }

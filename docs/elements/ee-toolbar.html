@@ -646,10 +646,12 @@
       css`<span class="css">
         <span class="hljs-selector-pseudo">:host</span> {
           <span class="hljs-attribute">display</span>: flex;
+          <span class="hljs-attribute">box-sizing</span>: border-box;
           <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
           <span class="hljs-attribute">align-items</span>: center;
           <span class="hljs-attribute">position</span>: relative;
-          <span class="hljs-attribute">height</span>: <span class="hljs-number">64px</span>;
+          <span class="hljs-attribute">height</span>: <span class="hljs-built_in">var</span>(--ee-toolbar-height, 100%);
+          <span class="hljs-attribute">max-height</span>: <span class="hljs-built_in">var</span>(--ee-toolbar-max-height, 96px);
           <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">5px</span>;
           <span class="hljs-attribute">pointer-events</span>: none;
           <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">var</span>(--toolbar-font-size, 20px);
@@ -666,19 +668,21 @@
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-pseudo">::slotted(</span><span class="hljs-selector-attr">[title]</span>) {
           <span class="hljs-attribute">pointer-events</span>: none;
           <span class="hljs-attribute">display</span>: flex;
-          <span class="hljs-attribute">margin</span>: auto
+          <span class="hljs-attribute">margin</span>: auto <span class="hljs-number">40px</span>;
         }
 
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-pseudo">::slotted(</span><span class="hljs-selector-attr">[bottom-item]</span>) {
           <span class="hljs-attribute">position</span>: absolute;
-          <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+          <span class="hljs-attribute">top</span>: unset;
           <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+          <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
           <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
         }
 
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-pseudo">::slotted(</span><span class="hljs-selector-attr">[top-item]</span>) {
           <span class="hljs-attribute">position</span>: absolute;
           <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+          <span class="hljs-attribute">bottom</span>: unset;
           <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
           <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
         }

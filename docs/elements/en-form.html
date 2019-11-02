@@ -693,11 +693,11 @@
             <p>This will allow users to redefine methods declaratively</p>
 
             
-              <div class='highlight'><pre>      createSubmitObject: <span class="hljs-built_in">Function</span>,
-      <span class="hljs-attr">presubmit</span>: <span class="hljs-built_in">Function</span>,
-      <span class="hljs-attr">response</span>: <span class="hljs-built_in">Function</span>,
-      <span class="hljs-attr">setFormElementValues</span>: <span class="hljs-built_in">Function</span>,
-      <span class="hljs-attr">extrapolateErrors</span>: <span class="hljs-built_in">Function</span>
+              <div class='highlight'><pre>      createSubmitObject: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span> },
+      <span class="hljs-attr">presubmit</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span> },
+      <span class="hljs-attr">response</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span> },
+      <span class="hljs-attr">setFormElementValues</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span> },
+      <span class="hljs-attr">extrapolateErrors</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span> }
 
     }
   }
@@ -1163,7 +1163,12 @@ Invalidate the problem fields</p>
             <p>Try and get the errors object from the reponse’s json</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">const</span> originalErrs = <span class="hljs-keyword">await</span> response.json()
+              <div class='highlight'><pre>      <span class="hljs-keyword">let</span> originalErrs
+      <span class="hljs-keyword">try</span> {
+        originalErrs = <span class="hljs-keyword">await</span> response.json()
+      } <span class="hljs-keyword">catch</span> (e) {
+        originalErrs = {}
+      }
       errs = <span class="hljs-keyword">this</span>.extrapolateErrors(originalErrs) || {}</pre></div>
             
           
@@ -1284,14 +1289,6 @@ passed to the form.</p>
         <span class="hljs-keyword">this</span>.submit(specificElement)
       }
     }
-    <span class="hljs-comment">/*
-    this.inFlight = false
-    if (this.attemptedFlight) {
-      const oldEl = this.attemptedFlight
-      this.attemptedFlight = false
-      this.submit(oldEl)
-    }
-    */</span>
   }
 
   <span class="hljs-keyword">async</span> updated (changedProperties) {

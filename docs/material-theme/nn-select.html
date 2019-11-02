@@ -607,7 +607,7 @@
             
               <div class='highlight'><pre><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { AddHasValueAttributeMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../mixins/AddHasValueAttributeMixin'</span>
-<span class="hljs-keyword">import</span> { fixedLabel, inputLabel, inputField } <span class="hljs-keyword">from</span> <span class="hljs-string">'../style-patterns.js'</span>
+<span class="hljs-keyword">import</span> { fixedLabel, inputLabel, inputField, floatingLabel } <span class="hljs-keyword">from</span> <span class="hljs-string">'../style-patterns.js'</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> NnSelect = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AddHasValueAttributeMixin</span>(<span class="hljs-title">base</span>) </span>{</pre></div>
@@ -641,13 +641,13 @@ CSS can select next siblings, but not previous.  This guarantees label is render
         <span class="hljs-keyword">super</span>.styles || [],
         inputField,
         inputLabel,
-        fixedLabel,
+        floatingLabel,
         css`<span class="css">
           <span class="hljs-selector-pseudo">:host</span><span class="hljs-selector-pseudo">::after</span> {
             <span class="hljs-attribute">position</span>: absolute;
             <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
             <span class="hljs-attribute">border</span>: <span class="hljs-number">4px</span> solid transparent;
-            <span class="hljs-attribute">border-top-color</span>: <span class="hljs-built_in">var</span>(--nn-boundaries-color-color);
+            <span class="hljs-attribute">border-top-color</span>: <span class="hljs-built_in">var</span>(--nn-boundaries-color);
             <span class="hljs-attribute">right</span>: <span class="hljs-number">20px</span>;
             <span class="hljs-attribute">bottom</span>: <span class="hljs-number">50%</span>;
             <span class="hljs-attribute">user-select</span>: none;

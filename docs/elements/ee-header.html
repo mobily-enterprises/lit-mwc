@@ -662,7 +662,7 @@
           <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#eee</span>;
         }
 
-        <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[menu]</span>) <span class="hljs-selector-tag">div</span><span class="hljs-selector-attr">[title]</span>, 
+        <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[menu]</span>) <span class="hljs-selector-tag">div</span><span class="hljs-selector-attr">[title]</span>,
         <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[back]</span>) <span class="hljs-selector-tag">div</span><span class="hljs-selector-attr">[title]</span> {
           <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">46px</span>;
         }
@@ -685,19 +685,19 @@
           <span class="hljs-attribute">-webkit-appearance</span>: none;
           <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>;
           <span class="hljs-attribute">width</span>: <span class="hljs-number">40px</span>;
-          <span class="hljs-attribute">padding</span>: <span class="hljs-number">6px</span> ;
+          <span class="hljs-attribute">padding</span>: <span class="hljs-number">4px</span>;
           <span class="hljs-attribute">margin</span>: auto <span class="hljs-number">3px</span>;
+          <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid transparent;
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--header-color, var(--app-header-text-color));
         }
 
         <span class="hljs-selector-class">.toolbar</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.icon</span><span class="hljs-selector-pseudo">:focus</span>, <span class="hljs-selector-class">.toolbar</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.icon</span><span class="hljs-selector-pseudo">:hover</span> {
           <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
-          <span class="hljs-attribute">background</span>: <span class="hljs-number">#eeeeee</span>;
-          <span class="hljs-comment">/* border: 1px solid #bdbdbd; */</span>
+          <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--header-color, var(--app-header-text-color));
         }
 
         <span class="hljs-selector-class">.toolbar</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.icon</span><span class="hljs-selector-pseudo">:active</span> {
           <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
-          <span class="hljs-attribute">background</span>: <span class="hljs-number">#cccccc</span>;
           <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#bdbdbd</span>;
           <span class="hljs-attribute">box-shadow</span>: none
           <span class="hljs-comment">/* animation: fadeIn 0.1s ease-in; */</span>
@@ -738,12 +738,14 @@
             
           
             
-            <p>Users can set these attributes to get built-in basic controls and title text. 
+            <p>Users can set these attributes to get built-in basic controls and title text.
 Otherwise, they can user their own with slot=”controls” and slot=”header-title”</p>
 
             
               <div class='highlight'><pre>      back: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">reflect</span>: <span class="hljs-literal">true</span> },
       <span class="hljs-attr">menu</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">reflect</span>: <span class="hljs-literal">true</span> },
+      <span class="hljs-attr">backEvent</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">'back-event'</span> },
+      <span class="hljs-attr">menuEvent</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">'menu-event'</span> },
       <span class="hljs-attr">headerTitle</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">'header-title'</span> },
       <span class="hljs-attr">headerSubtitle</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">'header-subtitle'</span> }
     }
@@ -754,6 +756,10 @@ Otherwise, they can user their own with slot=”controls” and slot=”header-t
     <span class="hljs-keyword">this</span>.headerTitle = <span class="hljs-string">''</span>
   }
 
+  menuEvent () {}
+
+  backEvent () {}
+
   render () {
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
@@ -761,7 +767,7 @@ Otherwise, they can user their own with slot=”controls” and slot=”header-t
         <span class="hljs-tag">&lt;<span class="hljs-name">ee-toolbar</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"toolbar"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"controls"</span>&gt;</span>
             </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.menu ? html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"icon"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Menu"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._menuEvent}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span></span><span class="hljs-subst">${menu}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>`</span> : <span class="hljs-string">''</span>}</span><span class="xml">
-            </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.back || <span class="hljs-keyword">this</span>.history.length &gt; <span class="hljs-number">1</span> ? html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"icon"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Back"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._backEvent}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span></span><span class="hljs-subst">${arrowback}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>`</span> : <span class="hljs-string">''</span>}</span><span class="xml">
+            </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.back ? html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"icon"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Back"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._backEvent}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span></span><span class="hljs-subst">${arrowback}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>`</span> : <span class="hljs-string">''</span>}</span><span class="xml">
             <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"controls"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
           <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">title</span>&gt;</span>
@@ -785,11 +791,13 @@ Otherwise, they can user their own with slot=”controls” and slot=”header-t
   }
 
   _menuEvent () {
-    <span class="hljs-keyword">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">'menu-clicked'</span>))
+    <span class="hljs-keyword">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">'menu-clicked'</span>, { <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span> }))
+    <span class="hljs-keyword">this</span>.menuEvent()
   }
 
   _backEvent () {
-    <span class="hljs-keyword">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">'back-clicked'</span>))
+    <span class="hljs-keyword">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">'back-clicked'</span>, { <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span> }))
+    <span class="hljs-keyword">this</span>.backEvent()
   }
 }
 customElements.define(<span class="hljs-string">'ee-header'</span>, EeHeader)</pre></div>

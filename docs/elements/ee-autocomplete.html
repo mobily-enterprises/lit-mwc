@@ -888,7 +888,15 @@ picked items (element name, config and attributes)</p>
       }
     }
     <span class="hljs-keyword">this</span>._dismissSuggestions()
-    <span class="hljs-keyword">this</span>.targetElement.focus()
+    <span class="hljs-keyword">this</span>.targetElement.focus()</pre></div>
+            
+          
+            
+            <p>Dispatch input event since input happened</p>
+
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">const</span> inputEvent = <span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">'input'</span>, { <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">cancelable</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">detail</span>: { <span class="hljs-attr">synthetic</span>: <span class="hljs-literal">true</span> } })
+    <span class="hljs-keyword">this</span>.targetElement.dispatchEvent(inputEvent)
   }
 
   <span class="hljs-keyword">async</span> updated (cp) {
@@ -995,6 +1003,14 @@ beginning of the only result</p>
   }
 
   <span class="hljs-keyword">async</span> _inputEvent (e) {</pre></div>
+            
+          
+            
+            <p>This is a synthetic event triggered by autocomplete itself
+once a selection was made: ignore</p>
+
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (e.detail &amp;&amp; e.detail.synthetic) <span class="hljs-keyword">return</span></pre></div>
             
           
             

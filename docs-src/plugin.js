@@ -1,7 +1,8 @@
 const fs = require('fs')
 
 exports.beforeMarked = async function (s) {
-  return s.replace(/^<<\[([^\]]*)\]/mg, (m, p1) => {
+  let result
+  result = s.replace(/^<<INC\[([^\]]*)\]/mg, (m, p1) => {
     let contents
     try {
       contents = fs.readFileSync(p1)
@@ -11,4 +12,9 @@ exports.beforeMarked = async function (s) {
       process.exit(100)
     }
   })
+
+  result = s.replace(/^<<IMG\[([^\]]*)\]/mg, (m, p1) => {
+    return `<img src="${p1}"></img>`
+  })
+  return result
 }

@@ -453,28 +453,11 @@
 
     <span class="hljs-keyword">get</span> skipProperties () {
       <span class="hljs-keyword">return</span> [...super.skipProperties, <span class="hljs-string">'form'</span>]
-    }</pre></div>
-            
-          
-            
-            <p>Submit on enter with forms with only one element</p>
-
-            
-              <div class='highlight'><pre>    _eventListener (e) {
-      <span class="hljs-keyword">if</span> (e.keyCode === <span class="hljs-number">13</span> &amp;&amp; [...this.form.elements].length === <span class="hljs-number">1</span>) {
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.form) <span class="hljs-keyword">this</span>.form.submit()
-      }
     }
 
     connectedCallback () {
       <span class="hljs-keyword">super</span>.connectedCallback()
       <span class="hljs-keyword">this</span>.assignFormProperty()
-      <span class="hljs-keyword">this</span>.addEventListener(<span class="hljs-string">'keydown'</span>, <span class="hljs-keyword">this</span>._boundKeyEventListener)
-    }
-
-    disconnectedCallback () {
-      <span class="hljs-keyword">super</span>.disconnectedCallBack()
-      <span class="hljs-keyword">this</span>.removeEventListener(<span class="hljs-string">'keydown'</span>, <span class="hljs-keyword">this</span>._boundKeyEventListener)
     }
 
     assignFormProperty () {</pre></div>

@@ -503,8 +503,6 @@
       ]
       <span class="hljs-keyword">this</span>.validationMessages = {}
       <span class="hljs-keyword">this</span>.validationMessagePosition = <span class="hljs-string">'before'</span>
-
-      <span class="hljs-keyword">this</span>._boundKeyEventListener = <span class="hljs-keyword">this</span>._eventListener.bind(<span class="hljs-keyword">this</span>)
       <span class="hljs-keyword">this</span>._showPrettyError = <span class="hljs-literal">false</span>
     }
 
@@ -539,8 +537,7 @@
           
             
             <p>Run custom validator. Note that custom validator
-will only ever run on filed without an existing customError.
-This is because</p>
+will only ever run on filed without an existing customError.</p>
 
             
               <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.native.validity.customError) {

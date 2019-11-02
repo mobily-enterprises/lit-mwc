@@ -718,7 +718,9 @@
       <span class="hljs-attr">overlayClass</span>: {
         <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
         <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span>
-      }
+      },
+      <span class="hljs-attr">response</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span> },
+      <span class="hljs-attr">prefetch</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span> }
     }
   }
 
@@ -736,6 +738,7 @@
 
     <span class="hljs-keyword">this</span>.lastInitObject = <span class="hljs-literal">null</span>
     <span class="hljs-keyword">this</span>.lastUrl = <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">this</span>.response = <span class="hljs-keyword">this</span>.prefetch = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {}
   }
 
   render () {
@@ -792,9 +795,11 @@
     }
   }
 
+  response () {}
+
   messenger () {}
 
-  <span class="hljs-keyword">async</span> fetch (url, initObject) {
+  <span class="hljs-keyword">async</span> fetch (url, initObject = {}) {
     <span class="hljs-keyword">this</span>.lastUrl = url
     <span class="hljs-keyword">this</span>.lastInitObject = initObject</pre></div>
             
@@ -806,24 +811,36 @@ applu to GET</p>
             
               <div class='highlight'><pre>    <span class="hljs-keyword">const</span> fetchMethod = (initObject &amp;&amp; initObject.method &amp;&amp; initObject.method.toUpperCase()) || <span class="hljs-string">'GET'</span>
     <span class="hljs-keyword">const</span> isGet = fetchMethod === <span class="hljs-string">'GET'</span>
+    initObject.url = url
 
     <span class="hljs-keyword">this</span>.status = isGet ? <span class="hljs-string">'loading'</span> : <span class="hljs-string">'saving'</span>
     <span class="hljs-keyword">this</span>._setOverlay()
     <span class="hljs-keyword">this</span>.messenger(<span class="hljs-keyword">this</span>.status, url, initObject)
+    <span class="hljs-keyword">this</span>.prefetch(initObject)
+
     <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(url, initObject)
+      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(initObject.url, initObject)
       <span class="hljs-keyword">if</span> (response.ok) {
         <span class="hljs-keyword">this</span>.status = isGet ? <span class="hljs-string">'loaded'</span> : <span class="hljs-string">'saved'</span>
       } <span class="hljs-keyword">else</span> {
         <span class="hljs-keyword">this</span>.status = isGet ? <span class="hljs-string">'loading-error'</span> : <span class="hljs-string">'saving-error'</span>
       }
       <span class="hljs-keyword">this</span>._setOverlay()
-      <span class="hljs-keyword">this</span>.messenger(<span class="hljs-keyword">this</span>.status, url, initObject, response)
+      <span class="hljs-keyword">this</span>.messenger(<span class="hljs-keyword">this</span>.status, url, initObject, response)</pre></div>
+            
+          
+            
+            <p>Response hook</p>
+
+            
+              <div class='highlight'><pre>      <span class="hljs-keyword">this</span>.response(response)
+
       <span class="hljs-keyword">return</span> response
     } <span class="hljs-keyword">catch</span> (e) {
       <span class="hljs-keyword">this</span>.status = isGet ? <span class="hljs-string">'loading-error'</span> : <span class="hljs-string">'saving-error'</span>
       <span class="hljs-keyword">this</span>._setOverlay()
       <span class="hljs-keyword">this</span>.messenger(<span class="hljs-keyword">this</span>.status, url, initObject)
+      <span class="hljs-keyword">this</span>.response(<span class="hljs-literal">null</span>)
       <span class="hljs-keyword">throw</span> (e)
     }
   }

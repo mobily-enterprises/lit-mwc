@@ -498,31 +498,54 @@ window.document.querySelector('#inp').value = "Tony Mobily"
 <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span>&gt;</span></span>
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"label"</span>&gt;</span></span>This is a <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span></span>very<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span></span> complex label<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
 <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Please note that labels, error messages and handling of <code>datalist</code> tags are the extent to which TPE goes in terms of non-native behaviour on native elements.</p>
-<h3 id="change-some-css-property">Change some CSS property</h3>
+<h3 id="changing-the-way-elements-look">Changing the way elements look</h3>
 
             
           
             
-            <p>As a designer, you can expect TPE elements to behave like any other HTML element, and apply CSS to them as you normally would.
-There are two main ways to change the look of elements when the CSS inside the elements themselves needs to be changed.</p>
-<h3 id="add-some-custom-styling-nativestyle">Add some custom styling (native:style)</h3>
+            <p>There are three ways to change the way your elements will look. Please note that the changes you make will largely depend on the theme you use.</p>
+<h4 id="custom-css-properties">Custom CSS properties</h4>
 
             
           
             
-            <p>Each element has a template which contains sub-elements. For example an <code>nn-input-text</code> declared as such:</p>
+            <p>The first stop to change how elements look is by changing their custom CSS properties. Each element provides a set of custom CSS properties that can be set and that will influence the way the element looks.</p>
+<p>For example, you might have this in your file</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span></span>
+nn-input-text {
+--nn-label-color: blue
+}  
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span></code></pre><p>Each theme will provide a set of custom properties you can set.</p>
+<p>TODO: rework where custom properties are defined, document them.</p>
+<h4 id="add-some-custom-styling-nativestyle">Add some custom styling (native:style)</h4>
+
+            
+          
+            
+            <p>You can style the inner parts of the element by assigning a <code>style</code> attribute to the inner elements.</p>
+<p>Each element has a template which contains sub-elements. For example an <code>nn-input-text</code> declared as such:</p>
 <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"The label"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Will contain this in its shadow DOM:</p>
-<p>&lt;&lt;IMAGE[./images/shadowDomText.jpg]</p>
+<p><img src="./images/shadowDomText.png"></img></p>
 <p>The shadow DOM contains a label, with ID <code>label</code>. This is the critical piece of information you need to then write:</p>
 <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span> <span class="hljs-attr">label::style</span>=<span class="hljs-string">"color: blue"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"The label"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>Basically, <code>some_id::something</code> will set the attribute <code>something</code> of the element with ID <code>some_id</code> in <code>nn-input-text</code>‘s shadow DOM. This effectively allows you to set <em>any</em> attribute of any meaningful element in the shadow DOM (assuming that the template was well written, and anything important does have an ID)</p>
-<h3 id="add-some-custom-styling2-stylesheet">Add some custom styling/2 (stylesheet=)</h3>
+<h3 id="add-some-custom-styling-external-stylesheet">Add some custom styling (external stylesheet)</h3>
 
             
           
             
-            <p>A possibly neater way to style elements is by assigning a <code>stylesheet</code> attribute to them.</p>
-<h2 id="read-on">Read on</h2>
+            <p>There is a third way of styling TPE elements: using external stylesheets. While this is theoretically a much better solution compared to assigning a style via <code>label::style=&quot;color: blue&quot;</code>, the major drawback is that it will only work on browsers that support Shadow DOM natively.</p>
+<p>This is achieved by assigning a <code>stylesheet</code> attribute to the element:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">stylesheet</span>=<span class="hljs-string">"/custom-input.css"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"field"</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"The label"</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre><p>And <code>custom-input.css</code> is:</p>
+<pre><code><span class="hljs-section">#label {</span></code></pre>
+            
+          
+            
+            <p>color: blue
+}</p>
+<pre><code>
+Note that the styling will only apply to the element itself; that's why there is no need to have a rule for <span class="hljs-code">`nn-input-text`</span>. This also mean that CSS is encapsulated.
 
+<span class="hljs-section">## Read on</span></code></pre>
             
           
             
