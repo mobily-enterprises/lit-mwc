@@ -9,15 +9,16 @@
 // * [Material](../material-theme/nn-input-text.html)
 //
 //
-// <<[partials/validation.md]
+// <<INC[partials/validation.md]
 //
 // ## Developers
 //
 // ### Mixins
-// <<[mixin-descr/NativeReflectorMixin.md]
-// <<[mixin-descr/InputMixin.md]
-// <<[mixin-descr/FormElementMixin.md]
-// <<[mixin-descr/LabelsMixin.md]
+// <<INC[mixin-descr/NativeReflectorMixin.md]
+// <<INC[mixin-descr/InputMixin.md]
+// <<INC[mixin-descr/FormElementMixin.md]
+// <<INC[mixin-descr/NativeValidatorMixin.md]
+// <<INC[mixin-descr/LabelsMixin.md]
 
 import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
