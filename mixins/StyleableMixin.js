@@ -22,10 +22,24 @@ export const StyleableMixin = (base) => {
       ]
     }
 
+    firstUpdated () {
+      super.firstUpdated()
+
+      const styleSlot = this.shadowRoot.querySelector('#style-slot')
+      if (styleSlot) {
+        for (const styleElement of styleSlot.assignedElements()) {
+          if (styleElement.tagName === 'STYLE') {
+            this.shadowRoot.appendChild(styleElement)
+          }
+        }
+      }
+    }
+
     get customStyle () {
       return html`
           ${this.stylesheet ? html`<link rel="stylesheet" href="${this.stylesheet}">` : ''}
           ${this.elementStyle ? html`${this.elementStyle}` : ''}
+          <slot name="style" id="style-slot"></slot>
         `
     }
   }
