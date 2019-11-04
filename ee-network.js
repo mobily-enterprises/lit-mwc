@@ -25,22 +25,20 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
           bottom: 0;
           z-index: 1;
           text-align: center;
-          transition: background var(--hot-network-transition-duration, 200ms);
-          @apply(--hot-network-overlay);
+          transition: background var(--ee-network-transition-duration, 200ms);
         }
         #overlay.overlay-loading {
           display: block;
-          color: var(--hot-network-overlay-loading-color, #666);
-          /*background-color: var(--hot-network-overlay-loading-background-color, #d9dce0);*/
-          background-color: var(--hot-network-overlay-loading-background-color, rgba(102, 102, 102, 0.25));
+          color: var(--ee-network-overlay-loading-color, #666);
+          background-color: var(--ee-network-overlay-loading-background-color, rgba(102, 102, 102, 0.25));
         }
         #overlay.clear {
         }
         #overlay.overlay-error {
           display: block;
           cursor: pointer; /* Hint that the object is clickable */
-          color: var(--hot-network-overlay-error-color, #c00);
-          background-color: var(--hot-network-overlay-error-background-color, rgba(255, 0, 0, 0.25));
+          color: var(--ee-network-overlay-error-color, #c00);
+          background-color: var(--ee-network-overlay-error-background-color, rgba(255, 0, 0, 0.25));
         }
 
         #content-wrapper.overlay-error {

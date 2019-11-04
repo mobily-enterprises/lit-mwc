@@ -21,9 +21,9 @@ export class EeNavBar extends ThemeableMixin('ee-nav-bar')(StyleableMixin(LitEle
           display: flex;
           width: 100%;
           height: 56px;
-          background: var(--ee-nav-bar-background, var(--app-primary-color));
-          color: var(--ee-nav-bar-color, var(--app-light-text-color));
-          fill: var(--ee-nav-bar-color, var(--app-light-text-color));
+          background: var(--ee-navbar-background, white);
+          color: var(--ee-navbar-color, black);
+          fill: var(--ee-navbar-color, black);
         }
 
         :host nav > ::slotted(*[nav-item]) {

@@ -17,7 +17,7 @@ export class EeToolbar extends ThemeableMixin('ee-toolbar')(StyleableMixin(LitEl
           max-height: var(--ee-toolbar-max-height, 96px);
           padding: 0 5px;
           pointer-events: none;
-          font-size: var(--toolbar-font-size, 20px);
+          font-size: var(--ee-toolbar-font-size, 20px);
         }
 
         :host ::slotted(*) {

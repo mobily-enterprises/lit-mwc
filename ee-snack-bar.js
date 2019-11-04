@@ -13,8 +13,8 @@ class EeSnackBar extends ThemeableMixin('ee-snack-bar')(StyleableMixin(LitElemen
           left: 0;
           right: 0;
           padding: 12px;
-          background-color: var(--app-primary-color);
-          color: var(--app-light-text-color);
+          background-color: var(--ee-snackbar-background-color);
+          color: var(--ee-snackbar-color);
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
           text-align: center;
           will-change: transform;

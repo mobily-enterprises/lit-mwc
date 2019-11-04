@@ -16,15 +16,15 @@ export const requiredLabelAsterisk = css`
 // export const invalidStyle
 export const hoverStyle = css`
   :host(:hover) {
-    --nn-background: var(--nn-background-dark);
-    --nn-theme-box-shadow: var(--nn-theme-box-shadow2);
+    --mat-background: var(--mat-background-dark);
+    --mat-theme-box-shadow: var(--mat-theme-box-shadow2);
   }
 `
 export const focusStyle = css`
   :host([has-focus]), :host([has-focus][outlined]) {
-    --nn-theme-border: 2px solid var(--nn-primary-color);
-    --nn-background: var(--nn-background-dark);
-    --nn-label-color: var(--nn-primary-color);
+    --mat-theme-border: 2px solid var(--mat-primary-color);
+    --mat-background: var(--mat-background-dark);
+    --mat-label-color: var(--mat-primary-color);
   }
 
   :host([has-focus]) #native {
@@ -38,12 +38,12 @@ export const inputField = css`
     padding: 0 12px;
     padding-bottom: 16px;
     margin: 5px;
-    min-width: var(--nn-form-element-min-width, fit-content);
+    min-width: var(--mat-form-element-min-width, fit-content);
     font-family: var(--font-family);
   }
 
   :host([dense]) {
-    --nn-form-element-height: 40px;
+    --mat-form-element-height: 40px;
     padding-bottom: 8px;
   }
 
@@ -52,15 +52,15 @@ export const inputField = css`
   }
 
   :host([outlined]) {
-    --nn-background: var(--app-background, transparent);
-    --nn-background-dark: var(--app-background-dark, transparent);
-    --nn-theme-border: 2px solid #ccc;
+    --mat-background: var(--mat-background, transparent);
+    --mat-background-dark: var(--mat-background-dark, transparent);
+    --mat-theme-border: 2px solid #ccc;
   }
 
   :host([outlined]) #native {
     border-bottom: unset;
-    border: var(--nn-input-border, var(--nn-theme-border));
-    border-radius: var(--nn-input-border-radius, 4px);
+    border: var(--mat-input-border, var(--mat-theme-border));
+    border-radius: var(--mat-input-border-radius, 4px);
   }
 
   #native {
@@ -70,18 +70,18 @@ export const inputField = css`
     -webkit-appearance: none;
     box-sizing: border-box;
     display: block;
-    border-radius: var(--nn-input-border-radius, 4px 4px 0 0);
+    border-radius: var(--mat-input-border-radius, 4px 4px 0 0);
     border-width: 0;
     border-style: none;
     border-color: transparent;
-    border-bottom: var(--nn-input-border, var(--nn-theme-border));
-    color: var(--nn-input-color, inherit);
-    background-color: var(--nn-background, #eee);
+    border-bottom: var(--mat-input-border, var(--mat-theme-border));
+    color: var(--mat-input-color, inherit);
+    background-color: var(--mat-background, #eee);
     width: 100%;
     font-size: 14px;
     padding: 20px 16px 6px;
-    height: var(--nn-form-element-height);
-    box-shadow: var(--nn-theme-box-shadow);
+    height: var(--mat-form-element-height);
+    box-shadow: var(--mat-theme-box-shadow);
     transition: background-color 0.3s ease-in-out,
       color 0.3s ease-in-out,
       box-shadow 0.3s ease-in-out;
@@ -93,13 +93,13 @@ export const inputField = css`
   }
 
   #native::selection {
-    background-color: var(--nn-background-dark);
+    background-color: var(--mat-background-dark);
   }
 
   #native:invalid {
-    background-color: var(--nn-error-color);
-    color: var(--nn-error-text);
-    border-color: var(--nn-error-text);
+    background-color: var(--mat-error-color);
+    color: var(--mat-error-text);
+    border-color: var(--mat-error-text);
   }
 
   ${hoverStyle}
@@ -111,8 +111,8 @@ export const inputLabel = css`
     position: absolute;
     display: inline-flex;
     font-size: 16px;
-    border: var(--nn-label-border, none);
-    color: var(--nn-label-color,  var(--nn-primary-color-light));
+    border: var(--mat-label-border, none);
+    color: var(--mat-label-color,  var(--mat-primary-color-light));
     padding-left: 6px;
     padding-right: 6px;
     margin-left: 8px;
@@ -127,7 +127,7 @@ export const inputLabel = css`
   #native:invalid + label,
   #native:invalid ~ label {
     background-color: none;
-    --nn-label-color: darkred;
+    --mat-label-color: darkred;
   }
 
   ${requiredLabelAsterisk}
@@ -147,14 +147,14 @@ export const floatingLabel = css`
   :host([dense][has-value]) label,
   :host([dense]) #native:focus ~ label,
   :host([dense]) #native:placeholder-shown ~ label {
-    background: var(--app-background, white)
+    background: var(--mat-background, white)
   }
 
   :host([outlined]:not([dense][has-value]) label,
   :host([outlined]:not([dense]) #native:focus ~ label,
   :host([outlined]:not([dense]) #native:placeholder-shown ~ label {
     transform: translateY(-170%) scale(0.8);
-    background: var(--app-background, white);
+    background: var(--mat-background, white);
   }
 `
 

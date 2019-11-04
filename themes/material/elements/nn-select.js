@@ -35,7 +35,7 @@ export const NnSelect = (base) => {
             position: absolute;
             content: '';
             border: 4px solid transparent;
-            border-top-color: var(--nn-boundaries-color);
+            border-top-color: var(--mat-boundaries-color);
             right: 20px;
             bottom: 50%;
             user-select: none;

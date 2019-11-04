@@ -27,11 +27,11 @@ export const NnTextArea = (base) => {
         errorMessage,
         css`
           :host {
-            --nn-form-element-height: 80px;
+            --mat-form-element-height: 80px;
           }
           /* Following material design guidelines, non-resizeable textarea */
           textarea {
-            font-family: var(--nn-font-family);
+            font-family: var(--mat-font-family);
             padding-top: 12px;
             min-height: 80px;
             max-height: 80px;

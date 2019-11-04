@@ -20,8 +20,9 @@ export class EeHeader extends LitElement {
           right: 0;
           width: 100%;
           text-align: center;
-          background-color: var(--header-background, var(--app-header-background-color));
-          color: var(--header-color, var(--app-header-text-color));
+          background-color: var(--ee-header-background, white);
+          color: var(--ee-header-color, black);
+          fill: var(--ee-header-color, black);
           border-bottom: 1px solid #eee;
         }
 
@@ -51,12 +52,12 @@ export class EeHeader extends LitElement {
           padding: 4px;
           margin: auto 3px;
           border: 1px solid transparent;
-          color: var(--header-color, var(--app-header-text-color));
+          color: var(--ee-header-color, black);
         }
 
         .toolbar button.icon:focus, .toolbar button.icon:hover {
           outline: 0;
-          border: 1px solid var(--header-color, var(--app-header-text-color));
+          border: 1px solid var(--ee-header-lines-color, #bdbdbd);
         }
 
         .toolbar button.icon:active {
@@ -67,8 +68,8 @@ export class EeHeader extends LitElement {
         }
 
         .toolbar button, .toolbar button svg {
-          color: var(--app-header-text-color);
-          fill: var(--app-header-text-color);
+          color: var(--ee-header-color);
+          fill: var(--ee-header-color);
         }
 
         .toolbar div.actions {

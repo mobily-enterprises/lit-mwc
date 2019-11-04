@@ -29,7 +29,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           transform: translateX(-100%);
           overflow-x: hidden;
           transition: transform 0.3s ease-out;
-          background-color: var(--drawer-background, initial);
+          background-color: var(--ee-drawer-background, initial);
         }
 
         :host([opened]) div.container {
@@ -38,7 +38,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
         }
 
         :host([modal][opened]) div.container {
-          box-shadow: var(--drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14), 0 0 0 100vw rgba(0, 0, 0, 0.15))
+          box-shadow: var(--ee-drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14), 0 0 0 100vw rgba(0, 0, 0, 0.15))
         }
 
         #close {
@@ -67,7 +67,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           min-width: 300px;
           height: 100%;
           padding: 30px 24px;
-          background: var(--app-drawer-background-color);
+          background: var(--ee-drawer-background-color);
           position: relative;
           overflow: scroll;
           padding-bottom: 64px;
@@ -77,7 +77,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
         .container > nav ::slotted(.drawer-item) {
           display: block;
           text-decoration: none;
-          color: var(--app-drawer-text-color);
+          color: var(--ee-drawer-text-color);
           line-height: 40px;
           padding: 0 24px;
           cursor: pointer;
@@ -85,9 +85,9 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
 
         .container  > nav ::slotted(a[selected]),
         .container  > nav ::slotted(.drawer-item[selected]) {
-          color: var(--app-drawer-selected-color);
+          color: var(--ee-drawer-selected-color);
           font-weight: bolder;
-          border-left: 3px solid var(--app-drawer-selected-color);
+          border-left: 3px solid var(--ee-drawer-selected-color);
           background-color: rgba(255,255,255, 0.1);
         }
 
@@ -97,7 +97,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
         }
 
         .container  > nav ::slotted(.head) {
-          color: var(--app-drawer-text-color);
+          color: var(--ee-drawer-text-color);
           width: 100%;
           border-bottom: 1px solid white;
           padding: 6px 70% 6px 0;

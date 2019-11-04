@@ -16,11 +16,11 @@ export const NnInputButton = (base) => {
             height: var(--button-height, 30px);
             -webkit-appearance: none;
             background-color: var(--button-background, var(--primary-color));
-            border-radius: var(--nn-button-border-radius, 4px);
-            border: var(--nn-button-border, var(--theme-border));
+            border-radius: var(--mat-button-border-radius, 4px);
+            border: var(--mat-button-border, var(--theme-border));
             border-color: transparent;
             text-transform: uppercase;
-            color: var(--nn-button-color, var(--text-on-dark));
+            color: var(--mat-button-color, var(--text-on-dark));
             border-image: none;
           }
 
@@ -42,7 +42,7 @@ export const NnInputButton = (base) => {
           :host([text]:not([outlined])) input,
           :host([text]:not([raised])) input {
             background-color: transparent;
-            color: var(--nn-button-color, var(--primary-color));
+            color: var(--mat-button-color, var(--primary-color));
           }
 
           :host([text]:not([outlined])) input:active,
@@ -61,8 +61,8 @@ export const NnInputButton = (base) => {
           :host([outlined]:not([text])) input,
           :host([outlined]:not([raised])) input {
             background-color: transparent;
-            color: var(--nn-button-color, var(--primary-color));
-            border: var(--nn-button-border, var(--theme-border));
+            color: var(--mat-button-color, var(--primary-color));
+            border: var(--mat-button-border, var(--theme-border));
           }
 
           :host([outlined]:not([text])) input:hover,

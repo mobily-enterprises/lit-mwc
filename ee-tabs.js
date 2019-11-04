@@ -14,25 +14,25 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav {
-          border-bottom: 1px solid var(--app-lines-color);
+          border-bottom: 1px solid var(--ee-tabs-lines-color);
           display: flex;
         }
 
         :host nav ::slotted(*) .icon {
-          fill: var(--app-drawer-text-color);
+          fill: var(--ee-tabs-color);
         }
 
         :host nav > ::slotted(*[selected]) .icon {
-          fill: var(--app-header-selected-color);
+          fill: var(--ee-tabs-selected-color);
         }
 
         :host nav > ::slotted(*) {
-          color: var(--app-dark-text-color);
+          color: var(--ee-tabs-color);
           text-decoration: none;
           line-height: 30px;
           padding: 4px 24px;
           border: unset;
-          border-right: 1px solid var(--app-lines-color);
+          border-right: 1px solid var(--ee-tabs-lines-color);
           border-bottom: 4px inset transparent;
           font-size: 0.9em;
           border-radius: 0;
@@ -45,14 +45,13 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav > ::slotted(*[selected]) {
-          color: var(--app-header-selected-color);
-          border-bottom: 4px solid var(--app-primary-color);
+          color: var(--ee-tabs-selected-color);
+          border-bottom: 4px solid var(--ee-tabs-color);
         }
 
         :host nav > ::slotted(*:focus) {
           outline:0 ;
           background: whitesmoke;
-          /* border: 1px solid #bdbdbd; */
         }
 
         :host nav > ::slotted(*:active) {
@@ -73,7 +72,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav > ::slotted(*.icon:hover) svg, :host > ::slotted(*:hover) svg {
-          fill: var(--app-primary-color);
+          fill: var(--ee-tabs-color);
         }
       `
     ]

@@ -22,16 +22,16 @@ export const NnInputColor = (base) => {
             -webkit-appearance: none;
             box-sizing: border-box;
             display: block;
-            border-radius: var(--nn-input-border-radius, 4px 4px 0 0);
+            border-radius: var(--mat-input-border-radius, 4px 4px 0 0);
             border-width: 0;
             border-style: none;
             border-color: transparent;
-            background-color: var(--nn-background, #eee);
+            background-color: var(--mat-background, #eee);
             padding: 6px;
             height: 40px;
-            box-shadow: var(--nn-theme-box-shadow);
+            box-shadow: var(--mat-theme-box-shadow);
             transition: background-color 0.3s ease-in-out,
-                        color 0.3s ease-in-out, 
+                        color 0.3s ease-in-out,
                         box-shadow 0.3s ease-in-out;
           }
         `

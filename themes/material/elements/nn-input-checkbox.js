@@ -52,14 +52,14 @@ export const NnInputCheckBox = (base) => {
           }
 
           :host(:hover)::after {
-            background: var(--nn-primary-color);
+            background: var(--mat-primary-color);
             opacity: 0.1;
             transform: scale(4);
             transition: all 0.3s ease-in-out;
           }
 
           :host([has-focus])::after {
-            background: var(--nn-primary-color);
+            background: var(--mat-primary-color);
             opacity: 0.4 !important;
             transform: scale(4);
             transition: all 0.3s ease-in-out;
@@ -71,7 +71,7 @@ export const NnInputCheckBox = (base) => {
 
           #native:invalid + label, #native:invalid ~ label {
             background-color: none;
-            --nn-label-color: darkred;
+            --mat-label-color: darkred;
           }
 
           label::before { /* Background box */
@@ -81,33 +81,33 @@ export const NnInputCheckBox = (base) => {
             left: 0;
             height: 15px;
             width: 15px;
-            border: 2px solid var(--nn-boundaries-color);
+            border: 2px solid var(--mat-boundaries-color);
             border-radius: 3px;
             transition: background-color 0.3s ease-in-out;
             z-index: 1;
           }
 
           #native:checked ~ label::before {
-            border-color: var(--nn-primary-color);
-            background-color:  var(--nn-primary-color);
+            border-color: var(--mat-primary-color);
+            background-color:  var(--mat-primary-color);
             transition: background-color 0.3s ease-in-out;
           }
 
           :host(:hover) label::before {
             filter: brightness(115%);
             transition: filter 0.3s ease-in-out;
-            box-shadow: var(--nn-theme-box-shadow2);
+            box-shadow: var(--mat-theme-box-shadow2);
           }
 
           #native:focus ~ label::before {
-            box-shadow: var(--nn-theme-box-shadow2);
-            border-color: var(--nn-primary-color);
+            box-shadow: var(--mat-theme-box-shadow2);
+            border-color: var(--mat-primary-color);
             filter: brightness(115%);
           }
 
           #native:not([checked]):hover ~ label::before {
             filter: brightness(130%);
-            background-color: var(--nn-primary-color);
+            background-color: var(--mat-primary-color);
             transition: background-color 0.3s ease-in-out;
           }
 

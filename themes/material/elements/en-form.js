@@ -8,7 +8,7 @@ export const EnForm = (base) => {
         css`
           :invalid {
             border: unset;
-            border-bottom: var(--nn-input-border, var(--nn-theme-border));
+            border-bottom: var(--mat-input-border, var(--mat-theme-border));
           }
 
           ::slotted(*) fieldset {

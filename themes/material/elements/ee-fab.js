@@ -35,13 +35,13 @@ export const EeFab = (base) => {
             box-shadow: 4px 2px 10px 0 rgba(0,0,0,0.12);
             padding-top: 5px;
             fill: var(--ee-fab-color, white);
-            background-color: var(--ee-fab-background, var(--app-secondary-color));
+            background-color: var(--ee-fab-background, black);
             color: var(--ee-fab-color, white);
           }
 
           :host([mini]) button {
             height: 40px;
-            width: 40px; 
+            width: 40px;
           }
 
           button[data-descr]::after {
@@ -62,7 +62,7 @@ export const EeFab = (base) => {
             content: attr(data-descr);
             width: fit-content;
             opacity: 1;
-            background-color: var(--ee-fab-background, var(--app-secondary-color));
+            background-color: var(--ee-fab-background, black);
             color: var(--ee-fab-color, white);
             border-radius: calc(1em + 20px);
             z-index: 1;

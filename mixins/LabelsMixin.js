@@ -8,7 +8,7 @@ export const LabelsMixin = (base) => {
         css`
           label div#label-text, ::slotted(*) {
             align-self: center;
-            width: var(--nn-input-label-width, auto);
+            width: var(--labels-mixin-input-label-width, auto);
           }
 
         `
