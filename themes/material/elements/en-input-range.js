@@ -1,5 +1,5 @@
 import { css } from 'lit-element'
-import { inputLabel, inputField, errorMessage } from '../style-patterns.js'
+import { inputField, errorMessage } from '../style-patterns.js'
 
 export const EnInputRange = (base) => {
   return class Base extends base {
