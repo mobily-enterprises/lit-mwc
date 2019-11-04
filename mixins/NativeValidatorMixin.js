@@ -35,7 +35,7 @@ export const NativeValidatorMixin = (base) => {
 
           :invalid {
             background-color: pink;
-            border: var(--native-validator-input-border-invalid, 1px solid #bb7777);
+            border: var(--native-validator-mixin-input-border-invalid, 1px solid #bb7777);
           }
         `
       ]

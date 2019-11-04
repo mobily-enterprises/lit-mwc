@@ -71,7 +71,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           outline: none;
         }
         #list > span:active > *:not(button), #list > span:focus > *:not(button) {
-          border-color: var(--nn-primary-color, #ccc);
+          border-color: #ccc;
         }
 
         #list > span button.remove {
@@ -123,7 +123,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
         :invalid {
           background-color: pink;
-          border: var(--nn-input-border-invalid, 1px solid #bb7777);
+          border: 1px solid #bb7777;
         }
       `
     ]

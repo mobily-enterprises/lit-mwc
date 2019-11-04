@@ -34,9 +34,9 @@ export const EeFab = (base) => {
             border-radius: 50%;
             box-shadow: 4px 2px 10px 0 rgba(0,0,0,0.12);
             padding-top: 5px;
-            fill: var(--ee-fab-color, white);
-            background-color: var(--ee-fab-background, black);
-            color: var(--ee-fab-color, white);
+            fill: var(--mat-fab-color, white);
+            background-color: var(--mat-fab-background, black);
+            color: var(--mat-fab-color, white);
           }
 
           :host([mini]) button {
@@ -62,8 +62,8 @@ export const EeFab = (base) => {
             content: attr(data-descr);
             width: fit-content;
             opacity: 1;
-            background-color: var(--ee-fab-background, black);
-            color: var(--ee-fab-color, white);
+            background-color: var(--mat-fab-background, black);
+            color: var(--mat-fab-color, white);
             border-radius: calc(1em + 20px);
             z-index: 1;
             right: 105%;
@@ -72,8 +72,8 @@ export const EeFab = (base) => {
           }
 
           button svg {
-            width: var(--icon-width, 24px);
-            height: var(--icon-height, 24px);
+            width: var(--mat-fab-icon-width, 24px);
+            height: var(--mat-fab-icon-height, 24px);
           }
         `
       ]

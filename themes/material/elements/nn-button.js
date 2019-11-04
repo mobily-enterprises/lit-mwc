@@ -14,16 +14,16 @@ export const NnButton = (base) => {
           button {
             display: inline-block;
             white-space: nowrap;
-            height: var(--mat-button-height, 30px);
+            height: var(--nn-button-height, 30px);
             -webkit-appearance: none;
-            background-color: var(--mat-button-background, var(--mat-primary-color));
-            border-radius: var(--mat-button-border-radius, 4px);
-            border: var(--mat-button-border, var(--mat-theme-border));
+            background-color: var(--nn-primary-color);
+            border-radius: var(--nn-button-border-radius, 4px);
+            border: var(--nn-button-border, var(--mat-theme-border));
             border-color: transparent;
             text-transform: uppercase;
             font-size: 14px;
-            color: var(--mat-button-color, var(--mat-text-on-dark));
-            fill: var(--mat-button-color, var(--mat-text-on-dark));
+            color: var(--nn-button-color, var(--mat-text-on-dark));
+            fill: var(--nn-button-color, var(--mat-text-on-dark));
             border-image: none;
             width: 100%;
             align-items: center;
@@ -60,15 +60,15 @@ export const NnButton = (base) => {
           :host([text]:not([outlined])) button,
           :host([text]:not([raised])) button {
             background-color: transparent;
-            color: var(--mat-button-color, var(--mat-primary-color));
-            fill: var(--mat-button-color, var(--mat-primary-color));
+            color: var(--nn-button-color, var(--mat-primary-color));
+            fill: var(--nn-button-color, var(--mat-primary-color));
           }
 
           :host([text]:not([outlined])) button:focus,
           :host([text]:not([raised])) button:focus {
             background-color: transparent;
-            color: var(--mat-button-color, var(--primary-color));
-            fill: var(--mat-button-color, var(--primary-color));
+            color: var(--nn-button-color, var(--mat-primary-color));
+            fill: var(--nn-button-color, var(--mat-primary-color));
             box-shadow: var(--mat-theme-box-shadow2);
           }
 
@@ -89,9 +89,9 @@ export const NnButton = (base) => {
           :host([outlined]:not([text])) button,
           :host([outlined]:not([raised])) button {
             background-color: transparent;
-            color: var(--mat-button-color, var(--mat-primary-color));
-            fill: var(--mat-button-color, var(--mat-primary-color));
-            border: var(--mat-button-border, var(--mat-theme-border));
+            color: var(--nn-button-color, var(--mat-primary-color));
+            fill: var(--nn-button-color, var(--mat-primary-color));
+            border: var(--nn-button-border, var(--mat-theme-border));
           }
 
           :host([outlined]:not([text])) button:hover,
