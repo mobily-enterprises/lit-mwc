@@ -1,6 +1,6 @@
 import { css } from 'lit-element'
 import { AddHasValueAttributeMixin } from '../../../mixins/AddHasValueAttributeMixin'
-import { fixedLabel, inputLabel, inputField, floatingLabel } from '../style-patterns.js'
+import { inputLabel, inputField, floatingLabel } from '../style-patterns.js'
 
 export const NnSelect = (base) => {
   return class Base extends AddHasValueAttributeMixin(base) {
