@@ -6,7 +6,6 @@ class NnInputDate extends ThemeableMixin('nn-input-date')(NnInputText) {
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <input type="date" id="native">

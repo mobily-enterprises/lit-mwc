@@ -9,7 +9,6 @@ class NnInputSubmit extends ThemeableMixin('nn-input-submit')(FormElementMixin(N
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       <input @click="${this._formSubmit}" type="submit" id="native">
     `
   }

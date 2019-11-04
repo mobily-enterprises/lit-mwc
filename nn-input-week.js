@@ -5,7 +5,6 @@ class NnInputWeek extends NnInputText {
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <input type="password" id="native">

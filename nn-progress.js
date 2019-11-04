@@ -18,7 +18,6 @@ export class NnProgress extends ThemeableMixin('nn-progress')(StyleableMixin(Lab
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <progress id="native" real-time-event="input"></progress>

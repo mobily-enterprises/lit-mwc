@@ -13,7 +13,6 @@ export class NnMeter extends ThemeableMixin('nn-meter')(StyleableMixin(LabelsMix
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <meter id="native" real-time-event="input"></meter>

@@ -11,7 +11,6 @@ class NnInputRadio extends ThemeableMixin('nn-input-radio')(FormElementMixin(Nat
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <input as-radio value-source="checked" @change="${this._excludeOthers}" type="radio" id="native"  real-time-event="input">

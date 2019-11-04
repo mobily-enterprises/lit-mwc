@@ -19,13 +19,12 @@ class TestElement extends LitElement {
   constructor () {
     super()
     this.path = './styles/input-style.css'
-    this.myStyle = html`input { background-color: blue; color: white}`
   }
 
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      <nn-input-text elementStyle.="${this.myStyle}" label2="Eheh" .value="${'THIS NEEDS TO SHOW'}" stylesheet="${this.path}">
+      <nn-input-text label2="Eheh" .value="${'THIS NEEDS TO SHOW'}" stylesheet="${this.path}">
         <span slot="label">Label text in span</span>
       </nn-input-text>
 

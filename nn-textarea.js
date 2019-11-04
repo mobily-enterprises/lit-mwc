@@ -16,7 +16,6 @@ export class NnTextArea extends ThemeableMixin('nn-textarea')(StyleableMixin(For
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <textarea name="" id="native" real-time-event="input"></textarea>

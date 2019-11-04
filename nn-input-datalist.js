@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element'
+import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'
@@ -18,7 +18,6 @@ export class NnInputDatalist extends ThemeableMixin('nn-input-datalist')(FormEle
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       <slot @slotchange="${this.addSlotToSelect}"></slot>
       ${this.ifValidationMessageBefore}

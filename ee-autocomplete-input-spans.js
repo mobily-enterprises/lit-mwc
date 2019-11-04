@@ -132,7 +132,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <div id="list" @click="${this._listClicked}">

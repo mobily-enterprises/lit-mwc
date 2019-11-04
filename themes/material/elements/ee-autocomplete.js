@@ -1,4 +1,4 @@
-import { html, css } from 'lit-element'
+import { css } from 'lit-element'
 
 export const EeAutocomplete = (base) => {
   return class Base extends base {

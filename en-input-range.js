@@ -41,7 +41,6 @@ class EnInputRange extends ThemeableMixin('en-input-range')(FormElementMixin(Nat
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       <slot @slotchange="${this.slotChanged}" id="range-amount-before" name="range-amount-before"></slot>
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}

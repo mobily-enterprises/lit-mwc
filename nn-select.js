@@ -15,7 +15,6 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Nativ
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <slot @slotchange="${this.addSlotToSelect}"></slot>

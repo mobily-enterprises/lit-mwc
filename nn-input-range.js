@@ -11,7 +11,6 @@ class NnInputRange extends ThemeableMixin('nn-input-range')(FormElementMixin(Nat
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <input type="range" id="native" real-time-event="input">

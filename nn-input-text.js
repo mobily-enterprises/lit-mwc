@@ -33,7 +33,6 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <input type="text" id="native" real-time-event="input">

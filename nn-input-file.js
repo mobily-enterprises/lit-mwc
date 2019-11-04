@@ -47,7 +47,6 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
     if (this.themeRender) return this.themeRender()
     // From https://stackoverflow.com/a/25825731/829771
     return html`
-      ${this.customStyle}
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <input type="file" id="native" @change="${this.fileNameChanged}" hidden>
