@@ -18,7 +18,7 @@ Here are some common ways to load TPE.
 
 Add this to the HEAD section of your HTML document:
 
-````
+````html
     <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
     <script src="https://unpkg.com/tpe/distr/theme-material.js"></script>
     <script src="https://unpkg.com/tpe/distr/tpe.js"></script>
@@ -26,7 +26,7 @@ Add this to the HEAD section of your HTML document:
 
 And add a simple text input to see if things worked:
 
-````
+````html
     <nn-input-text id="input" name="aName" label="The label"></nn-input-text>
 ````
 
@@ -42,7 +42,7 @@ $ npm install tpe
 
 And add this to your HEAD section:
 
-````
+````html
     <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
     <script src="./node_modules/tpe/distr/material.js"></script>
     <script src="./node_modules/tpe/distr/tpe.js"></script>
@@ -62,7 +62,7 @@ The `nn-` elements are a thin wrapper to native elements. They include:
 
 Every `nn-` element has a native element with id `native` in its shadow DOM, . **If you know how to use HTML elements, you know how to use `nn-` ones too**. This is the single most important concept of `nn-` elements: every attribute and every property of the "main" element is mirrored to the native element in the shadow DOM. This means that writing something like this:
 
-````
+````html
 <nn-input-text id="inp" name="firstName"></nn-input-text>
 <script>
   window.document.querySelector('#inp').value = "Tony Mobily"
@@ -77,7 +77,7 @@ In terms of attributes, not everything should be reflected. For example the attr
 
 If you need to assign a specific attribute of the native element in the shadow DOM, you can use a specific syntax:
 
-````
+````html
 <nn-input-text native::style="color: red" id="inp" name="firstName"></nn-input-text>
 ````
 
@@ -101,7 +101,7 @@ In terms of properties and methods, only the ones that are part of the native el
 
 To add the element to your page, add this to your page source:
 
-````
+````html
 <nn-input-text name="field"></nn-input-text>
 ````
 
@@ -111,7 +111,7 @@ The element is documented in the `elements` section of this documentation: [nn-i
 
 Adding a native attribute is very simple:
 
-````
+````html
 <nn-input-text maxlength="5" name="field" label="The label"></nn-input-text>
 ````
 
@@ -121,13 +121,13 @@ Please note that unlike other element libraries, TPE is totally unaware of what 
 
 The `label` attribute is not part of the native HTML specifications. To add a label to an element, simply add a "label" attribute:
 
-````
+````html
 <nn-input-text name="field" label="The label"></nn-input-text>
 ````
 
 Alternatively, for labels containing more than text, add a span:
 
-````
+````html
 <nn-input-text name="field">
     <span slot="label">This is a <b>very</b> complex label</span>
 </nn-input-text>
@@ -143,7 +143,13 @@ There are three ways to change the way your elements will look. Please note that
 
 The first stop to change how elements look is by changing their custom CSS properties. Each element provides a set of custom CSS properties that can be set and that will influence the way the element looks.
 
-For example, you might have this in your file
+For example, if you have an input field like this in your file:
+
+````html
+<nn-input-text name="field" label="The label"></nn-input-text>
+````
+
+The first think you need to see, if
 
 ````
 <style>
@@ -157,11 +163,11 @@ Each theme will provide a set of custom properties you can set.
 
 TODO: rework where custom properties are defined, document them.
 
-#### Add some custom styling (native:style)
+### Add custom styles
 
-You can style the inner parts of the element by assigning a `style` attribute to the inner elements.
+Each element can be styled by adding a stylesheet directly into the element's shadow DOM, by defining a `<style part="style">...</style>` within the element itself.
 
-Each element has a template which contains sub-elements. For example an `nn-input-text` declared as such:
+For example an `nn-input-text` declared as such:
 
 ````
 <nn-input-text name="field" label="The label"></nn-input-text>
@@ -173,31 +179,27 @@ Will contain this in its shadow DOM:
 
 The shadow DOM contains a label, with ID `label`. This is the critical piece of information you need to then write:
 
+````html
+<nn-input-text name="field" label="The label">
+  <style part="style">
+    #label {
+      color: blue
+    }    
+  </style>
+</nn-input-text>
+````
+
+The style will be added to the element's shadow DOM, and will be applied without FOUC.
+
+#### Add some custom styling (native:style)
+
+Finally, you can style the inner parts of the element by assigning a `style` attribute to the inner elements.
+
 ````
 <nn-input-text name="field" label::style="color: blue" label="The label"></nn-input-text>
 ````
 
-Basically, `some_id::something` will set the attribute `something` of the element with ID `some_id` in `nn-input-text`'s shadow DOM. This effectively allows you to set _any_ attribute of any meaningful element in the shadow DOM (assuming that the template was well written, and anything important does have an ID)
-
-### Add some custom styling (external stylesheet)
-
-There is a third way of styling TPE elements: using external stylesheets. While this is theoretically a much better solution compared to assigning a style via `label::style="color: blue"`, the major drawback is that it will only work on browsers that support Shadow DOM natively.
-
-This is achieved by assigning a `stylesheet` attribute to the element:
-
-````
-<nn-input-text stylesheet="/custom-input.css" name="field" label="The label"></nn-input-text>
-````
-
-And `custom-input.css` is:
-
-````
-#label {
-  color: blue
-}
-````
-
-Note that the styling will only apply to the element itself; that's why there is no need to have a rule for `nn-input-text`. This also mean that CSS is encapsulated.
+Basically, `some_id::something` will set the attribute `something` of the element with ID `some_id` in `nn-input-text`'s shadow DOM. This effectively allows you to quickly set a custom style of any element with an ID in the shadow DOM.
 
 ## Read on
 Tutorials
