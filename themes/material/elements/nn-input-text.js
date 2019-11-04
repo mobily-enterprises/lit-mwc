@@ -9,7 +9,7 @@ export const NnInputText = (base) => {
     static get properties () {
       return {
         labelPosition: { type: String, attribute: false },
-        validationMessage: { type: String, attribute: false }
+        validationMessagePosition: { type: String, attribute: false }
       }
     }
 
