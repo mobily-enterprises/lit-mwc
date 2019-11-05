@@ -5,7 +5,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin'
 export class EeToolbar extends ThemeableMixin('ee-toolbar')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         :host {
           display: flex;

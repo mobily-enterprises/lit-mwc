@@ -5,7 +5,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin'
 export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         :host {
           width: 100%;

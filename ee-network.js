@@ -5,7 +5,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         :host {
           display: block;

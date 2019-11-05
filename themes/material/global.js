@@ -6,7 +6,7 @@ export const Global = (base) => {
   return class Base extends base {
     static get styles () {
       return [
-        ...super.styles,
+        super.styles || [],
         css`
           @-webkit-keyframes fadeIn {
             0%   { opacity: 0; }

@@ -21,7 +21,7 @@ export const NnInputRadio = (base) => {
 
     static get styles () {
       return [
-        ...super.styles || [],
+        super.styles,
         errorMessage,
         hideNativeWidget,
         requiredLabelAsterisk,

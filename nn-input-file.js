@@ -10,7 +10,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixin(NativeValidatorMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         /* From https://zellwk.com/blog/hide-content-accessibly/ */
         [hidden] {

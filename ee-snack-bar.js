@@ -5,6 +5,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin'
 class EeSnackBar extends ThemeableMixin('ee-snack-bar')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
+      super.styles,
       css`
         :host {
           display: block;

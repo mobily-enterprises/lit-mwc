@@ -19,7 +19,7 @@ export const NnInputDateTimeLocal = (base) => {
 
     static get styles () {
       return [
-        super.styles || [],
+        super.styles,
         inputField,
         inputLabel,
         fixedLabel,

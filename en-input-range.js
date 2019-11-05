@@ -10,7 +10,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 class EnInputRange extends ThemeableMixin('en-input-range')(FormElementMixin(NativeValidatorMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         :host {
           display: flex;

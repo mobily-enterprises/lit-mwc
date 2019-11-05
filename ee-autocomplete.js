@@ -6,7 +6,7 @@ import './ee-autocomplete-item-li'
 export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         :host {
           display: block;

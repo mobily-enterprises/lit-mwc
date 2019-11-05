@@ -4,7 +4,7 @@ export const EnForm = (base) => {
   return class Base extends base {
     static get styles () {
       return [
-        ...super.styles || [],
+        super.styles,
         css`
           :invalid {
             border: unset;

@@ -21,7 +21,7 @@ export const NnInputCheckBox = (base) => {
 
     static get styles () {
       return [
-        ...super.styles || [],
+        super.styles,
         errorMessage,
         hideNativeWidget,
         requiredLabelAsterisk,

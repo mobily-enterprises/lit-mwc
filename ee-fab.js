@@ -9,7 +9,7 @@ const plusIcon = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="2
 export class EeFab extends ThemeableMixin('ee-fab')(StyleableMixin(NativeReflectorMixin(LitElement))) {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         :host {
           position: fixed;

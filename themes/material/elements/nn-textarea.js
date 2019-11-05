@@ -20,7 +20,7 @@ export const NnTextArea = (base) => {
 
     static get styles () {
       return [
-        super.styles || [],
+        super.styles,
         inputField,
         inputLabel,
         floatingLabel,

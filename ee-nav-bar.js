@@ -5,7 +5,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin'
 export class EeNavBar extends ThemeableMixin('ee-nav-bar')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         :host {
           display: block;

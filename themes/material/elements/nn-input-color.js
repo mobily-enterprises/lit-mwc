@@ -5,7 +5,7 @@ export const NnInputColor = (base) => {
   return class Base extends base {
     static get styles () {
       return [
-        ...super.styles || [],
+        super.styles,
         hoverStyle,
         focusStyle,
         css`

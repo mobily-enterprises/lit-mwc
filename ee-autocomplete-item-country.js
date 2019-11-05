@@ -5,7 +5,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 export class EeAutocompleteItemCountry extends ThemeableMixin('ee-autocomplete-item-country')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         :host {
           display: block;

@@ -4,7 +4,7 @@ export const NnInputButton = (base) => {
   return class Base extends base {
     static get styles () {
       return [
-        ...super.styles || [],
+        super.styles,
         css`
           :host {
             display: inline-block;

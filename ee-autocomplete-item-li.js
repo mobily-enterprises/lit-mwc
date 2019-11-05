@@ -5,7 +5,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 export class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-li')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         :host {
           display: block;
@@ -82,7 +82,7 @@ customElements.define('ee-autocomplete-item-li', ThemeableMixin('ee-autocomplete
 class EeAutocompleteItemLiView extends LitElement {
   static get styles () {
     return [
-      super.styles || [],
+      super.styles,
       css`
         :host {
           display: inline-block;

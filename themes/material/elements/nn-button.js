@@ -4,7 +4,7 @@ export const NnButton = (base) => {
   return class Base extends base {
     static get styles () {
       return [
-        ...super.styles || [],
+        super.styles,
         css`
           :host {
             width: fit-content;
