@@ -16,7 +16,7 @@ export const NnButton = (base) => {
             white-space: nowrap;
             height: var(--nn-button-height, 30px);
             -webkit-appearance: none;
-            background-color: var(--nn-primary-color);
+            background-color: var(--mat-primary-color);
             border-radius: var(--nn-button-border-radius, 4px);
             border: var(--nn-button-border, var(--mat-theme-border));
             border-color: transparent;
