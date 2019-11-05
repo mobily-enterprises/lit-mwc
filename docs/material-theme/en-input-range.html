@@ -267,7 +267,7 @@
                 
                 
                   <li>
-                      <a class="source " href="../material-theme.html">
+                      <a class="source  current " href="../material-theme.html">
                           material theme
                       </a>
                   </li>
@@ -305,6 +305,15 @@
                   <li>
                       <a class="source  indented " href="ee-fab.html">
                           ee-fab.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="ee-header.html">
+                          ee-header.js
                       </a>
                   </li>
                 
@@ -632,7 +641,7 @@ CSS can select next siblings, but not previous.  This guarantees label is render
 
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
       <span class="hljs-keyword">return</span> [
-        ...super.styles || [],
+        <span class="hljs-keyword">super</span>.styles,
         inputField,
         errorMessage,
         css`<span class="css">

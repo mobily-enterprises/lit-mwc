@@ -267,7 +267,7 @@
                 
                 
                   <li>
-                      <a class="source " href="../material-theme.html">
+                      <a class="source  current " href="../material-theme.html">
                           material theme
                       </a>
                   </li>
@@ -305,6 +305,15 @@
                   <li>
                       <a class="source  indented " href="ee-fab.html">
                           ee-fab.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="ee-header.html">
+                          ee-header.js
                       </a>
                   </li>
                 
@@ -603,8 +612,7 @@
         <div class="contentPage">
           
             
-            <p>Input text</p>
-
+            
             
               <div class='highlight'><pre><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
 <span class="hljs-keyword">import</span> { AddHasValueAttributeMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../mixins/AddHasValueAttributeMixin'</span>
@@ -643,7 +651,7 @@ CSS can select next siblings, but not previous.  This guarantees label is render
 
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
       <span class="hljs-keyword">return</span> [
-        <span class="hljs-keyword">super</span>.styles || [],
+        <span class="hljs-keyword">super</span>.styles,
         inputField,
         inputLabel,
         floatingLabel,

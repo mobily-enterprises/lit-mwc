@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <title>nn-input-radio.js</title>
+  <title>ee-header.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
   <link rel="stylesheet" media="all" href="../tpe.css" />
@@ -14,7 +14,7 @@
         <div class="topbar">
           <div id="logo" alt="TPE">
           </div>
-          <h3>nn-input-radio.js</h3>
+          <h3>ee-header.js</h3>
           <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
           <div class="links">
             <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
@@ -312,7 +312,7 @@
                 
                 
                   <li>
-                      <a class="source  indented " href="ee-header.html">
+                      <a class="source  indented  current " href="ee-header.html">
                           ee-header.js
                       </a>
                   </li>
@@ -492,7 +492,7 @@
                 
                 
                   <li>
-                      <a class="source  indented  current " href="nn-input-radio.html">
+                      <a class="source  indented " href="nn-input-radio.html">
                           nn-input-radio.js
                       </a>
                   </li>
@@ -615,156 +615,13 @@
             
             
               <div class='highlight'><pre><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-<span class="hljs-keyword">import</span> { errorMessage, hideNativeWidget, requiredLabelAsterisk } <span class="hljs-keyword">from</span> <span class="hljs-string">'../style-patterns.js'</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> NnInputRadio = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
-  <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{</pre></div>
-            
-          
-            
-            <p>Style depends on CSS being able to find label as sibling of the #native element.
-CSS can select next siblings, but not previous.  This guarantees label is rendered after #native in the shadowDOM</p>
-
-            
-              <div class='highlight'><pre>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
-      <span class="hljs-keyword">return</span> {
-        <span class="hljs-attr">labelPosition</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span> },
-        <span class="hljs-attr">validationMessage</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span> }
-      }
-    }
-
-    <span class="hljs-keyword">constructor</span> () {
-      <span class="hljs-keyword">super</span>()
-      <span class="hljs-keyword">this</span>.labelPosition = <span class="hljs-string">'after'</span>
-      <span class="hljs-keyword">this</span>.validationMessagePosition = <span class="hljs-string">'after'</span>
-      <span class="hljs-keyword">this</span>.label = <span class="hljs-string">''</span>
-    }
-
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> EeHeader = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
       <span class="hljs-keyword">return</span> [
         <span class="hljs-keyword">super</span>.styles,
-        errorMessage,
-        hideNativeWidget,
-        requiredLabelAsterisk,
         css`<span class="css">
-          <span class="hljs-selector-pseudo">:host</span> {
-            <span class="hljs-attribute">display</span>: block;
-            <span class="hljs-attribute">position</span>: relative;
-            <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">24px</span>;
-            <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">12px</span>;
-            <span class="hljs-attribute">cursor</span>: pointer;
-            <span class="hljs-attribute">-webkit-user-select</span>: none;
-            <span class="hljs-attribute">-moz-user-select</span>: none;
-            <span class="hljs-attribute">-ms-user-select</span>: none;
-            <span class="hljs-attribute">user-select</span>: none;
-          }
-
-          <span class="hljs-selector-pseudo">:host</span><span class="hljs-selector-pseudo">::after</span> {
-            <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
-            <span class="hljs-attribute">user-select</span>: none;
-            <span class="hljs-attribute">position</span>: absolute;
-            <span class="hljs-attribute">height</span>: <span class="hljs-number">8px</span>;
-            <span class="hljs-attribute">width</span>: <span class="hljs-number">8px</span>;
-            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
-            <span class="hljs-attribute">left</span>: <span class="hljs-number">5px</span>;
-            <span class="hljs-attribute">top</span>: <span class="hljs-number">5px</span>;
-            <span class="hljs-attribute">will-change</span>: transform;
-            <span class="hljs-attribute">z-index</span>: <span class="hljs-number">0</span>;
-          }
-
-          <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-pseudo">:hover)</span><span class="hljs-selector-pseudo">::after</span> {
-            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--mat-primary-color);
-            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.1</span>;
-            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(4);
-            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease-in-out;
-          }
-
-          <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[has-focus]</span>)<span class="hljs-selector-pseudo">::after</span> {
-            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--mat-primary-color);
-            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.3</span>;
-            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(4);
-            <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease-in-out;
-          }
-
-          <span class="hljs-selector-tag">div</span><span class="hljs-selector-id">#label-text</span> {
-            <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">16px</span>;
-          }
-
-          <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:invalid</span> {
-            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--mat-error-color);
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--mat-error-text);
-            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--mat-error-text);
-          }
-
-          <span class="hljs-selector-pseudo">:invalid</span> {
-            <span class="hljs-attribute">border</span>: unset;
-            <span class="hljs-attribute">border-bottom</span>: <span class="hljs-built_in">var</span>(--mat-input-border, var(--mat-theme-border));
-          }
-
-          <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:invalid</span> + <span class="hljs-selector-tag">label</span>, <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:invalid</span> ~ <span class="hljs-selector-tag">label</span> {
-            <span class="hljs-attribute">background-color</span>: none;
-            <span class="hljs-attribute">--mat-label-color</span>: darkred;
-          }
-
-          <span class="hljs-selector-tag">label</span><span class="hljs-selector-pseudo">::before</span> { <span class="hljs-comment">/* Background box */</span>
-            <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
-            <span class="hljs-attribute">position</span>: absolute;
-            <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
-            <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
-            <span class="hljs-attribute">height</span>: <span class="hljs-number">15px</span>;
-            <span class="hljs-attribute">width</span>: <span class="hljs-number">15px</span>;
-            <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-built_in">var</span>(--mat-boundaries-color);
-            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
-            <span class="hljs-attribute">transition</span>: background-color <span class="hljs-number">0.3s</span> ease-in-out;
-            <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
-          }
-
-          <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:checked</span> ~ <span class="hljs-selector-tag">label</span><span class="hljs-selector-pseudo">::before</span> {
-            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color);
-            <span class="hljs-attribute">background-color</span>: transparent;
-            <span class="hljs-attribute">transition</span>: background-color <span class="hljs-number">0.3s</span> ease-in-out;
-          }
-
-          <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:hover</span> ~ <span class="hljs-selector-tag">label</span><span class="hljs-selector-pseudo">::before</span> {
-            <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">brightness</span>(115%);
-            <span class="hljs-attribute">transition</span>: filter <span class="hljs-number">0.3s</span> ease-in-out;
-          }
-
-          <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:focus</span> ~ <span class="hljs-selector-tag">label</span><span class="hljs-selector-pseudo">::before</span> {
-            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--mat-theme-box-shadow2);
-            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color);
-            <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">brightness</span>(115%);
-          }
-
-          <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[checked]</span>)<span class="hljs-selector-pseudo">:hover</span> ~ <span class="hljs-selector-tag">label</span><span class="hljs-selector-pseudo">::before</span> {
-            <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">brightness</span>(130%);
-            <span class="hljs-attribute">transition</span>: background-color <span class="hljs-number">0.3s</span> ease-in-out;
-          }
-
-          <span class="hljs-selector-tag">label</span><span class="hljs-selector-pseudo">::after</span> { <span class="hljs-comment">/* Checkmark */</span>
-            <span class="hljs-attribute">content</span>: <span class="hljs-string">""</span>;
-            <span class="hljs-attribute">position</span>: absolute;
-            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
-            <span class="hljs-attribute">width</span>: <span class="hljs-number">19px</span>;
-            <span class="hljs-attribute">height</span>: <span class="hljs-number">19px</span>;
-            <span class="hljs-attribute">will-change</span>: transform, opacity;
-            <span class="hljs-attribute">transition</span>: opacity <span class="hljs-number">0.3s</span> ease-out;
-            <span class="hljs-attribute">z-index</span>: <span class="hljs-number">2</span>;
-          }
-
-          <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:checked</span> ~ <span class="hljs-selector-tag">label</span><span class="hljs-selector-pseudo">::after</span> {
-            <span class="hljs-attribute">display</span>: block;
-            <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
-            <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
-            <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
-            <span class="hljs-attribute">background-color</span>:  <span class="hljs-built_in">var</span>(--mat-primary-color);
-            <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
-            <span class="hljs-attribute">-webkit-transform</span>: <span class="hljs-built_in">scale</span>(0.5);
-            <span class="hljs-attribute">-ms-transform</span>: <span class="hljs-built_in">scale</span>(0.5);
-            <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(0.5);
-            <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.3s</span> ease-in-out, opacity <span class="hljs-number">0.3s</span> ease-in;
-          }
-
         `</span>
       ]
     }

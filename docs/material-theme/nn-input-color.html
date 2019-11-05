@@ -267,7 +267,7 @@
                 
                 
                   <li>
-                      <a class="source " href="../material-theme.html">
+                      <a class="source  current " href="../material-theme.html">
                           material theme
                       </a>
                   </li>
@@ -305,6 +305,15 @@
                   <li>
                       <a class="source  indented " href="ee-fab.html">
                           ee-fab.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="ee-header.html">
+                          ee-header.js
                       </a>
                   </li>
                 
@@ -612,7 +621,7 @@
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{
     <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
       <span class="hljs-keyword">return</span> [
-        ...super.styles || [],
+        <span class="hljs-keyword">super</span>.styles,
         hoverStyle,
         focusStyle,
         css`<span class="css">
