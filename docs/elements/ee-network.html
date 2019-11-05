@@ -662,22 +662,20 @@
           <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
           <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
           <span class="hljs-attribute">text-align</span>: center;
-          <span class="hljs-attribute">transition</span>: background <span class="hljs-built_in">var</span>(--hot-network-transition-duration, 200ms);
-          @apply(--hot-network-overlay);
+          <span class="hljs-attribute">transition</span>: background <span class="hljs-built_in">var</span>(--ee-network-transition-duration, 200ms);
         }
         <span class="hljs-selector-id">#overlay</span><span class="hljs-selector-class">.overlay-loading</span> {
           <span class="hljs-attribute">display</span>: block;
-          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--hot-network-overlay-loading-color, #666);
-          <span class="hljs-comment">/*background-color: var(--hot-network-overlay-loading-background-color, #d9dce0);*/</span>
-          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--hot-network-overlay-loading-background-color, rgba(102, 102, 102, 0.25));
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-loading-color, #666);
+          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-loading-background-color, rgba(102, 102, 102, 0.25));
         }
         <span class="hljs-selector-id">#overlay</span><span class="hljs-selector-class">.clear</span> {
         }
         <span class="hljs-selector-id">#overlay</span><span class="hljs-selector-class">.overlay-error</span> {
           <span class="hljs-attribute">display</span>: block;
           <span class="hljs-attribute">cursor</span>: pointer; <span class="hljs-comment">/* Hint that the object is clickable */</span>
-          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--hot-network-overlay-error-color, #c00);
-          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--hot-network-overlay-error-background-color, rgba(255, 0, 0, 0.25));
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-error-color, #c00);
+          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-error-background-color, rgba(255, 0, 0, 0.25));
         }
 
         <span class="hljs-selector-id">#content-wrapper</span><span class="hljs-selector-class">.overlay-error</span> {
@@ -732,8 +730,8 @@
     <span class="hljs-keyword">this</span>.status = <span class="hljs-string">'loaded'</span>
     <span class="hljs-keyword">this</span>.statusMessages = {
       <span class="hljs-attr">loading</span>: <span class="hljs-string">'Loading\u2026'</span>, <span class="hljs-comment">// &amp;hellip; equivalent</span>
-      saving: <span class="hljs-string">'Saving\u2026'</span>, <span class="hljs-comment">// &amp;hellip; equivalent</span>
-      error: <span class="hljs-string">'An error has occurred. Click here to try again.'</span>
+      <span class="hljs-attr">saving</span>: <span class="hljs-string">'Saving\u2026'</span>, <span class="hljs-comment">// &amp;hellip; equivalent</span>
+      <span class="hljs-attr">error</span>: <span class="hljs-string">'An error has occurred. Click here to try again.'</span>
     }
 
     <span class="hljs-keyword">this</span>.lastInitObject = <span class="hljs-literal">null</span>

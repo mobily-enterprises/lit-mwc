@@ -666,7 +666,7 @@
           <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(-100%);
           <span class="hljs-attribute">overflow-x</span>: hidden;
           <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.3s</span> ease-out;
-          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--drawer-background, initial);
+          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-drawer-background, initial);
         }
 
         <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[opened]</span>) <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.container</span> {
@@ -675,7 +675,7 @@
         }
 
         <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[modal]</span><span class="hljs-selector-attr">[opened]</span>) <span class="hljs-selector-tag">div</span><span class="hljs-selector-class">.container</span> {
-          <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), <span class="hljs-number">0</span> <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> -<span class="hljs-number">5px</span> <span class="hljs-built_in">rgba</span>(0, 0, 0, 0.14), <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">100vw</span> <span class="hljs-built_in">rgba</span>(0, 0, 0, 0.15))
+          <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--ee-drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), <span class="hljs-number">0</span> <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> -<span class="hljs-number">5px</span> <span class="hljs-built_in">rgba</span>(0, 0, 0, 0.14), <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">100vw</span> <span class="hljs-built_in">rgba</span>(0, 0, 0, 0.15))
         }
 
         <span class="hljs-selector-id">#close</span> {
@@ -704,7 +704,7 @@
           <span class="hljs-attribute">min-width</span>: <span class="hljs-number">300px</span>;
           <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
           <span class="hljs-attribute">padding</span>: <span class="hljs-number">30px</span> <span class="hljs-number">24px</span>;
-          <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--app-drawer-background-color);
+          <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--ee-drawer-background-color);
           <span class="hljs-attribute">position</span>: relative;
           <span class="hljs-attribute">overflow</span>: scroll;
           <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">64px</span>;
@@ -714,7 +714,7 @@
         <span class="hljs-selector-class">.container</span> &gt; <span class="hljs-selector-tag">nav</span> <span class="hljs-selector-pseudo">::slotted(.drawer-item)</span> {
           <span class="hljs-attribute">display</span>: block;
           <span class="hljs-attribute">text-decoration</span>: none;
-          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--app-drawer-text-color);
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-drawer-text-color);
           <span class="hljs-attribute">line-height</span>: <span class="hljs-number">40px</span>;
           <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">24px</span>;
           <span class="hljs-attribute">cursor</span>: pointer;
@@ -722,9 +722,9 @@
 
         <span class="hljs-selector-class">.container</span>  &gt; <span class="hljs-selector-tag">nav</span> <span class="hljs-selector-pseudo">::slotted(a</span><span class="hljs-selector-attr">[selected]</span>),
         <span class="hljs-selector-class">.container</span>  &gt; <span class="hljs-selector-tag">nav</span> <span class="hljs-selector-pseudo">::slotted(.drawer-item</span><span class="hljs-selector-attr">[selected]</span>) {
-          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--app-drawer-selected-color);
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-drawer-selected-color);
           <span class="hljs-attribute">font-weight</span>: bolder;
-          <span class="hljs-attribute">border-left</span>: <span class="hljs-number">3px</span> solid <span class="hljs-built_in">var</span>(--app-drawer-selected-color);
+          <span class="hljs-attribute">border-left</span>: <span class="hljs-number">3px</span> solid <span class="hljs-built_in">var</span>(--ee-drawer-selected-color);
           <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(255,255,255, 0.1);
         }
 
@@ -734,7 +734,7 @@
         }
 
         <span class="hljs-selector-class">.container</span>  &gt; <span class="hljs-selector-tag">nav</span> <span class="hljs-selector-pseudo">::slotted(.head)</span> {
-          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--app-drawer-text-color);
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-drawer-text-color);
           <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
           <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid white;
           <span class="hljs-attribute">padding</span>: <span class="hljs-number">6px</span> <span class="hljs-number">70%</span> <span class="hljs-number">6px</span> <span class="hljs-number">0</span>;

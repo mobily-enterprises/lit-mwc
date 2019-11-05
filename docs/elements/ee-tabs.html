@@ -651,25 +651,25 @@
         }
 
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> {
-          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--app-lines-color);
+          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-lines-color);
           <span class="hljs-attribute">display</span>: flex;
         }
 
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> <span class="hljs-selector-pseudo">::slotted(</span>*) <span class="hljs-selector-class">.icon</span> {
-          <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--app-drawer-text-color);
+          <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--ee-tabs-color);
         }
 
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted(</span>*<span class="hljs-selector-attr">[selected]</span>) <span class="hljs-selector-class">.icon</span> {
-          <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--app-header-selected-color);
+          <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--ee-tabs-selected-color);
         }
 
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted(</span>*) {
-          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--app-dark-text-color);
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-tabs-color);
           <span class="hljs-attribute">text-decoration</span>: none;
           <span class="hljs-attribute">line-height</span>: <span class="hljs-number">30px</span>;
           <span class="hljs-attribute">padding</span>: <span class="hljs-number">4px</span> <span class="hljs-number">24px</span>;
           <span class="hljs-attribute">border</span>: unset;
-          <span class="hljs-attribute">border-right</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--app-lines-color);
+          <span class="hljs-attribute">border-right</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-lines-color);
           <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">4px</span> inset transparent;
           <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.9em</span>;
           <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
@@ -682,14 +682,13 @@
         }
 
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted(</span>*<span class="hljs-selector-attr">[selected]</span>) {
-          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--app-header-selected-color);
-          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">4px</span> solid <span class="hljs-built_in">var</span>(--app-primary-color);
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-tabs-selected-color);
+          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">4px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-color);
         }
 
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted(</span>*<span class="hljs-selector-pseudo">:focus)</span> {
           <span class="hljs-attribute">outline</span>:<span class="hljs-number">0</span> ;
           <span class="hljs-attribute">background</span>: whitesmoke;
-          <span class="hljs-comment">/* border: 1px solid #bdbdbd; */</span>
         }
 
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted(</span>*<span class="hljs-selector-pseudo">:active)</span> {
@@ -710,7 +709,7 @@
         }
 
         <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted(</span>*<span class="hljs-selector-class">.icon</span><span class="hljs-selector-pseudo">:hover)</span> <span class="hljs-selector-tag">svg</span>, <span class="hljs-selector-pseudo">:host</span> &gt; <span class="hljs-selector-pseudo">::slotted(</span>*<span class="hljs-selector-pseudo">:hover)</span> <span class="hljs-selector-tag">svg</span> {
-          <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--app-primary-color);
+          <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--ee-tabs-color);
         }
       `</span>
     ]

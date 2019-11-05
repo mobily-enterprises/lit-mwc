@@ -708,7 +708,7 @@
           <span class="hljs-attribute">outline</span>: none;
         }
         <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span><span class="hljs-selector-pseudo">:active</span> &gt; *<span class="hljs-selector-pseudo">:not(button)</span>, <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span><span class="hljs-selector-pseudo">:focus</span> &gt; *<span class="hljs-selector-pseudo">:not(button)</span> {
-          <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--nn-primary-color, #ccc);
+          <span class="hljs-attribute">border-color</span>: <span class="hljs-number">#ccc</span>;
         }
 
         <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.remove</span> {
@@ -760,7 +760,7 @@
 
         <span class="hljs-selector-pseudo">:invalid</span> {
           <span class="hljs-attribute">background-color</span>: pink;
-          <span class="hljs-attribute">border</span>: <span class="hljs-built_in">var</span>(--nn-input-border-invalid, 1px solid #bb7777);
+          <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#bb7777</span>;
         }
       `</span>
     ]
@@ -769,7 +769,6 @@
   render () {
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.customStyle}</span><span class="xml">
       </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelBefore}</span><span class="xml">
       </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageBefore}</span><span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"list"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._listClicked}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
@@ -816,7 +815,7 @@
         r[idValue] = span.firstChild.data
       }
       <span class="hljs-keyword">return</span> r
-    <span class="hljs-keyword">default</span>:
+    <span class="hljs-attr">default</span>:
       r = []
       list = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'#list'</span>)
       <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> span <span class="hljs-keyword">of</span> list.children) {

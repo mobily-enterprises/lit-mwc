@@ -1080,7 +1080,7 @@ POST if not)</p>
       method,
       <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
       <span class="hljs-attr">redirect</span>: <span class="hljs-string">'follow'</span>, <span class="hljs-comment">// manual, *follow, error</span>
-      body: submitObject <span class="hljs-comment">// body data type must match "Content-Type" header</span>
+      <span class="hljs-attr">body</span>: submitObject <span class="hljs-comment">// body data type must match "Content-Type" header</span>
     }</pre></div>
             
           
@@ -1378,7 +1378,6 @@ before doing the fetch</p>
   render () {
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.customStyle}</span><span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>

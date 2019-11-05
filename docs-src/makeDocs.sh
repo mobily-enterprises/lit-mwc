@@ -1,7 +1,7 @@
 rm -rf ../docs/*;
 echo "tpelements.com" > ../docs/CNAME
 #node --inspect-brk\
-  ../../docco/bin/docco\
+  ../node_modules/docco/bin/docco\
   -p ./plugin.js\
 	-c tpe.css\
        	-t tpe.ejs\
