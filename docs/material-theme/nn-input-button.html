@@ -622,12 +622,12 @@
           <span class="hljs-selector-pseudo">:host</span> &gt; <span class="hljs-selector-tag">input</span> {
             <span class="hljs-attribute">height</span>: <span class="hljs-built_in">var</span>(--button-height, 30px);
             <span class="hljs-attribute">-webkit-appearance</span>: none;
-            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--button-background, var(--primary-color));
-            <span class="hljs-attribute">border-radius</span>: <span class="hljs-built_in">var</span>(--nn-button-border-radius, 4px);
-            <span class="hljs-attribute">border</span>: <span class="hljs-built_in">var</span>(--nn-button-border, var(--theme-border));
+            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--nn-input-button-background, var(--mat-primary-color));
+            <span class="hljs-attribute">border-radius</span>: <span class="hljs-built_in">var</span>(--nn-input-button-border-radius, 4px);
+            <span class="hljs-attribute">border</span>: <span class="hljs-built_in">var</span>(--nn-input-button-border, var(--mat-theme-border));
             <span class="hljs-attribute">border-color</span>: transparent;
             <span class="hljs-attribute">text-transform</span>: uppercase;
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--text-on-dark));
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-input-button-color, var(--mat-text-on-dark));
             <span class="hljs-attribute">border-image</span>: none;
           }
 
@@ -643,13 +643,13 @@
             <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.2s</span> ease-out;
             <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">rgba</span>(0, 0, 0, 0.1);
             <span class="hljs-attribute">border-style</span>: inset;
-            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--primary-color);
+            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color);
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[outlined]</span>)) <span class="hljs-selector-tag">input</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[raised]</span>)) <span class="hljs-selector-tag">input</span> {
             <span class="hljs-attribute">background-color</span>: transparent;
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--primary-color));
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-input-button-color, var(--mat-primary-color));
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[outlined]</span>)) <span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">:active</span>,
@@ -661,26 +661,26 @@
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[outlined]</span>)) <span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">:hover</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[raised]</span>)) <span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">:hover</span> {
-            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--primary-color-light);
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--primary-color-dark)
+            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color-light);
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color-dark)
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[outlined]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[text]</span>)) <span class="hljs-selector-tag">input</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[outlined]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[raised]</span>)) <span class="hljs-selector-tag">input</span> {
             <span class="hljs-attribute">background-color</span>: transparent;
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--primary-color));
-            <span class="hljs-attribute">border</span>: <span class="hljs-built_in">var</span>(--nn-button-border, var(--theme-border));
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-input-button-color, var(--mat-primary-color));
+            <span class="hljs-attribute">border</span>: <span class="hljs-built_in">var</span>(--nn-input-button-border, var(--mat-theme-border));
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[outlined]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[text]</span>)) <span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">:hover</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[outlined]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[raised]</span>)) <span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">:hover</span> {
-            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--primary-color-light);
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--primary-color-dark)
+            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color-light);
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color-dark)
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[raised]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[text]</span>)) <span class="hljs-selector-tag">input</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[raised]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[outlined]</span>)) <span class="hljs-selector-tag">input</span> {
-            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--theme-box-shadow2);
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--mat-theme-box-shadow2);
             <span class="hljs-attribute">transition</span>: box-shadow <span class="hljs-number">0.2s</span> ease-out;
           }
 

@@ -649,7 +649,7 @@ CSS can select next siblings, but not previous.  This guarantees label is render
             <span class="hljs-attribute">-ms-user-select</span>: none;
             <span class="hljs-attribute">user-select</span>: none;
           }
-       
+
           <span class="hljs-selector-pseudo">:host</span><span class="hljs-selector-pseudo">::after</span> {
             <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
             <span class="hljs-attribute">user-select</span>: none;
@@ -664,14 +664,14 @@ CSS can select next siblings, but not previous.  This guarantees label is render
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-pseudo">:hover)</span><span class="hljs-selector-pseudo">::after</span> {
-            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--nn-primary-color);
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--mat-primary-color);
             <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.1</span>;
             <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(4);
             <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease-in-out;
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[has-focus]</span>)<span class="hljs-selector-pseudo">::after</span> {
-            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--nn-primary-color);
+            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--mat-primary-color);
             <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.3</span>;
             <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(4);
             <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease-in-out;
@@ -682,19 +682,19 @@ CSS can select next siblings, but not previous.  This guarantees label is render
           }
 
           <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:invalid</span> {
-            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--nn-error-color);
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-error-text);
-            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--nn-error-text);
+            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--mat-error-color);
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--mat-error-text);
+            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--mat-error-text);
           }
 
           <span class="hljs-selector-pseudo">:invalid</span> {
             <span class="hljs-attribute">border</span>: unset;
-            <span class="hljs-attribute">border-bottom</span>: <span class="hljs-built_in">var</span>(--nn-input-border, var(--nn-theme-border));
+            <span class="hljs-attribute">border-bottom</span>: <span class="hljs-built_in">var</span>(--mat-input-border, var(--mat-theme-border));
           }
 
           <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:invalid</span> + <span class="hljs-selector-tag">label</span>, <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:invalid</span> ~ <span class="hljs-selector-tag">label</span> {
             <span class="hljs-attribute">background-color</span>: none;
-            <span class="hljs-attribute">--nn-label-color</span>: darkred;
+            <span class="hljs-attribute">--mat-label-color</span>: darkred;
           }
 
           <span class="hljs-selector-tag">label</span><span class="hljs-selector-pseudo">::before</span> { <span class="hljs-comment">/* Background box */</span>
@@ -704,14 +704,14 @@ CSS can select next siblings, but not previous.  This guarantees label is render
             <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
             <span class="hljs-attribute">height</span>: <span class="hljs-number">15px</span>;
             <span class="hljs-attribute">width</span>: <span class="hljs-number">15px</span>;
-            <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-built_in">var</span>(--nn-boundaries-color);
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-built_in">var</span>(--mat-boundaries-color);
             <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
             <span class="hljs-attribute">transition</span>: background-color <span class="hljs-number">0.3s</span> ease-in-out;
             <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
           }
 
           <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:checked</span> ~ <span class="hljs-selector-tag">label</span><span class="hljs-selector-pseudo">::before</span> {
-            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--nn-primary-color);
+            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color);
             <span class="hljs-attribute">background-color</span>: transparent;
             <span class="hljs-attribute">transition</span>: background-color <span class="hljs-number">0.3s</span> ease-in-out;
           }
@@ -722,8 +722,8 @@ CSS can select next siblings, but not previous.  This guarantees label is render
           }
 
           <span class="hljs-selector-id">#native</span><span class="hljs-selector-pseudo">:focus</span> ~ <span class="hljs-selector-tag">label</span><span class="hljs-selector-pseudo">::before</span> {
-            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--nn-theme-box-shadow2);
-            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--nn-primary-color);
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--mat-theme-box-shadow2);
+            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color);
             <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">brightness</span>(115%);
           }
 
@@ -748,7 +748,7 @@ CSS can select next siblings, but not previous.  This guarantees label is render
             <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
             <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
             <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
-            <span class="hljs-attribute">background-color</span>:  <span class="hljs-built_in">var</span>(--nn-primary-color);
+            <span class="hljs-attribute">background-color</span>:  <span class="hljs-built_in">var</span>(--mat-primary-color);
             <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
             <span class="hljs-attribute">-webkit-transform</span>: <span class="hljs-built_in">scale</span>(0.5);
             <span class="hljs-attribute">-ms-transform</span>: <span class="hljs-built_in">scale</span>(0.5);

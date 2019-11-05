@@ -496,8 +496,7 @@
           
             
             <p>Run custom validator. Note that custom validator
-will only ever run on filed without an existing customError.
-This is because</p>
+will only ever run on filed without an existing customError.</p>
 
             
               <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.validity.customError) {
@@ -528,7 +527,7 @@ This is because</p>
     }
 
     checkValidity () {
-      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.native.validity.customError) {
+      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.validity.customError) {
         <span class="hljs-keyword">const</span> ownErrorMessage = <span class="hljs-keyword">this</span>.validator()
         <span class="hljs-keyword">if</span> (ownErrorMessage) <span class="hljs-keyword">this</span>.setCustomValidity(ownErrorMessage)
       }

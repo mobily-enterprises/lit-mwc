@@ -623,14 +623,14 @@
             <span class="hljs-attribute">white-space</span>: nowrap;
             <span class="hljs-attribute">height</span>: <span class="hljs-built_in">var</span>(--nn-button-height, 30px);
             <span class="hljs-attribute">-webkit-appearance</span>: none;
-            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--nn-button-background, var(--nn-primary-color));
+            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--nn-primary-color);
             <span class="hljs-attribute">border-radius</span>: <span class="hljs-built_in">var</span>(--nn-button-border-radius, 4px);
-            <span class="hljs-attribute">border</span>: <span class="hljs-built_in">var</span>(--nn-button-border, var(--nn-theme-border));
+            <span class="hljs-attribute">border</span>: <span class="hljs-built_in">var</span>(--nn-button-border, var(--mat-theme-border));
             <span class="hljs-attribute">border-color</span>: transparent;
             <span class="hljs-attribute">text-transform</span>: uppercase;
             <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--nn-text-on-dark));
-            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--nn-text-on-dark));
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--mat-text-on-dark));
+            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--mat-text-on-dark));
             <span class="hljs-attribute">border-image</span>: none;
             <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
             <span class="hljs-attribute">align-items</span>: center;
@@ -654,29 +654,29 @@
           }
 
           <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:focus</span> {
-            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--nn-primary-color, rgba(255, 255, 255, 0.7));
+            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color, rgba(255, 255, 255, 0.7));
             <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">brightness</span>(115%);
           }
 
           <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:active</span> {
             <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.2s</span> ease-out;
             <span class="hljs-attribute">border-style</span>: inset;
-            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--nn-primary-color);
+            <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color);
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[outlined]</span>)) <span class="hljs-selector-tag">button</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[raised]</span>)) <span class="hljs-selector-tag">button</span> {
             <span class="hljs-attribute">background-color</span>: transparent;
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--nn-primary-color));
-            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--nn-primary-color));
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--mat-primary-color));
+            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--mat-primary-color));
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[outlined]</span>)) <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:focus</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[raised]</span>)) <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:focus</span> {
             <span class="hljs-attribute">background-color</span>: transparent;
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--primary-color));
-            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--primary-color));
-            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--nn-theme-box-shadow2);
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--mat-primary-color));
+            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--mat-primary-color));
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--mat-theme-box-shadow2);
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[outlined]</span>)) <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:active</span>,
@@ -688,29 +688,29 @@
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[outlined]</span>)) <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:hover</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[text]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[raised]</span>)) <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:hover</span> {
-            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--nn-primary-color-light);
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-primary-color-dark);
-            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--nn-primary-color-dark);
+            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color-light);
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color-dark);
+            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--mat-primary-color-dark);
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[outlined]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[text]</span>)) <span class="hljs-selector-tag">button</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[outlined]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[raised]</span>)) <span class="hljs-selector-tag">button</span> {
             <span class="hljs-attribute">background-color</span>: transparent;
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--nn-primary-color));
-            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--nn-primary-color));
-            <span class="hljs-attribute">border</span>: <span class="hljs-built_in">var</span>(--nn-button-border, var(--nn-theme-border));
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--mat-primary-color));
+            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--nn-button-color, var(--mat-primary-color));
+            <span class="hljs-attribute">border</span>: <span class="hljs-built_in">var</span>(--nn-button-border, var(--mat-theme-border));
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[outlined]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[text]</span>)) <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:hover</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[outlined]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[raised]</span>)) <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:hover</span> {
-            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--nn-primary-color-light);
-            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--nn-primary-color-dark);
-            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--nn-primary-color-dark);
+            <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color-light);
+            <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--mat-primary-color-dark);
+            <span class="hljs-attribute">fill</span>: <span class="hljs-built_in">var</span>(--mat-primary-color-dark);
           }
 
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[raised]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[text]</span>)) <span class="hljs-selector-tag">button</span>,
           <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[raised]</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[outlined]</span>)) <span class="hljs-selector-tag">button</span> {
-            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--nn-theme-box-shadow3);
+            <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">var</span>(--mat-theme-box-shadow3);
             <span class="hljs-attribute">transition</span>: box-shadow <span class="hljs-number">0.2s</span> ease-out;
           }
 

@@ -443,49 +443,37 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> StyleableMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
+              <div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> StyleableMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
-      <span class="hljs-keyword">return</span> {
-        <span class="hljs-comment">/* This is for non-developers consumers, using attribute */</span>
-        stylesheet: {
-          <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>
-        },
-        <span class="hljs-comment">/* This is for developers, assigning property */</span>
-        elementStyle: {
-          <span class="hljs-attr">type</span>: <span class="hljs-built_in">Object</span>,
-          <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span>
-        }
-      }
-    }
-
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
-      <span class="hljs-keyword">return</span> [
-        <span class="hljs-keyword">super</span>.styles || []
-      ]
-    }
-
     firstUpdated () {
-      <span class="hljs-keyword">super</span>.firstUpdated()
+      <span class="hljs-keyword">super</span>.firstUpdated()</pre></div>
+            
+          
+            
+            <p>Add the equivalent of
+<slot name="style" id="style-slot"></slot>
+To the shadow DOM</p>
 
-      <span class="hljs-keyword">const</span> styleSlot = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'#style-slot'</span>)
-      <span class="hljs-keyword">if</span> (styleSlot) {
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> styleElement <span class="hljs-keyword">of</span> styleSlot.assignedElements()) {
-          <span class="hljs-keyword">if</span> (styleElement.tagName === <span class="hljs-string">'STYLE'</span>) {
-            <span class="hljs-keyword">this</span>.shadowRoot.appendChild(styleElement)
-          }
+            
+              <div class='highlight'><pre>      <span class="hljs-keyword">const</span> styleSlot = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'slot'</span>)
+      styleSlot.setAttribute(<span class="hljs-string">'name'</span>, <span class="hljs-string">'style'</span>)
+      styleSlot.setAttribute(<span class="hljs-string">'id'</span>, <span class="hljs-string">'style-slot'</span>)
+      <span class="hljs-keyword">this</span>.shadowRoot.appendChild(styleSlot)</pre></div>
+            
+          
+            
+            <p>If an element has one or more <any-tag slot="style"> in its
+light DOM, the newly added styleSlot will have
+them  as an assigned element.
+Clone over all of the ones where any-tag is <code>style</code>.
+So, any <style slot="style"> will be cloned over</p>
+
+            
+              <div class='highlight'><pre>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> styleElement <span class="hljs-keyword">of</span> styleSlot.assignedElements()) {
+        <span class="hljs-keyword">if</span> (styleElement.tagName === <span class="hljs-string">'STYLE'</span>) {
+          <span class="hljs-keyword">this</span>.shadowRoot.appendChild(styleElement)
         }
       }
-    }
-
-    <span class="hljs-keyword">get</span> customStyle () {
-      <span class="hljs-keyword">return</span> html`<span class="xml">
-          </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.stylesheet ? html`<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.stylesheet}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>`</span> : <span class="hljs-string">''</span>}</span><span class="xml">
-          </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.elementStyle ? html`<span class="xml"></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.elementStyle}</span><span class="xml">`</span> : <span class="hljs-string">''</span>}</span><span class="xml">
-          <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"style"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"style-slot"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
-        `</span>
     }
   }
 }</pre></div>
