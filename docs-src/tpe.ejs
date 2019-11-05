@@ -2,9 +2,11 @@
 
 <%
 function display(s) {
+
   if (s.match('/')) {
     var sourceClean = source.replace(/\.[a-zA-Z]*$/, '')
-    return s.split('/')[0] === sourceClean.split('/')[0]
+    var sc1 = sourceClean.split('/')[0]
+    return s.split('/')[0] === sourceClean.split('/')[0] && sc1 !== 'elements'
   }
   return true
 }
@@ -21,7 +23,9 @@ function prettySource(s) {
 
 function tocClasses(s, source) {
   var indent = s.match('/') ? ' indented ' : ''
-  var current = s === source ? ' current ' : ''
+  var current = s === source  || s.split('.')[0] === source.split('/')[0] 
+    ? ' current '
+    : ''
   return '' + indent + current
 }
 %>

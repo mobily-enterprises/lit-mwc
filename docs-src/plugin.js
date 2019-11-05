@@ -13,7 +13,7 @@ exports.beforeMarked = async function (s) {
     }
   })
 
-  result = s.replace(/^<<IMG\[([^\]]*)\]/mg, (m, p1) => {
+  result = result.replace(/^<<IMG\[([^\]]*)\]/mg, (m, p1) => {
     return `<img src="${p1}"></img>`
   })
   return result
