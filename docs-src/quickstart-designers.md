@@ -181,6 +181,7 @@ The shadow DOM contains a label, with ID `label`. This is the critical piece of 
 
 ````html
 <nn-input-text name="field" label="The label">
+
   <style part="style">
     #label {
       color: blue
