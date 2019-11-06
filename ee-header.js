@@ -25,7 +25,7 @@ export class EeHeader extends ThemeableMixin('ee-header')(StyleableMixin(LitElem
           right: 0;
           width: 100%;
           text-align: center;
-          background-color: var(--ee-header-background, white);
+          background-color: var(--ee-header-background-color, white);
           color: var(--ee-header-color, black);
           fill: var(--ee-header-color, black);
           border-bottom: 1px solid #eee;

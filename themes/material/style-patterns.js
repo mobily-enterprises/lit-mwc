@@ -52,8 +52,8 @@ export const inputField = css`
   }
 
   :host([outlined]) {
-    --mat-background: var(--mat-background, transparent);
-    --mat-background-dark: var(--mat-background-dark, transparent);
+    --mat-background: white;
+    --mat-background-dark: white;
     --mat-theme-border: 2px solid #ccc;
   }
 

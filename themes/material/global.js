@@ -65,19 +65,19 @@ export const Global = (base) => {
             --mat-theme-border-style: solid;
             --mat-theme-border-width: 1px;
             --mat-theme-border-color: var(--mat-boundaries-color);
-            --mat-theme-border-radius: 4px);
-            --mat-theme-border: var(--mat-theme-border-width) var(--mat-theme-border-style) var(--mat-theme-border-color));
-            --mat-theme-box-shadow: none);
-            --mat-theme-box-shadow1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06));
-            --mat-theme-box-shadow2: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06));
-            --mat-theme-box-shadow3: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05));
-            --mat-theme-box-shadow4: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04));
+            --mat-theme-border-radius: 4px;
+            --mat-theme-border: var(--mat-theme-border-width) var(--mat-theme-border-style) var(--mat-theme-border-color);
+            --mat-theme-box-shadow: none;
+            --mat-theme-box-shadow1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --mat-theme-box-shadow2: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --mat-theme-box-shadow3: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --mat-theme-box-shadow4: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             --mat-theme-box-shadow5: 0 25px 50px -12px rgba(0, 0, 0, 0.25));
-            --mat-theme-shadow-transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1));
-            --mat-form-element-height: 56px);
-            --mat-form-element-min-width: 280px);
-            --mat-background:  #eee);
-            --mat-background-dark: #ccc);
+            --mat-theme-shadow-transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+            --mat-form-element-height: 56px;
+            --mat-form-element-min-width: 280px;
+            --mat-background: white;
+            --mat-background-dark: #ccc;
           }
 
           :host([hidden]) {
