@@ -12,6 +12,25 @@ export class EeRow extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement))
           flex-wrap: wrap;
           width: 100%;
         }
+
+        :host([size=small]) ::slotted(ee-cell) {
+          flex-basis: 100%;
+        }
+
+        :host([size=medium]) ::slotted(ee-cell),
+        :host([size=large]) ::slotted(ee-cell) {
+          flex-basis: 0;
+        }
+
+        :host([size=medium]) ::slotted(ee-cell[extra]),
+        :host([size=small]) ::slotted(ee-cell[extra])
+         {
+          display:none;
+        }
+
+        :host([size=small]) ::slotted(ee-cell[header]) {
+          display: none;
+        }
       `
     ]
   }

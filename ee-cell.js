@@ -9,29 +9,25 @@ export class EeCell extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement)
         :host {
           /* display: flex; */
           /* flex-direction: column; */
-          flex-basis: 100%;
+          flex-grow: 1;
+          flex-shrink: 1;
         }
 
-        @media screen and (min-width: 800px) {
-          :host {
-            flex-grow: 1;
-            flex-shrink: 1;
-            flex-basis: 0;
-          }
-          :host([s2]) {
-            flex-grow: 2;
-          }
-          :host([s3]) {
-            flex-grow: 3;
-          }
-          :host([s4]) {
-            flex-grow: 4;
-          }
-          :host([s5]) {
-            flex-grow: 5;
-          }
+        :host([s1]) {
+          flex-grow: 1;
         }
-
+        :host([s2]) {
+          flex-grow: 2;
+        }
+        :host([s3]) {
+          flex-grow: 3;
+        }
+        :host([s4]) {
+          flex-grow: 4;
+        }
+        :host([s5]) {
+          flex-grow: 5;
+        }
       `
     ]
   }
