@@ -17,7 +17,7 @@ Any of those properties can be redefined in the app scope, so the theme can be c
 These properties are meant to allow for light customisation and branding, not to make the material theme extensible, so most of the design aspects in the theme are not accessible.
 
 ---
-@TONY: I still need a few days using the theme on compas to figure out exactly how to improve the dev experience of the theme. But, mainly, I think listing the properties in global and having a few cutomisation examples should be OK for the docs.
+@TONY: I still need a few days using the theme on compas to figure out exactly how to improve the dev experience of the theme, so, I think the list of properties is still subject to changes. I think listing the properties in global and having a few cutomisation examples should be ok for the docs.
 ---
 
 ## style-patterns.js
