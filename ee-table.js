@@ -12,7 +12,16 @@ export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElemen
     return [
       css`
         :host {
+          display: block;
           width: 100%;
+        }
+
+        :host([striped]) ::slotted(ee-row:nth-child(odd)) {
+          background-color: var(--ee-table-striped-odd-color, white)
+        }
+
+        :host([striped]) ::slotted(ee-row:nth-child(even)) {
+          background-color: var(--ee-table-striped-even-color, whitesmoke)
         }
       `
     ]

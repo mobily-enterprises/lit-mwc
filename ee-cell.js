@@ -7,12 +7,27 @@ export class EeCell extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement)
     return [
       css`
         :host {
-          /* display: flex; */
-          /* flex-direction: column; */
           flex-grow: 1;
           flex-shrink: 1;
+          box-sizing: border-box;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          padding: 3px 5px;
+          border: 1px solid transparent
         }
 
+        :host([selectable]:hover) {
+          border: 1px solid var(--ee-cell-hover-border-color, #ddd);
+          background-color: 1px solid var(--ee-cell-hover-background-color, #eee);
+        }
+
+        :host([sq]) {
+          flex-grow: 0.25;
+        }
+        :host([sh]) {
+          flex-grow: 0.5;
+        }
         :host([s1]) {
           flex-grow: 1;
         }

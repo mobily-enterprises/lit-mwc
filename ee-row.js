@@ -11,6 +11,26 @@ export class EeRow extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement))
           flex-direction: row;
           flex-wrap: wrap;
           width: 100%;
+          border: 1px solid transparent;
+          border-bottom: var(--ee-row-border-bottom, 1px solid #777);
+        }
+
+        :host([header]) {
+          height: var(--ee-row-header-height, 2em);
+          box-sizing: border-box;
+          font-weight: bold;
+          border-bottom: var(--ee-row-header-border-bottom, 2px solid #777);
+        }
+
+        :host(:hover:not([header])) {
+          border: 1px solid var(--ee-cell-hover-border-color, #ddd);
+          background: var(--ee-cell-hover-background, #eee) !important;
+        }
+
+        :host([frozen]) {
+          position: sticky;
+          top: 0;
+          background: var(--ee-row-background, white);
         }
 
         :host([size=small]) ::slotted(ee-cell) {
