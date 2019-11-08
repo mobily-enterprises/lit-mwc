@@ -7,9 +7,9 @@ TPE does not have any constraints as to how a theme is structured, except for th
 It also allows for a shared mixin set to window.TP_THEME.common. In TPE Material, the `material/global.js` file is assigned to that shared mixin. It contains all CSS custom properties defined and used across the theme.
 Any of those properties can be redefined in the app scope, so the theme can be customised consistently. This is a summary of the contents:
 
-- primary and secondary colors, both with light and dark variants
-- primary and secondary text colors, plus high constrast variants
-- error background and text colors
+- primary and secondary colours, both with light and dark variants
+- primary and secondary text colours, plus high contrast variants
+- error background and text colours
 - border properties
 - 6 shadow elevation settings
 - standard form elements height and width
@@ -17,9 +17,8 @@ Any of those properties can be redefined in the app scope, so the theme can be c
 These properties are meant to allow for light customisation and branding, not to make the material theme extensible, so most of the design aspects in the theme are not accessible.
 
 ---
-@TONY: I still need a few days using the theme on compas to figure out exactly how to improve the dev experience of the theme. But, mainly, I think listing the properties in global and having a few cutomisation examples should be ok for the docs.
+@TONY: I still need a few days using the theme on compas to figure out exactly how to improve the dev experience of the theme. But, mainly, I think listing the properties in global and having a few cutomisation examples should be OK for the docs.
 ---
-
 
 ## style-patterns.js
 This file contains some UI and style patterns that repeat throughout the elements. They are always LitElement `css` tagged template literals, which yield CSSTemplateResult objects.
