@@ -95,7 +95,8 @@ export class EeHeader extends ThemeableMixin('ee-header')(StyleableMixin(LitElem
           align-items: left;
         }
 
-        .toolbar div.controls ::slotted(*[slot="controls"]) {
+        .toolbar div.controls ::slotted(*[slot="actions"]) {
+          z-index: var(--ee-header-actions-z-index, 2)
         }
 
       `
