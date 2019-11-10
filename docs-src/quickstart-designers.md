@@ -1,5 +1,11 @@
 # TPE: A quick start for designers
 
+TODO:
+ * Add designer descriptions of mixins to add at the beginning of nn-text-input, with links to tutorials
+ * Fix mixins descriptions so that at the beginning they have developers API
+ * Add custom CSS properties for input-text and to the material version of input-text, use it as an examples
+ * Add list of elements in the elements page
+
 ## Loading TPE
 
 TPE is loaded by adding three entries to your files:
