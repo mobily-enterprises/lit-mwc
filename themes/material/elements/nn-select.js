@@ -40,6 +40,10 @@ export const NnSelect = (base) => {
             bottom: 50%;
             user-select: none;
           }
+
+          #native {
+            width: 100%;
+          }
         `
       ]
     }

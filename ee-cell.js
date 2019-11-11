@@ -13,7 +13,6 @@ export class EeCell extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement)
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          padding: 3px 5px;
           border: 1px solid transparent
         }
 

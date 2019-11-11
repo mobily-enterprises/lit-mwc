@@ -45,11 +45,11 @@ export class EeRow extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement))
         :host([size=medium]) ::slotted(ee-cell[extra]),
         :host([size=small]) ::slotted(ee-cell[extra])
          {
-          display:none;
+          display:none !important;
         }
 
         :host([size=small]) ::slotted(ee-cell[header]) {
-          display: none;
+          display: none !important;
         }
       `
     ]
