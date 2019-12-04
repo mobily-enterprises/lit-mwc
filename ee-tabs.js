@@ -11,10 +11,11 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           width: 100%;
           height: 42px;
           padding-top: 0;
+          border-bottom: 1px solid var(var(--ee-tabs-lines-color, #999));
         }
 
         :host nav {
-          border-bottom: 1px solid var(--ee-tabs-lines-color);
+          border-bottom: 1px solid var(--ee-tabs-lines-color, #999);
           display: flex;
         }
 
@@ -23,21 +24,22 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav > ::slotted(*[selected]) .icon {
-          fill: var(--ee-tabs-selected-color);
+          fill: var(--ee-tabs-selected-color, black);
         }
 
         :host nav > ::slotted(*) {
-          color: var(--ee-tabs-color);
+          color: var(--ee-tabs-color, black);
           text-decoration: none;
-          line-height: 30px;
+          line-height: var(--ee-tabs-height, 20px);
           padding: 4px 24px;
           border: unset;
-          border-right: 1px solid var(--ee-tabs-lines-color);
+          border-right: 1px solid var(--ee-tabs-lines-color, #999);
           border-bottom: 4px inset transparent;
           font-size: 0.9em;
           border-radius: 0;
           width: 100%;
           text-align: center;
+          background-color:  var(--ee-tabs-background-color, whitesmoke);
         }
 
         :host nav > ::slotted(*:last-child) {
@@ -46,12 +48,16 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
 
         :host nav > ::slotted(*[selected]) {
           color: var(--ee-tabs-selected-color);
-          border-bottom: 4px solid var(--ee-tabs-color);
+          border-bottom: 4px solid var(--ee-tabs-selected-color, black);
+          background-color: var(--ee-tabs-selected-background-color, white);
+          font-size: bold;
         }
 
-        :host nav > ::slotted(*:focus) {
-          outline:0 ;
-          background: whitesmoke;
+        :host nav > ::slotted(*:focus),
+        :host nav > ::slotted(*:hover) {
+          /* outline:0 ; */
+          border-bottom: 4px inset var(--ee-tabs-selected-color, black);
+          filter: brightness(150%)
         }
 
         :host nav > ::slotted(*:active) {
@@ -72,7 +78,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav > ::slotted(*.icon:hover) svg, :host > ::slotted(*:hover) svg {
-          fill: var(--ee-tabs-color);
+          fill: var(--ee-tabs-color, black);
         }
       `
     ]
@@ -95,8 +101,8 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
   }
 
   /** Tabs usage
-   * add elements with a slot="tabs" within the nl-tabs tags to create tabs.
-   * Tab elements must have an id. Index support will be added soon
+   * add elements within the ee-tabs tags to create tabs.
+   * Tab elements must have an name attribute, or you can set a custom value to 'selected-attribute'. Index support will be added soon
    */
   render () {
     if (this.themeRender) return this.themeRender()

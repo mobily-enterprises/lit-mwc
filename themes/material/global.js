@@ -56,7 +56,7 @@ export const Global = (base) => {
             --mat-secondary-color-light: #8559da;
             --mat-secondary-color-dark: #140078;
             --mat-boundaries-color: #999;
-            --mat-primary-text: #777;
+            --mat-primary-text: #333;
             --mat-secondary-text: #000;
             --mat-text-on-dark: #fff;
             --mat-text-on-light: #000;

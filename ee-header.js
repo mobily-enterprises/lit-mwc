@@ -41,8 +41,30 @@ export class EeHeader extends ThemeableMixin('ee-header')(StyleableMixin(LitElem
           padding-right: 92px;
         }
 
+        div[title], div[middle] {
+          display: block;
+        }
+
+        div[title] h3,
+        div[title] h5 {
+          margin-block-start: 0.2em;
+          margin-block-end: 0.2em;
+        }
+
+        div[title] h5 {
+          text-align: start;
+          display: flex;
+        }
+
+        div[middle] h1, div[middle] h2,
+        div[middle] h3, div[middle] h4,
+        div[middle] h5, div[middle] h6 {
+          margin-block-start: 0.1em;
+          margin-block-end: 0.1em;
+        }
+
         .toolbar .subtitle {
-          color: rgba(255, 255, 255, 0.75);
+          color: var(--ee-header-secondary-color, grey);
         }
         .toolbar button.icon {
           appearance: none;
@@ -139,13 +161,17 @@ export class EeHeader extends ThemeableMixin('ee-header')(StyleableMixin(LitElem
           <div title>
           ${this.headerTitle
             ? html`
-                ${this.headerTitle}
-                ${this.headerSubtitle ? html`<div class="subtitle">${this.headerSubtitle}</div>` : ''}
+                <h3>${this.headerTitle}</h3>
+                <h5>${this.headerSubtitle ? html`<div class="subtitle">${this.headerSubtitle}</div>` : ''} <slot name="header-subtitle"></slot></h5>
+
             `
             : html`
               <slot name="header-title"></slot>
             `
           }
+          </div>
+          <div middle>
+            <slot name="middle"></slot>
           </div>
           <div class="actions">
             <slot name="actions"></slot>
