@@ -26,9 +26,6 @@ export class EeHeader extends ThemeableMixin('ee-header')(StyleableMixin(LitElem
           width: 100%;
           max-width: 100%;
           text-align: center;
-          background-color: var(--ee-header-background-color, white);
-          color: var(--ee-header-color, black);
-          fill: var(--ee-header-color, black);
           border-bottom: 1px solid #eee;
         }
 
@@ -163,7 +160,6 @@ export class EeHeader extends ThemeableMixin('ee-header')(StyleableMixin(LitElem
             ? html`
                 <h3>${this.headerTitle}</h3>
                 <h5>${this.headerSubtitle ? html`<div class="subtitle">${this.headerSubtitle}</div>` : ''} <slot name="header-subtitle"></slot></h5>
-
             `
             : html`
               <slot name="header-title"></slot>
