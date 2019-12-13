@@ -7,12 +7,17 @@ export class EeRow extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement))
     return [
       css`
         :host {
+          box-sizing: border-box;
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
           width: 100%;
           border: 1px solid transparent;
           border-bottom: var(--ee-row-border-bottom, 1px solid #777);
+        }
+
+        :host(:last-child) {
+          border-color: transparent;
         }
 
         :host([header]) {
