@@ -155,6 +155,12 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
   createSubmitObject (elements) {
     const r = {}
     for (const el of elements) {
+
+      debugger
+
+      // Every submit element MUST have a name set
+      if (typeof el.name === 'undefined') continue
+
       // Radio will only happen once thanks to checking for undefined
       if (typeof r[el.name] !== 'undefined') continue
       if (el.getAttribute('no-submit') !== null) continue
@@ -225,6 +231,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     const elements = [...this.elements].filter(el => el.name === elName)
 
     if (!elements.length) {
+      debugger
       console.error('Trying to set', elName, 'but no such element in form')
       return
     }
@@ -304,8 +311,8 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // will persist even if validation passes
     let submitObject
     if (specificElement) {
-      if (typeof specificElement.setCustomValidity === 'function') specificElement.setCustomValidity('')
-      if (typeof specificElement.reportValidity === 'function' && !specificElement.reportValidity()) return
+      if (specificElement && typeof specificElement.setCustomValidity === 'function') specificElement.setCustomValidity('')
+      if (specificElement && typeof specificElement.reportValidity === 'function' && !specificElement.reportValidity()) return
       submitObject = this.createSubmitObject([specificElement])
     } else {
       for (const el of this.elements) {
