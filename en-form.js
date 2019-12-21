@@ -428,7 +428,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         }
         for (const err of errs.errors) {
           const el = elHash[err.field]
-          if (el) {
+          if (el && el.setCustomValidity) {
             el.setCustomValidity(err.message)
             el.reportValidity()
           }

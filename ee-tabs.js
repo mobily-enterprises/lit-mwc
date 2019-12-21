@@ -40,6 +40,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           width: 100%;
           text-align: center;
           background-color:  var(--ee-tabs-background-color, whitesmoke);
+          cursor: default;
         }
 
         :host nav > ::slotted(*:last-child) {
