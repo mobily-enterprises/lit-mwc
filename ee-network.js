@@ -27,18 +27,28 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
           text-align: center;
           transition: background var(--ee-network-transition-duration, 200ms);
         }
+
         #overlay.overlay-loading {
           display: block;
           color: var(--ee-network-overlay-loading-color, #666);
-          background-color: var(--ee-network-overlay-loading-background-color, rgba(102, 102, 102, 0.25));
+          background-color: var(--ee-network-overlay-loading-background-color, rgba(190, 190, 190, 0.75));
         }
+
         #overlay.clear {
         }
+        
         #overlay.overlay-error {
           display: block;
           cursor: pointer; /* Hint that the object is clickable */
           color: var(--ee-network-overlay-error-color, #c00);
           background-color: var(--ee-network-overlay-error-background-color, rgba(255, 0, 0, 0.25));
+        }
+
+        #overlay #statusMessage {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 100%;
         }
 
         #content-wrapper.overlay-error,
@@ -108,7 +118,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     if (this.themeRender) return this.themeRender()
     return html`
       <div id="overlay" class="${this.overlayClass}" @click="${this._overlayClicked}">
-        ${this.statusMessages[this.status]}
+        <div id="statusMessage">${this.statusMessages[this.status]}</div>
       </div>
       <slot></slot>
     `
