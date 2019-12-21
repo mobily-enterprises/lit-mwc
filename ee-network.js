@@ -41,7 +41,8 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
           background-color: var(--ee-network-overlay-error-background-color, rgba(255, 0, 0, 0.25));
         }
 
-        #content-wrapper.overlay-error {
+        #content-wrapper.overlay-error,
+        :host([status="overlay-error"]) {
           pointer-events: none;
           opacity: 0.25;
           min-height: 1.25rem; /* FIXME: find a proper value, this is made up */
@@ -65,7 +66,8 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
         attribute: 'no-reload-on-tap'
       },
       status: {
-        type: String
+        type: String,
+        reflect: true
       },
       statusMessages: {
         type: Object,
@@ -108,9 +110,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
       <div id="overlay" class="${this.overlayClass}" @click="${this._overlayClicked}">
         ${this.statusMessages[this.status]}
       </div>
-      <div id="content-wrapper" class="${this.status}">
-        <slot></slot>
-      </div>
+      <slot></slot>
     `
   }
 

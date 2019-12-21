@@ -100,7 +100,7 @@ export class EeHeader extends ThemeableMixin('ee-header')(StyleableMixin(LitElem
         .toolbar div.actions {
           position: absolute;
           right: 20px;
-          display: inline;
+          display: flex;
         }
 
         ::slotted([slot=actions]) {

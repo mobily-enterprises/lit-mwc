@@ -116,8 +116,8 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
   firstUpdated () {
     const slotted = this.shadowRoot.querySelector('slot').assignedElements()
     if (!slotted.length) return
-    const defaultTab = this.default ? slotted.filter(i => i.getAttribute('name') === this.default)[0] : slotted[0]
-    const selected = defaultTab.getAttribute('name')
+    const selected = this.selected || this.default
+    const defaultTab = selected ? slotted.filter(i => i.getAttribute('name') === this.default)[0] : slotted[0]
     if (defaultTab) {
       this.dispatchEvent(new CustomEvent('selected-changed', { detail: { selected: selected } }))
       this.selected = selected

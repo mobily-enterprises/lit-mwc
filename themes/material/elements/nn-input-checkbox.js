@@ -66,7 +66,7 @@ export const NnInputCheckBox = (base) => {
           }
 
           div#label-text {
-            padding-left: 16px;
+            padding: var(----nn-checkbox-label-padding);
           }
 
           #native:invalid + label, #native:invalid ~ label {
@@ -94,7 +94,7 @@ export const NnInputCheckBox = (base) => {
           }
 
           :host(:hover) label::before {
-            filter: brightness(115%);
+            filter: brightness(135%);
             transition: filter 0.3s ease-in-out;
             box-shadow: var(--mat-theme-box-shadow2);
           }
@@ -102,11 +102,11 @@ export const NnInputCheckBox = (base) => {
           #native:focus ~ label::before {
             box-shadow: var(--mat-theme-box-shadow2);
             border-color: var(--mat-primary-color);
-            filter: brightness(115%);
+            filter: brightness(135%);
           }
 
           #native:not([checked]):hover ~ label::before {
-            filter: brightness(130%);
+            filter: brightness(150%);
             background-color: var(--mat-primary-color);
             transition: background-color 0.3s ease-in-out;
           }
