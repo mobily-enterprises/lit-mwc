@@ -305,13 +305,13 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     let submitObject
     if (specificElement) {
       if (typeof specificElement.setCustomValidity === 'function') specificElement.setCustomValidity('')
-      if (!specificElement.reportValidity()) return
+      if (typeof specificElement.reportValidity === 'function' && !specificElement.reportValidity()) return
       submitObject = this.createSubmitObject([specificElement])
     } else {
       for (const el of this.elements) {
         if (typeof el.setCustomValidity === 'function') el.setCustomValidity('')
       }
-      if (!this.reportValidity()) return
+      if (typeof specificElement.reportValidity === 'function' && !this.reportValidity()) return
       submitObject = this.createSubmitObject(this.elements)
     }
 
