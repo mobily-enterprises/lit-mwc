@@ -156,8 +156,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     const r = {}
     for (const el of elements) {
 
-      debugger
-
       // Every submit element MUST have a name set
       if (typeof el.name === 'undefined') continue
 

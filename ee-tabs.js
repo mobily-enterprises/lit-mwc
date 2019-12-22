@@ -8,22 +8,30 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
       super.styles,
       css`
         :host {
+          position: relative;
           width: 100%;
-          height: 42px;
-          padding-top: 0;
           border-bottom: 1px solid var(var(--ee-tabs-lines-color, #999));
         }
 
         :host nav {
+          position: sticky;
+          top:0;
+          width: 100%;
           border-bottom: 1px solid var(--ee-tabs-lines-color, #999);
           display: flex;
+          height: var(--ee-tabs-height, 32px);
+        }
+
+        :host div#contentContainer {
+          height: 100%;
+          overflow: auto;
         }
 
         :host nav ::slotted(*) .icon {
           fill: var(--ee-tabs-color);
         }
 
-        :host nav > ::slotted(*[selected]) .icon {
+        :host nav > ::slotted(*[active]) .icon {
           fill: var(--ee-tabs-selected-color, black);
         }
 
@@ -47,7 +55,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           border-right: unset
         }
 
-        :host nav > ::slotted(*[selected]) {
+        :host nav > ::slotted(*[active]) {
           color: var(--ee-tabs-selected-color);
           border-bottom: 4px solid var(--ee-tabs-selected-color, black);
           background-color: var(--ee-tabs-selected-background-color, white);
@@ -89,7 +97,8 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     return {
       default: { type: String },
       selected: { type: String, reflect: true },
-      selectedAttribute: { type: String },
+      tabs: { type: Array },
+      nameAttribute: { type: String },
       eventBubbles: { type: Boolean }
     }
   }
@@ -97,8 +106,10 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
   constructor () {
     super()
     this.selected = ''
+    this.tabs = []
     this.eventBubbles = false
-    this.selectedAttribute = 'name'
+    this.nameAttribute = 'name'
+    this.selectedAttribute = 'active'
   }
 
   /** Tabs usage
@@ -109,47 +120,58 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     if (this.themeRender) return this.themeRender()
     return html`
     <nav>
-      <slot @slotchange="${this._manageSlotted}"></slot>
+      <slot id="tabs" @slotchange="${this._manageSlottedTabs}"></slot>
     </nav>
+    <div id="contentContainer">
+      <slot name="content"></slot>
+    </div>
     `
   }
 
+  // Check if there are tabs, then, if there is a default tab to be selected, or select the first one
   firstUpdated () {
-    const slotted = this.shadowRoot.querySelector('slot').assignedElements()
-    if (!slotted.length) return
-    const selected = this.selected || this.default
-    const defaultTab = selected ? slotted.filter(i => i.getAttribute('name') === this.default)[0] : slotted[0]
-    if (defaultTab) {
-      this.dispatchEvent(new CustomEvent('selected-changed', { detail: { selected: selected } }))
-      this.selected = selected
-    }
+    super.firstUpdated()
+    const tabs = this.shadowRoot.querySelector('slot#tabs').assignedElements()
+    const defaultTab = this.default ? tabs.find(i => i.getAttribute('name') === this.default) : tabs[0]
+    this._select(null, defaultTab)
   }
 
-  connectedCallback () {
-    super.connectedCallback()
-    // Listen to local clicked-slot event
-    this.addEventListener('clicked-slot', this._fireSelectedEvent)
+  _isSelected (el) {
+    return el.hasAttribute(this.selectedAttribute)
+  }
+
+  _matchSelected (el) {
+    return el.getAttribute(this.nameAttribute) === this.selected
+  }
+
+  // Clear the seletecAttribute from the current acteive tab and content
+  _clearCurrent (tabs, content) {
+    const currentTab = tabs.find(this._isSelected.bind(this))
+    const currentContent = content.find(this._isSelected.bind(this))
+    if (currentTab) currentTab.toggleAttribute(this.selectedAttribute, false)
+    if (currentContent) currentContent.toggleAttribute(this.selectedAttribute, false)
+    this.selected = ''
+  }
+
+  _select (e, el) {
+    const tab = e ? e.currentTarget : el
+    if (!tab) return
+    const content = this.shadowRoot.querySelector('slot[name="content"]').assignedElements()
+    if (this.selected !== tab.getAttribute(this.nameAttribute)) this._clearCurrent(this.tabs, content)
+    this.selected = tab.getAttribute(this.nameAttribute)
+    tab.toggleAttribute(this.selectedAttribute, true)
+    const selectedContent = content.find(this._matchSelected.bind(this))
+    if (selectedContent) selectedContent.toggleAttribute(this.selectedAttribute, true)
   }
 
   // This adds a click event listener to all slotted children (the tabs)
-  _manageSlotted (e) {
+  _manageSlottedTabs (e) {
     const slot = e.currentTarget
     const slotted = slot.assignedElements()
+    this.tabs = slotted
     for (const element of slotted) {
-      element.addEventListener('click', this._clickedSlotted.bind(this))
+      element.addEventListener('click', this._select.bind(this))
     }
-  }
-
-  // Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the name attribute of the slotted "tab"
-  _clickedSlotted (e) {
-    console.log('slot clicked', this.selectedAttribute)
-    this.dispatchEvent(new CustomEvent('clicked-slot', { detail: { event: e, selected: e.currentTarget.getAttribute(this.selectedAttribute) } }))
-  }
-
-  // This function runs when the host element receives a clicked-slot event from it's children. It sets the selected property and fires a 'selected-changed' event with that value.
-  _fireSelectedEvent (e) {
-    this.dispatchEvent(new CustomEvent('selected-changed', { detail: { selected: e.detail.selected } }))
-    this.selected = e.detail.selected
   }
 }
 customElements.define('ee-tabs', EeTabs)
