@@ -151,6 +151,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     if (currentTab) currentTab.toggleAttribute(this.selectedAttribute, false)
     if (currentContent) currentContent.toggleAttribute(this.selectedAttribute, false)
     this.selected = ''
+    content[this.selectedAttribute] = false
   }
 
   _select (e, el) {
@@ -161,7 +162,10 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     this.selected = tab.getAttribute(this.nameAttribute)
     tab.toggleAttribute(this.selectedAttribute, true)
     const selectedContent = content.find(this._matchSelected.bind(this))
-    if (selectedContent) selectedContent.toggleAttribute(this.selectedAttribute, true)
+    if (selectedContent) {
+      selectedContent[this.selectedAttribute] = false
+      selectedContent.toggleAttribute(this.selectedAttribute, true)
+    }
   }
 
   // This adds a click event listener to all slotted children (the tabs)
