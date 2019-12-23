@@ -366,16 +366,15 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // Disable the elements
     if (!specificElement) this._disableElements(this.elements)
 
-    // fetch() wants a stingified body
-    fetchOptions.body = JSON.stringify(fetchOptions.body)
-
     // Attempt the submission
     let networkError = false
     let response
     let errs
     try {
+      // fetch() wants a stingified body
+      const fo = { ...fetchOptions, ...{ body: JSON.stringify(fetchOptions.body) } }
       const el = this._fetchEl(specificElement)
-      response = await el.fetch(fetchOptions.url, fetchOptions)
+      response = await el.fetch(fetchOptions.url, fo)
     } catch (e) {
       console.log('ERROR!', e)
       networkError = true
