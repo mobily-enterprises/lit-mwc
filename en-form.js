@@ -95,7 +95,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         const realTime = el.getAttribute('real-time') !== null
         const realTimeEvent = el.getAttribute('real-time-event') || 'input'
         if (!realTime || !realTimeEvent) continue
-        this.addEventListener(realTimeEvent, this._boundRealtimeSubmitter)
+        el.addEventListener(realTimeEvent, this._boundRealtimeSubmitter)
       }
     })
   }
