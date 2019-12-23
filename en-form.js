@@ -108,7 +108,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       const realTimeEvent = el.getAttribute('real-time-event')
       if (!realTimeEvent) continue
 
-      this.removeEventListener(realTimeEvent, this._boundRealtimeSubmitter)
+      el.removeEventListener(realTimeEvent, this._boundRealtimeSubmitter)
     }
   }
 
@@ -393,7 +393,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       this.dispatchEvent(event)
 
       // Response hook
-      this.response(null, null)
+      this.response(null, null, fetchOptions)
     //
     // CASE #2: HTTP error.
     // Invalidate the problem fields
@@ -432,7 +432,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       }
 
       // Response hook
-      this.response(response, errs)
+      this.response(response, errs, fetchOptions)
     // CASE #3: NO error. Set fields to their
     // new values
     } else {
@@ -469,7 +469,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       this.dispatchEvent(event)
 
       // Response hook
-      this.response(response, v)
+      this.response(response, v, fetchOptions)
     }
 
     if (this.inFlightMap.has(mapIndex)) {
