@@ -229,7 +229,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     const elements = [...this.elements].filter(el => el.name === elName)
 
     if (!elements.length) {
-      debugger
       console.error('Trying to set', elName, 'but no such element in form')
       return
     }

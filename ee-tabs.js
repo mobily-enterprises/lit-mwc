@@ -10,16 +10,17 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         :host {
           position: relative;
           width: 100%;
-          border-bottom: 1px solid var(var(--ee-tabs-lines-color, #999));
+          border-bottom: 1px solid var(var(--ee-tabs-lines-color, #bbb));
         }
 
         :host nav {
           position: sticky;
           top:0;
           width: 100%;
-          border-bottom: 1px solid var(--ee-tabs-lines-color, #999);
+          border-bottom: 1px solid var(--ee-tabs-lines-color, #bbb);
           display: flex;
           height: var(--ee-tabs-height, 32px);
+          z-index: var(--ee-tabs-z-index, 10);
         }
 
         :host div#contentContainer {
@@ -41,8 +42,9 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           line-height: var(--ee-tabs-height, 20px);
           padding: 4px 24px;
           border: unset;
-          border-right: 1px solid var(--ee-tabs-lines-color, #999);
-          border-bottom: 4px inset transparent;
+          border-left: 0.5px solid var(--ee-tabs-lines-color, #bbb);
+          border-right: 0.5px solid var(--ee-tabs-lines-color, #bbb);
+          border-bottom: 4px solid var(--ee-tabs-background-color, #bbb);
           font-size: 0.9em;
           border-radius: 0;
           width: 100%;
@@ -52,7 +54,11 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav > ::slotted(*:last-child) {
-          border-right: unset
+          border-right-color: var(--ee-tabs-background-color, #bbb)
+        }
+
+        :host nav > ::slotted(*:first-child) {
+          border-left-color: var(--ee-tabs-background-color, #bbb)
         }
 
         :host nav > ::slotted(*[active]) {
@@ -65,15 +71,16 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         :host nav > ::slotted(*:focus),
         :host nav > ::slotted(*:hover) {
           /* outline:0 ; */
-          border-bottom: 4px inset var(--ee-tabs-selected-color, black);
+          border-left: 0.5px solid var(--ee-tabs-lines-color, #bbb);
+          border-right: 0.5px solid var(--ee-tabs-lines-color, #bbb);
+          border-bottom: 4px solid var(--ee-tabs-selected-color, black);
           filter: brightness(150%)
         }
 
         :host nav > ::slotted(*:active) {
           background: #cccccc;
-          border-bottom: 4px inset #bdbdbd;
+          border-bottom: 4px solid #bdbdbd;
           box-shadow: none;
-          animation: fadeIn 0.2s ease-in;
         }
 
         :host nav > ::slotted(*[disabled]) {
@@ -165,6 +172,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     if (selectedContent) {
       selectedContent[this.selectedAttribute] = false
       selectedContent.toggleAttribute(this.selectedAttribute, true)
+      selectedContent.active = true
     }
   }
 
@@ -175,6 +183,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     this.tabs = slotted
     for (const element of slotted) {
       element.addEventListener('click', this._select.bind(this))
+      element.setAttribute('tabindex', 1)
     }
   }
 }

@@ -26,7 +26,6 @@ export class EeHeader extends ThemeableMixin('ee-header')(StyleableMixin(LitElem
           width: 100%;
           max-width: 100%;
           text-align: center;
-          border-bottom: 1px solid #eee;
         }
 
         :host([menu]) div[title],
