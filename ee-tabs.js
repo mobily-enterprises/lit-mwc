@@ -103,16 +103,12 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
   static get properties () {
     return {
       default: { type: String },
-      tabs: { type: Array },
-      nameAttribute: { type: String },
-      eventBubbles: { type: Boolean }
+      nameAttribute: { type: String, attribute: 'name-attribute' }
     }
   }
 
   constructor () {
     super()
-    this.tabs = []
-    this.eventBubbles = false
     this.nameAttribute = 'name'
   }
 
@@ -132,54 +128,59 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     `
   }
 
-  // Check if there are tabs, then, if there is a default tab to be active, or select the first one
+  _getAllTabs () {
+    return this.shadowRoot.querySelector('slot#tabs').assignedElements()
+  }
+
   firstUpdated () {
     super.firstUpdated()
-    const tabs = this.shadowRoot.querySelector('slot#tabs').assignedElements()
-    const defaultTab = this.default ? tabs.find(i => i.getAttribute(this.nameAttribute) === this.default) : tabs[0]
-    this._select(null, defaultTab)
+
+    // Select either the default tab, or the first one
+    this.select(this.default || this._getAllTabs()[0], false)
   }
 
   _isActive (el) {
     return el.hasAttribute('active')
   }
 
-  // Clear the seletecAttribute from the current acteive tab and content
-  _clearAll (tabs, content) {
+  select (tab, clearAll = true) {
+    if (typeof tab === 'string') {
+      tab = this._getAllTabs().find(i => i.getAttribute(this.nameAttribute) === tab)
+    }
+    if (!tab) return
+
+    const pages = this.shadowRoot.querySelector('slot[name="content"]').assignedElements()
+    if (clearAll) this._clearAll(this._getAllTabs(), pages)
+
+    tab.toggleAttribute('active', true)
+    tab.active = true
+
+    const name = tab.getAttribute(this.nameAttribute)
+    const activePage = pages.find(el => el.getAttribute(this.nameAttribute) === name)
+    if (activePage) {
+      activePage.toggleAttribute('active', true)
+      activePage.active = true
+    }
+  }
+
+  // Clear the seletecAttribute from the current active tab and page
+  _clearAll (tabs, pages) {
     const currentTab = tabs.find(this._isActive.bind(this))
-    const currentContent = content.find(this._isActive.bind(this))
+    const currentPage = pages.find(this._isActive.bind(this))
     if (currentTab) {
       currentTab.toggleAttribute('active', false)
       currentTab.active = false
     }
-    if (currentContent) {
-      currentContent.toggleAttribute('active', false)
-      currentContent.active = false
-    }
-  }
-
-  _select (e, el) {
-    const tab = e ? e.currentTarget : el
-    if (!tab) return
-    const content = this.shadowRoot.querySelector('slot[name="content"]').assignedElements()
-    this._clearAll(this.tabs, content)
-
-    tab.toggleAttribute('active', true)
-    const name = tab.getAttribute(this.nameAttribute)
-    const activeContent = content.find(el => el.getAttribute(this.nameAttribute) === name)
-    if (activeContent) {
-      activeContent.toggleAttribute('active', true)
-      activeContent.active = true
+    if (currentPage) {
+      currentPage.toggleAttribute('active', false)
+      currentPage.active = false
     }
   }
 
   // This adds a click event listener to all slotted children (the tabs)
   _manageSlottedTabs (e) {
-    const slot = e.currentTarget
-    const slotted = slot.assignedElements()
-    this.tabs = slotted
-    for (const element of slotted) {
-      element.addEventListener('click', this._select.bind(this))
+    for (const element of this._getAllTabs()) {
+      element.addEventListener('click', (e) => { this.select.bind(this)(e.currentTarget) })
       element.setAttribute('tabindex', 1)
     }
   }
