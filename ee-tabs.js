@@ -33,7 +33,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav > ::slotted(*[active]) .icon {
-          fill: var(--ee-tabs-selected-color, black);
+          fill: var(--ee-tabs-active-color, black);
         }
 
         :host nav > ::slotted(*) {
@@ -62,9 +62,9 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav > ::slotted(*[active]) {
-          color: var(--ee-tabs-selected-color);
-          border-bottom: 4px solid var(--ee-tabs-selected-color, black);
-          background-color: var(--ee-tabs-selected-background-color, white);
+          color: var(--ee-tabs-active-color);
+          border-bottom: 4px solid var(--ee-tabs-active-color, black);
+          background-color: var(--ee-tabs-active-background-color, white);
           font-size: bold;
         }
 
@@ -73,7 +73,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           /* outline:0 ; */
           border-left: 0.5px solid var(--ee-tabs-lines-color, #bbb);
           border-right: 0.5px solid var(--ee-tabs-lines-color, #bbb);
-          border-bottom: 4px solid var(--ee-tabs-selected-color, black);
+          border-bottom: 4px solid var(--ee-tabs-active-color, black);
           filter: brightness(150%)
         }
 
@@ -103,7 +103,6 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
   static get properties () {
     return {
       default: { type: String },
-      selected: { type: String, reflect: true },
       tabs: { type: Array },
       nameAttribute: { type: String },
       eventBubbles: { type: Boolean }
@@ -112,16 +111,14 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
 
   constructor () {
     super()
-    this.selected = ''
     this.tabs = []
     this.eventBubbles = false
     this.nameAttribute = 'name'
-    this.selectedAttribute = 'active'
   }
 
   /** Tabs usage
    * add elements within the ee-tabs tags to create tabs.
-   * Tab elements must have an name attribute, or you can set a custom value to 'selected-attribute'. Index support will be added soon
+   * Tab elements must have an name attribute, or you can set a custom value to 'active-attribute'. Index support will be added soon
    */
   render () {
     if (this.themeRender) return this.themeRender()
@@ -135,44 +132,44 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     `
   }
 
-  // Check if there are tabs, then, if there is a default tab to be selected, or select the first one
+  // Check if there are tabs, then, if there is a default tab to be active, or select the first one
   firstUpdated () {
     super.firstUpdated()
     const tabs = this.shadowRoot.querySelector('slot#tabs').assignedElements()
-    const defaultTab = this.default ? tabs.find(i => i.getAttribute('name') === this.default) : tabs[0]
+    const defaultTab = this.default ? tabs.find(i => i.getAttribute(this.nameAttribute) === this.default) : tabs[0]
     this._select(null, defaultTab)
   }
 
-  _isSelected (el) {
-    return el.hasAttribute(this.selectedAttribute)
-  }
-
-  _matchSelected (el) {
-    return el.getAttribute(this.nameAttribute) === this.selected
+  _isActive (el) {
+    return el.hasAttribute('active')
   }
 
   // Clear the seletecAttribute from the current acteive tab and content
-  _clearCurrent (tabs, content) {
-    const currentTab = tabs.find(this._isSelected.bind(this))
-    const currentContent = content.find(this._isSelected.bind(this))
-    if (currentTab) currentTab.toggleAttribute(this.selectedAttribute, false)
-    if (currentContent) currentContent.toggleAttribute(this.selectedAttribute, false)
-    this.selected = ''
-    content[this.selectedAttribute] = false
+  _clearAll (tabs, content) {
+    const currentTab = tabs.find(this._isActive.bind(this))
+    const currentContent = content.find(this._isActive.bind(this))
+    if (currentTab) {
+      currentTab.toggleAttribute('active', false)
+      currentTab.active = false
+    }
+    if (currentContent) {
+      currentContent.toggleAttribute('active', false)
+      currentContent.active = false
+    }
   }
 
   _select (e, el) {
     const tab = e ? e.currentTarget : el
     if (!tab) return
     const content = this.shadowRoot.querySelector('slot[name="content"]').assignedElements()
-    if (this.selected !== tab.getAttribute(this.nameAttribute)) this._clearCurrent(this.tabs, content)
-    this.selected = tab.getAttribute(this.nameAttribute)
-    tab.toggleAttribute(this.selectedAttribute, true)
-    const selectedContent = content.find(this._matchSelected.bind(this))
-    if (selectedContent) {
-      selectedContent[this.selectedAttribute] = false
-      selectedContent.toggleAttribute(this.selectedAttribute, true)
-      selectedContent.active = true
+    this._clearAll(this.tabs, content)
+
+    tab.toggleAttribute('active', true)
+    const name = tab.getAttribute(this.nameAttribute)
+    const activeContent = content.find(el => el.getAttribute(this.nameAttribute) === name)
+    if (activeContent) {
+      activeContent.toggleAttribute('active', true)
+      activeContent.active = true
     }
   }
 
