@@ -102,6 +102,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
 
   static get properties () {
     return {
+      useHash: { type: Boolean, attribute: 'use-hash' },
       default: { type: String },
       nameAttribute: { type: String, attribute: 'name-attribute' }
     }
@@ -110,6 +111,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
   constructor () {
     super()
     this.nameAttribute = 'name'
+    this.useHash = false
   }
 
   /** Tabs usage
@@ -136,7 +138,8 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     super.firstUpdated()
 
     // Select either the default tab, or the first one
-    this.select(this.default || this._getAllTabs()[0], false)
+    if (this.useHash && window.location.hash) this.select(window.location.hash.substr(1))
+    else this.select(this.default || this._getAllTabs()[0], false)
   }
 
   _isActive (el) {
@@ -155,26 +158,30 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
     tab.toggleAttribute('active', true)
     tab.active = true
 
+    /*
     const name = tab.getAttribute(this.nameAttribute)
     const activePage = pages.find(el => el.getAttribute(this.nameAttribute) === name)
     if (activePage) {
       activePage.toggleAttribute('active', true)
       activePage.active = true
     }
+    */
   }
 
   // Clear the seletecAttribute from the current active tab and page
   _clearAll (tabs, pages) {
     const currentTab = tabs.find(this._isActive.bind(this))
-    const currentPage = pages.find(this._isActive.bind(this))
+    // const currentPage = pages.find(this._isActive.bind(this))
     if (currentTab) {
       currentTab.toggleAttribute('active', false)
       currentTab.active = false
     }
+    /*
     if (currentPage) {
       currentPage.toggleAttribute('active', false)
       currentPage.active = false
     }
+    */
   }
 
   // This adds a click event listener to all slotted children (the tabs)
