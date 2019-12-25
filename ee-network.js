@@ -67,7 +67,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
         type: Boolean,
         attribute: 'manage-loading-errors'
       },
-      reloadMethod: {
+      refetchMethod: {
         type: Function,
         attribute: false
       },
@@ -100,7 +100,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
   constructor () {
     super()
     this.manageLoadingErrors = false
-    this.reloadMethod = null
+    this.refetchMethod = null
     this.noReloadOnTap = false
     this.status = 'loaded'
     this.statusMessages = {
@@ -144,7 +144,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     }
   }
 
-  _overlayClicked (e) {
+  async _overlayClicked (e) {
     if (this.noReloadOnTap) return
 
     // Stop the event here
@@ -153,8 +153,11 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
 
     // If the status is 'error', try to reload
     if (this.status === 'loading-error') {
-      if (!this.reloadMethod) this.fetch(this.lastUrl, this.lastInitObject)
-      else this.reloadMethod(this.lastUrl, this.lastInitObject)
+      if (!this.refetchMethod) {
+        const fetched = await this.fetch(this.lastUrl, this.lastInitObject)
+        this.dispatchEvent(new CustomEvent('refetched', { detail: { fetched }, composed: true, bubbles: false }))
+      }
+      else this.refetchMethod(this.lastUrl, this.lastInitObject)
     }
   }
 
