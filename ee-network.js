@@ -23,7 +23,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
           left: 0;
           right: 0;
           bottom: 0;
-          z-index: 1;
+          z-index: 100000;
           text-align: center;
           transition: background var(--ee-network-transition-duration, 200ms);
         }
@@ -36,7 +36,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
 
         #overlay.clear {
         }
-        
+
         #overlay.overlay-error {
           display: block;
           cursor: pointer; /* Hint that the object is clickable */
@@ -68,8 +68,8 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
         attribute: 'manage-loading-errors'
       },
       reloadMethod: {
-        type: String,
-        attribute: 'reload-method'
+        type: Function,
+        attribute: false
       },
       noReloadOnTap: {
         type: Boolean,
