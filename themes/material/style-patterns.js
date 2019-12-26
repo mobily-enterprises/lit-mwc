@@ -119,6 +119,7 @@ export const inputLabel = css`
     min-width: fit-content;
     white-space: nowrap;
     top: calc(50% - 5px);
+    left: 12px;
     transform: translateY(-50%);
     will-change: transform, background-color;
     transition: all 0.3s ease-in-out;
