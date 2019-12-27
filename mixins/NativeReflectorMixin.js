@@ -218,7 +218,7 @@ export const NativeReflectorMixin = (base) => {
             // when firstUpdated() runs, it will forward-assign this value to
             // this.native
             if (!dst) {
-              object[prop] = newValue
+              if (typeof newValue !== 'undefined') object[prop] = newValue
               return
             }
 
