@@ -120,15 +120,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       // Check validity
       this.reportValidity()
     }
-
-    /*
-    const form = this
-    this.addEventListener('change', (e) => {
-      const el = form.elements.find(el => el === e.target)
-      const eventNameForElement = el.getAttribute('real-time-event')
-      if (el && el.realTime) form.submit(el)
-    })
-    */
   }
 
   setFormElementValues (o) {
@@ -493,6 +484,10 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // Record ID must be "something"
     if (typeof this.recordId === 'undefined' || this.recordId === null) return
 
+    return this.preloadData()
+  }
+
+  async preloadData () {
     // Work out the action's URL, adding the record ID  at the end
     // (It will be a get)
     // If there is a result, fetch the element values
@@ -512,6 +507,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         const el = this._fetchEl()
         response = await el.fetch(action + '/' + this.recordId)
         v = await response.json()
+        this.postload(v, 'autoload')
       } catch (e) {
         console.error('WARNING: Fetching element failed to fetch')
         v = {}
@@ -519,8 +515,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
 
       // Set values
       this.setFormElementValues(v)
-
-      this.postload(v, 'autoload')
 
       // Re-enabled all disabled fields
       this._enableElements(this.elements)
