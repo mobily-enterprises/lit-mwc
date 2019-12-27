@@ -16,14 +16,17 @@ export const requiredLabelAsterisk = css`
 // export const invalidStyle
 export const hoverStyle = css`
   :host(:hover) {
-    --mat-background: var(--mat-background-dark);
     --mat-theme-box-shadow: var(--mat-theme-box-shadow2);
+  }
+
+  :host([disabled]:hover) {
+    --mat-theme-box-shadow: none;
   }
 `
 export const focusStyle = css`
   :host([has-focus]), :host([has-focus][outlined]) {
     --mat-theme-border: 2px solid var(--mat-primary-color);
-    --mat-background: var(--mat-background-dark);
+    --mat-background: var(--mat-background-light);
     --mat-label-color: var(--mat-primary-color);
   }
 
@@ -40,6 +43,10 @@ export const inputField = css`
     margin: 5px;
     min-width: var(--mat-form-element-min-width, fit-content);
     font-family: var(--font-family);
+  }
+
+  :host([disabled]) {
+    --mat-input-color: var(--mat-boundaries-color, #999)
   }
 
   :host([dense]) {
