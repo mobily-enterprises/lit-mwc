@@ -55,7 +55,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       createSubmitObject: { type: Function, attribute: false },
       presubmit: { type: Function, attribute: false },
       response: { type: Function, attribute: false },
-      setFormElementValues: { type: Function, attribute: false },
+      postload: { type: Function, attribute: false },
       extrapolateErrors: { type: Function, attribute: false }
 
     }
@@ -183,6 +183,8 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
   presubmit () {}
 
   response () {}
+
+  postload () {}
 
   _disableElements (elements) {
     for (const el of elements) {
@@ -457,6 +459,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
           }
         }
       }
+      this.postload(v, 'submit')
 
       if (this.resetFormAfterSubmit && !attempted && !specificElement) this.reset()
 
@@ -516,6 +519,8 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
 
       // Set values
       this.setFormElementValues(v)
+
+      this.postload(v, 'autoload')
 
       // Re-enabled all disabled fields
       this._enableElements(this.elements)
