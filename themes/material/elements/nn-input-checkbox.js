@@ -19,9 +19,9 @@ export const NnInputCheckBox = (base) => {
       this.label = ''
     }
 
-    firstUpdated() {
+    firstUpdated () {
       if (super.firstUpdated) super.firstUpdated()
-      this.shadowRoot.querySelector('label').addEventListener('click', (e) => {e.preventDefault()})
+      this.shadowRoot.querySelector('label').addEventListener('click', (e) => { e.stopPropagation() })
     }
 
     static get styles () {
