@@ -187,6 +187,7 @@ export const NativeReflectorMixin = (base) => {
       // Don't do this unnecessarily
       const proto = Object.getPrototypeOf(this)
       if (proto._alreadyReflecting) return
+      const object = this
 
       const uniqProps = [...new Set(this.reflectProperties)]
       uniqProps.forEach(prop => {
@@ -201,11 +202,26 @@ export const NativeReflectorMixin = (base) => {
         Object.defineProperty(Object.getPrototypeOf(this), prop, {
           get: function () {
             const dst = this.native
+            if (!this.native) return undefined
             if (typeof dst[prop] === 'function') return dst[prop].bind(dst)
             else return dst[prop]
           },
           set: function (newValue) {
             const dst = this.native
+
+            // It IS possile that this.native isn't set yet, since the
+            // property observer is on the prototype. So, you could have
+            // one nn-input-box without a value assigned (and the observer is
+            // installed for prototype) and then another one with a property
+            // assigned at creation (observer is set, but this.native is not yet set)
+            // If that is the case, it will assign the object's prop. Then,
+            // when firstUpdated() runs, it will forward-assign this value to
+            // this.native
+            if (!dst) {
+              object[prop] = newValue
+              return
+            }
+
             if (typeof this.beforeSettingProperty === 'function') {
               this.beforeSettingProperty(prop, newValue)
             }
