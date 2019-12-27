@@ -67,7 +67,11 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
         type: Boolean,
         attribute: 'manage-loading-errors'
       },
-      refetchMethod: {
+      manageSavingErrors: {
+        type: Boolean,
+        attribute: 'manage-saving-errors'
+      },
+      retryMethod: {
         type: Function,
         attribute: false
       },
@@ -83,7 +87,6 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
         type: Object,
         attribute: 'status-messages'
       },
-
       messenger: {
         type: Function,
         attribute: false
@@ -100,7 +103,8 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
   constructor () {
     super()
     this.manageLoadingErrors = false
-    this.refetchMethod = null
+    this.manageSavingErrors = false
+    this.retryMethod = null
     this.noReloadOnTap = false
     this.status = 'loaded'
     this.statusMessages = {
@@ -132,7 +136,6 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     switch (this.status) {
     case 'loaded':
     case 'saved':
-    case 'saving-error':
       this.overlayClass = 'clear'
       break
     case 'loading':
@@ -141,6 +144,10 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
       break
     case 'loading-error':
       this.overlayClass = this.manageLoadingErrors ? 'overlay-error' : 'clear'
+      break
+    case 'saving-error':
+      this.overlayClass = this.manageSavingErrors ? 'overlay-error' : 'clear'
+      break
     }
   }
 
@@ -152,12 +159,20 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     e.preventDefault()
 
     // If the status is 'error', try to reload
-    if (this.status === 'loading-error') {
-      if (!this.refetchMethod) {
+    if (this.status === 'loading-error' || this.status === 'saving-error') {
+      if (!this.retryMethod) {
         const fetched = await this.fetch(this.lastUrl, this.lastInitObject)
-        this.dispatchEvent(new CustomEvent('refetched', { detail: { fetched }, composed: true, bubbles: false }))
+        this.dispatchEvent(new CustomEvent('retry-successful', {
+          detail: {
+            url: this.lastUrl,
+            initObject: this.lastInitObject,
+            fetched
+          },
+          composed: true,
+          bubbles: false
+        }))
       }
-      else this.refetchMethod(this.lastUrl, this.lastInitObject)
+      else this.retryMethod(this.status, this.lastUrl, this.lastInitObject)
     }
   }
 
