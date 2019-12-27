@@ -19,6 +19,11 @@ export const NnInputRadio = (base) => {
       this.label = ''
     }
 
+    firstUpdated() {
+      if (super.firstUpdated) super.firstUpdated()
+      this.shadowRoot.querySelector('label').addEventListener('click', (e) => {e.preventDefault()})
+    }
+
     static get styles () {
       return [
         super.styles,
