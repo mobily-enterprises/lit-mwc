@@ -77,9 +77,9 @@ export class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-l
     return EeAutocompleteItemLiView
   }
 }
-customElements.define('ee-autocomplete-item-li', ThemeableMixin('ee-autocomplete-item-li-view')(EeAutocompleteItemLi))
+customElements.define('ee-autocomplete-item-li', EeAutocompleteItemLi)
 
-class EeAutocompleteItemLiView extends LitElement {
+class EeAutocompleteItemLiView extends ThemeableMixin('ee-autocomplete-item-li-view')(EeAutocompleteItemLi) {
   static get styles () {
     return [
       super.styles,
