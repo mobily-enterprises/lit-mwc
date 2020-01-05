@@ -148,8 +148,7 @@ export const floatingLabel = css`
   #native:placeholder-shown ~ label {
     transform: translateY(-130%) scale(0.8);
     transition: all 0.3s ease-in-out, background 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    transition-timing-function: ;
-    margin-left: 4px;
+    margin-left: -4px;
   }
 
   :host([dense][has-value]) label,
