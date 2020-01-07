@@ -6,6 +6,9 @@ import { EeSnackBar } from './elements/ee-snack-bar.js'
 import { EeTabs } from './elements/ee-tabs.js'
 import { EeFab } from './elements/ee-fab.js'
 
+import { EeToolbar } from './elements/ee-toolbar.js'
+import { EeHeader } from './elements/ee-header.js'
+
 import { EnForm } from './elements/en-form.js'
 import { EnInputRange } from './elements/en-input-range.js'
 
@@ -49,6 +52,9 @@ window.TP_THEME = {
   'ee-autocomplete': EeAutocomplete,
   'ee-autocomplete-input-spans': EeAutocompleteInputSpans,
 
+  'ee-toolbar': EeToolbar,
+  'ee-header': EeHeader,
+
   'en-form': EnForm,
   'en-input-Range': EnInputRange,
 
@@ -79,3 +85,5 @@ window.TP_THEME = {
   'nn-select': NnSelect,
   'nn-textarea': NnTextArea
 }
+
+export const TP_THEME = window.TP_THEME
