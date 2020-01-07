@@ -58,6 +58,10 @@ export const NnInputText = (base) => {
             right: 16px;
           }
 
+          :host([has-leading]:not([has-value])) label{
+            margin-left: 36px
+          }
+
         `
       ]
     }
