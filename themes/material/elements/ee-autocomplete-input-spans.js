@@ -1,15 +1,15 @@
 import { css } from 'lit-element'
 import { inputField } from '../style-patterns.js'
+import { EeAutocompleteInputSpansBase } from 'tpe/ee-autocomplete-input-spans.js'
 
-export const EeAutocompleteInputSpans = (base) => {
-  return class Base extends base {
-    static get styles () {
-      return [
-        super.styles,
-        inputField,
-        css`
-        `
-      ]
-    }
+export class EeAutocompleteInputSpans extends EeAutocompleteInputSpansBase {
+  static get styles () {
+    return [
+      super.styles,
+      inputField,
+      css`
+      `
+    ]
   }
 }
+window.customElements.define('ee-autocomplete-input-spans', EeAutocompleteInputSpans)

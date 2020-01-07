@@ -7,7 +7,7 @@ import { LabelsMixin } from './mixins/LabelsMixin.js'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
-class NnInputRadio extends ThemeableMixin('nn-input-radio')(FormElementMixin(NativeValidatorMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
+class NnInputRadio extends FormElementMixin(NativeValidatorMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
   render () {
     if (this.themeRender) return this.themeRender()
     return html`

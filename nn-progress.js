@@ -5,7 +5,7 @@ import { LabelsMixin } from './mixins/LabelsMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 import { progressElement } from './htmlApi'
 
-export class NnProgress extends ThemeableMixin('nn-progress')(StyleableMixin(LabelsMixin(NativeReflectorMixin(LitElement)))) {
+export class NnProgress extends StyleableMixin(LabelsMixin(NativeReflectorMixin(LitElement)))) {
   static get properties () {
     return {
     }

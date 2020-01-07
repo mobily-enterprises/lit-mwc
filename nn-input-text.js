@@ -30,7 +30,7 @@ import { LabelsMixin } from './mixins/LabelsMixin.js'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
-export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixin(NativeValidatorMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
+export class NnInputText extends FormElementMixin(NativeValidatorMixin(StyleableMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
   render () {
     if (this.themeRender) return this.themeRender()
     return html`

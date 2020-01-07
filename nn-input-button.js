@@ -5,7 +5,7 @@ import { NativeValidatorMixin } from './mixins/NativeValidatorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
-class NnInputButton extends ThemeableMixin('nn-input-button')(FormElementMixin(NativeValidatorMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
+class NnInputButton extends FormElementMixin(NativeValidatorMixin(InputMixin(NativeReflectorMixin(LitElement))))) {
   render () {
     if (this.themeRender) return this.themeRender()
     return html`

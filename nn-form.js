@@ -5,7 +5,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 import { formElement } from './htmlApi.js'
 
 /* globals customElements */
-export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeReflectorMixin(LitElement))) {
+export class NnForm extends StyleableMixin(NativeReflectorMixin(LitElement))) {
   get reflectProperties () {
     return [...super.reflectProperties, ...formElement]
   }

@@ -6,7 +6,7 @@ import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 import { buttonElement } from './htmlApi.js'
 
-class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(NativeValidatorMixin(StyleableMixin(NativeReflectorMixin(LitElement))))) {
+class NnButton extends FormElementMixin(NativeValidatorMixin(StyleableMixin(NativeReflectorMixin(LitElement))))) {
   get skipAttributes () {
     return [...super.skipAttributes, 'form']
   }

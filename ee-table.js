@@ -7,7 +7,7 @@ import { ThemeableMixin } from './mixins/ThemeableMixin'
 
 // https://github.com/Victor-Bernabe/lit-media-query/blob/master/lit-media-query.js
 
-export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElement)) {
+export class EeTable extends StyleableMixin(LitElement)) {
   static get styles () {
     return [
       css`

@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
 
-export class EeFadeIn extends ThemeableMixin('ee-fade-in')(StyleableMixin(LitElement)) {
+export class EeFadeIn extends StyleableMixin(LitElement)) {
   static get styles () {
     return [
       super.styles,

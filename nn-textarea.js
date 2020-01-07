@@ -8,7 +8,7 @@ import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 import { textAreaElement } from './htmlApi.js'
 
-export class NnTextArea extends ThemeableMixin('nn-textarea')(StyleableMixin(FormElementMixin(NativeValidatorMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
+export class NnTextArea extends StyleableMixin(FormElementMixin(NativeValidatorMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
   get reflectProperties () {
     return [...super.reflectProperties, ...textAreaElement]
   }

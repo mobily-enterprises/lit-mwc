@@ -3,7 +3,7 @@ import { NnForm } from './nn-form.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
 
 /* globals customElements CustomEvent */
-class EnForm extends ThemeableMixin('en-form')(NnForm) {
+class EnForm extends NnForm) {
   get skipProperties () {
     return [...super.skipProperties, 'submit']
   }

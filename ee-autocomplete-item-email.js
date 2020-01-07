@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 
-export class EeAutocompleteItemEmail extends ThemeableMixin('ee-autocomplete-item-email')(StyleableMixin(LitElement)) {
+export class EeAutocompleteItemEmail extends StyleableMixin(LitElement)) {
   static get styles () {
     return [
       super.styles,
@@ -116,7 +116,7 @@ export class EeAutocompleteItemEmail extends ThemeableMixin('ee-autocomplete-ite
 }
 customElements.define('ee-autocomplete-item-email', EeAutocompleteItemEmail)
 
-class EeAutocompleteItemEmailView extends ThemeableMixin('ee-autocomplete-item-email-view')(EeAutocompleteItemEmail) {
+class EeAutocompleteItemEmailView extends EeAutocompleteItemEmail) {
   static get styles () {
     return [
       css`

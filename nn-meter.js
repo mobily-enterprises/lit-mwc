@@ -5,7 +5,7 @@ import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { LabelsMixin } from './mixins/LabelsMixin.js'
 import { meterElement } from './htmlApi'
 
-export class NnMeter extends ThemeableMixin('nn-meter')(StyleableMixin(LabelsMixin(NativeReflectorMixin(LitElement)))) {
+export class NnMeter extends StyleableMixin(LabelsMixin(NativeReflectorMixin(LitElement)))) {
   get reflectProperties () {
     return [...super.reflectProperties, ...meterElement]
   }

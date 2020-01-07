@@ -7,7 +7,7 @@ import { LabelsMixin } from './mixins/LabelsMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 import { selectElement } from './htmlApi.js'
 
-export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(NativeValidatorMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
+export class NnSelect extends FormElementMixin(NativeValidatorMixin(LabelsMixin(InputMixin(NativeReflectorMixin(LitElement)))))) {
   get reflectProperties () {
     return [...super.reflectProperties, ...selectElement]
   }

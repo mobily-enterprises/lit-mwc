@@ -2,9 +2,8 @@ import { LitElement, html, css } from 'lit-element'
 import { LabelsMixin } from './mixins/LabelsMixin.js'
 import { SyntheticValidatorMixin } from './mixins/SyntheticValidatorMixin'
 import { StyleableMixin } from './mixins/StyleableMixin'
-import { ThemeableMixin } from './mixins/ThemeableMixin'
 
-class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spans')(SyntheticValidatorMixin(StyleableMixin(LabelsMixin(LitElement)))) {
+export class EeAutocompleteInputSpansBase extends SyntheticValidatorMixin(StyleableMixin(LabelsMixin(LitElement))) {
   static get properties () {
     return {
       name: {
@@ -385,5 +384,3 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     this.itemElementAttributes = itemElementAttributes
   }
 }
-
-window.customElements.define('ee-autocomplete-input-spans', EeAutocompleteInputSpans)

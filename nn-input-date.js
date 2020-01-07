@@ -2,7 +2,7 @@ import { html } from 'lit-element'
 import { NnInputText } from './nn-input-text'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
 
-class NnInputDate extends ThemeableMixin('nn-input-date')(NnInputText) {
+class NnInputDate extends NnInputText) {
   render () {
     if (this.themeRender) return this.themeRender()
     return html`

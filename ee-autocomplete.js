@@ -3,7 +3,7 @@ import { StyleableMixin } from './mixins/StyleableMixin.js'
 import { ThemeableMixin } from './mixins/ThemeableMixin.js'
 import './ee-autocomplete-item-li'
 
-export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(LitElement)) {
+export class EeAutocomplete extends StyleableMixin(LitElement)) {
   static get styles () {
     return [
       super.styles,
