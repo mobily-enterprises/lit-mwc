@@ -223,6 +223,10 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
       element.addEventListener('click', (e) => { this.select.bind(this)(e.currentTarget) })
       element.setAttribute('tabindex', 1)
     }
+
+    if (!this.passive && this.default) {
+      this.select(this.default, true)
+    }
   }
 }
 customElements.define('ee-tabs', EeTabs)
