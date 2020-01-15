@@ -7,7 +7,7 @@ class NnInputMonth extends NnInputText {
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input type="password" id="native">
+      <input type="month" id="native">
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
