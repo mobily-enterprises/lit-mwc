@@ -131,7 +131,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
   setRecordObject (o) {
     o = { ...o }
     const elHash = {}
-    for (const el of this.elements) elHash[el.name] = el
+    for (const el of this.elements) elHash[el.getAttribute('name')] = el
 
     for (const k of Object.keys(elHash)) {
       o[k] = this.getFormElementValue(k)
@@ -146,11 +146,12 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
   createSubmitObject (elements) {
     const r = {}
     for (const el of elements) {
+      const elName = el.getAttribute('name')
       // Every submit element MUST have a name set
-      if (typeof el.name === 'undefined') continue
+      if (typeof elName === 'undefined' || elName === null) continue
 
       // Radio will only happen once thanks to checking for undefined
-      if (typeof r[el.name] !== 'undefined') continue
+      if (typeof r[elName] !== 'undefined') continue
       if (el.getAttribute('no-submit') !== null) continue
       // Checkboxes are special: they might be handled as native ones,
       // (NOTHING set if unchecked, and their value set if checked) or
@@ -158,14 +159,14 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       if (this._checkboxElement(el)) {
         if (this.submitCheckboxesAsNative) {
           // As native checkboxes.
-          const val = this.getFormElementValue(el.name)
-          if (val) r[el.name] = val
+          const val = this.getFormElementValue(elName)
+          if (val) r[elName] = val
         } else {
           // As more app-friendly boolean value
-          r[el.name] = !!this.getFormElementValue(el.name)
+          r[elName] = !!this.getFormElementValue(elName)
         }
       } else {
-        r[el.name] = this.getFormElementValue(el.name)
+        r[elName] = this.getFormElementValue(elName)
       }
     }
     return r
@@ -218,7 +219,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
   }
 
   getFormElementValue (elName) {
-    const elements = [...this.elements].filter(el => el.name === elName)
+    const elements = [...this.elements].filter(el => el.getAttribute('name') === elName)
 
     if (!elements.length) {
       console.error('Trying to set', elName, 'but no such element in form')
@@ -257,9 +258,9 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
   setFormElementValue (elName, value) {
     const el = [...this.elements].find(el => {
       if (this._radioElement(el)) {
-        return el.name === elName && el.value === value
+        return el.getAttribute('name') === elName && el.value === value
       } else {
-        return el.name === elName
+        return el.getAttribute('name') === elName
       }
     })
 
@@ -307,9 +308,14 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       for (const el of this.elements) {
         if (typeof el.setCustomValidity === 'function') el.setCustomValidity('')
       }
-      if (specificElement && typeof specificElement.reportValidity === 'function' && !this.reportValidity()) return
       submitObject = this.createSubmitObject(this.elements)
     }
+    // Old unused code
+    // if (specificElement && typeof specificElement.reportValidity === 'function' && !this.reportValidity()) return
+
+    // Run validators before submitting the form. If one of them fails,
+    // it won't go further
+    if (!this.reportValidity()) return
 
     // inFlightMap is a map of all connections, using the specificElement
     // as key (or "window" if there is no specific element)
@@ -412,7 +418,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       if (errs.errors && errs.errors.length) {
         const elHash = {}
         for (const el of this.elements) {
-          elHash[el.name] = el
+          elHash[el.getAttribute('name')] = el
         }
         for (const err of errs.errors) {
           const el = elHash[err.field]
@@ -507,7 +513,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         const el = this._fetchEl()
         response = await el.fetch(action + '/' + this.recordId)
         v = await response.json()
-        this.postload(v, 'autoload')
       } catch (e) {
         console.error('WARNING: Fetching element failed to fetch')
         v = {}
@@ -523,6 +528,9 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       if (this.validateOnLoad) {
         this.reportValidity()
       }
+
+      // Run postload hook
+      this.postload(v, 'autoload')
     }
   }
 
