@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
 
-export class EeRow extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement)) {
+export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       css`
