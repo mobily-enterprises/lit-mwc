@@ -1,5 +1,10 @@
 export const StyleableMixin = (base) => {
   return class Base extends base {
+
+    static get styles () {
+      return []
+    }
+
     firstUpdated () {
       super.firstUpdated()
 
