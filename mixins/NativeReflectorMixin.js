@@ -184,70 +184,75 @@ export const NativeReflectorMixin = (base) => {
 
       // STEP #2: METHODS (as bound functions) AND PROPERTIES (as getters/setters)
 
-      // Don't do this unnecessarily
-      const proto = Object.getPrototypeOf(this)
-      if (proto._alreadyReflecting) return
-      const object = this
-
       const uniqProps = [...new Set(this.reflectProperties)]
+      const proto = Object.getPrototypeOf(this)
+
+      if (!proto._alreadyReflecting) {
+        uniqProps.forEach(prop => {
+          if (this.skipProperties.indexOf(prop) !== -1) return
+          Object.defineProperty(Object.getPrototypeOf(this), prop, {
+            get: function () {
+              const dst = this.native
+              if (!this.native) return undefined
+              if (typeof dst[prop] === 'function') return dst[prop].bind(dst)
+              else return dst[prop]
+            },
+            set: function (newValue) {
+              const dst = this.native
+
+              // It IS possile that this.native isn't set yet, since the
+              // property observer is on the prototype. So, you could have
+              // one nn-input-box without a value assigned (and the observer is
+              // installed for prototype) and then another one with a property
+              // assigned at creation (observer is set, but this.native is not yet set)
+              // If that is the case, it will assign the object's prop. Then,
+              // when firstUpdated() runs, it will forward-assign this value to
+              // this.native
+              if (!dst) {
+                if (typeof newValue !== 'undefined') {
+                  Object.defineProperty(this, prop, { value: newValue, configurable: true, writable: true } )
+                }
+                return
+              }
+
+              if (typeof this.beforeSettingProperty === 'function') {
+                this.beforeSettingProperty(prop, newValue)
+              }
+              if (typeof dst[prop] === 'function') return
+              const oldValue = dst[prop]
+
+              // Set the new value
+              dst[prop] = newValue
+
+              // This is required by litElement since it won't
+              // create a setter if there is already one
+              this._requestUpdate(prop, oldValue)
+
+              if (typeof this.afterSettingProperty === 'function') {
+                this.afterSettingProperty(prop, newValue)
+              }
+            },
+            configurable: true,
+            enumerable: true
+          })
+        })
+        proto._alreadyReflecting = true
+      }
+
+      // Assign existing properties, in case the setter had already been triggered
+      // BEFORE firstUpdated() (in which case, the setter would have assigned
+      // OBJECT properties, without reflection)
       uniqProps.forEach(prop => {
         if (this.skipProperties.indexOf(prop) !== -1) return
 
-        let oldProp
-        let oldPropWasPresent = false
+        let propValue
         if (Object.prototype.hasOwnProperty.call(this, prop)) {
-          oldProp = this[prop]
-          oldPropWasPresent = true
-        }
-        Object.defineProperty(Object.getPrototypeOf(this), prop, {
-          get: function () {
-            const dst = this.native
-            if (!this.native) return undefined
-            if (typeof dst[prop] === 'function') return dst[prop].bind(dst)
-            else return dst[prop]
-          },
-          set: function (newValue) {
-            const dst = this.native
-
-            // It IS possile that this.native isn't set yet, since the
-            // property observer is on the prototype. So, you could have
-            // one nn-input-box without a value assigned (and the observer is
-            // installed for prototype) and then another one with a property
-            // assigned at creation (observer is set, but this.native is not yet set)
-            // If that is the case, it will assign the object's prop. Then,
-            // when firstUpdated() runs, it will forward-assign this value to
-            // this.native
-            if (!dst) {
-              if (typeof newValue !== 'undefined') object[prop] = newValue
-              return
-            }
-
-            if (typeof this.beforeSettingProperty === 'function') {
-              this.beforeSettingProperty(prop, newValue)
-            }
-            if (typeof dst[prop] === 'function') return
-            const oldValue = dst[prop]
-
-            // Set the new value
-            dst[prop] = newValue
-
-            // This is required by litElement since it won't
-            // create a setter if there is already one
-            this._requestUpdate(prop, oldValue)
-
-            if (typeof this.afterSettingProperty === 'function') {
-              this.afterSettingProperty(prop, newValue)
-            }
-          },
-          configurable: true,
-          enumerable: true
-        })
-        if (oldPropWasPresent) {
+          propValue = this[prop]
           delete this[prop]
-          this[prop] = oldProp
+          this[prop] = propValue
         }
       })
-      proto._alreadyReflecting = true
+
     }
   }
 }
