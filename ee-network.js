@@ -162,15 +162,17 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     if (this.status === 'loading-error' || this.status === 'saving-error') {
       if (!this.retryMethod) {
         const fetched = await this.fetch(this.lastUrl, this.lastInitObject)
-        this.dispatchEvent(new CustomEvent('retry-successful', {
-          detail: {
-            url: this.lastUrl,
-            initObject: this.lastInitObject,
-            fetched
-          },
-          composed: true,
-          bubbles: false
-        }))
+        if (fetched.ok) {
+          this.dispatchEvent(new CustomEvent('retry-successful', {
+            detail: {
+              url: this.lastUrl,
+              initObject: this.lastInitObject,
+              fetched
+            },
+            composed: true,
+            bubbles: false
+          }))
+        }
       }
       else this.retryMethod(this.status, this.lastUrl, this.lastInitObject)
     }
@@ -181,6 +183,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
   messenger () {}
 
   async fetch (url, initObject = {}) {
+    debugger
     this.lastUrl = url
     this.lastInitObject = initObject
 
