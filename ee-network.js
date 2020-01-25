@@ -183,7 +183,6 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
   messenger () {}
 
   async fetch (url, initObject = {}) {
-    debugger
     this.lastUrl = url
     this.lastInitObject = initObject
 
