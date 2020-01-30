@@ -87,12 +87,27 @@ export const NativeValidatorMixin = (base) => {
       return this.native.setCustomValidity(m)
     }
 
+    _runValidator () {
+      // Call the validator with a value. Here an element could be a checkbox,
+      // a select, an simple text input, etc.
+      // If the containing form has _getElementValueSource, that is used to
+      // figure out what to pass to the validato (as well as _submitObject)
+      let value
+      let submitObject
+      if (this.form && this.form._getElementValueSource) {
+        value = this[this.form._getElementValueSource(this)]
+        submitObject = this.form.submitObject
+      }
+      const ownErrorMessage = this.validator(value, submitObject)
+      if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
+
+    }
+
     reportValidity () {
       // Run custom validator. Note that custom validator
       // will only ever run on filed without an existing customError.
       if (!this.native.validity.customError) {
-        const ownErrorMessage = this.validator()
-        if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
+        this._runValidator()
       }
 
       // Hide the fancy error message by default
@@ -114,9 +129,10 @@ export const NativeValidatorMixin = (base) => {
     }
 
     checkValidity () {
+      // Run custom validator. Note that custom validator
+      // will only ever run on filed without an existing customError.
       if (!this.native.validity.customError) {
-        const ownErrorMessage = this.validator()
-        if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
+        this._runValidator()
       }
 
       this._showPrettyError = false

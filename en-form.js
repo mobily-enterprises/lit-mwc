@@ -72,6 +72,8 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.attemptedFlight = false
     this.inFlightMap = new WeakMap()
     this.attemptedFlightMap = new WeakMap()
+
+    this.submitObject = {}
   }
 
   async _allChildrenCompleted () {
@@ -299,23 +301,22 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // Clear all custom validities if they are set
     // Native elements will NEED this, or any invalid state
     // will persist even if validation passes
-    let submitObject
     if (specificElement) {
       if (typeof specificElement.setCustomValidity === 'function') specificElement.setCustomValidity('')
+      this.submitObject = this.createSubmitObject([specificElement])
       if (typeof specificElement.reportValidity === 'function' && !specificElement.reportValidity()) return
-      submitObject = this.createSubmitObject([specificElement])
     } else {
       for (const el of this.elements) {
         if (typeof el.setCustomValidity === 'function') el.setCustomValidity('')
       }
-      submitObject = this.createSubmitObject(this.elements)
+      this.submitObject = this.createSubmitObject(this.elements)
+      if (!this.reportValidity()) return
     }
     // Old unused code
     // if (specificElement && typeof specificElement.reportValidity === 'function' && !this.reportValidity()) return
 
     // Run validators before submitting the form. If one of them fails,
     // it won't go further
-    if (!this.reportValidity()) return
 
     // inFlightMap is a map of all connections, using the specificElement
     // as key (or "window" if there is no specific element)
@@ -356,7 +357,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       method,
       headers: { 'Content-Type': 'application/json' },
       redirect: 'follow', // manual, *follow, error
-      body: submitObject // body data type must match "Content-Type" header
+      body: this.submitObject // body data type must match "Content-Type" header
     }
 
     // HOOK: Allow devs to customise the request about to be sent to the server
