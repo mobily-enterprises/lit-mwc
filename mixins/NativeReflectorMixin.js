@@ -210,7 +210,7 @@ export const NativeReflectorMixin = (base) => {
               // this.native
               if (!dst) {
                 if (typeof newValue !== 'undefined') {
-                  Object.defineProperty(this, prop, { value: newValue, configurable: true, writable: true } )
+                  Object.defineProperty(this, prop, { value: newValue, configurable: true, writable: true })
                 }
                 return
               }
@@ -252,7 +252,6 @@ export const NativeReflectorMixin = (base) => {
           this[prop] = propValue
         }
       })
-
     }
   }
 }
