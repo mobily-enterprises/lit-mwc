@@ -28,8 +28,8 @@ export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) 
         }
 
         :host(:hover:not([header])) {
-          border: 1px solid var(--ee-cell-hover-border-color, #ddd);
-          background: var(--ee-cell-hover-background, #eee) !important;
+          border: 1px solid var(--ee-row-hover-border-color, #ddd);
+          background: var(--ee-row-hover-background, #eee) !important;
         }
 
         :host([frozen]) {

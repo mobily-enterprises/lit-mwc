@@ -62,12 +62,12 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
   }
 
   connectedCallback () {
-    super.connectedCallback()
+    if (super.connectedCallback) super.connectedCallback()
     this.addEventListener('keydown', this._boundKeyEventListener)
   }
 
   disconnectedCallback () {
-    super.disconnectedCallBack()
+    if (super.disconnectedCallBack) super.disconnectedCallBack()
     this.removeEventListener('keydown', this._boundKeyEventListener)
   }
 
