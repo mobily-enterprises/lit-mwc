@@ -76,7 +76,7 @@ export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElemen
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      <slot @slotchange="${() => { console.log('slot change');this._handleResize()}}"></slot>
+      <slot @slotchange="${() => { console.log('slot change'); this._handleResize() }}"></slot>
     `
   }
 }
