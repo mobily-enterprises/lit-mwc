@@ -61,18 +61,10 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
     }
   }
 
-  connectedCallback () {
-    if (super.connectedCallback) super.connectedCallback()
-    this.addEventListener('keydown', this._boundKeyEventListener)
-  }
-
-  disconnectedCallback () {
-    if (super.disconnectedCallBack) super.disconnectedCallBack()
-    this.removeEventListener('keydown', this._boundKeyEventListener)
-  }
-
   firstUpdated () {
     super.firstUpdated()
+
+    this.addEventListener('keydown', this._boundKeyEventListener)
 
     const slot = this.shadowRoot.querySelector('#datalist-slot')
     const slotFirstAssignedElement = slot && slot.assignedElements()[0]
