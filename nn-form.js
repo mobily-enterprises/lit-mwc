@@ -32,6 +32,12 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
     return valid
   }
 
+  clearAllCustomValidity (elements) {
+    for (const el of elements) {
+      if (typeof el.setCustomValidity === 'function') el.setCustomValidity('')
+    }
+  }
+
   checkValidity () {
     // Check validity in form
     let valid = true
@@ -67,6 +73,112 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
       } else {
         el[valueSource] = el.getAttribute(valueSource)
       }
+    }
+  }
+
+  createSubmitObject (elements) {
+    const r = {}
+    for (const el of elements) {
+      const elName = el.getAttribute('name')
+      // Every submit element MUST have a name set
+      if (typeof elName === 'undefined' || elName === null) continue
+
+      // Radio will only happen once thanks to checking for undefined
+      if (typeof r[elName] !== 'undefined') continue
+      if (el.getAttribute('no-submit') !== null) continue
+      // Checkboxes are special: they might be handled as native ones,
+      // (NOTHING set if unchecked, and their value set if checked) or
+      // as booleans (true for checked, or false for unchecked)
+      if (this._checkboxElement(el)) {
+        if (this.submitCheckboxesAsNative) {
+          // As native checkboxes.
+          const val = this.getFormElementValue(elName)
+          if (val) r[elName] = val
+        } else {
+          // As more app-friendly boolean value
+          r[elName] = !!this.getFormElementValue(elName)
+        }
+      } else {
+        r[elName] = this.getFormElementValue(elName)
+      }
+    }
+    return r
+  }
+
+  getFormElementValue (elName) {
+    const elements = [...this.elements].filter(el => el.getAttribute('name') === elName)
+
+    if (!elements.length) {
+      console.error('Trying to set', elName, 'but no such element in form')
+      return
+    }
+
+    if (elements.length === 1) {
+      const el = elements[0]
+
+      const valueSource = this._getElementValueSource(el)
+      if (this._checkboxElement(el)) {
+        return el[valueSource]
+          ? (el.value ? el.value : 'on')
+          : undefined
+      } else if (this._selectElement(el)) {
+        return el[valueSource]
+      } else {
+        return el[valueSource]
+      }
+    } else {
+      const nonRadio = elements.filter(el => !this._radioElement(el))
+      if (nonRadio.length) {
+        console.error('Duplicate name', elName, 'for non-radio elements')
+        return
+      }
+
+      const checked = elements.find(el => {
+        const valueSource = this._getElementValueSource(el)
+        return el[valueSource]
+      })
+      if (checked) return checked.value
+      else return undefined
+    }
+  }
+
+  setFormElementValue (elName, value) {
+    const el = [...this.elements].find(el => {
+      if (this._radioElement(el)) {
+        return el.getAttribute('name') === elName && el.value === value
+      } else {
+        return el.getAttribute('name') === elName
+      }
+    })
+
+    if (!el) return
+
+    // Get the original value
+    const valueSource = this._getElementValueSource(el)
+
+    // CHECKBOXES
+    if (this._checkboxElement(el)) {
+      el[valueSource] = !!value
+
+    // RADIO
+    // Radio elements
+    } else if (this._radioElement(el)) {
+      el[valueSource] = true
+      const others = [...this.elements].filter(e =>
+        el !== e &&
+        this._radioElement(el)
+      )
+      for (const other of others) other[valueSource] = false
+
+    // SELECT
+    // Selectable elements (with prop selectedIndex)
+    } else if (this._selectElement(el)) {
+      if (!value) el.selectedIndex = 0
+      else el[valueSource] = value
+
+    // Any other case
+    } else {
+      el[valueSource] = value
     }
   }
 
