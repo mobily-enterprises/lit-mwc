@@ -73,6 +73,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.inFlightMap = new WeakMap()
     this.attemptedFlightMap = new WeakMap()
 
+    this.createSubmitObject = super.createSubmitObject
     this.submitObject = {}
   }
 
@@ -210,7 +211,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // Give users the ability to listen to @submit and then Allow for a presubmit hook
     const submitEvent = new CustomEvent('submit', { cancelable: true, bubbles: true, composed: true })
     this.dispatchEvent(submitEvent)
-    if (event.defaultPrevented) return
+    if (event && event.defaultPrevented) return
 
     // inFlightMap is a map of all connections, using the specificElement
     // as key (or "window" if there is no specific element)
