@@ -72,6 +72,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.inFlightMap = new WeakMap()
     this.attemptedFlightMap = new WeakMap()
 
+    this.createSubmitObject = super.createSubmitObject
     this.submitObject = {}
   }
 
