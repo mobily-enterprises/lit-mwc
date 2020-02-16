@@ -52,7 +52,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       },
 
       // This will allow users to redefine methods declaratively
-      createSubmitObject: { type: Function, attribute: false },
       presubmit: { type: Function, attribute: false },
       response: { type: Function, attribute: false },
       postload: { type: Function, attribute: false },
@@ -210,7 +209,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // Give users the ability to listen to @submit and then Allow for a presubmit hook
     const submitEvent = new CustomEvent('submit', { cancelable: true, bubbles: true, composed: true })
     this.dispatchEvent(submitEvent)
-    if (event.defaultPrevented) return
+    if (submitEvent.defaultPrevented) return
 
     // inFlightMap is a map of all connections, using the specificElement
     // as key (or "window" if there is no specific element)
