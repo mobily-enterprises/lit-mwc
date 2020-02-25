@@ -24,12 +24,17 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
           width: 1px;
           white-space: nowrap; /* 1 */
         }
+
+        nn-button { 
+          margin: auto
+        }
       `
     ]
   }
 
   static get properties () {
     return {
+      hideNative: { type: Boolean },
       fileName: { type: String },
       manyFilesText: {
         type: String,
@@ -49,7 +54,7 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input type="file" id="native" @change="${this.fileNameChanged}" hidden>
+      <input type="file" id="native" @change="${this.fileNameChanged}" ?hidden=${this.hideNative}>
       ${this.ifValidationMessageAfter}
       ${this.fileName}
       ${this.ifLabelAfter}
@@ -58,7 +63,8 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
 
   fileNameChanged (e) {
     const native = this.shadowRoot.querySelector('#native')
-    this.fileName = native.files.length > 1 ? this.manyFilesText : native.value
+    const v = native.value
+    this.fileName = native.files.length > 1 ? this.manyFilesText : v.slice(v.lastIndexOf('\\') + 1)
   }
 }
 customElements.define('nn-input-file', NnInputFile)
