@@ -25,7 +25,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         }
 
         #suggestions[populated] {
-          width: 100%;
+          width: auto;
           padding: 10px;
         }
 
@@ -59,6 +59,9 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         type: Boolean,
         reflect: true
       },
+      pickedData: {
+        type: Object
+      },
       suggestions: {
         type: Array,
         attribute: false
@@ -84,6 +87,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.target = null
     this.targetForId = null
     this.suggestions = []
+    this.pickedData = {}
     this.itemElement = 'ee-autocomplete-item-li'
     this.itemElementConfig = {}
     this.itemElementAttributes = {}
@@ -139,6 +143,9 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         mutations.forEach((mutation) => {
           if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
             this.picked = !!this.targetForId.getAttribute('value')
+            if (!this.targetForId.getAttribute('value')) {
+              this.pickedData = null
+            }
           }
         })
       })
@@ -223,13 +230,14 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       if (this.targetForId) {
         this.targetForId.value = e.target.idValue
         this.picked = true
+        this.pickedData = e.target.data
       }
     }
     this._dismissSuggestions()
     this.targetElement.focus()
 
     // Dispatch input event since input happened
-    const inputEvent = new CustomEvent('input', { composed: true, bubbles: true, cancelable: false, detail: { synthetic: true } })
+    const inputEvent = new CustomEvent('input', { composed: true, bubbles: true, cancelable: false, detail: { synthetic: true, data: e.target.data } })
     this.targetElement.dispatchEvent(inputEvent)
   }
 
@@ -276,6 +284,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         if (this.targetForId) {
           this.targetForId.value = firstOption.idValue
           this.picked = true
+          this.pickedData = firstOption.data
         }
       }
     }
@@ -359,6 +368,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     if (this.targetForId) {
       this.targetForId.value = ''
       this.picked = false
+      this.pickedData = null
     }
 
     // Set the url, which will also depend on recordId
