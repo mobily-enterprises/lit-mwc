@@ -55,8 +55,8 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         type: String,
         attribute: 'target-for-id'
       },
-      alwaysPickSingleSuggestion: { 
-        type: Boolean, attribute: 'always-pick-single-suggestion'
+      displaySingleSuggestion: { 
+        type: Boolean, attribute: 'display-single-suggestion'
       },
       picked: {
         type: Boolean,
@@ -240,7 +240,12 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.targetElement.focus()
 
     // Dispatch input event since input happened
-    const inputEvent = new CustomEvent('input', { composed: true, bubbles: true, cancelable: false, detail: { synthetic: true, data: e.target.data } })
+    this._dispatchPickedEvent()
+  }
+
+  _dispatchPickedEvent () {
+    if (!this.picked) return
+    const inputEvent = new CustomEvent('input', { composed: true, bubbles: true, cancelable: false, detail: { synthetic: true, data: this.pickedData } })
     this.targetElement.dispatchEvent(inputEvent)
   }
 
@@ -288,7 +293,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           this.targetForId.value = firstOption.idValue
           this.picked = true
           this.pickedData = firstOption.data
-          if (this.alwaysPickSingleSuggestion) this._dismissSuggestions()
+          if (!this.displaySingleSuggestion) {
+            this._dismissSuggestions()
+            this._dispatchPickedEvent()
+          }
         }
       }
     }
