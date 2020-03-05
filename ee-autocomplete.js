@@ -55,6 +55,9 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         type: String,
         attribute: 'target-for-id'
       },
+      alwaysPickSingleSuggestion: { 
+        type: Boolean, attribute: 'always-pick-single-suggestion'
+      },
       picked: {
         type: Boolean,
         reflect: true
@@ -285,6 +288,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           this.targetForId.value = firstOption.idValue
           this.picked = true
           this.pickedData = firstOption.data
+          if (this.alwaysPickSingleSuggestion) this._dismissSuggestions()
         }
       }
     }
@@ -415,11 +419,11 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       // Convert the result to JSON
       const v = await response.json()
 
+      this.suggestions = v
+
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true })
       this.dispatchEvent(event)
-
-      this.suggestions = v
     }
 
     this._autocompleteInFlight = false
