@@ -55,7 +55,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         type: String,
         attribute: 'target-for-id'
       },
-      displaySingleSuggestion: { 
+      displaySingleSuggestion: {
         type: Boolean, attribute: 'display-single-suggestion'
       },
       picked: {
