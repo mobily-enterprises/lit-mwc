@@ -375,13 +375,18 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       this._attemptedAutocompleteFlight = e
       return
     }
-    this._autocompleteInFlight = true
 
     if (this.targetForId) {
       this.targetForId.value = ''
       this.picked = false
       this.pickedData = null
     }
+
+    // No input: do not run a wide search
+    if (!this.targetElement.value) return
+
+    // IN FLIGHT!
+    this._autocompleteInFlight = true
 
     // Set the url, which will also depend on recordId
     const value = target.autocompleteValue || target.value
