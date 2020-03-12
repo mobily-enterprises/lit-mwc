@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit-element'
+import { LitElement, html, css } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { FormElementMixin } from './mixins/FormElementMixin.js'
 import { NativeValidatorMixin } from './mixins/NativeValidatorMixin.js'
@@ -15,6 +15,32 @@ class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(NativeValida
     return [...super.reflectProperties, ...buttonElement]
   }
 
+  static get styles () {
+    return [
+      super.styles || [],
+      css`
+      :host[disabled] {
+        pointer-events: none;
+      }
+      `
+    ]
+  }
+
+  constructor () {
+    super()
+    this._boundClickListener = this._clicked.bind(this)
+  }
+
+  connectedCallback () {
+    super.connectedCallback()
+    this.addEventListener('click', this._boundClickListener)
+  }
+
+  disconnectedCallback () {
+    super.disconnectedCallback()
+    this.removeEventListener('click', this._boundClickListener)
+  }
+
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
@@ -24,7 +50,11 @@ class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(NativeValida
     `
   }
 
-  _clicked () {
+  _clicked (e) {
+    if (this.disabled) {
+      e.stopPropagation()
+      return
+    }
     if (this.getAttribute('type') === 'submit') this.form.submit()
   }
 }
