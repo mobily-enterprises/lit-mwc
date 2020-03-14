@@ -1,4 +1,4 @@
-import { LitElement, css } from 'lit-element'
+import { LitElement, css, html } from 'lit-element'
 
 export const ThemeableMixin = (path) => (base) => {
   const common = (window.TP_THEME && window.TP_THEME.common) || (p => p)
@@ -11,7 +11,16 @@ export const LitBits = (base) => {
     static get lit () {
       return {
         LitElement,
-        css
+        css,
+        html
+      }
+    }
+
+    get lit () {
+      return {
+        LitElement,
+        css,
+        html
       }
     }
   }
