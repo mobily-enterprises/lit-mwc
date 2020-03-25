@@ -50,7 +50,7 @@ export const SyntheticValidatorMixin = (base) => {
       // Run custom validator. Note that custom validator
       // will only ever run on filed without an existing customError.
       if (!this.validity.customError) {
-        const ownErrorMessage = this.validator()
+        const ownErrorMessage = this._runValidator()
         if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
       }
 
@@ -72,9 +72,24 @@ export const SyntheticValidatorMixin = (base) => {
       }
     }
 
+    _runValidator () {
+      // Call the validator with a value. Here an element could be a checkbox,
+      // a select, an simple text input, etc.
+      // If the containing form has _getElementValueSource, that is used to
+      // figure out what to pass to the validato (as well as _submitObject)
+      let value
+      let submitObject
+      if (this.form && this.form._getElementValueSource) {
+        value = this[this.form._getElementValueSource(this)]
+        submitObject = this.form.submitObject
+      }
+      const ownErrorMessage = this.validator(value, submitObject)
+      if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
+    }
+
     checkValidity () {
       if (!this.validity.customError) {
-        const ownErrorMessage = this.validator()
+        const ownErrorMessage = this._runValidator()
         if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
       }
 
