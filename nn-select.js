@@ -26,7 +26,12 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Nativ
 
   addSlotToSelect (e) {
     const select = this.shadowRoot.querySelector('#native')
-    for (const option of e.srcElement.assignedElements()) {
+    const options = e.srcElement.assignedElements()
+    while (options.length && select.firstChild) {
+      if (!select.lastElementChild.value) break
+      select.removeChild(select.lastElementChild)
+    }
+    for (const option of options) {
       select.appendChild(option)
     }
 
