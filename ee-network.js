@@ -196,7 +196,6 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     this._setOverlay()
     this.messenger(this.status, url, initObject)
     this.prefetch(initObject)
-    debugger
 
     try {
       const response = await fetch(initObject.url, initObject)
