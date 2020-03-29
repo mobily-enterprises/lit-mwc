@@ -38,6 +38,12 @@ export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) 
           background: var(--ee-row-background, white);
         }
 
+        :host([frozen][footer]) {
+          bottom: 0;
+          top: unset;
+          border-top: var(--ee-row-border-bottom, 1px solid #777);
+        }
+
         :host([size=small]) ::slotted(ee-cell) {
           flex-basis: 100%;
         }
