@@ -143,11 +143,13 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     return o
   }
 
-  presubmit () {}
+  async presubmit () {}
 
-  response () {}
+  async response () {}
 
-  postload () {}
+  async postdata () {}
+
+  async postload () {}
 
   _disableElements (elements) {
     this.__disabled = new WeakMap()
@@ -262,7 +264,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     }
 
     // HOOK: Allow devs to customise the request about to be sent to the server
-    this.presubmit(fetchOptions)
+    await this.presubmit(fetchOptions)
 
     // Disable the elements
     if (!specificElement) this._disableElements(this.elements)
@@ -293,7 +295,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       this.dispatchEvent(event)
 
       // Response hook
-      this.response(null, null, fetchOptions)
+      await this.response(null, null, fetchOptions)
     //
     // CASE #2: HTTP error.
     // Invalidate the problem fields
@@ -332,7 +334,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       }
 
       // Response hook
-      this.response(response, errs, fetchOptions)
+      await this.response(response, errs, fetchOptions)
     // CASE #3: NO error. Set fields to their
     // new values
     } else {
@@ -343,6 +345,8 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       if (this.inFlightMap.has(mapIndex)) {
         attempted = this.inFlightMap.get(mapIndex).attempted
       }
+
+      await this.postdata(v, 'submit')
 
       // HOOK Set the form values, in case the server processed some values
       // Note: this is only ever called if set-form-after-submit was
@@ -358,7 +362,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
           }
         }
       }
-      this.postload(v, 'submit')
+      await this.postload(v, 'submit')
 
       if (this.resetFormAfterSubmit && !attempted && !specificElement) this.reset()
 
@@ -370,7 +374,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       this.dispatchEvent(event)
 
       // Response hook
-      this.response(response, v, fetchOptions)
+      await this.response(response, v, fetchOptions)
     }
 
     if (this.inFlightMap.has(mapIndex)) {
@@ -420,6 +424,8 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         v = {}
       }
 
+      await this.postdata(v, 'autoload')
+
       // Set values
       this.setFormElementValues(v)
 
@@ -432,7 +438,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       }
 
       // Run postload hook
-      this.postload(v, 'autoload')
+      await this.postload(v, 'autoload')
     }
   }
 
