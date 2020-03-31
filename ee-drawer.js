@@ -1,7 +1,8 @@
 import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
-const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
+// const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
+const chevronLeft = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>`
 
 export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
   static get styles () {
@@ -51,13 +52,14 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           z-index: 10;
           background: transparent;
           border: none;
+          cursor: pointer
         }
 
         button#close:focus, button#close:active {
             outline: none !important;
           }
 
-        button#close:active {
+        button#close:active, button#close:hover {
           filter: brightness(50%)
         }
 
@@ -69,7 +71,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           padding: 30px 24px;
           background: var(--ee-drawer-background-color);
           position: relative;
-          overflow: scroll;
+          overflow: auto;
           padding-bottom: 64px;
         }
 
@@ -78,9 +80,10 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           display: block;
           text-decoration: none;
           color: var(--ee-drawer-color, #ddd);
-          line-height: 40px;
+          line-height: 32px;
           padding: 0 24px;
           cursor: pointer;
+          font-size: 0.9em;
         }
 
         .container  > nav ::slotted(a[selected]),
@@ -98,6 +101,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
 
         .container  > nav ::slotted(.head) {
           color: var(--ee-drawer-color, white);
+          box-sizing: border-box
           width: 100%;
           border-bottom: 1px solid var(--ee-drawer-selected-color, white);
           padding: 6px 70% 6px 0;
@@ -132,7 +136,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     if (this.themeRender) return this.themeRender()
     return html`
       <div class="container">
-        ${this.closeButton ? html`<button id="close" @click="${this.close}">${close}</button>` : ''}
+        ${this.closeButton ? html`<button id="close" @click="${this.close}">${chevronLeft}</button>` : ''}
         <nav>
           <slot></slot>
         </nav>
