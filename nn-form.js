@@ -98,6 +98,9 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
           // As more app-friendly boolean value
           r[elName] = !!this.getFormElementValue(elName)
         }
+      // For "file" types (uploads), it will
+      } else if (el.type === 'file' || el.getAttribute('as-file')) {
+        r[elName] = el
       } else {
         r[elName] = this.getFormElementValue(elName)
       }
