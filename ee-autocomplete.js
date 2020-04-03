@@ -18,10 +18,13 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           background-color: white;
           position: absolute;
           z-index: 1000;
-          max-height: 480px;
+          max-height: 200px;
+          max-width: calc(95% - 17px);
           overflow-y: scroll;
           top: 90%;
+          left: 17px;
           box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.2), 0 0 2px 2px rgba(0, 0, 0, 0.05);
+          visibility: hidden;
         }
 
         #suggestions[populated] {
@@ -308,7 +311,42 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     if (this.suggestions.length) {
       suggestionsDiv.toggleAttribute('populated', true)
       suggestionsDiv.firstChild.toggleAttribute('selected', true)
+      const bounding = this._isOutOfViewport(suggestionsDiv)
+      if (bounding.any) {
+        console.log(bounding)
+        console.log(suggestionsDiv)
+        suggestionsDiv.style.transform = `translateY(${this._calcTranslateY(bounding.top, bounding.bottom, suggestionsDiv)}px) translateX(${this._calcTranslateX(bounding.left, bounding.right)}px)`
+      }
+      suggestionsDiv.style.visibility = 'unset'
     }
+  }
+
+  _calcTranslateY (top, bottom, el) {
+    top = Number(top) * -1
+    bottom = Number(bottom) * -1
+    const inputOffset = el && bottom ? el.offsetHeight * -1 + this.targetElement.offsetHeight * -1 : 0
+    return top + inputOffset
+  }
+
+  _calcTranslateX (left, right) {
+    left = Number(left) * -1
+    right = Number(right) * -1
+    return left + right
+  }
+
+  _isOutOfViewport (elem) {
+    // Get element's bounding
+    const bounding = elem.getBoundingClientRect()
+
+    // Check if it's out of the viewport on each side
+    const out = {}
+    out.top = bounding.top < 0 ? bounding.top : false
+    out.left = bounding.left < 0 ? bounding.left : false
+    out.bottom = bounding.bottom > (window.innerHeight || document.documentElement.clientHeight) ? bounding.bottom - window.innerHeight : false
+    out.right = bounding.right > (window.innerWidth || document.documentElement.clientWidth) ? bounding.right - window.innerWidth : false
+    out.any = !!(out.top || out.left || out.bottom || out.right)
+    out.all = !!(out.top && out.left && out.bottom && out.right)
+    return out
   }
 
   _dismissSuggestions () {
