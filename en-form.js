@@ -258,7 +258,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     const fetchOptions = {
       url,
       method,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': this.getAttribute('enctype') || 'application/json' },
       redirect: 'follow', // manual, *follow, error
       body: this.submitObject // body data type must match "Content-Type" header
     }
@@ -269,13 +269,44 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     // Disable the elements
     if (!specificElement) this._disableElements(this.elements)
 
+    // Delete the multipart/form-data header if it was set, since
+    // the browser will set it (with the right boundary parameter)
+    // https://muffinman.io/uploading-files-using-fetch-multipart-form-data/
+    // https://stackoverflow.com/questions/35192841/fetch-post-with-multipart-form-data
+    //
+    // ALSO turn body into a FormData object, with all values appended.
+    // Note that for files. createSubmitObject will assign the element itself
+    // as the value.
+    if (fetchOptions.headers['Content-Type'] === 'multipart/form-data') {
+      delete fetchOptions.headers['Content-Type']
+
+      const body = fetchOptions.body
+      const formData = new FormData()
+
+      for (const k in body) {
+        if (body[k] instanceof HTMLElement) {
+          const filesInEl = body[k].files
+          for (const f of filesInEl) formData.append(k, f)
+        } else {
+          formData.append(k, body[k])
+        }
+      }
+      fetchOptions.body = formData
+    }
+
     // Attempt the submission
     let networkError = false
     let response
     let errs
+    const body =
+      fetchOptions.headers['Content-Type'] === 'application/json' &&
+      typeof fetchOptions.body === 'object' &&
+      fetchOptions.body !== null
+        ? JSON.stringify(fetchOptions.body)
+        : fetchOptions.body
     try {
       // fetch() wants a stingified body
-      const fo = { ...fetchOptions, ...{ body: JSON.stringify(fetchOptions.body) } }
+      const fo = { ...fetchOptions, ...{ body: body } }
       const el = this._fetchEl(specificElement)
       response = await el.fetch(fetchOptions.url, fo)
     } catch (e) {
