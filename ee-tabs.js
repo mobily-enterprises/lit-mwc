@@ -9,7 +9,6 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
       css`
         :host {
           position: relative;
-          width: 100%;
           border-bottom: 1px solid var(var(--ee-tabs-lines-color, #bbb));
         }
 
@@ -25,7 +24,6 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
 
         :host div#contentContainer {
           height: 100%;
-          overflow: auto;
         }
 
         :host nav ::slotted(*) .icon {
