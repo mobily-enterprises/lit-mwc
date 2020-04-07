@@ -17,22 +17,24 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Nativ
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <slot @slotchange="${this.addSlotToSelect}"></slot>
+      <div style="display: none">
+        <slot @slotchange="${this.addSlotToSelect}"></slot>
+      </div>
       <select id="native" real-time-event="selected"></select>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }
 
-  addSlotToSelect (e) {
+  async addSlotToSelect (e) {
     const select = this.shadowRoot.querySelector('#native')
     const options = e.srcElement.assignedElements()
-    while (options.length && select.firstChild) {
+    while (select.firstChild) {
       if (!select.lastElementChild.value) break
       select.removeChild(select.lastElementChild)
     }
     for (const option of options) {
-      select.appendChild(option)
+      select.appendChild(option.cloneNode(true))
     }
 
     // The element's value depends on what it can contain. For example
