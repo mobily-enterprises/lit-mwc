@@ -45,7 +45,7 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
 
   static get properties () {
     return {
-      enterOnSubmit: { type: Boolean, attribute: 'enter-on-submit' }
+      submitOnEnter: { type: Boolean, attribute: 'submit-on-enter' }
     }
   }
 
@@ -56,7 +56,7 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
 
   // Submit on enter with forms with only one element
   _eventListener (e) {
-    if (e.keyCode === 13 && ([...this.form.elements].length === 1 || this.enterOnSubmit)) {
+    if (e.keyCode === 13 && ([...this.form.elements].length === 1 || this.submitOnEnter)) {
       if (this.form) this.form.submit()
     }
   }
