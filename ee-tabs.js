@@ -72,7 +72,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           border-left: 0.5px solid var(--ee-tabs-lines-color, #bbb);
           border-right: 0.5px solid var(--ee-tabs-lines-color, #bbb);
           border-bottom: 4px solid var(--ee-tabs-active-color, black);
-          filter: brightness(150%)
+          filter: brightness(115%)
         }
 
         :host nav > ::slotted(*:active) {
