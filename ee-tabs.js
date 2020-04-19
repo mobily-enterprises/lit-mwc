@@ -38,7 +38,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           color: var(--ee-tabs-color, black);
           text-decoration: none;
           line-height: var(--ee-tabs-height, 20px);
-          padding: 4px 24px;
+          padding: 4px 12px;
           border: unset;
           border-left: 0.5px solid var(--ee-tabs-lines-color, #bbb);
           border-right: 0.5px solid var(--ee-tabs-lines-color, #bbb);
@@ -72,7 +72,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           border-left: 0.5px solid var(--ee-tabs-lines-color, #bbb);
           border-right: 0.5px solid var(--ee-tabs-lines-color, #bbb);
           border-bottom: 4px solid var(--ee-tabs-active-color, black);
-          filter: brightness(150%)
+          filter: brightness(115%)
         }
 
         :host nav > ::slotted(*:active) {

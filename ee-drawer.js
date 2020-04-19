@@ -44,23 +44,34 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
 
         #close {
           -webkit-appearance: none;
-          color: white;
-          fill: white;
+          color: var(--ee-drawer-background-color, #393939);
+          fill: var(--ee-drawer-background-color, #393939);
           position: absolute;
           top: 5px;
           right: 5px;
           z-index: 10;
-          background: transparent;
+          background-color: var(--ee-drawer-background-color, #393939);
           border: none;
-          cursor: pointer
+          cursor: pointer;
+          right: 0;
+          height: 99%;
+          box-sizing: border-box;
+          padding: 0 2px;
         }
 
-        button#close:focus, button#close:active {
+        #close svg {
+          height: 20px;
+          width: 20px;
+        }
+
+        #close:focus, #close:active {
             outline: none !important;
           }
 
-        button#close:active, button#close:hover {
-          filter: brightness(50%)
+        #close:active, #close:hover {
+          filter: brightness(120%);
+          fill: var(--ee-drawer-selected-color, white);
+          color: var(--ee-drawer-selected-color, white);
         }
 
         .container > nav  {
