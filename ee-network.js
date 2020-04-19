@@ -200,9 +200,10 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     try {
       const response = await fetch(initObject.url, initObject)
 
+      console.log('Cloning the response and waiting for the text...')
       // Wait for the _actual_ data to get here
       const r2 = response.clone()
-      await r2.text()
+      await r2.json()
 
       if (response.ok) {
         this.status = isGet ? 'loaded' : 'saved'
