@@ -23,7 +23,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
           left: 0;
           right: 0;
           bottom: 0;
-          z-index: 100000;
+          z-index: 1;
           text-align: center;
           transition: background var(--ee-network-transition-duration, 200ms);
         }
