@@ -13,7 +13,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
         }
 
         :host nav {
-          position: sticky;
+          position: var(--ee-tabs-nav-position, sticky);
           top:0;
           width: 100%;
           border-bottom: 1px solid var(--ee-tabs-lines-color, #bbb);
