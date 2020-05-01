@@ -77,16 +77,20 @@ export const NativeReflectorMixin = (base) => {
     afterSettingProperty () {}
 
     getAttribute (attr) {
-      if (this.skipAttributes.indexOf(attr) !== -1) {
+      if (!this.native || this.skipAttributes.indexOf(attr) !== -1) {
         return super.getAttribute(attr)
       }
 
+      return this.native.getAttribute(attr)
+
+      /*
       const nativeAttribute = this.native.getAttribute(attr)
       if (nativeAttribute !== null) return nativeAttribute
 
       // This shouldn't really happen, but it's here as a fallback
       // TODO: Maybe delete it and always return the native's value regardless
       return super.getAttribute(attr)
+      */
     }
 
     setAttribute (attr, value) {
