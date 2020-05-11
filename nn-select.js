@@ -18,7 +18,7 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Nativ
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <div style="display: none">
-        <slot @slotchange="${this.addSlotToSelect}"></slot>
+        <slot id="slot" @slotchange="${this.refreshOptions}"></slot>
       </div>
       <select id="native" real-time-event="selected"></select>
       ${this.ifValidationMessageAfter}
@@ -26,9 +26,10 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Nativ
     `
   }
 
-  async addSlotToSelect (e) {
+  async refreshOptions (e) {
     const select = this.shadowRoot.querySelector('#native')
-    const options = e.srcElement.assignedElements()
+    const slot = this.shadowRoot.querySelector('#slot')
+    const options = slot.assignedElements()
     while (select.firstChild) {
       if (!select.lastElementChild.value) break
       select.removeChild(select.lastElementChild)
