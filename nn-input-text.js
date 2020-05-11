@@ -56,8 +56,8 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
 
   // Submit on enter with forms with only one element
   _eventListener (e) {
-    if (e.keyCode === 13 && ([...this.form.elements].length === 1 || this.submitOnEnter)) {
-      if (this.form) this.form.submit()
+    if (this.form && e.keyCode === 13 && (this.form.elements.length === 1 || this.submitOnEnter)) {
+      this.form.submit()
     }
   }
 
