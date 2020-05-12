@@ -29,6 +29,8 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Nativ
   async refreshOptions (e) {
     const select = this.shadowRoot.querySelector('#native')
     const slot = this.shadowRoot.querySelector('#slot')
+    if (!select || !slot) return
+
     const options = slot.assignedElements()
     while (select.firstChild) {
       if (!select.lastElementChild.value) break
