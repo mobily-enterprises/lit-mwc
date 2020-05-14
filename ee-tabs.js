@@ -51,6 +51,10 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           cursor: default;
         }
 
+        :host([min-width-tabs]) nav > ::slotted(*) {
+          max-width: max-content;
+        }
+
         :host nav > ::slotted(*:last-child) {
           border-right-color: var(--ee-tabs-background-color, #bbb)
         }
@@ -103,7 +107,8 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
       useHash: { type: Boolean, attribute: 'use-hash' },
       passive: { type: Boolean },
       default: { type: String },
-      nameAttribute: { type: String, attribute: 'name-attribute' }
+      nameAttribute: { type: String, attribute: 'name-attribute' },
+      minWidthTabs: { type: Boolean, reflect: true, attribute: 'min-width-tabs' }
     }
   }
 
