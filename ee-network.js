@@ -30,7 +30,6 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
           left: 0;
           right: 0;
           bottom: 0;
-          z-index: 10;
           text-align: center;
           transition: background var(--ee-network-transition-duration, 200ms);
         }
@@ -39,6 +38,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
           display: block;
           color: var(--ee-network-overlay-loading-color, #666);
           background-color: var(--ee-network-overlay-loading-background-color, rgba(190, 190, 190, 0.75));
+          z-index: 10;
         }
 
         #overlay.clear {
@@ -49,6 +49,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
           cursor: pointer; /* Hint that the object is clickable */
           color: var(--ee-network-overlay-error-color, #c00);
           background-color: var(--ee-network-overlay-error-background-color, rgba(255, 0, 0, 0.25));
+          z-index: 10;
         }
 
         #overlay #statusMessage {
