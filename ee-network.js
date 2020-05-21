@@ -16,6 +16,13 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
           display: inline-block;
         }
 
+        :host([status="loading"]) ::slotted(*),
+        :host([status="saving"]) ::slotted(*),
+        :host([status="loading-error"]) ::slotted(*),
+        :host([status="saving-error"]) ::slotted(*) {
+          z-index: 0;
+        }
+
         #overlay {
           display: none; /* Hide by default */
           position: absolute;
@@ -23,7 +30,7 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
           left: 0;
           right: 0;
           bottom: 0;
-          z-index: 1;
+          z-index: 10;
           text-align: center;
           transition: background var(--ee-network-transition-duration, 200ms);
         }
@@ -121,10 +128,10 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
+      <slot></slot>
       <div id="overlay" class="${this.overlayClass}" @click="${this._overlayClicked}">
         <div id="statusMessage">${this.statusMessages[this.status]}</div>
       </div>
-      <slot></slot>
     `
   }
 
