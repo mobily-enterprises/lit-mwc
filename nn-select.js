@@ -32,10 +32,11 @@ export class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(Nativ
     if (!select || !slot) return
 
     const options = slot.assignedElements()
-    while (select.firstChild) {
-      if (!select.lastElementChild.value) break
-      select.removeChild(select.lastElementChild)
-    }
+    select.innerHTML = ''
+    // while (select.firstChild) {
+    //   if (!select.lastChild.value) break
+    //   select.removeChild(select.lastElementChild)
+    // }
     for (const option of options) {
       select.appendChild(option.cloneNode(true))
     }
