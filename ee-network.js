@@ -159,6 +159,21 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     }
   }
 
+  /*
+    TODO DOCUMENTATION:
+    // EVENT LISTENING WAY. With @retry-successful="${this._refetched.bind(this)}" in ee-network
+    async _retrySuccessful (e) {
+      this[this.localDataProperty] = await e.detail.fetched.json()
+    }
+
+    // REFETCH WAY. WITH .retryMethod="${this._retry.bind(this)}" in ee-network
+    async _retry (status, url, initObject) {
+      const job = await this.fetch(url, initObject)
+      this.job = await job.json()
+    }
+ */
+
+
   async _overlayClicked (e) {
     if (this.noReloadOnTap) return
 
