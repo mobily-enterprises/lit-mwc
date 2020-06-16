@@ -252,12 +252,17 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     this.targetElement.dispatchEvent(inputEvent)
   }
 
+  _jsonCopy (o) {
+    return JSON.parse(JSON.stringify(o))
+  }
+
   async updated (cp) {
     if (!cp.has('suggestions')) return
 
     const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
 
-    while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }
+    // while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }
+    suggestionsDiv.innerHTML = ''
 
     if (this._autocompleteInFlight) return
 
@@ -270,9 +275,9 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
 
     for (const suggestion of this.suggestions) {
       const el = document.createElement(this.itemElement)
-      el.config = { ...el.config, ...this.itemElementConfig }
+      el.config = { ...this._jsonCopy(el.config), ...this._jsonCopy(this.itemElementConfig) }
       for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k])
-      el.data = suggestion
+      el.data = this._jsonCopy(suggestion)
       // el.onkeydown = this._handleKeyEvents.bind(this)
       // Make span focusable AND in the tab list
       el.setAttribute('tabindex', 0)
