@@ -13,7 +13,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           position: relative;
         }
 
-        #suggestions {
+        #suggestions-elements {
           box-sizing: border-box;
           background-color: white;
           position: absolute;
@@ -27,12 +27,12 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           visibility: hidden;
         }
 
-        #suggestions[populated] {
+        #suggestions-elements[populated] {
           width: auto;
           padding: 10px;
         }
 
-        #suggestions > *[selected], #suggestions > *:focus, #suggestions > *:hover  {
+        #suggestions-elements > *[selected], #suggestions-elements > *:focus, #suggestions-elements > *:hover  {
           background-color: #eee;
         }
 
@@ -193,7 +193,9 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     if (this.themeRender) return this.themeRender()
     return html`
       <slot></slot>
-      <div @click="${this._picked}" id="suggestions" role="listbox" @keydown=${this._handleKeyEvents}></div>
+      <div @click="${this._picked}" id="suggestions" role="listbox" @keydown=${this._handleKeyEvents}>
+        <div id="suggestions-elements"></div>
+      </div>
     `
   }
 
@@ -204,20 +206,20 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       break
     case 'KeyDown':
       if (this.suggestions.length) {
-        const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
+        const suggestionsDiv = this.shadowRoot.querySelector('#suggestions-elements')
         suggestionsDiv.firstChild.focus()
       }
     }
   }
 
   pickFirst () {
-    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
+    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions-elements')
     suggestionsDiv.querySelector('[selected]').click()
   }
 
   focusNext () {
     if (!this.suggestions.length) return
-    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
+    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions-elements')
     let selected = suggestionsDiv.querySelector('[selected]') || suggestionsDiv.firstElementChild
     if (this.suggestions.length > 1) {
       selected.toggleAttribute('selected', false)
@@ -259,7 +261,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   async updated (cp) {
     if (!cp.has('suggestions')) return
 
-    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
+    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions-elements')
 
     // while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }
     suggestionsDiv.innerHTML = ''
