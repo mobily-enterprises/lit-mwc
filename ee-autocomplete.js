@@ -273,7 +273,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       el.config = { ...el.config, ...this.itemElementConfig }
       for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k])
       el.data = suggestion
-      el.onkeydown = this._handleKeyEvents.bind(this)
+      // el.onkeydown = this._handleKeyEvents.bind(this)
       // Make span focusable AND in the tab list
       el.setAttribute('tabindex', 0)
       suggestionsDiv.appendChild(el)
@@ -356,7 +356,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   }
 
   _handleKeyEvents (e) {
-    const target = e.currentTarget
+    const target = e.currentTarget.getRootNode().activeElement
 
     if (!this.suggestions.length || !target.parentElement) return
 

@@ -23,6 +23,7 @@ export class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-l
 
         li {
           list-style: none;
+          text-align: left;
         }
 
       `
