@@ -156,15 +156,18 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     for (const el of elements) {
       if (!el.disabled) {
         el.setAttribute('disabled', true)
+        el.disabled = true
         this.__disabled.set(el, true)
       }
     }
   }
 
   _enableElements (elements) {
+    this.__disabled = this.__disabled || new WeakMap()
     for (const el of elements) {
       if (this.__disabled.has(el)) {
         el.removeAttribute('disabled')
+        el.disabled = false
         this.__disabled.delete(el)
       }
     }
