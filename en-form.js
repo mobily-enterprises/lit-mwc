@@ -203,6 +203,12 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     }
   }
 
+  async _wait (ms) {
+    return new Promise(resolve => {
+      setTimeout(resolve, ms)
+    })
+  }
+
   async submit (specificElement) {
     // Clear all custom validities if they are set
     // Native elements will NEED this, or any invalid state
@@ -322,7 +328,10 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       console.log('Network error!')
 
       // Re-enable the elements
-      if (!specificElement) this._enableElements(this.elements)
+      if (!specificElement) {
+        this._enableElements(this.elements)
+        await this._wait(0)
+      }
 
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-error', { detail: { type: 'network' }, bubbles: true, composed: true })
@@ -350,7 +359,10 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
 
       // Re-enable the elements
       // This must happen before setCustomValidity() and reportValidity()
-      if (!specificElement) this._enableElements(this.elements)
+      if (!specificElement) {
+        this._enableElements(this.elements)
+        await this._wait(0)
+      }
 
       // Set error messages
       if (errs.errors && errs.errors.length) {
@@ -401,7 +413,10 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       if (this.resetFormAfterSubmit && !attempted && !specificElement) this.reset()
 
       // Re-enable the elements
-      if (!specificElement) this._enableElements(this.elements)
+      if (!specificElement) {
+        this._enableElements(this.elements)
+        await this._wait(0)
+      }
 
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true })
@@ -465,6 +480,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
 
       // Re-enabled all disabled fields
       this._enableElements(this.elements)
+      await this._wait(0)
 
       // Run reportValidity if validateOnRender is on
       if (this.validateOnLoad) {
