@@ -1,6 +1,6 @@
 {
   "name": "tpe",
-  "version": "0.0.48",
+  "version": "0.0.49",
   "description": "The Platform Elements",
   "main": "server.js",
   "scripts": {
