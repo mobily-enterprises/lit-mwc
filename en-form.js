@@ -124,7 +124,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
 
   setFormElementValues (o) {
     for (const k in o) {
-      this.setFormElementValue(k, o[k])
+      this.setFormElementValue(k, o[k], true)
     }
   }
 

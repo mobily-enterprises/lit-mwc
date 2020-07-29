@@ -145,7 +145,7 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
     }
   }
 
-  setFormElementValue (elName, value) {
+  setFormElementValue (elName, value, skipHiddenElements) {
     const el = [...this.elements].find(el => {
       if (this._radioElement(el)) {
         return el.getAttribute('name') === elName && el.value === value
@@ -154,7 +154,9 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
       }
     })
 
-    if (!el) return
+    // Don't do anything if the element wasn't found OR if the type was hidden
+    // (which 99.9% of the time is set by the form)
+    if (!el || (el.getAttribute('type') === 'hidden') && skipHiddenElements) return
 
     // Get the original value
     const valueSource = this._getElementValueSource(el)
