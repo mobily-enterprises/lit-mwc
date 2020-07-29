@@ -20,6 +20,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           display: flex;
           height: var(--ee-tabs-height, 32px);
           z-index: var(--ee-tabs-z-index, 10);
+          overflow: var(--ee-tabs-nav-overflow);
         }
 
         :host div#contentContainer {
