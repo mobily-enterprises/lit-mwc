@@ -151,6 +151,11 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
 
   async postload () {}
 
+  // Disabled here is set (and checked) with both the attribute and the property
+  // 'disabled' since an element might be disabled in the html, but might
+  // not have had a chance to render yet (in which case, for non-native elemtns,
+  // it would mean that the property is not yet there, since the reflector hasn't
+  // yet run)
   _disableElements (elements) {
     this.__disabled = new WeakMap()
     for (const el of elements) {
@@ -436,7 +441,9 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
   }
 
   async updated (changedProperties) {
-    super.updated()
+    // The 'await' here has the side effect of waiting for the next tick,
+    // which means that children elements will have a chance to render
+    await super.updated()
 
     // If no-autoload is set to true, or there is no autoload or no recordId,
     // simply give up: nothing to do
