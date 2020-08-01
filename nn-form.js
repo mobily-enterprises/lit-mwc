@@ -156,8 +156,7 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
 
     // Don't do anything if the element wasn't found OR if the type was hidden
     // (which 99.9% of the time is set by the form)
-    if (!el || (el.getAttribute('type') === 'hidden') && skipHiddenElements) return
-
+    if ((!el || (el.getAttribute('type') === 'hidden')) && skipHiddenElements) return
     // Get the original value
     const valueSource = this._getElementValueSource(el)
 
