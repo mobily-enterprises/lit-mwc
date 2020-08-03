@@ -29,7 +29,6 @@ export class EeToolbar extends ThemeableMixin('ee-toolbar')(StyleableMixin(LitEl
         }
 
         :host ::slotted([title]) {
-          pointer-events: none;
           display: flex;
           margin: auto 20px;
         }
