@@ -9,48 +9,52 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     return [
       css`
         :host {
+          --ee-drawer-width: 300px;
+          --ee-drawer-background-color: #393939;
           display: block;
           position: fixed;
           top: 0;
-          left: 0;
+          left: calc(-1 * var(--ee-drawer-width));
           z-index: 1;
-        }
-
-        :host([opened]) {
-          width: 100vw;
+          width: calc(10px + var(--ee-drawer-width));
           height: 100vh;
         }
 
-        div.container {
+        :host([opened]) {
+          left: 0;
+          width: 100vw;
+        }
+
+        div.nav-wrapper {
           height: 100vh;
           position: fixed;
           top: 0;
           left: 0;
           will-change: transform;
-          transform: translateX(-100%);
           overflow-x: hidden;
+          transform: translateX(-100%);
           transition: transform 0.3s ease-out;
-          background-color: var(--ee-drawer-background-color, #393939);
+          background-color: var(--ee-drawer-background-color);
         }
 
-        :host([opened]) div.container {
+        :host([opened]) div.nav-wrapper {
           will-change: transform;
           transform: translateX(0);
         }
 
-        :host([modal][opened]) div.container {
+        :host([modal][opened]) div.nav-wrapper {
           box-shadow: var(--ee-drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14), 0 0 0 100vw rgba(0, 0, 0, 0.15))
         }
 
         #close {
           -webkit-appearance: none;
-          color: var(--ee-drawer-background-color, #393939);
-          fill: var(--ee-drawer-background-color, #393939);
+          color: var(--ee-drawer-background-color);
+          fill: var(--ee-drawer-background-color);
           position: absolute;
           top: 5px;
           right: 5px;
           z-index: 10;
-          background-color: var(--ee-drawer-background-color, #393939);
+          background-color: var(--ee-drawer-background-color);
           border: none;
           cursor: pointer;
           right: 0;
@@ -65,29 +69,31 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
         }
 
         #close:focus, #close:active {
-            outline: none !important;
-          }
+          outline: none !important;
+        }
 
-        #close:active, #close:hover {
+        #close:active, #close:hover,
+        :host([mobile]) #close {
           filter: brightness(120%);
           fill: var(--ee-drawer-selected-color, white);
           color: var(--ee-drawer-selected-color, white);
         }
 
-        .container > nav  {
+        .nav-wrapper > nav  {
           box-sizing: border-box;
           width: 100%;
-          min-width: 300px;
+          min-width: var(--ee-drawer-width, 300px);
+          max-width: var(--ee-drawer-width, 300px);
           height: 100%;
           padding: 30px 24px;
-          background: var(--ee-drawer-background-color);
+          background-color: var(--ee-drawer-background-color);
           position: relative;
           overflow: auto;
           padding-bottom: 64px;
         }
 
-        .container > nav ::slotted(a),
-        .container > nav ::slotted(.drawer-item) {
+        .nav-wrapper > nav ::slotted(a),
+        .nav-wrapper > nav ::slotted(.drawer-item) {
           display: block;
           text-decoration: none;
           color: var(--ee-drawer-color, #ddd);
@@ -97,20 +103,20 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           font-size: 0.9em;
         }
 
-        .container  > nav ::slotted(a[selected]),
-        .container  > nav ::slotted(.drawer-item[selected]) {
+        .nav-wrapper  > nav ::slotted(a[selected]),
+        .nav-wrapper  > nav ::slotted(.drawer-item[selected]) {
           color: var(--ee-drawer-selected-color);
           font-weight: bolder;
           border-left: 3px solid var(--ee-drawer-selected-color, white);
           background-color: rgba(255,255,255, 0.1);
         }
 
-        .container  > nav ::slotted(a:hover),
-        .container  > nav ::slotted(.drawer-item:hover) {
+        .nav-wrapper  > nav ::slotted(a:hover),
+        .nav-wrapper  > nav ::slotted(.drawer-item:hover) {
           background-color: rgba(255,255,255, 0.05);
         }
 
-        .container  > nav ::slotted(.head) {
+        .nav-wrapper  > nav ::slotted(.head) {
           color: var(--ee-drawer-color, white);
           box-sizing: border-box
           width: 100%;
@@ -127,7 +133,8 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     return {
       opened: { type: Boolean, reflect: true },
       modal: { type: Boolean },
-      closeButton: { type: Boolean, attribute: 'close-button' }
+      closeButton: { type: Boolean, attribute: 'close-button' },
+      mobile: { type: Boolean, reflect: true }
     }
   }
 
@@ -146,7 +153,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      <div class="container">
+      <div class="nav-wrapper">
         ${this.closeButton ? html`<button id="close" @click="${this.close}">${chevronLeft}</button>` : ''}
         <nav>
           <slot></slot>
