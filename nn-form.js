@@ -66,6 +66,9 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
     for (const el of this.elements) {
       const valueSource = this._getElementValueSource(el)
 
+      // Reset validity, so that error messages are also reset
+      if (typeof el.setCustomValidity === 'function') el.setCustomValidity('')
+
       if (this._radioElement(el)) {
         el[valueSource] = el.getAttribute(valueSource) !== null
       } else if (this._checkboxElement(el)) {
