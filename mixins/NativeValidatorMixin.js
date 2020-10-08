@@ -84,6 +84,7 @@ export const NativeValidatorMixin = (base) => {
     }
 
     setCustomValidity (m) {
+      if (!this.native) return
       return this.native.setCustomValidity(m)
     }
 
@@ -100,10 +101,11 @@ export const NativeValidatorMixin = (base) => {
       }
       const ownErrorMessage = this.validator(value, submitObject)
       if (ownErrorMessage) this.setCustomValidity(ownErrorMessage)
-
     }
 
     reportValidity () {
+      if (!this.native) return true
+
       // Run custom validator. Note that custom validator
       // will only ever run on filed without an existing customError.
       if (!this.native.validity.customError) {
@@ -129,6 +131,7 @@ export const NativeValidatorMixin = (base) => {
     }
 
     checkValidity () {
+      if (!this.native) return true
       // Run custom validator. Note that custom validator
       // will only ever run on filed without an existing customError.
       if (!this.native.validity.customError) {
