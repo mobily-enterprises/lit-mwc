@@ -54,7 +54,8 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       // This will allow users to redefine methods declaratively
       presubmit: { type: Function, attribute: false },
       response: { type: Function, attribute: false },
-      postload: { type: Function, attribute: false },
+      incomingData: { type: Function, attribute: false },
+      dataLoaded: { type: Function, attribute: false },
       extrapolateErrors: { type: Function, attribute: false }
 
     }
@@ -143,13 +144,13 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     return o
   }
 
-  async presubmit () {}
+  async presubmit (fetchOptions) {}
 
-  async response () {}
+  async response (response, errs, fetchOptions) {} // If (response !== null and response.ok), it worked
 
-  async postdata () {}
+  async incomingData (o, op) {} // op can be 'autoload' or 'submit'
 
-  async postload () {}
+  async dataLoaded (o, op) {} // op can be 'autoload' or 'submit'
 
   // Disabled here is set (and checked) with both the attribute and the property
   // 'disabled' since an element might be disabled in the html, but might
@@ -397,7 +398,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         attempted = this.inFlightMap.get(mapIndex).attempted
       }
 
-      await this.postdata(v, 'submit')
+      await this.incomingData(v, 'submit')
 
       // HOOK Set the form values, in case the server processed some values
       // Note: this is only ever called if set-form-after-submit was
@@ -413,15 +414,17 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
           }
         }
       }
-      await this.postload(v, 'submit')
-
-      if (this.resetFormAfterSubmit && !attempted && !specificElement) this.reset()
 
       // Re-enable the elements
       if (!specificElement) {
         this._enableElements(this.elements)
         await this._wait(0)
       }
+
+      // Maybe reset the form if it was so required
+      if (this.resetFormAfterSubmit && !attempted && !specificElement) this.reset()
+
+      await this.dataLoaded(v, 'submit')
 
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true })
@@ -480,7 +483,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         v = {}
       }
 
-      await this.postdata(v, 'autoload')
+      await this.incomingData(v, 'autoload')
 
       // Set values
       this.setFormElementValues(v)
@@ -489,13 +492,13 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       this._enableElements(this.elements)
       await this._wait(0)
 
-      // Run reportValidity if validateOnRender is on
+      // Run reportValidity if validateOnLoad is on
       if (this.validateOnLoad) {
         this.reportValidity()
       }
 
-      // Run postload hook
-      await this.postload(v, 'autoload')
+      // Run hook
+      await this.dataLoaded(v, 'autoload')
     }
   }
 
