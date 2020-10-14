@@ -29,6 +29,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
 
         #suggestions-elements[populated] {
           width: auto;
+          min-width: var(--ee-autocomplete-suggestions-min-width, 400px);
           padding: 10px;
         }
 
