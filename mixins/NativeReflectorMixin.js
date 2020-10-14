@@ -230,7 +230,7 @@ export const NativeReflectorMixin = (base) => {
 
               // This is required by litElement since it won't
               // create a setter if there is already one
-              this._requestUpdate(prop, oldValue)
+              this.requestUpdate(prop, oldValue)
 
               if (typeof this.afterSettingProperty === 'function') {
                 this.afterSettingProperty(prop, newValue)
