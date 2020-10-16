@@ -9,6 +9,8 @@ export const LabelsMixin = (base) => {
           label div#label-text, ::slotted(*) {
             align-self: center;
             width: var(--labels-mixin-input-label-width, auto);
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
         `
