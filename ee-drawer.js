@@ -131,7 +131,9 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     return {
       opened: { type: Boolean, reflect: true },
       modal: { type: Boolean },
-      closeButton: { type: Boolean, attribute: 'close-button' }
+      closeButton: { type: Boolean, attribute: 'close-button' },
+      closeThreshold: { type: Number },
+      openThreshold: { type: Number }
     }
   }
 
@@ -140,6 +142,8 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     this.modal = false
     this.closeButton = true
     this.opened = false
+    this.closeThreshold = 0.25
+    this.openThreshold = 0.8
   }
 
   connectedCallback () {
@@ -206,12 +210,11 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX
     let offset = x - this.dragStart
     const w = this.container.getBoundingClientRect().width
-    console.log(x, offset, w, offset < - w + 250, offset > w - 100)
-    if (offset < - w + 250) {
+    if (offset < - w + 0.8 * w ) {
       this.close()
       return;
     }
-    if (offset > w - 100) {
+    if (offset > w - this.closeThreshold * w) {
       this.open()
       this.container.style.transform = ''
       return;
