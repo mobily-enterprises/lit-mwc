@@ -216,7 +216,12 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
 
     this.status = isGet ? 'loading' : 'saving'
     this._setOverlay()
-    this.messenger(this.status, url, initObject)
+    this.messenger({
+      status: this.status,
+      url,
+      initObject,
+      networkElement: this
+    })
     this.prefetch(initObject)
 
     try {
@@ -233,7 +238,13 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
         this.status = isGet ? 'loading-error' : 'saving-error'
       }
       this._setOverlay()
-      this.messenger(this.status, url, initObject, response)
+      this.messenger({
+        status: this.status,
+        url,
+        initObject,
+        response,
+        networkElement: this
+      })
       // Response hook
       this.response(response, v, initObject)
 
@@ -241,7 +252,12 @@ export class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitEl
     } catch (e) {
       this.status = isGet ? 'loading-error' : 'saving-error'
       this._setOverlay()
-      this.messenger(this.status, url, initObject)
+      this.messenger({
+        status: this.status,
+        url,
+        initObject,
+        networkElement: this
+      })
       this.response(null, null, initObject)
       throw (e)
     }
