@@ -8,14 +8,18 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
   static get styles () {
     return [
       css`
-        :host {
+       :host {
+          --ee-drawer-width: 300px;
+          --ee-drawer-background-color: #393939;
           display: block;
           position: fixed;
+          box-sizing: border-box;
           top: 0;
           left: 0;
           z-index: 1;
+          width: 10px;
+          height: 100vh;
         }
-
         :host([opened]) {
           width: 100vw;
           height: 100vh;
@@ -23,7 +27,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
 
         div.container {
           height: 100vh;
-          position: fixed;
+          position: absolute;
           top: 0;
           left: 0;
           will-change: transform;
@@ -127,7 +131,9 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     return {
       opened: { type: Boolean, reflect: true },
       modal: { type: Boolean },
-      closeButton: { type: Boolean, attribute: 'close-button' }
+      closeButton: { type: Boolean, attribute: 'close-button' },
+      closeThreshold: { type: Number },
+      openThreshold: { type: Number }
     }
   }
 
@@ -136,11 +142,35 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     this.modal = false
     this.closeButton = true
     this.opened = false
+    this.closeThreshold = 0.25
+    this.openThreshold = 0.8
   }
 
   connectedCallback () {
     super.connectedCallback()
     this.addEventListener('click', this._handleOutsideClick)
+    this.addEventListener('touchstart', this._handleDragStart)
+    // this.addEventListener('mousedown', this._handleDragStart)
+    this.addEventListener('touchmove', this._handleDrag)
+    // this.addEventListener('mousemove', this._handleDrag)
+    this.addEventListener('touchend', this._handleDragEnd)
+    // this.addEventListener('mouseup', this._handleDragEnd)
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+  
+    this.removeEventListener('click', this._handleOutsideClick)
+    this.removeEventListener('touchstart', this._handleDragStart)
+    // this.removeEventListener('mousedown', this._handleDragStart)
+    this.removeEventListener('touchmove', this._handleDrag)
+    // this.removeEventListener('mousemove', this._handleDrag)
+    this.removeEventListener('touchend', this._handleDragEnd)
+    // this.removeEventListener('mouseup', this._handleDragEnd)
+  }
+
+  firstUpdated() {
+    this.container = this.shadowRoot.querySelector('div.container')
   }
 
   render () {
@@ -166,5 +196,44 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
   close () {
     this.opened = false
   }
+
+  _handleDragStart (e) {
+    e.preventDefault() 
+    this.dragStart = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX
+    if (!this.opened) this.style.width = '100vw'
+    return false
+  }
+
+  _handleDrag (e) {
+    if (e.type === 'touchmove') e.preventDefault()
+    
+    const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX
+    let offset = x - this.dragStart
+    const w = this.container.getBoundingClientRect().width
+    if (offset < - w + 0.8 * w ) {
+      this.close()
+      return;
+    }
+    if (offset > w - this.closeThreshold * w) {
+      this.open()
+      this.container.style.transform = ''
+      return;
+    }
+    requestAnimationFrame(() => {
+      this.container.style.transform = `translateX(calc(-100% + ${offset}px))`
+    })
+    return false
+  }
+
+  _handleDragEnd (e) {
+    this.dragStart = undefined
+    e.preventDefault()
+    requestAnimationFrame(() => {
+      this.container.style.transform = ''
+    })
+    this.style.width = ''
+    return false
+  }
+
 }
 customElements.define('ee-drawer', EeDrawer)
