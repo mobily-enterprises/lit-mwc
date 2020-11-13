@@ -23,8 +23,17 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           overflow: var(--ee-tabs-nav-overflow);
         }
 
-        :host div#contentContainer {
+        :host #contentContainer {
           height: 100%;
+        }
+
+        /* TODO: Why don't these selectors work? */
+        :host #contentContainer ::slotted(*) {
+          display: none;
+        }
+
+        :host #contentContainer ::slotted(*[active]) {
+          display: initial;
         }
 
         :host nav ::slotted(*) .icon {

@@ -1,13 +1,13 @@
 
 const script1 = window.document.createElement('SCRIPT')
 script1.src = 'https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js'
-const script2 = window.document.createElement('SCRIPT')
-script2.src = 'distr/material.js'
+// const script2 = window.document.createElement('SCRIPT')
+// script2.src = '/distr/material.js'
 const script3 = window.document.createElement('SCRIPT')
-script3.src = 'distr/tpe.js'
+script3.src = '/distr/tpe.js'
 
 window.document.head.appendChild(script1)
-window.document.head.appendChild(script2)
+// window.document.head.appendChild(script2)
 window.document.head.appendChild(script3)
 
 /*
