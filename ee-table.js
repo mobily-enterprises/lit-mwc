@@ -84,7 +84,6 @@ export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElemen
   _updateDragDrop () {
     const rows = this.shadowRoot.querySelector('slot').assignedElements()
     for (const row of rows) {
-      console.log(row)
       if (this.dragDrop) {
         row.setAttribute('draggable', 'true')
         this._activateRowDnD(row)
@@ -147,12 +146,8 @@ export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElemen
     requestAnimationFrame(() => {
       this.style.visibility = 'hidden'
       // Show last row drop target
-      table.lastDropTarget.style.display = 'block'
+      if (table.manipulateDOM) table.lastDropTarget.style.display = 'block'
     })
-    if (this.manipulateDOM) {
-      console.log('moving dom')
-      table.insertBefore(table.moving, this)
-    }
     // All handler hooks are called from the list parent, which must implement them.
     table.handleDragstart(e, table.moving, this)
   }
@@ -162,7 +157,8 @@ export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElemen
   _dragover (e) {
     // preventDefault is necessary to ALLOW custom dragover and dropping handling
     if (!this.header) e.preventDefault()
-    this.parentElement.handleDragover(e, this.parentElement.moving, this)
+    const table = this.parentElement
+    table.handleDragover(e, table.moving, this)
   }
 
   handleDragover (e) {}
@@ -170,13 +166,14 @@ export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElemen
   _dragend (e) {
     // Clear the temporary moving item reference
     this.moving = null
+    const table = this.parentElement
     requestAnimationFrame(() => {
       this.style.visibility = ''
       // Hide last row drop target
-      this.parentElement.lastDropTarget.style.display = ''
+      if (table.manipulateDOM) table.lastDropTarget.style.display = ''
     })
     if (this.header) e.preventDefault()
-    this.parentElement.handleDragend(e, this.parentElement.moving, this)
+    table.handleDragend(e, table.moving, this)
   }
 
   handleDragend (e) {}
@@ -186,22 +183,24 @@ export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElemen
     // console.log(this.moving)
     if (!this.header && this !== this.moving) e.preventDefault()
     else return
-    console.log(this.parentElement)
-    this.parentElement.handleDragenter(e, this.parentElement.moving, this)
+    const table = this.parentElement
+    table.handleDragenter(e, table.moving, this)
   }
 
   handleDragenter (e) {}
 
   _dragleave (e) {
     if (this.header) e.preventDefault()
-    this.parentElement.handleDragleave(e, this.parentElement.moving, this)
+    const table = this.parentElement
+    table.handleDragleave(e, table.moving, this)
   }
 
   handleDragleave (e) {}
 
   _dragexit (e) {
     if (this.header) e.preventDefault()
-    this.parentElement.handleDragexit(e, this.parentElement.moving, this)
+    const table = this.parentElement
+    table.handleDragexit(e, table.moving, this)
   }
 
   handleDragexit (e) {}
@@ -209,7 +208,8 @@ export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElemen
   _dragdrop (e) {
     if (this.header) return
     e.preventDefault()
-    this.parentElement.handleDragdrop(e, this.parentElement.moving, this)
+    const table = this.parentElement
+    table.handleDragdrop(e, table.moving, this)
   }
 
   handleDragdrop (e) {}

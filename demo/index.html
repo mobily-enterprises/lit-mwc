@@ -153,6 +153,12 @@
       const header = document.querySelector('ee-header')
       header.addEventListener('menu-clicked', toggleDrawer)
 
+      const dndTable = document.querySelector('ee-table#drag-example-table')
+      // Redefine table dragEnter hook
+      dndTable.handleDragenter = (e, movingItem, targetItem) => {
+        dndTable.insertBefore(movingItem, targetItem)
+      }
+
       const dnd = document.querySelector('dnd-example')
       dnd.data = [
         { id: 0, name: 'content 0' },
