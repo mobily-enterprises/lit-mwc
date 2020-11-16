@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
 
+const dragHandle = html`<svg class="icon" height="20" viewBox="0 0 24 24" width="20"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>`
 export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
@@ -11,6 +12,7 @@ export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) 
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
+          align-items: center;
           width: 100%;
           border: 1px solid transparent;
           border-bottom: var(--ee-row-border-bottom, 1px solid #777);
@@ -62,28 +64,49 @@ export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) 
         :host([size=small]) ::slotted(ee-cell[header]) {
           display: none !important;
         }
+
+        /* Drag and Drop Styles */
+        #handle {
+          display: none;
+          max-width: 18px;
+          height: 18px;
+        }
+
+        :host([header]) #handle {
+          pointer-events: none;
+          visibility: hidden;
+        }
+ 
+        :host([draggable]) #handle {
+          display: block;
+          cursor: move;
+        }
       `
     ]
   }
 
   static get properties () {
     return {
+      header: { type: Boolean },
+      draggable: { type: Boolean },
+      allowDrop: { type: Boolean },
+      dragData: { type: Object, attribute: 'drag-data' }
     }
   }
 
   constructor () {
     super()
-    this.SOMETHING = false
-  }
-
-  connectedCallback () {
-    super.connectedCallback()
+    this.allowDrop = false
+    this.dragData = {}
   }
 
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
       <slot></slot>
+      <div id="handle">
+        ${dragHandle}
+      </div>
     `
   }
 }

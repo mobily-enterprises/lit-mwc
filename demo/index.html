@@ -34,7 +34,7 @@
 
   </style>
   <body>
-    <h1>TPE demo</h1>
+    <ee-header menu header-title="TPE demo"></ee-header>
 
     <ee-tabs default="tab2">
       <span name="tab1">Form controls</span>
@@ -99,7 +99,13 @@
             <ee-cell>Content 2</ee-cell>
             <ee-cell>Content 2</ee-cell>
           </ee-row>
+          <ee-row>
+            <ee-cell>Content 3</ee-cell>
+            <ee-cell>Content 3</ee-cell>
+            <ee-cell>Content 3</ee-cell>
+          </ee-row>
         </ee-table>
+
         <h3>With Drag and Drop</h3>
         <ee-table id="drag-example-table" drag-drop >
           <ee-row header>
@@ -117,17 +123,36 @@
             <ee-cell>Content 2</ee-cell>
             <ee-cell>Content 2</ee-cell>
           </ee-row>
+          <ee-row>
+            <ee-cell>Content 3</ee-cell>
+            <ee-cell>Content 3</ee-cell>
+            <ee-cell>Content 3</ee-cell>
+          </ee-row>
         </ee-table>
+
         <h3>With Drag and Drop in a LitElement</h3>
         <dnd-example></dnd-example>
       </div>
       <div name="tab3" slot="content"></div>
       <div name="tab4" slot="content"></div>
     </ee-tabs>
+    <ee-drawer modal>
+      <a>Other demo page</a>
+    </ee-drawer>
   </body>
   <script>
+    function toggleDrawer () {
+      console.log('toggle drawer')
+      const drawer = document.querySelector('ee-drawer')
+      drawer.toggle()
+    }
+
     document.addEventListener('DOMContentLoaded', (event) => {
       console.log('ready')
+    
+      const header = document.querySelector('ee-header')
+      header.addEventListener('menu-clicked', toggleDrawer)
+
       const dnd = document.querySelector('dnd-example')
       dnd.data = [
         { id: 0, name: 'content 0' },

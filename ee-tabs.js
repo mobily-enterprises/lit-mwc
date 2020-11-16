@@ -19,7 +19,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           border-bottom: 1px solid var(--ee-tabs-lines-color, #bbb);
           display: flex;
           height: var(--ee-tabs-height, 32px);
-          z-index: var(--ee-tabs-z-index, 10);
+          z-index: var(--ee-tabs-z-index);
           overflow: var(--ee-tabs-nav-overflow);
         }
 
