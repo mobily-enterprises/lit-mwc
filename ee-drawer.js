@@ -17,9 +17,11 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
           top: 0;
           left: 0;
           z-index: 1;
-          width: 10px;
+          width: 20px;
           height: 100vh;
+          user-select: none;
         }
+
         :host([opened]) {
           width: 100vw;
           height: 100vh;
@@ -69,8 +71,8 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
         }
 
         #close:focus, #close:active {
-            outline: none !important;
-          }
+          outline: none !important;
+        }
 
         #close:active, #close:hover {
           filter: brightness(120%);
@@ -131,7 +133,9 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     return {
       opened: { type: Boolean, reflect: true },
       modal: { type: Boolean },
-      closeButton: { type: Boolean, attribute: 'close-button' }
+      closeButton: { type: Boolean, attribute: 'close-button' },
+      closeThreshold: { type: Number },
+      openThreshold: { type: Number }
     }
   }
 
@@ -140,32 +144,35 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     this.modal = false
     this.closeButton = true
     this.opened = false
+    this.closeThreshold = 0.25
+    this.openThreshold = 0.8
   }
 
   connectedCallback () {
     super.connectedCallback()
     this.addEventListener('click', this._handleOutsideClick)
     this.addEventListener('touchstart', this._handleDragStart)
-    // this.addEventListener('mousedown', this._handleDragStart)
     this.addEventListener('touchmove', this._handleDrag)
-    // this.addEventListener('mousemove', this._handleDrag)
     this.addEventListener('touchend', this._handleDragEnd)
+    // Will add these in the future to support dragging in desktop
+    // this.addEventListener('mousedown', this._handleDragStart)
+    // this.addEventListener('mousemove', this._handleDrag)
     // this.addEventListener('mouseup', this._handleDragEnd)
   }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-  
+  disconnectedCallback () {
+    super.disconnectedCallback()
     this.removeEventListener('click', this._handleOutsideClick)
     this.removeEventListener('touchstart', this._handleDragStart)
-    // this.removeEventListener('mousedown', this._handleDragStart)
     this.removeEventListener('touchmove', this._handleDrag)
-    // this.removeEventListener('mousemove', this._handleDrag)
     this.removeEventListener('touchend', this._handleDragEnd)
+    // Will add these in the future to support dragging in desktop
+    // this.removeEventListener('mousedown', this._handleDragStart)
+    // this.removeEventListener('mousemove', this._handleDrag)
     // this.removeEventListener('mouseup', this._handleDragEnd)
   }
 
-  firstUpdated() {
+  firstUpdated () {
     this.container = this.shadowRoot.querySelector('div.container')
   }
 
@@ -185,36 +192,40 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     this.opened = true
   }
 
-  _handleOutsideClick (e) {
-    if (e.target.nodeName === 'EE-DRAWER') this.close()
-  }
-
   close () {
     this.opened = false
   }
 
+  toggle () {
+    this.opened = !this.opened
+  }
+
+  _handleOutsideClick (e) {
+    if (e.target.nodeName === 'EE-DRAWER') this.close()
+  }
+
   _handleDragStart (e) {
-    e.preventDefault() 
+    e.preventDefault()
     this.dragStart = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX
+    console.log(this.dragStart)
     if (!this.opened) this.style.width = '100vw'
     return false
   }
 
   _handleDrag (e) {
     if (e.type === 'touchmove') e.preventDefault()
-    
+    console.log(this.dragStart)
     const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX
-    let offset = x - this.dragStart
+    const offset = x - this.dragStart
     const w = this.container.getBoundingClientRect().width
-    console.log(x, offset, w, offset < - w + 250, offset > w - 100)
-    if (offset < - w + 250) {
+    if (offset < -w + this.openThreshold * w) {
       this.close()
-      return;
+      return
     }
-    if (offset > w - 100) {
+    if (offset > w - this.closeThreshold * w) {
       this.open()
       this.container.style.transform = ''
-      return;
+      return
     }
     requestAnimationFrame(() => {
       this.container.style.transform = `translateX(calc(-100% + ${offset}px))`
@@ -231,6 +242,5 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     this.style.width = ''
     return false
   }
-
 }
 customElements.define('ee-drawer', EeDrawer)
