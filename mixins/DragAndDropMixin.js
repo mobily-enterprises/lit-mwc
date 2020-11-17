@@ -13,4 +13,5 @@ export const DragAndDropMixin = (base) => {
       super()
       this.dragDrop = false
     }
+  }
 }
