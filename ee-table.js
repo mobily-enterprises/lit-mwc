@@ -1,13 +1,14 @@
 import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
+import { DragAndDropMixin } from './mixins/DragAndDropMixin'
 
 // https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 // https://dev.to/drews256/ridiculously-easy-row-and-column-layouts-with-flexbox-1k01
 
 // https://github.com/Victor-Bernabe/lit-media-query/blob/master/lit-media-query.js
 
-export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElement)) {
+export class EeTable extends DragAndDropMixin(ThemeableMixin('ee-table')(StyleableMixin(LitElement))) {
   static get styles () {
     return [
       css`
