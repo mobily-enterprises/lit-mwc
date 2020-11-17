@@ -135,10 +135,8 @@ export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElemen
     if (e.target.header) e.preventDefault()
     e.dataTransfer.effectAllowed = 'move'
     e.dataTransfer.dropEffect = 'move'
-    //  This is the proper way to 'move' data around while dragging. However, webKit based browsers
-    //  only make that data accessible on the drop event, so checking anything in dragover is harder.
-    const data = JSON.stringify(this.dragData)
-    e.dataTransfer.setData('item', data)
+    // This is the proper way to 'move' data around while dragging. However, webKit based browsers
+    // only make that data accessible on the drop event, so checking anything in dragover is harder.
     // To make it simpler and fully intereoperable, the list parent (ee-table)
     // stores the current moving item in a property
     const table = this.parentElement
@@ -149,7 +147,7 @@ export class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElemen
       if (table.manipulateDOM) table.lastDropTarget.style.display = 'block'
     })
     // All handler hooks are called from the list parent, which must implement them.
-    table.handleDragstart(e, table.moving, this)
+    table.handleDragstart(e, table.moving)
   }
 
   handleDragstart (e) {}
