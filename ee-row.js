@@ -88,7 +88,6 @@ export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) 
   static get properties () {
     return {
       header: { type: Boolean },
-      draggable: { type: Boolean },
       allowDrop: { type: Boolean },
       dragData: { type: Object, attribute: 'drag-data' }
     }
