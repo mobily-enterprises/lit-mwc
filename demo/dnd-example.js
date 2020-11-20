@@ -62,23 +62,29 @@ class DndExample extends LitElement {
 
   _dragStart (e, moving) {
     this.oldData = [...this.data]
+    e.dataTransfer.dropEffect = 'move'
   }
 
   _dragEnter (e, moving, target) {
-    const movingIndex = this.data.findIndex(i => i.id === moving.dragData.id)
-    const targetIndex = this.data.findIndex(i => i.id === target.dragData.id)
-    const data = [...this.data]
-    const movingItemData = data.splice(movingIndex, 1)[0]
-    data.splice(targetIndex, 0, movingItemData)
-    this.data = data
+    clearTimeout(this.dragTimer)
+    this.dragTimer = setTimeout(() => {
+      const movingIndex = this.data.findIndex(i => i.id === moving.dragData.id)
+      const targetIndex = this.data.findIndex(i => i.id === target.dragData.id)
+      const data = [...this.data]
+      const movingItemData = data.splice(movingIndex, 1)[0]
+      data.splice(targetIndex, 0, movingItemData)
+      this.data = data
+    }, 100)
   }
 
   _dragEnd (e, moving, target) {
     console.log('end', e.dataTransfer.dropEffect)
+    if (e.dataTransfer.dropEffect === 'none') this.data = [...this.oldData]
+    delete this.oldData
   }
 
   _dragDrop (e, moving, target) {
-    console.log('drop')
+    // Make the request to the server in order to actually save the new order
   }
 }
 

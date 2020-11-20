@@ -26,11 +26,6 @@ export class EeTable extends DragAndDropMixin(ThemeableMixin('ee-table')(Styleab
         :host([striped]) ::slotted(ee-row:nth-child(even)) {
           background-color: var(--ee-table-striped-even-color, whitesmoke)
         }
-
-        #last-row-drop-target {
-          display: none;
-          text-align: center;
-        }
       `
     ]
   }

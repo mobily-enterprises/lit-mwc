@@ -107,7 +107,7 @@
         </ee-table>
 
         <h3>With Drag and Drop</h3>
-        <ee-table id="drag-example-table" drag-drop >
+        <ee-table id="drag-example-table" drag-drop manipulate-dom>
           <ee-row header>
             <ee-cell header>Content</ee-cell>
             <ee-cell header>Content</ee-cell>
@@ -155,9 +155,9 @@
 
       const dndTable = document.querySelector('ee-table#drag-example-table')
       // Redefine table dragEnter hook
-      // dndTable.handleDragenter = (e, movingItem, targetItem) => {
-      //   dndTable.insertBefore(movingItem, targetItem)
-      // }
+      dndTable.handleDragenter = (e, movingItem, targetItem) => {
+        dndTable.insertBefore(movingItem, targetItem)
+      }
 
       const dnd = document.querySelector('dnd-example')
       dnd.data = [
