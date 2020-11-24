@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "demo": "web-dev-server --node-resolve --watch --open /demo/index.html auto",
     "start": "node server.js",
     "build": "rm -rf distr/* distr/**/*;rollup -c",
     "docs": "cd docs-src;./makeDocs.sh"
@@ -42,13 +43,8 @@
     "@babel/plugin-transform-runtime": "^7.x.x",
     "@babel/polyfill": "^7.x.x",
     "@babel/preset-env": "^7.x.x",
+    "@web/dev-server": "0.0.24",
     "core-js": "^3.3.2",
-    "rollup": "^1.23.1",
-    "rollup-plugin-babel": "^4.x.x",
-    "rollup-plugin-babel-minify": "^9.x.x",
-    "rollup-plugin-multi-entry": "^2.x.x",
-    "rollup-plugin-node-resolve": "^5.x.x",
-    "standard": "^14.3.1",
     "eslint": "^6.3.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-html": "^6.0.0",
@@ -56,6 +52,12 @@
     "eslint-plugin-lit": "^1.2.0",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "rollup": "^1.23.1",
+    "rollup-plugin-babel": "^4.x.x",
+    "rollup-plugin-babel-minify": "^9.x.x",
+    "rollup-plugin-multi-entry": "^2.x.x",
+    "rollup-plugin-node-resolve": "^5.x.x",
+    "standard": "^14.3.1"
   }
 }

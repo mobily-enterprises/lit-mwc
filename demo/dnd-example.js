@@ -61,7 +61,7 @@ class DndExample extends LitElement {
   }
 
   _dragStart (e, moving) {
-    this.oldData = [...this.data]
+    this.__oldData = [...this.data]
     e.dataTransfer.dropEffect = 'move'
   }
 
@@ -79,8 +79,8 @@ class DndExample extends LitElement {
 
   _dragEnd (e, moving, target) {
     console.log('end', e.dataTransfer.dropEffect)
-    if (e.dataTransfer.dropEffect === 'none') this.data = [...this.oldData]
-    delete this.oldData
+    if (e.dataTransfer.dropEffect === 'none') this.data = [...this.__oldData]
+    delete this.__oldData
   }
 
   _dragDrop (e, moving, target) {
