@@ -11,6 +11,7 @@ export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) 
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
+          align-items: center;
           width: 100%;
           border: 1px solid transparent;
           border-bottom: var(--ee-row-border-bottom, 1px solid #777);
@@ -62,22 +63,39 @@ export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) 
         :host([size=small]) ::slotted(ee-cell[header]) {
           display: none !important;
         }
+
+        /* Drag and Drop Styles */
+        #handle {
+          display: none;
+          max-width: 18px;
+          height: 18px;
+        }
+
+        :host([header]) .handle,
+        :host([header]) ::slotted(.handle) {
+          pointer-events: none;
+          visibility: hidden;
+        }
+ 
+        :host([draggable]) .handle,
+        :host([draggable]) ::slotted(.handle) {
+          display: block;
+          cursor: move;
+        }
       `
     ]
   }
 
   static get properties () {
     return {
+      header: { type: Boolean },
+      dragData: { type: Object, attribute: 'drag-data' }
     }
   }
 
   constructor () {
     super()
-    this.SOMETHING = false
-  }
-
-  connectedCallback () {
-    super.connectedCallback()
+    this.dragData = {}
   }
 
   render () {
