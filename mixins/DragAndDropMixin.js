@@ -157,9 +157,9 @@ export const DragAndDropMixin = (base) => {
     _updateDragDrop () {
       const rows = this.shadowRoot.querySelector('slot').assignedElements()
       for (const row of rows) {
-        if (this.dragDrop) {
-          this._addHandle(row)
-          this._activateRowDnD(row)
+        if (this.dragDrop && !row.hasAttribute('no-dnd')) {
+          if (!row.hasAttribute('no-drag')) this._addHandle(row)
+          if (!row.hasAttribute('no-drop')) this._activateRowDnD(row)
         } else {
           this._removeHandle(row)
           this._deactivateRowDnD(row)
@@ -206,8 +206,8 @@ export const DragAndDropMixin = (base) => {
     _dragenter (e) {
 // preventDefault is necessary to ALLOW custom dragenter handling
       e.dataTransfer.dropEffect = 'move'
-      if (!this.header) e.preventDefault()
-      else return
+      if (this.header) return
+      e.preventDefault()
       const table = this.parentElement
       requestAnimationFrame(() => {
         this.classList.add('target')
