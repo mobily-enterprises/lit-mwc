@@ -175,7 +175,6 @@ export const DragAndDropMixin = (base) => {
 // All listeners are private and not supposed to be modified. They call a hook for each type of event.
 // The hooks should be redefined to handle any work that's needed during of in response to the drag event.
     _dragstart (e) {
-      console.log('event', moving)
       if (this.header) e.preventDefault()
       e.dataTransfer.effectAllowed = 'move'
       e.dataTransfer.dropEffect = 'move'
@@ -207,7 +206,6 @@ export const DragAndDropMixin = (base) => {
     handleDragover (e) {}
 
     _dragenter (e) {
-      console.log(moving)
 // preventDefault is necessary to ALLOW custom dragenter handling
       e.dataTransfer.dropEffect = 'move'
       if (!this.header) e.preventDefault()
@@ -242,7 +240,6 @@ export const DragAndDropMixin = (base) => {
 
     _dragend (e) {
 // Clear the temporary moving item reference
-      this.moving = null
       const table = this.parentElement
       requestAnimationFrame(() => {
         this.style.opacity = ''
@@ -251,6 +248,7 @@ export const DragAndDropMixin = (base) => {
       })
       if (this.header) e.preventDefault()
       table.handleDragend(e, moving, this)
+      moving = null
     }
 
     handleDragend (e) {}
