@@ -35,6 +35,8 @@
 // This is the DragAndDropMixin declaration:
 import { css } from 'lit-element'
 
+let moving = null
+
 export const DragAndDropMixin = (base) => {
   return class Base extends base {
 // Necessary styles to be added to the litElement based target element:
@@ -173,6 +175,7 @@ export const DragAndDropMixin = (base) => {
 // All listeners are private and not supposed to be modified. They call a hook for each type of event.
 // The hooks should be redefined to handle any work that's needed during of in response to the drag event.
     _dragstart (e) {
+      console.log('event', moving)
       if (this.header) e.preventDefault()
       e.dataTransfer.effectAllowed = 'move'
       e.dataTransfer.dropEffect = 'move'
@@ -181,14 +184,14 @@ export const DragAndDropMixin = (base) => {
 // To make it simpler and fully intereoperable, the list parent (ee-table)
 // stores the current moving item in a property
       const table = this.parentElement
-      table.moving = this
+      moving = this
       requestAnimationFrame(() => {
         this.style.opacity = '0.3'
 // Show last row drop target when using pure html
         if (table.manipulateDOM) table.lastDropTarget.style.display = 'block'
       })
 // All handler hooks are called from the list parent, which must implement them.
-      table.handleDragstart(e, table.moving)
+      table.handleDragstart(e, moving)
     }
 
     handleDragstart (e) {}
@@ -198,21 +201,22 @@ export const DragAndDropMixin = (base) => {
       if (!this.header) e.preventDefault()
       e.dataTransfer.dropEffect = 'move'
       const table = this.parentElement
-      table.handleDragover(e, table.moving, this)
+      table.handleDragover(e, moving, this)
     }
 
     handleDragover (e) {}
 
     _dragenter (e) {
+      console.log(moving)
 // preventDefault is necessary to ALLOW custom dragenter handling
       e.dataTransfer.dropEffect = 'move'
-      if (this.header) return
-      e.preventDefault()
+      if (!this.header) e.preventDefault()
+      else return
       const table = this.parentElement
       requestAnimationFrame(() => {
         this.classList.add('target')
       })
-      table.handleDragenter(e, table.moving, this)
+      table.handleDragenter(e, moving, this)
     }
 
     handleDragenter (e) {}
@@ -223,7 +227,7 @@ export const DragAndDropMixin = (base) => {
       requestAnimationFrame(() => {
         this.classList.remove('target')
       })
-      table.handleDragleave(e, table.moving, this)
+      table.handleDragleave(e, moving, this)
     }
 
     handleDragleave (e) {}
@@ -231,7 +235,7 @@ export const DragAndDropMixin = (base) => {
     _dragexit (e) {
       if (this.header) e.preventDefault()
       const table = this.parentElement
-      table.handleDragexit(e, table.moving, this)
+      table.handleDragexit(e, moving, this)
     }
 
     handleDragexit (e) {}
@@ -246,7 +250,7 @@ export const DragAndDropMixin = (base) => {
         if (table.manipulateDOM) table.lastDropTarget.style.display = ''
       })
       if (this.header) e.preventDefault()
-      table.handleDragend(e, table.moving, this)
+      table.handleDragend(e, moving, this)
     }
 
     handleDragend (e) {}
@@ -256,7 +260,7 @@ export const DragAndDropMixin = (base) => {
       e.preventDefault()
       e.dataTransfer.dropEffect = 'move'
       const table = this.parentElement
-      table.handleDragdrop(e, table.moving, this)
+      table.handleDragdrop(e, moving, this)
     }
 
     handleDragdrop (e) {}
