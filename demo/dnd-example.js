@@ -42,7 +42,7 @@ class DndExample extends LitElement {
   render () {
     return html`
       <ee-table drag-drop .handleDragstart=${this.handleDragStart} .handleDragenter=${this.handleDragEnter} .handleDragend=${this.handleDragEnd} .handleDragdrop=${this.handleDragDrop}>
-        <ee-row header>
+        <ee-row header no-drop>
           <ee-cell header>Content</ee-cell>
           <ee-cell header>Content</ee-cell>
           <ee-cell header>Content</ee-cell>
@@ -77,10 +77,11 @@ class DndExample extends LitElement {
     }, 100)
   }
 
-  _dragEnd (e, moving, target) {
+  async _dragEnd (e, moving, target) {
     console.log('end', e.dataTransfer.dropEffect)
     if (e.dataTransfer.dropEffect === 'none') this.data = [...this.__oldData]
     delete this.__oldData
+    return Promise.resolve()
   }
 
   _dragDrop (e, moving, target) {

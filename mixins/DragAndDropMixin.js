@@ -36,6 +36,8 @@
 import { css } from 'lit-element'
 
 let moving = null
+let originParent = null
+let targetParent = null
 
 export const DragAndDropMixin = (base) => {
   return class Base extends base {
@@ -121,7 +123,7 @@ export const DragAndDropMixin = (base) => {
 
 // The _addHandle private method makes sure there's is visual feedback of the draggable state of the list items. It also
 // adds listeners to the handle that provide an important implementation detail.
-// The list items will maintain their interaction behavior after beign activated. The only way to actually drag 
+// The list items will maintain their interaction behavior after beign activated. The only way to actually drag
 // the item is to point and click or touch the handle icon.
     _addHandle (row) {
       if (row.classList.contains('hasHandle')) return
@@ -175,6 +177,7 @@ export const DragAndDropMixin = (base) => {
 // All listeners are private and not supposed to be modified. They call a hook for each type of event.
 // The hooks should be redefined to handle any work that's needed during of in response to the drag event.
     _dragstart (e) {
+      // console.log('start', this)
       if (this.header) e.preventDefault()
       e.dataTransfer.effectAllowed = 'move'
       e.dataTransfer.dropEffect = 'move'
@@ -182,83 +185,92 @@ export const DragAndDropMixin = (base) => {
 // only make that data accessible on the drop event, so checking anything in dragover is harder.
 // To make it simpler and fully intereoperable, the list parent (ee-table)
 // stores the current moving item in a property
-      const table = this.parentElement
+      originParent = this.parentElement
       moving = this
       requestAnimationFrame(() => {
         this.style.opacity = '0.3'
 // Show last row drop target when using pure html
-        if (table.manipulateDOM) table.lastDropTarget.style.display = 'block'
+        if (originParent.manipulateDOM) originParent.lastDropTarget.style.display = 'block'
       })
 // All handler hooks are called from the list parent, which must implement them.
-      table.handleDragstart(e, moving)
+      originParent.handleDragstart(e, moving)
     }
 
     handleDragstart (e) {}
+
+    _dragenter (e) {
+      // console.log('enter', this)
+// preventDefault is necessary to ALLOW custom dragenter handling
+      e.dataTransfer.dropEffect = 'move'
+      if (!this.header) e.preventDefault()
+      else return
+      targetParent = this.parentElement
+
+      requestAnimationFrame(() => {
+        this.classList.add('target')
+      })
+      targetParent.handleDragenter(e, moving, this)
+    }
+
+    handleDragenter (e) {}
 
     _dragover (e) {
 // preventDefault is necessary to ALLOW custom dragover and dropping handling
       if (!this.header) e.preventDefault()
       e.dataTransfer.dropEffect = 'move'
-      const table = this.parentElement
-      table.handleDragover(e, moving, this)
+
+      targetParent.handleDragover(e, moving, this)
     }
 
     handleDragover (e) {}
 
-    _dragenter (e) {
-// preventDefault is necessary to ALLOW custom dragenter handling
-      e.dataTransfer.dropEffect = 'move'
-      if (!this.header) e.preventDefault()
-      else return
-      const table = this.parentElement
-      requestAnimationFrame(() => {
-        this.classList.add('target')
-      })
-      table.handleDragenter(e, moving, this)
-    }
-
-    handleDragenter (e) {}
-
     _dragleave (e) {
+      // console.log('leave', this)
+
       if (this.header) e.preventDefault()
-      const table = this.parentElement
       requestAnimationFrame(() => {
         this.classList.remove('target')
       })
-      table.handleDragleave(e, moving, this)
+      targetParent.handleDragleave(e, moving, this)
     }
 
     handleDragleave (e) {}
 
     _dragexit (e) {
+      // console.log('exit', this)
       if (this.header) e.preventDefault()
-      const table = this.parentElement
-      table.handleDragexit(e, moving, this)
+      targetParent.handleDragexit(e, moving, this)
     }
 
     handleDragexit (e) {}
 
     _dragend (e) {
+      // console.log('end', this)
 // Clear the temporary moving item reference
-      const table = this.parentElement
       requestAnimationFrame(() => {
         this.style.opacity = ''
         // Hide last row drop target
-        if (table.manipulateDOM) table.lastDropTarget.style.display = ''
+        if (originParent.manipulateDOM) originParent.lastDropTarget.style.display = ''
       })
       if (this.header) e.preventDefault()
-      table.handleDragend(e, moving, this)
-      moving = null
+      originParent.handleDragend(e, moving, this)
+
+      setTimeout(() => {
+        moving = null
+        originParent = null
+        targetParent = null
+      }, 200)
     }
 
     handleDragend (e) {}
 
     _dragdrop (e) {
+      // console.log('drop', this)
+
       if (this.header) return
       e.preventDefault()
       e.dataTransfer.dropEffect = 'move'
-      const table = this.parentElement
-      table.handleDragdrop(e, moving, this)
+      targetParent.handleDragdrop(e, moving, this)
     }
 
     handleDragdrop (e) {}
