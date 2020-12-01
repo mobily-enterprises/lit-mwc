@@ -38,6 +38,7 @@ import { css } from 'lit-element'
 let moving = null
 let originParent = null
 let targetParent = null
+let currentRows = null
 
 export const DragAndDropMixin = (base) => {
   return class Base extends base {
@@ -47,14 +48,52 @@ export const DragAndDropMixin = (base) => {
       return [
         super.styles,
         css`
+          @-webkit-keyframes fadeIn {
+            0%   { opacity: 0; }
+            100% { opacity: 1; }
+          }
+          @-moz-keyframes fadeIn {
+            0%   { opacity: 0; }
+            100% { opacity: 1; }
+          }
+          @-o-keyframes fadeIn {
+            0%   { opacity: 0; }
+            100% { opacity: 1; }
+          }
+          @keyframes fadeIn {
+            0%   { opacity: 0; }
+            100% { opacity: 1; }
+          }
+
           #last-row-drop-target {
             display: none;
             text-align: center;
+            /* height: 0; */
+            /* visibility: hidden; */
           }
 
-          .target {
+          #last-row-drop-target.show {
+            /* height: initial; */
+            /* visibility: visible; */
+          }
+
+          ::slotted(.target) {
+            position: relative;
             box-sizing: border-box;
-            border: 1px dashed grey;
+            transform: translateY(30%);
+            transition: transform 0.1s ease-in-out;
+            background-color: white;
+          }
+
+          ::slotted(.target)::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            bottom: 100%;
+            left: 0;
+            width: 100%;
+            background-color: purple;
+            animation: fadeIn 0.3s ease-in;
           }
         `
       ]
@@ -97,10 +136,10 @@ export const DragAndDropMixin = (base) => {
     }
 
 // After initialization, the firstUpdated lifecycle method is used to setup a drop target that shows up as the last list position placeholder while dragging.
-    firstUpdated () {
-      this.lastDropTarget = this.shadowRoot.querySelector('#last-row-drop-target')
-      if (this.lastDropTarget) this._activateRowDnD(this.lastDropTarget)
-    }
+    // firstUpdated () {
+    //   this.lastDropTarget = this.shadowRoot.querySelector('#last-row-drop-target')
+    //   if (this.lastDropTarget) this._activateRowDnD(this.lastDropTarget)
+    // }
 
 // The next two private methods are used to activate and deactivate the draggable list items.
     _activateRowDnD (row) {
@@ -169,6 +208,7 @@ export const DragAndDropMixin = (base) => {
           this._deactivateRowDnD(row)
         }
       }
+      if (rows) currentRows = rows
     }
 
 // # Drag and Drop Handlers and hooks
@@ -177,7 +217,6 @@ export const DragAndDropMixin = (base) => {
 // All listeners are private and not supposed to be modified. They call a hook for each type of event.
 // The hooks should be redefined to handle any work that's needed during of in response to the drag event.
     _dragstart (e) {
-      // console.log('start', this)
       if (this.header) e.preventDefault()
       e.dataTransfer.effectAllowed = 'move'
       e.dataTransfer.dropEffect = 'move'
@@ -189,8 +228,6 @@ export const DragAndDropMixin = (base) => {
       moving = this
       requestAnimationFrame(() => {
         this.style.opacity = '0.3'
-// Show last row drop target when using pure html
-        if (originParent.manipulateDOM) originParent.lastDropTarget.style.display = 'block'
       })
 // All handler hooks are called from the list parent, which must implement them.
       originParent.handleDragstart(e, moving)
@@ -199,15 +236,20 @@ export const DragAndDropMixin = (base) => {
     handleDragstart (e) {}
 
     _dragenter (e) {
-      // console.log('enter', this)
 // preventDefault is necessary to ALLOW custom dragenter handling
       e.dataTransfer.dropEffect = 'move'
-      if (!this.header) e.preventDefault()
-      else return
+      if (this.header) return
+      e.preventDefault()
+      currentRows = this.parentElement.shadowRoot.querySelector('slot').assignedElements()
       targetParent = this.parentElement
-
+      const lastTargets = currentRows.filter(i => i.classList.contains('target'))
       requestAnimationFrame(() => {
-        this.classList.add('target')
+        if (lastTargets) {
+          lastTargets.forEach(element => {
+            element.classList.remove('target')
+          })
+        }
+        if (this !== moving) this.classList.add('target')
       })
       targetParent.handleDragenter(e, moving, this)
     }
@@ -225,11 +267,8 @@ export const DragAndDropMixin = (base) => {
     handleDragover (e) {}
 
     _dragleave (e) {
-      // console.log('leave', this)
-
       if (this.header) e.preventDefault()
       requestAnimationFrame(() => {
-        this.classList.remove('target')
       })
       targetParent.handleDragleave(e, moving, this)
     }
@@ -237,7 +276,6 @@ export const DragAndDropMixin = (base) => {
     handleDragleave (e) {}
 
     _dragexit (e) {
-      // console.log('exit', this)
       if (this.header) e.preventDefault()
       targetParent.handleDragexit(e, moving, this)
     }
@@ -245,12 +283,15 @@ export const DragAndDropMixin = (base) => {
     handleDragexit (e) {}
 
     _dragend (e) {
-      // console.log('end', this)
 // Clear the temporary moving item reference
+      const lastTargets = currentRows.filter(i => i.classList.contains('target'))
       requestAnimationFrame(() => {
         this.style.opacity = ''
-        // Hide last row drop target
-        if (originParent.manipulateDOM) originParent.lastDropTarget.style.display = ''
+        if (lastTargets) {
+          lastTargets.forEach(element => {
+            element.classList.remove('target')
+          })
+        }
       })
       if (this.header) e.preventDefault()
       originParent.handleDragend(e, moving, this)
@@ -265,8 +306,6 @@ export const DragAndDropMixin = (base) => {
     handleDragend (e) {}
 
     _dragdrop (e) {
-      // console.log('drop', this)
-
       if (this.header) return
       e.preventDefault()
       e.dataTransfer.dropEffect = 'move'

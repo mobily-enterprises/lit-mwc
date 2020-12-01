@@ -66,26 +66,32 @@ class DndExample extends LitElement {
   }
 
   _dragEnter (e, moving, target) {
-    clearTimeout(this.dragTimer)
-    this.dragTimer = setTimeout(() => {
-      const movingIndex = this.data.findIndex(i => i.id === moving.dragData.id)
-      const targetIndex = this.data.findIndex(i => i.id === target.dragData.id)
-      const data = [...this.data]
-      const movingItemData = data.splice(movingIndex, 1)[0]
-      data.splice(targetIndex, 0, movingItemData)
-      this.data = data
-    }, 100)
+    // clearTimeout(this.dragTimer)
+    // this.dragTimer = setTimeout(() => {
+    //   const movingIndex = this.data.findIndex(i => i.id === moving.dragData.id)
+    //   const targetIndex = this.data.findIndex(i => i.id === target.dragData.id)
+    //   const data = [...this.data]
+    //   const movingItemData = data.splice(movingIndex, 1)[0]
+    //   data.splice(targetIndex, 0, movingItemData)
+    //   this.data = data
+    // }, 100)
   }
 
   async _dragEnd (e, moving, target) {
     console.log('end', e.dataTransfer.dropEffect)
-    if (e.dataTransfer.dropEffect === 'none') this.data = [...this.__oldData]
-    delete this.__oldData
-    return Promise.resolve()
+    // if (e.dataTransfer.dropEffect === 'none') this.data = [...this.__oldData]
+    // delete this.__oldData
+    // return Promise.resolve()
   }
 
   _dragDrop (e, moving, target) {
     // Make the request to the server in order to actually save the new order
+    const data = [...this.data]
+    const movingIndex = data.findIndex(i => i.id === moving.dragData.id)
+    const movingItemData = data.splice(movingIndex, 1)[0]
+    const targetIndex = data.findIndex(i => i.id === target.dragData.id)
+    data.splice(targetIndex, 0, movingItemData)
+    this.data = data
   }
 }
 
