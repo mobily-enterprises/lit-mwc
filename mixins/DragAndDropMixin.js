@@ -81,7 +81,7 @@ export const DragAndDropMixin = (base) => {
             position: relative;
             box-sizing: border-box;
             transform: translateY(30%);
-            transition: transform 0.1s ease-in-out;
+            /* transition: transform 0.1s ease-in-out; */
             background-color: white;
           }
 
@@ -93,7 +93,7 @@ export const DragAndDropMixin = (base) => {
             left: 0;
             width: 100%;
             background-color: purple;
-            animation: fadeIn 0.3s ease-in;
+            /* animation: fadeIn 0.3s ease-in; */
           }
         `
       ]
