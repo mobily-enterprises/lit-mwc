@@ -301,11 +301,11 @@ export const DragAndDropMixin = (base) => {
                 element.classList.remove('target')
               })
             }
+            moving = null
+            originParent = null
+            targetParent = null
           })
           console.log('dragend promise')
-          moving = null
-          originParent = null
-          targetParent = null
         }
       })
     }
@@ -327,10 +327,10 @@ export const DragAndDropMixin = (base) => {
             element.classList.remove('target')
           })
         }
+        moving = null
+        originParent = null
+        targetParent = null
       })
-      moving = null
-      originParent = null
-      targetParent = null
     }
 
     async handleDragdrop (e) {
