@@ -80,15 +80,16 @@ export const DragAndDropMixin = (base) => {
           ::slotted(.target) {
             position: relative;
             box-sizing: border-box;
-            transform: translateY(30%);
+            /* transform: translateY(30%); */
             /* transition: transform 0.1s ease-in-out; */
             background-color: white;
+            margin-top: 40px;
           }
 
           ::slotted(.target)::before {
             content: '';
             position: absolute;
-            top: -30%;
+            top: -100%;
             bottom: 100%;
             left: 0;
             width: 100%;
