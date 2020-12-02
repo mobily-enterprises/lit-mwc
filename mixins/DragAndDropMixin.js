@@ -291,25 +291,25 @@ export const DragAndDropMixin = (base) => {
     _dragend (e) {
 // Clear the temporary moving item reference
       const lastTargets = currentRows.filter(i => i.classList.contains('target'))
-      requestAnimationFrame(() => {
-        this.classList.remove('moving')
-        if (lastTargets) {
-          lastTargets.forEach(element => {
-            element.classList.remove('target')
-          })
-        }
-      })
       if (this.header) e.preventDefault()
-      originParent.handleDragend(e, moving, this)
-
-      setTimeout(() => {
+      originParent.handleDragend(e, moving, this).then(() => {
+        requestAnimationFrame(() => {
+          this.classList.remove('moving')
+          if (lastTargets) {
+            lastTargets.forEach(element => {
+              element.classList.remove('target')
+            })
+          }
+        })
         moving = null
         originParent = null
         targetParent = null
-      }, 200)
+      })
     }
 
-    handleDragend (e) {}
+    async handleDragend (e) {
+      return true
+    }
 
     _dragdrop (e) {
       if (this.header) return
