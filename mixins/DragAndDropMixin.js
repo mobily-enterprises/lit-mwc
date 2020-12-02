@@ -314,22 +314,23 @@ export const DragAndDropMixin = (base) => {
       return true
     }
 
-    async _dragdrop (e) {
+    _dragdrop (e) {
       if (this.header) return
       e.preventDefault()
       e.dataTransfer.dropEffect = 'move'
-      await targetParent.handleDragdrop(e, moving, this)
-      const lastTargets = currentRows.filter(i => i.classList.contains('target'))
-      requestAnimationFrame(() => {
-        moving.classList.remove('moving')
-        if (lastTargets) {
-          lastTargets.forEach(element => {
-            element.classList.remove('target')
-          })
-        }
-        moving = null
-        originParent = null
-        targetParent = null
+      targetParent.handleDragdrop(e, moving, this).then(() => {
+        const lastTargets = currentRows.filter(i => i.classList.contains('target'))
+        requestAnimationFrame(() => {
+          moving.classList.remove('moving')
+          if (lastTargets) {
+            lastTargets.forEach(element => {
+              element.classList.remove('target')
+            })
+          }
+          moving = null
+          originParent = null
+          targetParent = null
+        })
       })
     }
 
