@@ -293,8 +293,35 @@ export const DragAndDropMixin = (base) => {
       const lastTargets = currentRows.filter(i => i.classList.contains('target'))
       if (this.header) e.preventDefault()
       originParent.handleDragend(e, moving, this).then(() => {
+        if (e.dataTransfer.dropEffect === 'none') {
+          requestAnimationFrame(() => {
+            this.classList.remove('moving')
+            if (lastTargets) {
+              lastTargets.forEach(element => {
+                element.classList.remove('target')
+              })
+            }
+          })
+          console.log('dragend promise')
+          moving = null
+          originParent = null
+          targetParent = null
+        }
+      })
+    }
+
+    async handleDragend (e) {
+      return true
+    }
+
+    _dragdrop (e) {
+      if (this.header) return
+      e.preventDefault()
+      e.dataTransfer.dropEffect = 'move'
+      targetParent.handleDragdrop(e, moving, this).then(() => {
+        const lastTargets = currentRows.filter(i => i.classList.contains('target'))
         requestAnimationFrame(() => {
-          this.classList.remove('moving')
+          moving.classList.remove('moving')
           if (lastTargets) {
             lastTargets.forEach(element => {
               element.classList.remove('target')
@@ -307,17 +334,8 @@ export const DragAndDropMixin = (base) => {
       })
     }
 
-    async handleDragend (e) {
+    async handleDragdrop (e) {
       return true
     }
-
-    _dragdrop (e) {
-      if (this.header) return
-      e.preventDefault()
-      e.dataTransfer.dropEffect = 'move'
-      targetParent.handleDragdrop(e, moving, this)
-    }
-
-    handleDragdrop (e) {}
   }
 }
