@@ -77,6 +77,11 @@ export const DragAndDropMixin = (base) => {
             /* visibility: visible; */
           }
 
+          ::slotted(.moving) {
+            visibility: hidden;
+            height: 0;
+          }
+
           ::slotted(.target) {
             position: relative;
             box-sizing: border-box;
@@ -228,7 +233,7 @@ export const DragAndDropMixin = (base) => {
       originParent = this.parentElement
       moving = this
       requestAnimationFrame(() => {
-        this.style.opacity = '0.3'
+        this.classList.add('moving')
       })
 // All handler hooks are called from the list parent, which must implement them.
       originParent.handleDragstart(e, moving)
@@ -287,7 +292,7 @@ export const DragAndDropMixin = (base) => {
 // Clear the temporary moving item reference
       const lastTargets = currentRows.filter(i => i.classList.contains('target'))
       requestAnimationFrame(() => {
-        this.style.opacity = ''
+        this.classList.remove('moving')
         if (lastTargets) {
           lastTargets.forEach(element => {
             element.classList.remove('target')
