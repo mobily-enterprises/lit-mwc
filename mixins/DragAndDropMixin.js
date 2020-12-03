@@ -294,7 +294,6 @@ export const DragAndDropMixin = (base) => {
     _dragend (e) {
 // Clear the temporary moving item reference
       if (this.header) e.preventDefault()
-      console.log(originParent)
       originParent.handleDragend(e, moving, this).then(() => {
         if (e.dataTransfer.dropEffect === 'none') {
           requestAnimationFrame(() => {
@@ -306,7 +305,6 @@ export const DragAndDropMixin = (base) => {
             originParent = null
             targetParent = null
           })
-          console.log('dragend promise')
         }
       })
     }
