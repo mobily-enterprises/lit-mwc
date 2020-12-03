@@ -38,7 +38,7 @@ import { css } from 'lit-element'
 let moving = null
 let originParent = null
 let targetParent = null
-let currentRows = null
+let targetRows = []
 
 export const DragAndDropMixin = (base) => {
   return class Base extends base {
@@ -92,7 +92,11 @@ export const DragAndDropMixin = (base) => {
           }
 
           ::slotted(.target)::before {
-            content: '';
+            content: attr(drop-label);
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            vertical-align: middle;
             position: absolute;
             top: -100%;
             bottom: 100%;
@@ -214,7 +218,6 @@ export const DragAndDropMixin = (base) => {
           this._deactivateRowDnD(row)
         }
       }
-      if (rows) currentRows = rows
     }
 
 // # Drag and Drop Handlers and hooks
@@ -246,16 +249,16 @@ export const DragAndDropMixin = (base) => {
       e.dataTransfer.dropEffect = 'move'
       if (this.header) return
       e.preventDefault()
-      currentRows = this.parentElement.shadowRoot.querySelector('slot').assignedElements()
+      // targetRows = this.parentElement.shadowRoot.querySelector('slot').assignedElements()
       targetParent = this.parentElement
-      const lastTargets = currentRows.filter(i => i.classList.contains('target'))
       requestAnimationFrame(() => {
-        if (lastTargets) {
-          lastTargets.forEach(element => {
-            element.classList.remove('target')
-          })
-        }
-        if (this !== moving) this.classList.add('target')
+        targetRows.forEach(element => {
+          element.classList.remove('target')
+        })
+        if (this !== moving) {
+          this.classList.add('target')
+          targetRows.push(this)
+        } 
       })
       targetParent.handleDragenter(e, moving, this)
     }
@@ -290,17 +293,15 @@ export const DragAndDropMixin = (base) => {
 
     _dragend (e) {
 // Clear the temporary moving item reference
-      const lastTargets = currentRows.filter(i => i.classList.contains('target'))
       if (this.header) e.preventDefault()
+      console.log(originParent)
       originParent.handleDragend(e, moving, this).then(() => {
         if (e.dataTransfer.dropEffect === 'none') {
           requestAnimationFrame(() => {
             this.classList.remove('moving')
-            if (lastTargets) {
-              lastTargets.forEach(element => {
-                element.classList.remove('target')
-              })
-            }
+            targetRows.forEach(element => {
+              element.classList.remove('target')
+            })
             moving = null
             originParent = null
             targetParent = null
@@ -319,14 +320,11 @@ export const DragAndDropMixin = (base) => {
       e.preventDefault()
       e.dataTransfer.dropEffect = 'move'
       targetParent.handleDragdrop(e, moving, this).then(() => {
-        const lastTargets = currentRows.filter(i => i.classList.contains('target'))
         requestAnimationFrame(() => {
           moving.classList.remove('moving')
-          if (lastTargets) {
-            lastTargets.forEach(element => {
-              element.classList.remove('target')
-            })
-          }
+          targetRows.forEach(element => {
+            element.classList.remove('target')
+          })
           moving = null
           originParent = null
           targetParent = null
