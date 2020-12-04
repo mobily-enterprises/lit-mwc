@@ -35,6 +35,9 @@
 // This is the DragAndDropMixin declaration:
 import { css } from 'lit-element'
 
+// 
+// These are declared outside the mixin to make sure diffrent instances access the same data
+// 
 let moving = null
 let originParent = null
 let targetParent = null
@@ -42,8 +45,7 @@ let targetRows = []
 
 export const DragAndDropMixin = (base) => {
   return class Base extends base {
-// Necessary styles to be added to the litElement based target element:
-//
+    // Necessary styles to be added to the litElement based target element:
     static get styles () {
       return [
         super.styles,
@@ -85,8 +87,6 @@ export const DragAndDropMixin = (base) => {
           ::slotted(.target) {
             position: relative;
             box-sizing: border-box;
-            /* transform: translateY(30%); */
-            /* transition: transform 0.1s ease-in-out; */
             background-color: white;
             margin-top: 40px;
           }
@@ -103,39 +103,38 @@ export const DragAndDropMixin = (base) => {
             left: 0;
             width: 100%;
             background-color: purple;
-            /* animation: fadeIn 0.3s ease-in; */
+            /* animation: fadeIn 0.3s ease-in;*/
           }
         `
       ]
     }
 
-// These properties are also added to the target element.
-//
+    // These properties are also added to the target element.
     static get properties () {
       return {
-// This boolean property turns DnD funnctionality on an off.
+      // This boolean property turns DnD funnctionality on an off.
         dragDrop: {
           type: Boolean,
           attribute: 'drag-drop'
         },
-// This flag should be used only in vanilla, static HTML markup. The DOM should NEVER be directly modified in a lit-html based elements.
+        // This flag should be used only in vanilla, static HTML markup. The DOM should NEVER be directly modified in a lit-html based elements.
         manipulateDOM: { type: Boolean, attribute: 'manipulate-dom' },
-// The handle icon can be customized.
+        // The handle icon can be customized.
         handleIcon: { type: String }
       }
     }
 
     constructor () {
       super()
-// By default, drag and drop functionality is disabled
+      // By default, drag and drop functionality is disabled
       this.dragDrop = false
-// By default, the DOM is not updated while dragging. This needs to be set if it's ok to manipulate the DOM directly
+      // By default, the DOM is not updated while dragging. This needs to be set if it's ok to manipulate the DOM directly
       this.manipulateDOM = false
-// This is the standard icon used as the drag handle in the activated draggable elements
+      // This is the standard icon used as the drag handle in the activated draggable elements
       this.handleIcon = `
          <svg class="icon" height="20" viewBox="0 0 24 24" width="20"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
       `
-// The listeners are defined and bound to the mixin target element in the constructor
+      // The listeners are defined and bound to the mixin target element in the constructor
       this._boundDragstart = this._dragstart.bind(this)
       this._boundDragover = this._dragover.bind(this)
       this._boundDragend = this._dragend.bind(this)
@@ -145,13 +144,13 @@ export const DragAndDropMixin = (base) => {
       this._boundDragdrop = this._dragdrop.bind(this)
     }
 
-// After initialization, the firstUpdated lifecycle method is used to setup a drop target that shows up as the last list position placeholder while dragging.
+    // After initialization, the firstUpdated lifecycle method is used to setup a drop target that shows up as the last list position placeholder while dragging.
     // firstUpdated () {
     //   this.lastDropTarget = this.shadowRoot.querySelector('#last-row-drop-target')
     //   if (this.lastDropTarget) this._activateRowDnD(this.lastDropTarget)
     // }
 
-// The next two private methods are used to activate and deactivate the draggable list items.
+    // The next two private methods are used to activate and deactivate the draggable list items.
     _activateRowDnD (row) {
       row.addEventListener('dragover', this._dragover, false)
       row.addEventListener('dragend', this._dragend, false)
@@ -170,10 +169,10 @@ export const DragAndDropMixin = (base) => {
       row.removeEventListener('drop', this._dragdrop)
     }
 
-// The _addHandle private method makes sure there's is visual feedback of the draggable state of the list items. It also
-// adds listeners to the handle that provide an important implementation detail.
-// The list items will maintain their interaction behavior after beign activated. The only way to actually drag
-// the item is to point and click or touch the handle icon.
+    // The _addHandle private method makes sure there's is visual feedback of the draggable state of the list items. It also
+    // adds listeners to the handle that provide an important implementation detail.
+    // The list items will maintain their interaction behavior after beign activated. The only way to actually drag
+    // the item is to point and click or touch the handle icon.
     _addHandle (row) {
       if (row.classList.contains('hasHandle')) return
       row.classList.add('hasHandle')
@@ -181,7 +180,7 @@ export const DragAndDropMixin = (base) => {
       handle.classList.add(['handle'])
       handle.innerHTML = this.handleIcon
 
-// Hovering the handle will enable dragging the row element
+      // Hovering the handle will enable dragging the row element
       handle.addEventListener('mouseover', () => {
         row.setAttribute('draggable', 'true')
         row.addEventListener('dragstart', this._dragstart, false)
@@ -191,13 +190,13 @@ export const DragAndDropMixin = (base) => {
         row.removeEventListener('dragstart', this._dragstart)
       })
       const root = row.shadowRoot || row
-// Needs to be asynchrounous
+      // Needs to be asynchrounous
       setTimeout(() => {
         root.append(handle)
       }, 1)
     }
 
-// _removeHandle is used in the event that DnD is turn off.
+    // _removeHandle is used in the event that DnD is turn off.
     _removeHandle (row) {
       row.classList.remove('hasHandle')
       const handle = row.shadowRoot
@@ -206,7 +205,7 @@ export const DragAndDropMixin = (base) => {
       if (handle) handle.remove()
     }
 
-//  Sets up all list children (rows) with listeners for Drag and Drop
+    //  Sets up all list children (rows) with listeners for Drag and Drop
     _updateDragDrop () {
       const rows = this.shadowRoot.querySelector('slot').assignedElements()
       for (const row of rows) {
@@ -220,41 +219,46 @@ export const DragAndDropMixin = (base) => {
       }
     }
 
-// # Drag and Drop Handlers and hooks
-//
-// All the logic used during DnD is defined in these handlers, which are registered as listeners during instantiation.
-// All listeners are private and not supposed to be modified. They call a hook for each type of event.
-// The hooks should be redefined to handle any work that's needed during of in response to the drag event.
+    // # Drag and Drop Handlers and hooks
+    //
+    // All the logic used during DnD is defined in these handlers, which are registered as listeners during instantiation.
+    // All listeners are private and not supposed to be modified. They call a hook for each type of event.
+    // The hooks should be redefined to handle any work that's needed during of in response to the drag event.
     _dragstart (e) {
       if (this.header) e.preventDefault()
+      // Start out by assuming the user is moving, and that moving is allowed. This can be changed in the hook.
       e.dataTransfer.effectAllowed = 'move'
       e.dataTransfer.dropEffect = 'move'
-// This is the proper way to 'move' data around while dragging. However, webKit based browsers
-// only make that data accessible on the drop event, so checking anything in dragover is harder.
-// To make it simpler and fully intereoperable, the list parent (ee-table)
-// stores the current moving item in a property
+      // The proper way to 'move' data around while dragging is to use the dataTransfer interface. However, webKit based browsers
+      // only make that data accessible in the drop event, so getting anything in dragenter or dragover is impossible.
+      // To make it simpler and fully intereoperable, we store a reference to the parent of the moving item and the item itself
+      // in the Mixin's outer scope
       originParent = this.parentElement
       moving = this
+      // Use requestAnimationFrame API to update styles, toa void performance issues
       requestAnimationFrame(() => {
         this.classList.add('moving')
       })
-// All handler hooks are called from the list parent, which must implement them.
+      // All handler hooks are called from the list parent, which must implement them.
       originParent.handleDragstart(e, moving)
     }
 
     handleDragstart (e) {}
 
     _dragenter (e) {
-// preventDefault is necessary to ALLOW custom dragenter handling
+      // preventDefault is necessary to ALLOW custom dragenter handling
       e.dataTransfer.dropEffect = 'move'
       if (this.header) return
       e.preventDefault()
-      // targetRows = this.parentElement.shadowRoot.querySelector('slot').assignedElements()
+      // Like in dragstart with the moving item, we store the target's parent reference for later use
       targetParent = this.parentElement
+
       requestAnimationFrame(() => {
+        // The targetRows array might have previous targets in it. Remove the target class from them 
         targetRows.forEach(element => {
           element.classList.remove('target')
         })
+        // Add target class and push the current target to the targetRows array
         if (this !== moving) {
           this.classList.add('target')
           targetRows.push(this)
@@ -265,8 +269,9 @@ export const DragAndDropMixin = (base) => {
 
     handleDragenter (e) {}
 
+    // dragover, dragleave and dragexit listeners are setup and hooks are available, but no work is done here by default
     _dragover (e) {
-// preventDefault is necessary to ALLOW custom dragover and dropping handling
+      // preventDefault is necessary to ALLOW custom dragover and dropping handling
       if (!this.header) e.preventDefault()
       e.dataTransfer.dropEffect = 'move'
 
@@ -277,8 +282,7 @@ export const DragAndDropMixin = (base) => {
 
     _dragleave (e) {
       if (this.header) e.preventDefault()
-      requestAnimationFrame(() => {
-      })
+
       targetParent.handleDragleave(e, moving, this)
     }
 
@@ -286,16 +290,20 @@ export const DragAndDropMixin = (base) => {
 
     _dragexit (e) {
       if (this.header) e.preventDefault()
+     
       targetParent.handleDragexit(e, moving, this)
     }
 
     handleDragexit (e) {}
 
     _dragend (e) {
-// Clear the temporary moving item reference
       if (this.header) e.preventDefault()
-      if (!originParent || targetParent) return
-      originParent.handleDragend(e, moving, this).then(() => {
+      // some niche cases might result in this method running when references are empty. Bail to avoid errors
+      if (!originParent || !targetParent) return
+
+      // This hook needs to be a promise, so references are not cleared before the hook is done
+      originParent.handleDragend(e, moving).then(() => {
+        // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
         if (e.dataTransfer.dropEffect === 'none') {
           requestAnimationFrame(() => {
             this.classList.remove('moving')
@@ -306,11 +314,11 @@ export const DragAndDropMixin = (base) => {
             originParent = null
             targetParent = null
           })
-          console.log('dragend promise')
         }
       })
     }
 
+    // Default dragend hook defined as asynchronous. This needs to also be the case when redefining it in the the mixed in class 
     async handleDragend (e) {
       return true
     }
@@ -318,7 +326,7 @@ export const DragAndDropMixin = (base) => {
     _dragdrop (e) {
       if (this.header) return
       e.preventDefault()
-      e.dataTransfer.dropEffect = 'move'
+      // Like with dragend, the hook needs to return a promise to avoid timing issues.
       targetParent.handleDragdrop(e, moving, this).then(() => {
         requestAnimationFrame(() => {
           moving.classList.remove('moving')
