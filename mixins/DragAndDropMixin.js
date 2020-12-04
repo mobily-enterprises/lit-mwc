@@ -78,17 +78,17 @@ export const DragAndDropMixin = (base) => {
           }
 
           ::slotted(.moving) {
-            visibility: hidden;
-            height: 0;
+            /* visibility: hidden; */
+            /* height: 0; */
           }
 
           ::slotted(.target) {
             position: relative;
             box-sizing: border-box;
             background-color: white;
-            margin-top: 40px;
+            /* margin-top: 40px; */
           }
-
+/* 
           ::slotted(.target)::before {
             content: attr(drop-label);
             font-weight: bold;
@@ -102,7 +102,7 @@ export const DragAndDropMixin = (base) => {
             width: 100%;
             background-color: purple;
             /* animation: fadeIn 0.3s ease-in;*/
-          }
+          } */
         `
       ]
     }
