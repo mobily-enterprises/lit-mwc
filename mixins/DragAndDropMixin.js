@@ -80,6 +80,7 @@ export const DragAndDropMixin = (base) => {
           ::slotted(.moving) {
             /* visibility: hidden; */
             /* height: 0; */
+            opacity: 0.2;
           }
 
           ::slotted(.target) {
