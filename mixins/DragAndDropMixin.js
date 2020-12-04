@@ -35,13 +35,11 @@
 // This is the DragAndDropMixin declaration:
 import { css } from 'lit-element'
 
-// 
 // These are declared outside the mixin to make sure diffrent instances access the same data
-// 
 let moving = null
 let originParent = null
 let targetParent = null
-let targetRows = []
+const targetRows = []
 
 export const DragAndDropMixin = (base) => {
   return class Base extends base {
@@ -254,7 +252,7 @@ export const DragAndDropMixin = (base) => {
       targetParent = this.parentElement
 
       requestAnimationFrame(() => {
-        // The targetRows array might have previous targets in it. Remove the target class from them 
+        // The targetRows array might have previous targets in it. Remove the target class from them
         targetRows.forEach(element => {
           element.classList.remove('target')
         })
@@ -262,7 +260,7 @@ export const DragAndDropMixin = (base) => {
         if (this !== moving) {
           this.classList.add('target')
           targetRows.push(this)
-        } 
+        }
       })
       targetParent.handleDragenter(e, moving, this)
     }
@@ -290,7 +288,6 @@ export const DragAndDropMixin = (base) => {
 
     _dragexit (e) {
       if (this.header) e.preventDefault()
-     
       targetParent.handleDragexit(e, moving, this)
     }
 
@@ -318,7 +315,7 @@ export const DragAndDropMixin = (base) => {
       })
     }
 
-    // Default dragend hook defined as asynchronous. This needs to also be the case when redefining it in the the mixed in class 
+    // Default dragend hook defined as asynchronous. This needs to also be the case when redefining it in the the mixed in class
     async handleDragend (e) {
       return true
     }
