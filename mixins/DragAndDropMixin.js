@@ -239,7 +239,6 @@ export const DragAndDropMixin = (base) => {
     handleDragstart (e) {}
 
     _dragenter (e) {
-      console.log(this === window.moving)
       if (this === window.lastEntered) return
       window.lastEntered = this
 
@@ -301,18 +300,20 @@ export const DragAndDropMixin = (base) => {
 
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originParent.handleDragend(e, window.moving).then(() => {
-        // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
-        if (e.dataTransfer.dropEffect === 'none') {
-          requestAnimationFrame(() => {
-            this.classList.remove('moving')
-            targetRows.forEach(element => {
-              element.classList.remove('target')
+        window.targetParent.handleDragend(e, window.moving).then(() => {
+          // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
+          if (e.dataTransfer.dropEffect === 'none') {
+            requestAnimationFrame(() => {
+              this.classList.remove('moving')
+              targetRows.forEach(element => {
+                element.classList.remove('target')
+              })
+              window.moving = null
+              window.originParent = null
+              window.targetParent = null
             })
-            window.moving = null
-            window.originParent = null
-            window.targetParent = null
-          })
-        }
+          }
+        })
       })
     }
 
