@@ -40,7 +40,7 @@ window.moving = null
 window.originParent = null
 window.targetParent = null
 const targetRows = []
-let lastEntered = null
+window.lastEntered = null
 
 export const DragAndDropMixin = (base) => {
   return class Base extends base {
@@ -217,7 +217,7 @@ export const DragAndDropMixin = (base) => {
     // All listeners are private and not supposed to be modified. They call a hook for each type of event.
     // The hooks should be redefined to handle any work that's needed during of in response to the drag event.
     _dragstart (e) {
-      lastEntered = null
+      window.lastEntered = null
       if (this.header) e.preventDefault()
       // Start out by assuming the user is moving, and that moving is allowed. This can be changed in the hook.
       e.dataTransfer.effectAllowed = 'move'
@@ -239,8 +239,9 @@ export const DragAndDropMixin = (base) => {
     handleDragstart (e) {}
 
     _dragenter (e) {
-      if (this === lastEntered) return
-      lastEntered = this
+      console.log(this === window.moving)
+      if (this === window.lastEntered) return
+      window.lastEntered = this
 
       // preventDefault is necessary to ALLOW custom dragenter handling
       e.dataTransfer.dropEffect = 'move'
@@ -292,7 +293,7 @@ export const DragAndDropMixin = (base) => {
     handleDragexit (e) {}
 
     _dragend (e) {
-      lastEntered = null
+      window.lastEntered = null
 
       if (this.header) e.preventDefault()
       // some niche cases might result in this method running when references are empty. Bail to avoid errors
