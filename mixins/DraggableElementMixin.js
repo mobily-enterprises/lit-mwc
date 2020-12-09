@@ -19,6 +19,9 @@ export const DraggableElementMixin = (base) => {
     constructor () {
       super()
       this.dragData = {}
+      this.addEventListener('drop', function(e) {
+        console.log('DROP EVENT HAPPENED HERE')
+      })
     }
 
     firstUpdated () {

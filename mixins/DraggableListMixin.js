@@ -255,6 +255,7 @@ export const DraggableListMixin = (base) => {
         targetRows.forEach(element => {
           element.classList.remove('target')
         })
+        targetRows.splice(0, targetRows.length)
         // Add target class and push the current target to the targetRows array
         if (this !== window.moving) {
           this.classList.add('target')
@@ -292,7 +293,7 @@ export const DraggableListMixin = (base) => {
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originContainer.handleDragend(e, window.moving).then(() => {
         // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
-        if (e.dataTransfer.dropEffect === 'none') {
+        // if (e.dataTransfer.dropEffect === 'none') {
           requestAnimationFrame(() => {
             this.classList.remove('moving')
             targetRows.forEach(element => {
@@ -302,26 +303,26 @@ export const DraggableListMixin = (base) => {
             window.originContainer = null
             window.targetContainer = null
           })
-        }
+        // }
       })
     }
 
 
     _dragdrop (e) {
-      console.log('MIXIN', e.dataTransfer.dropEffect)
+      // console.log('MIXIN', e.dataTransfer.dropEffect)
       e.preventDefault()
       // Like with dragend, the hook needs to return a promise to avoid timing issues.
-      window.targetContainer.handleDragdrop(e, window.moving, this).then(() => {
-        requestAnimationFrame(() => {
-          window.moving.classList.remove('moving')
-          targetRows.forEach(element => {
-            element.classList.remove('target')
-          })
-          window.moving = null
-          window.originContainer = null
-          window.targetContainer = null
-        })
-      })
+      // window.targetContainer.handleDragdrop(e, window.moving, this).then(() => {
+      //   requestAnimationFrame(() => {
+      //     window.moving.classList.remove('moving')
+      //     targetRows.forEach(element => {
+      //       element.classList.remove('target')
+      //     })
+      //     window.moving = null
+      //     window.originContainer = null
+      //     window.targetContainer = null
+      //   })
+      // })
     }
 
   }
