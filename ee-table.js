@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
-import { DraggableListMixin } from './mixins/DragdableListMixin'
+import { DraggableListMixin } from './mixins/DraggableListMixin'
 
 // https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 // https://dev.to/drews256/ridiculously-easy-row-and-column-layouts-with-flexbox-1k01
