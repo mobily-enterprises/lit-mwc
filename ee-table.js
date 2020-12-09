@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
-import { DragAndDropMixin } from './mixins/DragAndDropMixin'
+import { DraggableListMixin } from './mixins/DragdableListMixin'
 
 // https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 // https://dev.to/drews256/ridiculously-easy-row-and-column-layouts-with-flexbox-1k01
@@ -9,7 +9,7 @@ import { DragAndDropMixin } from './mixins/DragAndDropMixin'
 // https://github.com/Victor-Bernabe/lit-media-query/blob/master/lit-media-query.js
 
 // eslint-disable-next-line new-cap
-export class EeTable extends DragAndDropMixin(ThemeableMixin('ee-table')(StyleableMixin(LitElement))) {
+export class EeTable extends DraggableListMixin(ThemeableMixin('ee-table')(StyleableMixin(LitElement))) {
   static get styles () {
     return [
       super.styles || [],

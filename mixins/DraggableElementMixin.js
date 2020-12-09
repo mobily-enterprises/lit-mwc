@@ -1,4 +1,4 @@
-// DraggableElementMixin
+// DraggableElement
 // ===============
 export const DraggableElementMixin = (base) => {
   return class Base extends base {
