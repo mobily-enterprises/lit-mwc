@@ -14,11 +14,13 @@ export const DraggableMixin = (base) => {
     // These properties are also added to the target element.
     static get properties () {
       return {
+        dragData: { type: Object, attribute: 'drag-data' }
       }
     }
 
     constructor () {
       super()
+      this.dragData = {}
     }
 
     firstUpdated () {

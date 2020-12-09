@@ -37,8 +37,8 @@ import { css } from 'lit-element'
 
 // These are declared outside the mixin to make sure diffrent instances access the same data
 window.moving = null
-window.originParent = null
-window.targetParent = null
+window.originContainer = null
+window.targetContainer = null
 const targetRows = []
 window.lastEntered = null
 
@@ -109,39 +109,16 @@ export const DragAndDropMixin = (base) => {
       ]
     }
 
-    // These properties are also added to the target element.
-    static get properties () {
-      return {
-      // This boolean property turns DnD funnctionality on an off.
-        dragDrop: {
-          type: Boolean,
-          attribute: 'drag-drop'
-        },
-        // This flag should be used only in vanilla, static HTML markup. The DOM should NEVER be directly modified in a lit-html based elements.
-        manipulateDOM: { type: Boolean, attribute: 'manipulate-dom' },
-        // The handle icon can be customized.
-        handleIcon: { type: String }
-      }
-    }
-
     constructor () {
       super()
-      // By default, drag and drop functionality is disabled
-      this.dragDrop = false
-      // By default, the DOM is not updated while dragging. This needs to be set if it's ok to manipulate the DOM directly
-      this.manipulateDOM = false
-      // This is the standard icon used as the drag handle in the activated draggable elements
-      this.handleIcon = `
-         <span><svg class="icon" height="20" viewBox="0 0 24 24" width="20"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
-      `
       this.addEventListener('enable-dnd', this._enableDndForElement)
     }
-
 
     _enableDndForElement (e) {
       e.stopPropagation()
       const el = e.srcElement
       const dndHandle = el.querySelector('#dnd-handle')
+      el.dndContainerElement = this
 
       // If a DND handle is defined (element with ID dnd-handle), then
       // use THAT as the only option to move elements around
@@ -168,13 +145,25 @@ export const DragAndDropMixin = (base) => {
       }
 
       // Add event listeners to element
-      el.addEventListener('dragover', this._dragover, false)
-      el.addEventListener('dragend', this._dragend, false)
       el.addEventListener('dragenter', this._dragenter, false)
+      el.addEventListener('dragend', this._dragend, false)
+      el.addEventListener('drop', this._dragdrop, false)
+
       el.addEventListener('dragleave', this._dragleave, false)
       el.addEventListener('dragexit', this._dragexit, false)
-      el.addEventListener('drop', this._dragdrop, false)
+      el.addEventListener('dragover', this._dragover, false)
     }
+
+    // HOOKS to be redefined by the mixing class
+
+    async handleDragstart (e) {}
+    async handleDragenter (e) {}
+    async handleDragend (e) { return true }
+    async handleDragdrop (e) { return true }
+
+    async handleDragexit (e) {}
+    async handleDragleave (e) {}
+    async handleDragover (e) {}
 
     // # Drag and Drop Handlers and hooks
     //
@@ -191,19 +180,19 @@ export const DragAndDropMixin = (base) => {
       // only make that data accessible in the drop event, so getting anything in dragenter or dragover is impossible.
       // To make it simpler and fully intereoperable, we store a reference to the parent of the moving item and the item itself
       // in the Mixin's outer scope
-      window.originParent = this.parentElement
+      window.originContainer = this.parentElement
       window.moving = this
       // Use requestAnimationFrame API to update styles, toa void performance issues
       requestAnimationFrame(() => {
         this.classList.add('moving')
       })
       // All handler hooks are called from the list parent, which must implement them.
-      window.originParent.handleDragstart(e, window.moving)
+      window.originContainer.handleDragstart(e, window.moving)
     }
 
-    handleDragstart (e) {}
 
     _dragenter (e) {
+      console.log('DRAGENTER IN MIXIN:', e.dataTransfer.dropEffect)
       if (this === window.lastEntered) return
       window.lastEntered = this
 
@@ -212,7 +201,7 @@ export const DragAndDropMixin = (base) => {
       if (this.header) return
       e.preventDefault()
       // Like in dragstart with the moving item, we store the target's parent reference for later use
-      window.targetParent = this.parentElement
+      window.targetContainer = this.parentElement
 
       requestAnimationFrame(() => {
         // The targetRows array might have previous targets in it. Remove the target class from them
@@ -225,10 +214,9 @@ export const DragAndDropMixin = (base) => {
           targetRows.push(this)
         }
       })
-      window.targetParent.handleDragenter(e, window.moving, this)
+      window.targetContainer.handleDragenter(e, window.moving, this)
     }
 
-    handleDragenter (e) {}
 
     // dragover, dragleave and dragexit listeners are setup and hooks are available, but no work is done here by default
     _dragover (e) {
@@ -236,36 +224,31 @@ export const DragAndDropMixin = (base) => {
       if (!this.header) e.preventDefault()
       e.dataTransfer.dropEffect = 'move'
 
-      window.targetParent.handleDragover(e, window.moving, this)
+      window.targetContainer.handleDragover(e, window.moving, this)
     }
 
-    handleDragover (e) {}
 
     _dragleave (e) {
       if (this.header) e.preventDefault()
 
-      window.targetParent.handleDragleave(e, window.moving, this)
+      window.targetContainer.handleDragleave(e, window.moving, this)
     }
-
-    handleDragleave (e) {}
 
     _dragexit (e) {
       if (this.header) e.preventDefault()
-      window.targetParent.handleDragexit(e, window.moving, this)
+      window.targetContainer.handleDragexit(e, window.moving, this)
     }
-
-    handleDragexit (e) {}
 
     _dragend (e) {
       window.lastEntered = null
 
       if (this.header) e.preventDefault()
       // some niche cases might result in this method running when references are empty. Bail to avoid errors
-      if (!window.originParent || !window.targetParent) return
+      if (!window.originContainer || !window.targetContainer) return
 
       // This hook needs to be a promise, so references are not cleared before the hook is done
-      window.originParent.handleDragend(e, window.moving).then(() => {
-        window.targetParent.handleDragend(e, window.moving).then(() => {
+      window.originContainer.handleDragend(e, window.moving).then(() => {
+        window.targetContainer.handleDragend(e, window.moving).then(() => {
           // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
           if (e.dataTransfer.dropEffect === 'none') {
             requestAnimationFrame(() => {
@@ -274,39 +257,32 @@ export const DragAndDropMixin = (base) => {
                 element.classList.remove('target')
               })
               window.moving = null
-              window.originParent = null
-              window.targetParent = null
+              window.originContainer = null
+              window.targetContainer = null
             })
           }
         })
       })
     }
 
-    // Default dragend hook defined as asynchronous. This needs to also be the case when redefining it in the the mixed in class
-    async handleDragend (e) {
-      return true
-    }
 
     _dragdrop (e) {
       console.log('MIXIN', e.dataTransfer.dropEffect)
       if (this.header) return
       e.preventDefault()
       // Like with dragend, the hook needs to return a promise to avoid timing issues.
-      window.targetParent.handleDragdrop(e, window.moving, this).then(() => {
+      window.targetContainer.handleDragdrop(e, window.moving, this).then(() => {
         requestAnimationFrame(() => {
           window.moving.classList.remove('moving')
           targetRows.forEach(element => {
             element.classList.remove('target')
           })
           window.moving = null
-          window.originParent = null
-          window.targetParent = null
+          window.originContainer = null
+          window.targetContainer = null
         })
       })
     }
 
-    async handleDragdrop (e) {
-      return true
-    }
   }
 }

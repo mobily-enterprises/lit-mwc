@@ -89,14 +89,8 @@ export class EeRow extends DraggableMixin(ThemeableMixin('ee-row')(StyleableMixi
 
   static get properties () {
     return {
-      header: { type: Boolean },
-      dragData: { type: Object, attribute: 'drag-data' }
+      header: { type: Boolean }
     }
-  }
-
-  constructor () {
-    super()
-    this.dragData = {}
   }
 
   render () {
