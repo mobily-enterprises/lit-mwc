@@ -1,4 +1,4 @@
-// DragAndDropMixin
+// DraggableListMixin
 // ====================
 //
 // This mixin adds a Drag and Drop API basic implementation to any element.
@@ -32,7 +32,7 @@
 // 2. It needs to have a "header" attribute if the first child is used as a table header and will not be draggable
 // 3. It needs as "drag-data" attribute and/or "dragData" property if any usable data is necessary for the DnD operation. More on that later.
 //
-// This is the DragAndDropMixin declaration:
+// This is the DraggabeListMixin declaration:
 import { css } from 'lit-element'
 
 // These are declared outside the mixin to make sure diffrent instances access the same data
@@ -42,7 +42,7 @@ window.targetContainer = null
 const targetRows = []
 window.lastEntered = null
 
-export const DragAndDropMixin = (base) => {
+export const DraggableListMixin = (base) => {
   return class Base extends base {
     // Necessary styles to be added to the litElement based target element:
     static get styles () {
