@@ -134,11 +134,11 @@ export const DragAndDropMixin = (base) => {
       this.handleIcon = `
          <span><svg class="icon" height="20" viewBox="0 0 24 24" width="20"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
       `
-      this.addEventListener('enable-dnd', this._enableDnD)
+      this.addEventListener('enable-dnd', this._enableDndForElement)
     }
 
 
-    _enableDnD (e) {
+    _enableDndForElement (e) {
       e.stopPropagation()
       const el = e.srcElement
       const dndHandle = el.querySelector('#dnd-handle')
