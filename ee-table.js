@@ -87,7 +87,7 @@ export class EeTable extends DragAndDropMixin(ThemeableMixin('ee-table')(Styleab
 
   _slotChanged () {
     this._handleResize()
-    this._updateDragDrop()
+    // this._updateDragDrop()
   }
 }
 customElements.define('ee-table', EeTable)

@@ -1,8 +1,9 @@
 import { LitElement, html, css } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
+import { DraggableMixin } from './mixins/DraggableMixin'
 
-export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) {
+export class EeRow extends DraggableMixin(ThemeableMixin('ee-row')(StyleableMixin(LitElement))) {
   static get styles () {
     return [
       css`
@@ -76,7 +77,7 @@ export class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) 
           pointer-events: none;
           visibility: hidden;
         }
- 
+
         :host([draggable]) .handle,
         :host([draggable]) ::slotted(.handle) {
           display: block;
