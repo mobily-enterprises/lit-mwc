@@ -5,9 +5,7 @@ export const DraggableElementMixin = (base) => {
     // Necessary styles to be added to the litElement based target element:
     static get styles () {
       return [
-        super.styles,
-        css`
-        `
+        super.styles
       ]
     }
 

@@ -1,9 +1,10 @@
-import { LitElement, html, css } from 'lit-element'
+import { LitElement, html, css, unsafeCSS } from 'lit-element'
 import { StyleableMixin } from './mixins/StyleableMixin'
 import { ThemeableMixin } from './mixins/ThemeableMixin'
 import { DraggableElementMixin } from './mixins/DraggableElementMixin'
 
 export class EeRow extends DraggableElementMixin(ThemeableMixin('ee-row')(StyleableMixin(LitElement))) {
+  
   static get styles () {
     return [
       css`
@@ -57,7 +58,7 @@ export class EeRow extends DraggableElementMixin(ThemeableMixin('ee-row')(Stylea
 
         :host([size=medium]) ::slotted(ee-cell[extra]),
         :host([size=small]) ::slotted(ee-cell[extra])
-         {
+        {
           display:none !important;
         }
 
@@ -66,10 +67,11 @@ export class EeRow extends DraggableElementMixin(ThemeableMixin('ee-row')(Stylea
         }
 
         /* Drag and Drop Styles */
-        #handle {
+        #dnd-handle, ::slotted(#dnd-handle) {
           display: none;
           max-width: 18px;
           height: 18px;
+          cursor: move;
         }
 
         :host([header]) .handle,
@@ -81,16 +83,20 @@ export class EeRow extends DraggableElementMixin(ThemeableMixin('ee-row')(Stylea
         :host([draggable]) .handle,
         :host([draggable]) ::slotted(.handle) {
           display: block;
-          cursor: move;
         }
       `
     ]
   }
 
+
   static get properties () {
     return {
       header: { type: Boolean }
     }
+  }
+
+  constructor () {
+    super()
   }
 
   render () {

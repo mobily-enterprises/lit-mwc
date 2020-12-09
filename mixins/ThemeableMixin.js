@@ -23,5 +23,21 @@ export const LitBits = (base) => {
         html
       }
     }
+
+    //  customStyles allows us to dynamically update the shadowRoot adopted StyleSheets by setting this.customStyles with a CSSResult object
+    get customStyles () {
+      return this._customStyles || css``
+    }
+
+    set customStyles (cssTemplate) {
+      if (typeof cssTemplate === 'string') {
+        cssTemplate = unsafeCSS`${cssTemplate}` 
+      }
+      this._customStyles = cssTemplate
+      this.constructor._styles = [...this.constructor._styles, this._customStyles]
+      this.adoptStyles()
+      this.requestUpdate();
+    }
+
   }
 }

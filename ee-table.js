@@ -81,7 +81,6 @@ export class EeTable extends DraggableListMixin(ThemeableMixin('ee-table')(Style
     if (this.themeRender) return this.themeRender()
     return html`
       <slot @slotchange="${this._slotChanged}"></slot>
-      <ee-row id="last-row-drop-target">target for last item</ee-row>
     `
   }
 
