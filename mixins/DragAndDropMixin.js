@@ -132,83 +132,48 @@ export const DragAndDropMixin = (base) => {
       this.manipulateDOM = false
       // This is the standard icon used as the drag handle in the activated draggable elements
       this.handleIcon = `
-         <svg class="icon" height="20" viewBox="0 0 24 24" width="20"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+         <span><svg class="icon" height="20" viewBox="0 0 24 24" width="20"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
       `
+      this.addEventListener('enable-dnd', this._enableDnD)
     }
 
-    // After initialization, the firstUpdated lifecycle method is used to setup a drop target that shows up as the last list position placeholder while dragging.
-    // firstUpdated () {
-    //   this.lastDropTarget = this.shadowRoot.querySelector('#last-row-drop-target')
-    //   if (this.lastDropTarget) this._activateRowDnD(this.lastDropTarget)
-    // }
 
-    // The next two private methods are used to activate and deactivate the draggable list items.
-    _activateRowDnD (row) {
-      row.addEventListener('dragover', this._dragover, false)
-      row.addEventListener('dragend', this._dragend, false)
-      row.addEventListener('dragenter', this._dragenter, false)
-      row.addEventListener('dragleave', this._dragleave, false)
-      row.addEventListener('dragexit', this._dragexit, false)
-      row.addEventListener('drop', this._dragdrop, false)
-    }
+    _enableDnD (e) {
+      e.stopPropagation()
+      const el = e.srcElement
+      const dndHandle = el.querySelector('#dnd-handle')
 
-    _deactivateRowDnD (row) {
-      row.removeEventListener('dragover', this._dragover)
-      row.removeEventListener('dragend', this._dragend)
-      row.removeEventListener('dragenter', this._dragenter)
-      row.removeEventListener('dragleave', this._dragleave)
-      row.removeEventListener('dragexit', this._dragexit)
-      row.removeEventListener('drop', this._dragdrop)
-    }
-
-    // The _addHandle private method makes sure there's is visual feedback of the draggable state of the list items. It also
-    // adds listeners to the handle that provide an important implementation detail.
-    // The list items will maintain their interaction behavior after beign activated. The only way to actually drag
-    // the item is to point and click or touch the handle icon.
-    _addHandle (row) {
-      if (row.classList.contains('hasHandle')) return
-      row.classList.add('hasHandle')
-      const handle = document.createElement('div')
-      handle.classList.add(['handle'])
-      handle.innerHTML = this.handleIcon
-
-      // Hovering the handle will enable dragging the row element
-      handle.addEventListener('mouseover', () => {
-        row.setAttribute('draggable', 'true')
-        row.addEventListener('dragstart', this._dragstart, false)
-      })
-      handle.addEventListener('mouseout', () => {
-        row.removeAttribute('draggable')
-        row.removeEventListener('dragstart', this._dragstart)
-      })
-      const root = row.shadowRoot || row
-      // Needs to be asynchrounous
-      setTimeout(() => {
-        root.append(handle)
-      }, 1)
-    }
-
-    // _removeHandle is used in the event that DnD is turn off.
-    _removeHandle (row) {
-      row.classList.remove('hasHandle')
-      const handle = row.shadowRoot
-        ? row.shadowRoot.querySelector('div.handle')
-        : row.querySelector('div.handle')
-      if (handle) handle.remove()
-    }
-
-    //  Sets up all list children (rows) with listeners for Drag and Drop
-    _updateDragDrop () {
-      const rows = this.shadowRoot.querySelector('slot').assignedElements()
-      for (const row of rows) {
-        if (this.dragDrop && !row.hasAttribute('no-dnd')) {
-          if (!row.hasAttribute('no-drag')) this._addHandle(row)
-          if (!row.hasAttribute('no-drop')) this._activateRowDnD(row)
-        } else {
-          this._removeHandle(row)
-          this._deactivateRowDnD(row)
-        }
+      // If a DND handle is defined (element with ID dnd-handle), then
+      // use THAT as the only option to move elements around
+      if (dndHandle) {
+        // Hovering the handle will enable dragging the element
+        dndHandle.addEventListener('mouseover', () => {
+          el.setAttribute('draggable', 'true')
+          el.addEventListener('dragstart', this._dragstart, false)
+        })
+        dndHandle.addEventListener('mouseout', () => {
+          el.removeAttribute('draggable')
+          el.removeEventListener('dragstart', this._dragstart)
+        })
+      } else {
+        // Hovering the handle will enable dragging the element
+        el.addEventListener('mouseover', () => {
+          el.setAttribute('draggable', 'true')
+          el.addEventListener('dragstart', this._dragstart, false)
+        })
+        el.addEventListener('mouseout', () => {
+          el.removeAttribute('draggable')
+          el.removeEventListener('dragstart', this._dragstart)
+        })
       }
+
+      // Add event listeners to element
+      el.addEventListener('dragover', this._dragover, false)
+      el.addEventListener('dragend', this._dragend, false)
+      el.addEventListener('dragenter', this._dragenter, false)
+      el.addEventListener('dragleave', this._dragleave, false)
+      el.addEventListener('dragexit', this._dragexit, false)
+      el.addEventListener('drop', this._dragdrop, false)
     }
 
     // # Drag and Drop Handlers and hooks
@@ -323,6 +288,7 @@ export const DragAndDropMixin = (base) => {
     }
 
     _dragdrop (e) {
+      console.log('MIXIN', e.dataTransfer.dropEffect)
       if (this.header) return
       e.preventDefault()
       // Like with dragend, the hook needs to return a promise to avoid timing issues.
