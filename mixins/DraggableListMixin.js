@@ -218,6 +218,7 @@ export const DraggableListMixin = (base) => {
     validDrop (e, moving, target) {
       return true
     }
+
     // # Drag and Drop Handlers and hooks
     //
     // All the logic used during DnD is defined in these handlers, which are registered as listeners during instantiation.
@@ -253,6 +254,8 @@ export const DraggableListMixin = (base) => {
       // Like in dragstart with the moving item, we store the target's parent reference for later use
       window.targetContainer = this.parentElement
 
+      window.targetContainer.validDrop(e, window.moving, window.lastEntered)     
+      
       requestAnimationFrame(() => {
         // The targetRows array might have previous targets in it. Remove the target class from them
         targetRows.forEach(element => {
@@ -289,10 +292,10 @@ export const DraggableListMixin = (base) => {
 
     _dragend (e) {
       window.lastEntered = null
-
       // some niche cases might result in this method running when references are empty. Bail to avoid errors
       if (!window.originContainer || !window.targetContainer) return
-
+      
+      window.originContainer.validDrop(e, window.moving, window.lastEntered)
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originContainer.handleDragend(e, window.moving).then(() => {
         // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
