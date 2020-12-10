@@ -250,7 +250,7 @@ export const DraggableListMixin = (base) => {
 
       // Like in dragstart with the moving item, we store the target's parent reference for later use
       window.targetContainer = this.parentElement
-      if (!window.targetContainer.validDrop(e, window.moving, this)) {
+      if (!window.targetContainer.validDrop(window.moving, this)) {
         console.log('invalid drop', window.targetContainer.validDrop(e, window.moving, this))
         return
       }
@@ -296,7 +296,7 @@ export const DraggableListMixin = (base) => {
       // some niche cases might result in this method running when references are empty. Bail to avoid errors
       if (!window.originContainer || !window.targetContainer) return
 
-      if (!window.originContainer.validDrop(e, window.moving, window.lastEntered)) return
+      if (!window.originContainer.validDrop(window.moving, window.lastEntered)) return
 
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originContainer.handleDragend(e, window.moving).then(() => {
