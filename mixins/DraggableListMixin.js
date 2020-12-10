@@ -295,6 +295,7 @@ export const DraggableListMixin = (base) => {
       if (!window.originContainer || !window.targetContainer) return
 
       if (!window.originContainer.validDrop(e, window.moving, window.lastEntered)) return
+      console.log(window.lastEntered)
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originContainer.handleDragend(e, window.moving).then(() => {
 
@@ -305,6 +306,8 @@ export const DraggableListMixin = (base) => {
             console.log(targetRows)
             targetRows.forEach(element => {
               element.classList.remove('target')
+              element.classList.remove('success-overlay')
+              element.classList.remove('error-overlay')
             })
             targetRows.splice(0, targetRows.length)
             window.moving = null
