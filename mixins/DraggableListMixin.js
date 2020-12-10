@@ -215,6 +215,9 @@ export const DraggableListMixin = (base) => {
     async handleDragleave (e) {}
     async handleDragover (e) {}
 
+    validDrop (e, moving, target) {
+      return true
+    }
     // # Drag and Drop Handlers and hooks
     //
     // All the logic used during DnD is defined in these handlers, which are registered as listeners during instantiation.
