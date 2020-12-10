@@ -39,8 +39,8 @@ import { css } from 'lit-element'
 window.moving = null
 window.originContainer = null
 window.targetContainer = null
+const targetRows = []
 window.lastEntered = null
-window.previousLastEntered = null
 
 export const DraggableListMixin = (base) => {
   return class Base extends base {
@@ -262,9 +262,15 @@ export const DraggableListMixin = (base) => {
 
       requestAnimationFrame(() => {
         // The targetRows array might have previous targets in it. Remove the target class from them
-        if(window.previousLastEntered) window.previousLastEntered.classList.remove('target')
+        targetRows.forEach(element => {
+          element.classList.remove('target')
+        })
+        targetRows.splice(0, targetRows.length)
         // Add target class and push the current target to the targetRows array
-        window.lastEntered.classList.add('target')
+        if (this !== window.moving) {
+          window.lastEntered.classList.add('target')
+          targetRows.push(this)
+        }
       })
       window.targetContainer.handleDragenter(e, window.moving, this)
     }
@@ -295,16 +301,18 @@ export const DraggableListMixin = (base) => {
       if (!window.originContainer.validDrop(e, window.moving, window.lastEntered)) return
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originContainer.handleDragend(e, window.moving).then(() => {
+        window.lastEntered = null
+
         // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
         // if (e.dataTransfer.dropEffect === 'none') {
           requestAnimationFrame(() => {
             this.classList.remove('moving')
-            window.lastEntered.classList.remove('target')
+            targetRows.forEach(element => {
+              element.classList.remove('target')
+            })
             window.moving = null
             window.originContainer = null
             window.targetContainer = null
-            window.lastEntered = null
-            window.previousLastEntered = null
           })
         // }
       })
