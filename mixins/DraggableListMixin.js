@@ -163,8 +163,6 @@ export const DraggableListMixin = (base) => {
       e.stopPropagation()
       const dndHandle = el.querySelector('#dnd-handle')
 
-
-
       // el.dndContainerElement = this // NOT USED ANYWHERE
 
       // If element is marked as no-drag, skip this block
@@ -301,18 +299,22 @@ export const DraggableListMixin = (base) => {
       if (!window.originContainer.validDrop(e, window.moving, window.lastEntered)) return
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originContainer.handleDragend(e, window.moving).then(() => {
-        window.lastEntered = null
 
         // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
         // if (e.dataTransfer.dropEffect === 'none') {
           requestAnimationFrame(() => {
             this.classList.remove('moving')
+            console.log(targetRows)
             targetRows.forEach(element => {
               element.classList.remove('target')
             })
+            window.moving.classList.remove('target')
+            window.lastEntered.classList.remove('target')
+            console.log(targetRows)
             window.moving = null
             window.originContainer = null
             window.targetContainer = null
+            window.lastEntered = null
           })
         // }
       })
