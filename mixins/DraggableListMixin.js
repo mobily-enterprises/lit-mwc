@@ -247,14 +247,15 @@ export const DraggableListMixin = (base) => {
     _dragenter (e) {
       console.log('DRAGENTER IN MIXIN:', e.dataTransfer.dropEffect)
       if (this === window.lastEntered) return
-      window.lastEntered = this
+
+      // Like in dragstart with the moving item, we store the target's parent reference for later use
+      window.targetContainer = this.parentElement
+      
+      if (!window.targetContainer.validDrop(e, window.moving, this)) return
 
       // preventDefault is necessary to ALLOW custom dragenter handling
       e.preventDefault()
-      // Like in dragstart with the moving item, we store the target's parent reference for later use
-      window.targetContainer = this.parentElement
-
-      window.targetContainer.validDrop(e, window.moving, window.lastEntered)     
+      window.lastEntered = this
       
       requestAnimationFrame(() => {
         // The targetRows array might have previous targets in it. Remove the target class from them
@@ -295,7 +296,7 @@ export const DraggableListMixin = (base) => {
       // some niche cases might result in this method running when references are empty. Bail to avoid errors
       if (!window.originContainer || !window.targetContainer) return
       
-      window.originContainer.validDrop(e, window.moving, window.lastEntered)
+      if (!window.originContainer.validDrop(e, window.moving, window.lastEntered)) return
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originContainer.handleDragend(e, window.moving).then(() => {
         // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
