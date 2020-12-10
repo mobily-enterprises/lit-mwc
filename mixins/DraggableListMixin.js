@@ -265,10 +265,8 @@ export const DraggableListMixin = (base) => {
         })
         targetRows.splice(0, targetRows.length)
         // Add target class and push the current target to the targetRows array
-        if (this !== window.moving) {
-          window.lastEntered.classList.add('target')
-          targetRows.push(this)
-        }
+        window.lastEntered.classList.add('target')
+        targetRows.push(this)
       })
       window.targetContainer.handleDragenter(e, window.moving, this)
     }
@@ -308,9 +306,7 @@ export const DraggableListMixin = (base) => {
             targetRows.forEach(element => {
               element.classList.remove('target')
             })
-            window.moving.classList.remove('target')
-            window.lastEntered.classList.remove('target')
-            console.log(targetRows)
+            targetRows.splice(0, targetRows.length)
             window.moving = null
             window.originContainer = null
             window.targetContainer = null
