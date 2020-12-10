@@ -110,7 +110,7 @@ export const DraggableListMixin = (base) => {
             background-color: red;
           }
 
-          ::slotted(.moving) {
+          ::slotted(.target), ::slotted(.moving) {
             /* visibility: hidden; */
             /* height: 0; */
             box-sizing: border-box;
