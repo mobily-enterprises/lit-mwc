@@ -153,14 +153,17 @@ export const DraggableListMixin = (base) => {
     constructor () {
       super()
       this.addEventListener('enable-dnd', this._enableDndForElement)
+
     }
 
     _enableDndForElement (e) {
       const el = e.srcElement
-      // Do not enable if drag-drop attribute is not present in the list element, if  
+      // Do not enable if drag-drop attribute is not present in the list element, if
       if (!this.dragDrop ) return
       e.stopPropagation()
       const dndHandle = el.querySelector('#dnd-handle')
+
+
 
       // el.dndContainerElement = this // NOT USED ANYWHERE
 
@@ -197,7 +200,7 @@ export const DraggableListMixin = (base) => {
         el.addEventListener('dragenter', this._dragenter, false)
         el.addEventListener('dragend', this._dragend, false)
         el.addEventListener('drop', this._dragdrop, false)
-        
+
         el.addEventListener('dragleave', this._dragleave, false)
         el.addEventListener('dragexit', this._dragexit, false)
         el.addEventListener('dragover', this._dragover, false)
@@ -245,18 +248,18 @@ export const DraggableListMixin = (base) => {
 
 
     _dragenter (e) {
-      console.log('DRAGENTER IN MIXIN:', e.dataTransfer.dropEffect)
       if (this === window.lastEntered) return
 
       // Like in dragstart with the moving item, we store the target's parent reference for later use
       window.targetContainer = this.parentElement
-      
+
       if (!window.targetContainer.validDrop(e, window.moving, this)) return
 
       // preventDefault is necessary to ALLOW custom dragenter handling
       e.preventDefault()
+      window.previousLastEntered = window.lastEntered
       window.lastEntered = this
-      
+
       requestAnimationFrame(() => {
         // The targetRows array might have previous targets in it. Remove the target class from them
         targetRows.forEach(element => {
@@ -265,7 +268,7 @@ export const DraggableListMixin = (base) => {
         targetRows.splice(0, targetRows.length)
         // Add target class and push the current target to the targetRows array
         if (this !== window.moving) {
-          this.classList.add('target')
+          window.lastEntered.classList.add('target')
           targetRows.push(this)
         }
       })
@@ -292,13 +295,14 @@ export const DraggableListMixin = (base) => {
     }
 
     _dragend (e) {
-      window.lastEntered = null
       // some niche cases might result in this method running when references are empty. Bail to avoid errors
       if (!window.originContainer || !window.targetContainer) return
-      
+
       if (!window.originContainer.validDrop(e, window.moving, window.lastEntered)) return
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originContainer.handleDragend(e, window.moving).then(() => {
+        window.lastEntered = null
+
         // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
         // if (e.dataTransfer.dropEffect === 'none') {
           requestAnimationFrame(() => {
