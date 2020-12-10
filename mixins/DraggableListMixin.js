@@ -250,8 +250,10 @@ export const DraggableListMixin = (base) => {
 
       // Like in dragstart with the moving item, we store the target's parent reference for later use
       window.targetContainer = this.parentElement
-
-      if (!window.targetContainer.validDrop(e, window.moving, this)) return
+      if (!window.targetContainer.validDrop(e, window.moving, this)) {
+        console.log('invalid drop', window.targetContainer.validDrop(e, window.moving, this))
+        return
+      }
 
       // preventDefault is necessary to ALLOW custom dragenter handling
       e.preventDefault()
@@ -295,7 +297,7 @@ export const DraggableListMixin = (base) => {
       if (!window.originContainer || !window.targetContainer) return
 
       if (!window.originContainer.validDrop(e, window.moving, window.lastEntered)) return
-      console.log(window.lastEntered)
+
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originContainer.handleDragend(e, window.moving).then(() => {
 
@@ -305,9 +307,7 @@ export const DraggableListMixin = (base) => {
             this.classList.remove('moving')
             console.log(targetRows)
             targetRows.forEach(element => {
-              element.classList.remove('target')
-              element.classList.remove('success-overlay')
-              element.classList.remove('error-overlay')
+              element.classList.remove('target')              
             })
             targetRows.splice(0, targetRows.length)
             window.moving = null
