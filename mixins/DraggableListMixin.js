@@ -319,27 +319,10 @@ export const DraggableListMixin = (base) => {
       })
     }
 
-
     _dropListener (e) {
-      // console.log('MIXIN', e.dataTransfer.dropEffect)
       e.preventDefault()
-      // TODO: RAPHAEL, WHAT SHOULD HAPPEN HERE, TO KEEP THIS MIXIN GENERIC?
-      // REMEMBER THAT THE "DROP" BUT IS NOT SOMETHING WE SHOULD DEAL WITH HERE
-      // I THINK WE SHOULD CALL dropHook -- maybe even run animations?
-      // THE IDEA IS THAT SOON THEY MIGHT RELEASE THE INFAMOUS DIRECTIVE...
-      //
       // Like with dragend, the hook needs to return a promise to avoid timing issues.
-      // window.targetContainer.dropHook(e, window.moving, this).then(() => {
-      //   requestAnimationFrame(() => {
-      //     window.moving.classList.remove('moving')
-      //     targetRows.forEach(element => {
-      //       element.classList.remove('target')
-      //     })
-      //     window.moving = null
-      //     window.originContainer = null
-      //     window.targetContainer = null
-      //   })
-      // })
+      window.targetContainer.dropHook(e, window.moving, this)
     }
 
   }
