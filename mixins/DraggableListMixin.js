@@ -173,21 +173,21 @@ export const DraggableListMixin = (base) => {
           // Hovering the handle will enable dragging the element
           dndHandle.addEventListener('mouseover', () => {
             el.setAttribute('draggable', 'true')
-            el.addEventListener('dragstart', this._dragstart, false)
+            el.addEventListener('dragstart', this._dragstartListener, false)
           })
           dndHandle.addEventListener('mouseout', () => {
             el.removeAttribute('draggable')
-            el.removeEventListener('dragstart', this._dragstart)
+            el.removeEventListener('dragstart', this._dragstartListener)
           })
         } else {
           // Hovering the handle will enable dragging the element
           el.addEventListener('mouseover', () => {
             el.setAttribute('draggable', 'true')
-            el.addEventListener('dragstart', this._dragstart, false)
+            el.addEventListener('dragstart', this._dragstartListener, false)
           })
           el.addEventListener('mouseout', () => {
             el.removeAttribute('draggable')
-            el.removeEventListener('dragstart', this._dragstart)
+            el.removeEventListener('dragstart', this._dragstartListener)
           })
         }
       }
@@ -195,37 +195,34 @@ export const DraggableListMixin = (base) => {
       // Enables drop event, in the element is not marked as no-drop
       if (!el.hasAttribute('no-drop')) {
         // Add event listeners to element
-        el.addEventListener('dragenter', this._dragenter, false)
-        el.addEventListener('dragend', this._dragend, false)
-        el.addEventListener('drop', this._dragdrop, false)
+        el.addEventListener('dragenter', this._dragenterListener, false)
+        el.addEventListener('dragend', this._dragendListener, false)
+        el.addEventListener('drop', this._dropListener, false)
 
-        el.addEventListener('dragleave', this._dragleave, false)
-        el.addEventListener('dragexit', this._dragexit, false)
-        el.addEventListener('dragover', this._dragover, false)
+        el.addEventListener('dragleave', this._dragleaveListener, false)
+        el.addEventListener('dragexit', this._dragexitListener, false)
+        el.addEventListener('dragover', this._dragoverListener, false)
       }
     }
 
     // HOOKS to be redefined by the mixing class
 
-    async handleDragstart (e) {}
-    async handleDragenter (e) {}
-    async handleDragend (e) { return true }
-    async handleDragdrop (e) { return true }
+    async dragstartHook (e, moving) { return true }
+    async dragenterHook (e, moving, target) { return true }
+    async dragendHook (e, moving, target) { return true }
+    async dropHook (e, moving, target) { return true }
 
-    async handleDragexit (e) {}
-    async handleDragleave (e) {}
-    async handleDragover (e) {}
-
-    validDrop (e, moving, target) {
-      return true
-    }
+    async dragexitHook (e, moving) { return true }
+    async dragleaveHook (e, moving, target) { return true }
+    async dragoverHook (e, moving, target) { return true }
+    validDropHook (e, moving, target) { return true }
 
     // # Drag and Drop Handlers and hooks
     //
     // All the logic used during DnD is defined in these handlers, which are registered as listeners during instantiation.
     // All listeners are private and not supposed to be modified. They call a hook for each type of event.
     // The hooks should be redefined to handle any work that's needed during of in response to the drag event.
-    _dragstart (e) {
+    _dragstartListener (e) {
       window.lastEntered = null
       // Start out by assuming the user is moving, and that moving is allowed. This can be changed in the hook.
       e.dataTransfer.effectAllowed = 'move'
@@ -241,17 +238,16 @@ export const DraggableListMixin = (base) => {
         this.classList.add('moving')
       })
       // All handler hooks are called from the list parent, which must implement them.
-      window.originContainer.handleDragstart(e, window.moving)
+      window.originContainer.dragstartHook(e, window.moving)
     }
 
 
-    _dragenter (e) {
+    _dragenterListener (e) {
       if (this === window.lastEntered) return
 
       // Like in dragstart with the moving item, we store the target's parent reference for later use
       window.targetContainer = this.parentElement
-      if (!window.targetContainer.validDrop(window.moving, this)) {
-        console.log('invalid drop', window.targetContainer.validDrop(e, window.moving, this))
+      if (!window.targetContainer.validDropHook(e, window.moving, this)) {
         return
       }
 
@@ -270,36 +266,40 @@ export const DraggableListMixin = (base) => {
         window.lastEntered.classList.add('target')
         targetRows.push(this)
       })
-      window.targetContainer.handleDragenter(e, window.moving, this)
+      window.targetContainer.dragenterHook(e, window.moving, this)
     }
 
 
     // dragover, dragleave and dragexit listeners are setup and hooks are available, but no work is done here by default
-    _dragover (e) {
+    _dragoverListener (e) {
       // preventDefault is necessary to ALLOW custom dragover and dropping handling
       e.preventDefault()
       e.dataTransfer.dropEffect = 'move'
 
-      window.targetContainer.handleDragover(e, window.moving, this)
+      window.targetContainer.dragoverHook(e, window.moving, this)
     }
 
 
-    _dragleave (e) {
-      window.targetContainer.handleDragleave(e, window.moving, this)
+    _dragleaveListener (e) {
+      window.targetContainer.dragleaveHook(e, window.moving, this)
     }
 
-    _dragexit (e) {
-      window.targetContainer.handleDragexit(e, window.moving, this)
+    _dragoverListener (e) {
+      window.targetContainer.dragoverHook(e, window.moving, this)
     }
 
-    _dragend (e) {
+    _dragexitListener (e) {
+      window.targetContainer.dragexitHook(e, window.moving, this)
+    }
+
+    _dragendListener (e) {
       // some niche cases might result in this method running when references are empty. Bail to avoid errors
       if (!window.originContainer || !window.targetContainer) return
 
-      if (!window.originContainer.validDrop(window.moving, window.lastEntered)) return
+      if (!window.originContainer.validDropHook(e, window.moving, window.lastEntered)) return
 
       // This hook needs to be a promise, so references are not cleared before the hook is done
-      window.originContainer.handleDragend(e, window.moving).then(() => {
+      window.originContainer.dragendHook(e, window.moving).then(() => {
 
         // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
         // if (e.dataTransfer.dropEffect === 'none') {
@@ -307,7 +307,7 @@ export const DraggableListMixin = (base) => {
             this.classList.remove('moving')
             console.log(targetRows)
             targetRows.forEach(element => {
-              element.classList.remove('target')              
+              element.classList.remove('target')
             })
             targetRows.splice(0, targetRows.length)
             window.moving = null
@@ -320,11 +320,16 @@ export const DraggableListMixin = (base) => {
     }
 
 
-    _dragdrop (e) {
+    _dropListener (e) {
       // console.log('MIXIN', e.dataTransfer.dropEffect)
       e.preventDefault()
+      // TODO: RAPHAEL, WHAT SHOULD HAPPEN HERE, TO KEEP THIS MIXIN GENERIC?
+      // REMEMBER THAT THE "DROP" BUT IS NOT SOMETHING WE SHOULD DEAL WITH HERE
+      // I THINK WE SHOULD CALL dropHook -- maybe even run animations?
+      // THE IDEA IS THAT SOON THEY MIGHT RELEASE THE INFAMOUS DIRECTIVE...
+      //
       // Like with dragend, the hook needs to return a promise to avoid timing issues.
-      // window.targetContainer.handleDragdrop(e, window.moving, this).then(() => {
+      // window.targetContainer.dropHook(e, window.moving, this).then(() => {
       //   requestAnimationFrame(() => {
       //     window.moving.classList.remove('moving')
       //     targetRows.forEach(element => {
