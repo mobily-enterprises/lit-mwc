@@ -179,16 +179,10 @@ export const DraggableListMixin = (base) => {
             el.removeAttribute('draggable')
             el.removeEventListener('dragstart', this._dragstartListener)
           })
+
         } else {
-          // Hovering the handle will enable dragging the element
-          el.addEventListener('mouseover', () => {
-            el.setAttribute('draggable', 'true')
-            el.addEventListener('dragstart', this._dragstartListener, false)
-          })
-          el.addEventListener('mouseout', () => {
-            el.removeAttribute('draggable')
-            el.removeEventListener('dragstart', this._dragstartListener)
-          })
+          el.setAttribute('draggable', 'true')
+          el.addEventListener('dragstart', this._dragstartListener, false)
         }
       }
 
@@ -235,7 +229,7 @@ export const DraggableListMixin = (base) => {
       window.moving = this
       // Use requestAnimationFrame API to update styles, toa void performance issues
       requestAnimationFrame(() => {
-        this.classList.add('moving')
+        window.moving.classList.add('moving')
       })
       // All handler hooks are called from the list parent, which must implement them.
       window.originContainer.dragstartHook(e, window.moving)
