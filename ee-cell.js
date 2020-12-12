@@ -43,6 +43,17 @@ export class EeCell extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement)
         :host([s5]) {
           flex-grow: 5;
         }
+
+        /*
+         ::slotted(#dnd-handle) {
+          cursor: pointer;
+        }
+
+        ::slotted(*) {
+          cursor: pointer;
+        }
+        */
+
       `
     ]
   }
