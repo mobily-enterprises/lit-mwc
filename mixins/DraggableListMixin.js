@@ -153,13 +153,12 @@ export const DraggableListMixin = (base) => {
     constructor () {
       super()
       this.addEventListener('enable-dnd', this._enableDndForElement)
-
     }
 
     _enableDndForElement (e) {
       const el = e.srcElement
       // Do not enable if drag-drop attribute is not present in the list element, if
-      if (!this.dragDrop ) return
+      if (!this.dragDrop) return
       e.stopPropagation()
       const dndHandle = el.querySelector('#dnd-handle')
 
@@ -179,7 +178,6 @@ export const DraggableListMixin = (base) => {
             el.removeAttribute('draggable')
             el.removeEventListener('dragstart', this._dragstartListener)
           })
-
         } else {
           el.setAttribute('draggable', 'true')
           el.addEventListener('dragstart', this._dragstartListener, false)
@@ -235,7 +233,6 @@ export const DraggableListMixin = (base) => {
       window.originContainer.dragstartHook(e, window.moving)
     }
 
-
     _dragenterListener (e) {
       if (this === window.lastEntered) return
 
@@ -263,7 +260,6 @@ export const DraggableListMixin = (base) => {
       window.targetContainer.dragenterHook(e, window.moving, this)
     }
 
-
     // dragover, dragleave and dragexit listeners are setup and hooks are available, but no work is done here by default
     _dragoverListener (e) {
       // preventDefault is necessary to ALLOW custom dragover and dropping handling
@@ -273,13 +269,8 @@ export const DraggableListMixin = (base) => {
       window.targetContainer.dragoverHook(e, window.moving, this)
     }
 
-
     _dragleaveListener (e) {
       window.targetContainer.dragleaveHook(e, window.moving, this)
-    }
-
-    _dragoverListener (e) {
-      window.targetContainer.dragoverHook(e, window.moving, this)
     }
 
     _dragexitListener (e) {
@@ -294,21 +285,20 @@ export const DraggableListMixin = (base) => {
 
       // This hook needs to be a promise, so references are not cleared before the hook is done
       window.originContainer.dragendHook(e, window.moving).then(() => {
-
         // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
         // if (e.dataTransfer.dropEffect === 'none') {
-          requestAnimationFrame(() => {
-            this.classList.remove('moving')
-            console.log(targetRows)
-            targetRows.forEach(element => {
-              element.classList.remove('target')
-            })
-            targetRows.splice(0, targetRows.length)
-            window.moving = null
-            window.originContainer = null
-            window.targetContainer = null
-            window.lastEntered = null
+        requestAnimationFrame(() => {
+          this.classList.remove('moving')
+          console.log(targetRows)
+          targetRows.forEach(element => {
+            element.classList.remove('target')
           })
+          targetRows.splice(0, targetRows.length)
+          window.moving = null
+          window.originContainer = null
+          window.targetContainer = null
+          window.lastEntered = null
+        })
         // }
       })
     }
@@ -318,6 +308,5 @@ export const DraggableListMixin = (base) => {
       // Like with dragend, the hook needs to return a promise to avoid timing issues.
       window.targetContainer.dropHook(e, window.moving, this)
     }
-
   }
 }
