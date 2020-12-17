@@ -11,73 +11,11 @@
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-const directives = new WeakMap();
-/**
- * Brands a function as a directive factory function so that lit-html will call
- * the function during template rendering, rather than passing as a value.
- *
- * A _directive_ is a function that takes a Part as an argument. It has the
- * signature: `(part: Part) => void`.
- *
- * A directive _factory_ is a function that takes arguments for data and
- * configuration and returns a directive. Users of directive usually refer to
- * the directive factory as the directive. For example, "The repeat directive".
- *
- * Usually a template author will invoke a directive factory in their template
- * with relevant arguments, which will then return a directive function.
- *
- * Here's an example of using the `repeat()` directive factory that takes an
- * array and a function to render an item:
- *
- * ```js
- * html`<ul><${repeat(items, (item) => html`<li>${item}</li>`)}</ul>`
- * ```
- *
- * When `repeat` is invoked, it returns a directive function that closes over
- * `items` and the template function. When the outer template is rendered, the
- * return directive function is called with the Part for the expression.
- * `repeat` then performs it's custom logic to render multiple items.
- *
- * @param f The directive factory function. Must be a function that returns a
- * function of the signature `(part: Part) => void`. The returned function will
- * be called with the part object.
- *
- * @example
- *
- * import {directive, html} from 'lit-html';
- *
- * const immutable = directive((v) => (part) => {
- *   if (part.value !== v) {
- *     part.setValue(v)
- *   }
- * });
- */
-const directive = (f) => ((...args) => {
-    const d = f(...args);
-    directives.set(d, true);
-    return d;
-});
-const isDirective = (o) => {
-    return typeof o === 'function' && directives.has(o);
-};
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
 /**
  * True if the custom elements polyfill is in use.
  */
-const isCEPolyfill = window.customElements !== undefined &&
+const isCEPolyfill = typeof window !== 'undefined' &&
+    window.customElements != null &&
     window.customElements.polyfillWrapFlushCallback !==
         undefined;
 /**
@@ -91,29 +29,6 @@ const removeNodes = (container, start, end = null) => {
         start = n;
     }
 };
-
-/**
- * @license
- * Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * A sentinel value that signals that a value was handled by a directive and
- * should not be written to the DOM.
- */
-const noChange = {};
-/**
- * A sentinel value that signals a NodePart to fully clear its content.
- */
-const nothing = {};
 
 /**
  * @license
@@ -144,7 +59,7 @@ const markerRegex = new RegExp(`${marker}|${nodeMarker}`);
  */
 const boundAttributeSuffix = '$lit$';
 /**
- * An updateable Template that tracks the location of dynamic parts.
+ * An updatable Template that tracks the location of dynamic parts.
  */
 class Template {
     constructor(result, element) {
@@ -326,7 +241,219 @@ const createMarker = () => document.createComment('');
  *    * (") then any non-("), or
  *    * (') then any non-(')
  */
-const lastAttributeNameRegex = /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
+const lastAttributeNameRegex = 
+// eslint-disable-next-line no-control-regex
+/([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+const walkerNodeFilter = 133 /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */;
+/**
+ * Removes the list of nodes from a Template safely. In addition to removing
+ * nodes from the Template, the Template part indices are updated to match
+ * the mutated Template DOM.
+ *
+ * As the template is walked the removal state is tracked and
+ * part indices are adjusted as needed.
+ *
+ * div
+ *   div#1 (remove) <-- start removing (removing node is div#1)
+ *     div
+ *       div#2 (remove)  <-- continue removing (removing node is still div#1)
+ *         div
+ * div <-- stop removing since previous sibling is the removing node (div#1,
+ * removed 4 nodes)
+ */
+function removeNodesFromTemplate(template, nodesToRemove) {
+    const { element: { content }, parts } = template;
+    const walker = document.createTreeWalker(content, walkerNodeFilter, null, false);
+    let partIndex = nextActiveIndexInTemplateParts(parts);
+    let part = parts[partIndex];
+    let nodeIndex = -1;
+    let removeCount = 0;
+    const nodesToRemoveInTemplate = [];
+    let currentRemovingNode = null;
+    while (walker.nextNode()) {
+        nodeIndex++;
+        const node = walker.currentNode;
+        // End removal if stepped past the removing node
+        if (node.previousSibling === currentRemovingNode) {
+            currentRemovingNode = null;
+        }
+        // A node to remove was found in the template
+        if (nodesToRemove.has(node)) {
+            nodesToRemoveInTemplate.push(node);
+            // Track node we're removing
+            if (currentRemovingNode === null) {
+                currentRemovingNode = node;
+            }
+        }
+        // When removing, increment count by which to adjust subsequent part indices
+        if (currentRemovingNode !== null) {
+            removeCount++;
+        }
+        while (part !== undefined && part.index === nodeIndex) {
+            // If part is in a removed node deactivate it by setting index to -1 or
+            // adjust the index as needed.
+            part.index = currentRemovingNode !== null ? -1 : part.index - removeCount;
+            // go to the next active part.
+            partIndex = nextActiveIndexInTemplateParts(parts, partIndex);
+            part = parts[partIndex];
+        }
+    }
+    nodesToRemoveInTemplate.forEach((n) => n.parentNode.removeChild(n));
+}
+const countNodes = (node) => {
+    let count = (node.nodeType === 11 /* Node.DOCUMENT_FRAGMENT_NODE */) ? 0 : 1;
+    const walker = document.createTreeWalker(node, walkerNodeFilter, null, false);
+    while (walker.nextNode()) {
+        count++;
+    }
+    return count;
+};
+const nextActiveIndexInTemplateParts = (parts, startIndex = -1) => {
+    for (let i = startIndex + 1; i < parts.length; i++) {
+        const part = parts[i];
+        if (isTemplatePartActive(part)) {
+            return i;
+        }
+    }
+    return -1;
+};
+/**
+ * Inserts the given node into the Template, optionally before the given
+ * refNode. In addition to inserting the node into the Template, the Template
+ * part indices are updated to match the mutated Template DOM.
+ */
+function insertNodeIntoTemplate(template, node, refNode = null) {
+    const { element: { content }, parts } = template;
+    // If there's no refNode, then put node at end of template.
+    // No part indices need to be shifted in this case.
+    if (refNode === null || refNode === undefined) {
+        content.appendChild(node);
+        return;
+    }
+    const walker = document.createTreeWalker(content, walkerNodeFilter, null, false);
+    let partIndex = nextActiveIndexInTemplateParts(parts);
+    let insertCount = 0;
+    let walkerIndex = -1;
+    while (walker.nextNode()) {
+        walkerIndex++;
+        const walkerNode = walker.currentNode;
+        if (walkerNode === refNode) {
+            insertCount = countNodes(node);
+            refNode.parentNode.insertBefore(node, refNode);
+        }
+        while (partIndex !== -1 && parts[partIndex].index === walkerIndex) {
+            // If we've inserted the node, simply adjust all subsequent parts
+            if (insertCount > 0) {
+                while (partIndex !== -1) {
+                    parts[partIndex].index += insertCount;
+                    partIndex = nextActiveIndexInTemplateParts(parts, partIndex);
+                }
+                return;
+            }
+            partIndex = nextActiveIndexInTemplateParts(parts, partIndex);
+        }
+    }
+}
+
+/**
+ * @license
+ * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+const directives = new WeakMap();
+/**
+ * Brands a function as a directive factory function so that lit-html will call
+ * the function during template rendering, rather than passing as a value.
+ *
+ * A _directive_ is a function that takes a Part as an argument. It has the
+ * signature: `(part: Part) => void`.
+ *
+ * A directive _factory_ is a function that takes arguments for data and
+ * configuration and returns a directive. Users of directive usually refer to
+ * the directive factory as the directive. For example, "The repeat directive".
+ *
+ * Usually a template author will invoke a directive factory in their template
+ * with relevant arguments, which will then return a directive function.
+ *
+ * Here's an example of using the `repeat()` directive factory that takes an
+ * array and a function to render an item:
+ *
+ * ```js
+ * html`<ul><${repeat(items, (item) => html`<li>${item}</li>`)}</ul>`
+ * ```
+ *
+ * When `repeat` is invoked, it returns a directive function that closes over
+ * `items` and the template function. When the outer template is rendered, the
+ * return directive function is called with the Part for the expression.
+ * `repeat` then performs it's custom logic to render multiple items.
+ *
+ * @param f The directive factory function. Must be a function that returns a
+ * function of the signature `(part: Part) => void`. The returned function will
+ * be called with the part object.
+ *
+ * @example
+ *
+ * import {directive, html} from 'lit-html';
+ *
+ * const immutable = directive((v) => (part) => {
+ *   if (part.value !== v) {
+ *     part.setValue(v)
+ *   }
+ * });
+ */
+const directive = (f) => ((...args) => {
+    const d = f(...args);
+    directives.set(d, true);
+    return d;
+});
+const isDirective = (o) => {
+    return typeof o === 'function' && directives.has(o);
+};
+
+/**
+ * @license
+ * Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+/**
+ * A sentinel value that signals that a value was handled by a directive and
+ * should not be written to the DOM.
+ */
+const noChange = {};
+/**
+ * A sentinel value that signals a NodePart to fully clear its content.
+ */
+const nothing = {};
 
 /**
  * @license
@@ -387,7 +514,7 @@ class TemplateInstance {
         // Given these constraints, with full custom elements support we would
         // prefer the order: Clone, Process, Adopt, Upgrade, Update, Connect
         //
-        // But Safari dooes not implement CustomElementRegistry#upgrade, so we
+        // But Safari does not implement CustomElementRegistry#upgrade, so we
         // can not implement that order and still have upgrade-before-update and
         // upgrade disconnected fragments. So we instead sacrifice the
         // process-before-upgrade constraint, since in Custom Elements v1 elements
@@ -497,7 +624,7 @@ class TemplateResult {
             // For each binding we want to determine the kind of marker to insert
             // into the template source before it's parsed by the browser's HTML
             // parser. The marker type is based on whether the expression is in an
-            // attribute, text, or comment poisition.
+            // attribute, text, or comment position.
             //   * For node-position bindings we insert a comment with the marker
             //     sentinel as its text content, like <!--{{lit-guid}}-->.
             //   * For attribute bindings we insert just the marker sentinel for the
@@ -517,13 +644,13 @@ class TemplateResult {
             // be false positives.
             isCommentBinding = (commentOpen > -1 || isCommentBinding) &&
                 s.indexOf('-->', commentOpen + 1) === -1;
-            // Check to see if we have an attribute-like sequence preceeding the
+            // Check to see if we have an attribute-like sequence preceding the
             // expression. This can match "name=value" like structures in text,
             // comments, and attribute values, so there can be false-positives.
             const attributeMatch = lastAttributeNameRegex.exec(s);
             if (attributeMatch === null) {
                 // We're only in this branch if we don't have a attribute-like
-                // preceeding sequence. For comments, this guards against unusual
+                // preceding sequence. For comments, this guards against unusual
                 // attribute values like <div foo="<!--${'bar'}">. Cases like
                 // <!-- foo=${'bar'}--> are handled correctly in the attribute branch
                 // below.
@@ -567,12 +694,12 @@ const isPrimitive = (value) => {
 };
 const isIterable = (value) => {
     return Array.isArray(value) ||
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         !!(value && value[Symbol.iterator]);
 };
 /**
  * Writes attribute values to the DOM for a group of AttributeParts bound to a
- * single attibute. The value is only set once even if there are multiple parts
+ * single attribute. The value is only set once even if there are multiple parts
  * for an attribute.
  */
 class AttributeCommitter {
@@ -709,6 +836,9 @@ class NodePart {
         this.__pendingValue = value;
     }
     commit() {
+        if (this.startNode.parentNode === null) {
+            return;
+        }
         while (isDirective(this.__pendingValue)) {
             const directive = this.__pendingValue;
             this.__pendingValue = noChange;
@@ -905,7 +1035,7 @@ class PropertyCommitter extends AttributeCommitter {
     commit() {
         if (this.dirty) {
             this.dirty = false;
-            // tslint:disable-next-line:no-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             this.element[this.name] = this._getValue();
         }
     }
@@ -913,24 +1043,29 @@ class PropertyCommitter extends AttributeCommitter {
 class PropertyPart extends AttributePart {
 }
 // Detect event listener options support. If the `capture` property is read
-// from the options object, then options are supported. If not, then the thrid
+// from the options object, then options are supported. If not, then the third
 // argument to add/removeEventListener is interpreted as the boolean capture
 // value so we should only pass the `capture` property.
 let eventOptionsSupported = false;
-try {
-    const options = {
-        get capture() {
-            eventOptionsSupported = true;
-            return false;
-        }
-    };
-    // tslint:disable-next-line:no-any
-    window.addEventListener('test', options, options);
-    // tslint:disable-next-line:no-any
-    window.removeEventListener('test', options, options);
-}
-catch (_e) {
-}
+// Wrap into an IIFE because MS Edge <= v41 does not support having try/catch
+// blocks right into the body of a module
+(() => {
+    try {
+        const options = {
+            get capture() {
+                eventOptionsSupported = true;
+                return false;
+            }
+        };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        window.addEventListener('test', options, options);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        window.removeEventListener('test', options, options);
+    }
+    catch (_e) {
+        // event options not supported
+    }
+})();
 class EventPart {
     constructor(element, eventName, eventContext) {
         this.value = undefined;
@@ -986,57 +1121,6 @@ const getOptions = (o) => o &&
     (eventOptionsSupported ?
         { capture: o.capture, passive: o.passive, once: o.once } :
         o.capture);
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * Creates Parts when a template is instantiated.
- */
-class DefaultTemplateProcessor {
-    /**
-     * Create parts for an attribute-position binding, given the event, attribute
-     * name, and string literals.
-     *
-     * @param element The element containing the binding
-     * @param name  The attribute name
-     * @param strings The string literals. There are always at least two strings,
-     *   event for fully-controlled bindings with a single expression.
-     */
-    handleAttributeExpressions(element, name, strings, options) {
-        const prefix = name[0];
-        if (prefix === '.') {
-            const committer = new PropertyCommitter(element, name.slice(1), strings);
-            return committer.parts;
-        }
-        if (prefix === '@') {
-            return [new EventPart(element, name.slice(1), options.eventContext)];
-        }
-        if (prefix === '?') {
-            return [new BooleanAttributePart(element, name.slice(1), strings)];
-        }
-        const committer = new AttributeCommitter(element, name, strings);
-        return committer.parts;
-    }
-    /**
-     * Create parts for a text-position binding.
-     * @param templateFactory
-     */
-    handleTextExpression(options) {
-        return new NodePart(options);
-    }
-}
-const defaultTemplateProcessor = new DefaultTemplateProcessor();
 
 /**
  * @license
@@ -1138,15 +1222,43 @@ const render = (result, container, options) => {
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-// IMPORTANT: do not change the property name or the assignment expression.
-// This line will be used in regexes to search for lit-html usage.
-// TODO(justinfagnani): inject version number at build time
-(window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.1.2');
 /**
- * Interprets a template literal as an HTML template that can efficiently
- * render to and update a container.
+ * Creates Parts when a template is instantiated.
  */
-const html = (strings, ...values) => new TemplateResult(strings, values, 'html', defaultTemplateProcessor);
+class DefaultTemplateProcessor {
+    /**
+     * Create parts for an attribute-position binding, given the event, attribute
+     * name, and string literals.
+     *
+     * @param element The element containing the binding
+     * @param name  The attribute name
+     * @param strings The string literals. There are always at least two strings,
+     *   event for fully-controlled bindings with a single expression.
+     */
+    handleAttributeExpressions(element, name, strings, options) {
+        const prefix = name[0];
+        if (prefix === '.') {
+            const committer = new PropertyCommitter(element, name.slice(1), strings);
+            return committer.parts;
+        }
+        if (prefix === '@') {
+            return [new EventPart(element, name.slice(1), options.eventContext)];
+        }
+        if (prefix === '?') {
+            return [new BooleanAttributePart(element, name.slice(1), strings)];
+        }
+        const committer = new AttributeCommitter(element, name, strings);
+        return committer.parts;
+    }
+    /**
+     * Create parts for a text-position binding.
+     * @param templateFactory
+     */
+    handleTextExpression(options) {
+        return new NodePart(options);
+    }
+}
+const defaultTemplateProcessor = new DefaultTemplateProcessor();
 
 /**
  * @license
@@ -1161,116 +1273,17 @@ const html = (strings, ...values) => new TemplateResult(strings, values, 'html',
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-const walkerNodeFilter = 133 /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */;
-/**
- * Removes the list of nodes from a Template safely. In addition to removing
- * nodes from the Template, the Template part indices are updated to match
- * the mutated Template DOM.
- *
- * As the template is walked the removal state is tracked and
- * part indices are adjusted as needed.
- *
- * div
- *   div#1 (remove) <-- start removing (removing node is div#1)
- *     div
- *       div#2 (remove)  <-- continue removing (removing node is still div#1)
- *         div
- * div <-- stop removing since previous sibling is the removing node (div#1,
- * removed 4 nodes)
- */
-function removeNodesFromTemplate(template, nodesToRemove) {
-    const { element: { content }, parts } = template;
-    const walker = document.createTreeWalker(content, walkerNodeFilter, null, false);
-    let partIndex = nextActiveIndexInTemplateParts(parts);
-    let part = parts[partIndex];
-    let nodeIndex = -1;
-    let removeCount = 0;
-    const nodesToRemoveInTemplate = [];
-    let currentRemovingNode = null;
-    while (walker.nextNode()) {
-        nodeIndex++;
-        const node = walker.currentNode;
-        // End removal if stepped past the removing node
-        if (node.previousSibling === currentRemovingNode) {
-            currentRemovingNode = null;
-        }
-        // A node to remove was found in the template
-        if (nodesToRemove.has(node)) {
-            nodesToRemoveInTemplate.push(node);
-            // Track node we're removing
-            if (currentRemovingNode === null) {
-                currentRemovingNode = node;
-            }
-        }
-        // When removing, increment count by which to adjust subsequent part indices
-        if (currentRemovingNode !== null) {
-            removeCount++;
-        }
-        while (part !== undefined && part.index === nodeIndex) {
-            // If part is in a removed node deactivate it by setting index to -1 or
-            // adjust the index as needed.
-            part.index = currentRemovingNode !== null ? -1 : part.index - removeCount;
-            // go to the next active part.
-            partIndex = nextActiveIndexInTemplateParts(parts, partIndex);
-            part = parts[partIndex];
-        }
-    }
-    nodesToRemoveInTemplate.forEach((n) => n.parentNode.removeChild(n));
+// IMPORTANT: do not change the property name or the assignment expression.
+// This line will be used in regexes to search for lit-html usage.
+// TODO(justinfagnani): inject version number at build time
+if (typeof window !== 'undefined') {
+    (window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.2.1');
 }
-const countNodes = (node) => {
-    let count = (node.nodeType === 11 /* Node.DOCUMENT_FRAGMENT_NODE */) ? 0 : 1;
-    const walker = document.createTreeWalker(node, walkerNodeFilter, null, false);
-    while (walker.nextNode()) {
-        count++;
-    }
-    return count;
-};
-const nextActiveIndexInTemplateParts = (parts, startIndex = -1) => {
-    for (let i = startIndex + 1; i < parts.length; i++) {
-        const part = parts[i];
-        if (isTemplatePartActive(part)) {
-            return i;
-        }
-    }
-    return -1;
-};
 /**
- * Inserts the given node into the Template, optionally before the given
- * refNode. In addition to inserting the node into the Template, the Template
- * part indices are updated to match the mutated Template DOM.
+ * Interprets a template literal as an HTML template that can efficiently
+ * render to and update a container.
  */
-function insertNodeIntoTemplate(template, node, refNode = null) {
-    const { element: { content }, parts } = template;
-    // If there's no refNode, then put node at end of template.
-    // No part indices need to be shifted in this case.
-    if (refNode === null || refNode === undefined) {
-        content.appendChild(node);
-        return;
-    }
-    const walker = document.createTreeWalker(content, walkerNodeFilter, null, false);
-    let partIndex = nextActiveIndexInTemplateParts(parts);
-    let insertCount = 0;
-    let walkerIndex = -1;
-    while (walker.nextNode()) {
-        walkerIndex++;
-        const walkerNode = walker.currentNode;
-        if (walkerNode === refNode) {
-            insertCount = countNodes(node);
-            refNode.parentNode.insertBefore(node, refNode);
-        }
-        while (partIndex !== -1 && parts[partIndex].index === walkerIndex) {
-            // If we've inserted the node, simply adjust all subsequent parts
-            if (insertCount > 0) {
-                while (partIndex !== -1) {
-                    parts[partIndex].index += insertCount;
-                    partIndex = nextActiveIndexInTemplateParts(parts, partIndex);
-                }
-                return;
-            }
-            partIndex = nextActiveIndexInTemplateParts(parts, partIndex);
-        }
-    }
-}
+const html = (strings, ...values) => new TemplateResult(strings, values, 'html', defaultTemplateProcessor);
 
 /**
  * @license
@@ -1604,12 +1617,10 @@ const defaultPropertyDeclaration = {
     reflect: false,
     hasChanged: notEqual
 };
-const microtaskPromise = Promise.resolve(true);
 const STATE_HAS_UPDATED = 1;
 const STATE_UPDATE_REQUESTED = 1 << 2;
 const STATE_IS_REFLECTING_TO_ATTRIBUTE = 1 << 3;
 const STATE_IS_REFLECTING_TO_PROPERTY = 1 << 4;
-const STATE_HAS_CONNECTED = 1 << 5;
 /**
  * The Closure JS Compiler doesn't currently have good support for static
  * property semantics where "this" is dynamic (e.g.
@@ -1627,8 +1638,9 @@ class UpdatingElement extends HTMLElement {
         super();
         this._updateState = 0;
         this._instanceProperties = undefined;
-        this._updatePromise = microtaskPromise;
-        this._hasConnectedResolver = undefined;
+        // Initialize to an unresolved Promise so we can make sure the element has
+        // connected before first update.
+        this._updatePromise = new Promise((res) => this._enableUpdatingResolver = res);
         /**
          * Map with keys for any properties that have changed since the last
          * update cycle with previous values.
@@ -1677,10 +1689,25 @@ class UpdatingElement extends HTMLElement {
         }
     }
     /**
-     * Creates a property accessor on the element prototype if one does not exist.
+     * Creates a property accessor on the element prototype if one does not exist
+     * and stores a PropertyDeclaration for the property with the given options.
      * The property setter calls the property's `hasChanged` property option
      * or uses a strict identity check to determine whether or not to request
      * an update.
+     *
+     * This method may be overridden to customize properties; however,
+     * when doing so, it's important to call `super.createProperty` to ensure
+     * the property is setup correctly. This method calls
+     * `getPropertyDescriptor` internally to get a descriptor to install.
+     * To customize what properties do when they are get or set, override
+     * `getPropertyDescriptor`. To customize the options for a property,
+     * implement `createProperty` like this:
+     *
+     * static createProperty(name, options) {
+     *   options = Object.assign(options, {myOption: true});
+     *   super.createProperty(name, options);
+     * }
+     *
      * @nocollapse
      */
     static createProperty(name, options = defaultPropertyDeclaration) {
@@ -1698,7 +1725,37 @@ class UpdatingElement extends HTMLElement {
             return;
         }
         const key = typeof name === 'symbol' ? Symbol() : `__${name}`;
-        Object.defineProperty(this.prototype, name, {
+        const descriptor = this.getPropertyDescriptor(name, key, options);
+        if (descriptor !== undefined) {
+            Object.defineProperty(this.prototype, name, descriptor);
+        }
+    }
+    /**
+     * Returns a property descriptor to be defined on the given named property.
+     * If no descriptor is returned, the property will not become an accessor.
+     * For example,
+     *
+     *   class MyElement extends LitElement {
+     *     static getPropertyDescriptor(name, key, options) {
+     *       const defaultDescriptor =
+     *           super.getPropertyDescriptor(name, key, options);
+     *       const setter = defaultDescriptor.set;
+     *       return {
+     *         get: defaultDescriptor.get,
+     *         set(value) {
+     *           setter.call(this, value);
+     *           // custom action.
+     *         },
+     *         configurable: true,
+     *         enumerable: true
+     *       }
+     *     }
+     *   }
+     *
+     * @nocollapse
+     */
+    static getPropertyDescriptor(name, key, _options) {
+        return {
             // tslint:disable-next-line:no-any no symbol in index
             get() {
                 return this[key];
@@ -1710,7 +1767,23 @@ class UpdatingElement extends HTMLElement {
             },
             configurable: true,
             enumerable: true
-        });
+        };
+    }
+    /**
+     * Returns the property options associated with the given property.
+     * These options are defined with a PropertyDeclaration via the `properties`
+     * object or the `@property` decorator and are registered in
+     * `createProperty(...)`.
+     *
+     * Note, this method should be considered "final" and not overridden. To
+     * customize the options for a given property, override `createProperty`.
+     *
+     * @nocollapse
+     * @final
+     */
+    static getPropertyOptions(name) {
+        return this._classProperties && this._classProperties.get(name) ||
+            defaultPropertyDeclaration;
     }
     /**
      * Creates property accessors for registered properties and ensures
@@ -1848,14 +1921,14 @@ class UpdatingElement extends HTMLElement {
         this._instanceProperties = undefined;
     }
     connectedCallback() {
-        this._updateState = this._updateState | STATE_HAS_CONNECTED;
         // Ensure first connection completes an update. Updates cannot complete
-        // before connection and if one is pending connection the
-        // `_hasConnectionResolver` will exist. If so, resolve it to complete the
-        // update, otherwise requestUpdate.
-        if (this._hasConnectedResolver) {
-            this._hasConnectedResolver();
-            this._hasConnectedResolver = undefined;
+        // before connection.
+        this.enableUpdating();
+    }
+    enableUpdating() {
+        if (this._enableUpdatingResolver !== undefined) {
+            this._enableUpdatingResolver();
+            this._enableUpdatingResolver = undefined;
         }
     }
     /**
@@ -1908,9 +1981,12 @@ class UpdatingElement extends HTMLElement {
             return;
         }
         const ctor = this.constructor;
+        // Note, hint this as an `AttributeMap` so closure clearly understands
+        // the type; it has issues with tracking types through statics
+        // tslint:disable-next-line:no-unnecessary-type-assertion
         const propName = ctor._attributeToPropertyMap.get(name);
         if (propName !== undefined) {
-            const options = ctor._classProperties.get(propName) || defaultPropertyDeclaration;
+            const options = ctor.getPropertyOptions(propName);
             // mark state reflecting
             this._updateState = this._updateState | STATE_IS_REFLECTING_TO_PROPERTY;
             this[propName] =
@@ -1930,7 +2006,7 @@ class UpdatingElement extends HTMLElement {
         // If we have a property key, perform property update steps.
         if (name !== undefined) {
             const ctor = this.constructor;
-            const options = ctor._classProperties.get(name) || defaultPropertyDeclaration;
+            const options = ctor.getPropertyOptions(name);
             if (ctor._valueHasChanged(this[name], oldValue, options.hasChanged)) {
                 if (!this._changedProperties.has(name)) {
                     this._changedProperties.set(name, oldValue);
@@ -1953,7 +2029,7 @@ class UpdatingElement extends HTMLElement {
             }
         }
         if (!this._hasRequestedUpdate && shouldRequestUpdate) {
-            this._enqueueUpdate();
+            this._updatePromise = this._enqueueUpdate();
         }
     }
     /**
@@ -1977,44 +2053,24 @@ class UpdatingElement extends HTMLElement {
      * Sets up the element to asynchronously update.
      */
     async _enqueueUpdate() {
-        // Mark state updating...
         this._updateState = this._updateState | STATE_UPDATE_REQUESTED;
-        let resolve;
-        let reject;
-        const previousUpdatePromise = this._updatePromise;
-        this._updatePromise = new Promise((res, rej) => {
-            resolve = res;
-            reject = rej;
-        });
         try {
             // Ensure any previous update has resolved before updating.
             // This `await` also ensures that property changes are batched.
-            await previousUpdatePromise;
+            await this._updatePromise;
         }
         catch (e) {
             // Ignore any previous errors. We only care that the previous cycle is
             // done. Any error should have been handled in the previous update.
         }
-        // Make sure the element has connected before updating.
-        if (!this._hasConnected) {
-            await new Promise((res) => this._hasConnectedResolver = res);
+        const result = this.performUpdate();
+        // If `performUpdate` returns a Promise, we await it. This is done to
+        // enable coordinating updates with a scheduler. Note, the result is
+        // checked to avoid delaying an additional microtask unless we need to.
+        if (result != null) {
+            await result;
         }
-        try {
-            const result = this.performUpdate();
-            // If `performUpdate` returns a Promise, we await it. This is done to
-            // enable coordinating updates with a scheduler. Note, the result is
-            // checked to avoid delaying an additional microtask unless we need to.
-            if (result != null) {
-                await result;
-            }
-        }
-        catch (e) {
-            reject(e);
-        }
-        resolve(!this._hasRequestedUpdate);
-    }
-    get _hasConnected() {
-        return (this._updateState & STATE_HAS_CONNECTED);
+        return !this._hasRequestedUpdate;
     }
     get _hasRequestedUpdate() {
         return (this._updateState & STATE_UPDATE_REQUESTED);
@@ -2050,16 +2106,17 @@ class UpdatingElement extends HTMLElement {
             if (shouldUpdate) {
                 this.update(changedProperties);
             }
+            else {
+                this._markUpdated();
+            }
         }
         catch (e) {
             // Prevent `firstUpdated` and `updated` from running when there's an
             // update exception.
             shouldUpdate = false;
-            throw e;
-        }
-        finally {
             // Ensure element can accept additional updates after an exception.
             this._markUpdated();
+            throw e;
         }
         if (shouldUpdate) {
             if (!(this._updateState & STATE_HAS_UPDATED)) {
@@ -2115,7 +2172,7 @@ class UpdatingElement extends HTMLElement {
      * an update. By default, this method always returns `true`, but this can be
      * customized to control when to update.
      *
-     * * @param _changedProperties Map of changed properties with old values
+     * @param _changedProperties Map of changed properties with old values
      */
     shouldUpdate(_changedProperties) {
         return true;
@@ -2126,7 +2183,7 @@ class UpdatingElement extends HTMLElement {
      * Setting properties inside this method will *not* trigger
      * another update.
      *
-     * * @param _changedProperties Map of changed properties with old values
+     * @param _changedProperties Map of changed properties with old values
      */
     update(_changedProperties) {
         if (this._reflectingProperties !== undefined &&
@@ -2136,6 +2193,7 @@ class UpdatingElement extends HTMLElement {
             this._reflectingProperties.forEach((v, k) => this._propertyToAttribute(k, this[k], v));
             this._reflectingProperties = undefined;
         }
+        this._markUpdated();
     }
     /**
      * Invoked whenever the element is updated. Implement to perform
@@ -2144,7 +2202,7 @@ class UpdatingElement extends HTMLElement {
      * Setting properties inside this method will trigger the element to update
      * again after this update cycle completes.
      *
-     * * @param _changedProperties Map of changed properties with old values
+     * @param _changedProperties Map of changed properties with old values
      */
     updated(_changedProperties) {
     }
@@ -2155,7 +2213,7 @@ class UpdatingElement extends HTMLElement {
      * Setting properties inside this method will trigger the element to update
      * again after this update cycle completes.
      *
-     * * @param _changedProperties Map of changed properties with old values
+     * @param _changedProperties Map of changed properties with old values
      */
     firstUpdated(_changedProperties) {
     }
@@ -2246,68 +2304,58 @@ const css = (strings, ...values) => {
 // This line will be used in regexes to search for LitElement usage.
 // TODO(justinfagnani): inject version number at build time
 (window['litElementVersions'] || (window['litElementVersions'] = []))
-    .push('2.2.1');
+    .push('2.3.1');
 /**
- * Minimal implementation of Array.prototype.flat
- * @param arr the array to flatten
- * @param result the accumlated result
+ * Sentinal value used to avoid calling lit-html's render function when
+ * subclasses do not implement `render`
  */
-function arrayFlat(styles, result = []) {
-    for (let i = 0, length = styles.length; i < length; i++) {
-        const value = styles[i];
-        if (Array.isArray(value)) {
-            arrayFlat(value, result);
-        }
-        else {
-            result.push(value);
-        }
-    }
-    return result;
-}
-/** Deeply flattens styles array. Uses native flat if available. */
-const flattenStyles = (styles) => styles.flat ? styles.flat(Infinity) : arrayFlat(styles);
+const renderNotImplemented = {};
 class LitElement extends UpdatingElement {
-    /** @nocollapse */
-    static finalize() {
-        // The Closure JS Compiler does not always preserve the correct "this"
-        // when calling static super methods (b/137460243), so explicitly bind.
-        super.finalize.call(this);
-        // Prepare styling that is stamped at first render time. Styling
-        // is built from user provided `styles` or is inherited from the superclass.
-        this._styles =
-            this.hasOwnProperty(JSCompiler_renameProperty('styles', this)) ?
-                this._getUniqueStyles() :
-                this._styles || [];
+    /**
+     * Return the array of styles to apply to the element.
+     * Override this method to integrate into a style management system.
+     *
+     * @nocollapse
+     */
+    static getStyles() {
+        return this.styles;
     }
     /** @nocollapse */
     static _getUniqueStyles() {
-        // Take care not to call `this.styles` multiple times since this generates
-        // new CSSResults each time.
+        // Only gather styles once per class
+        if (this.hasOwnProperty(JSCompiler_renameProperty('_styles', this))) {
+            return;
+        }
+        // Take care not to call `this.getStyles()` multiple times since this
+        // generates new CSSResults each time.
         // TODO(sorvell): Since we do not cache CSSResults by input, any
         // shared styles will generate new stylesheet objects, which is wasteful.
         // This should be addressed when a browser ships constructable
         // stylesheets.
-        const userStyles = this.styles;
-        const styles = [];
-        if (Array.isArray(userStyles)) {
-            const flatStyles = flattenStyles(userStyles);
-            // As a performance optimization to avoid duplicated styling that can
-            // occur especially when composing via subclassing, de-duplicate styles
-            // preserving the last item in the list. The last item is kept to
-            // try to preserve cascade order with the assumption that it's most
-            // important that last added styles override previous styles.
-            const styleSet = flatStyles.reduceRight((set, s) => {
-                set.add(s);
-                // on IE set.add does not return the set.
-                return set;
-            }, new Set());
-            // Array.from does not work on Set in IE
-            styleSet.forEach((v) => styles.unshift(v));
+        const userStyles = this.getStyles();
+        if (userStyles === undefined) {
+            this._styles = [];
         }
-        else if (userStyles) {
-            styles.push(userStyles);
+        else if (Array.isArray(userStyles)) {
+            // De-duplicate styles preserving the _last_ instance in the set.
+            // This is a performance optimization to avoid duplicated styles that can
+            // occur especially when composing via subclassing.
+            // The last item is kept to try to preserve the cascade order with the
+            // assumption that it's most important that last added styles override
+            // previous styles.
+            const addStyles = (styles, set) => styles.reduceRight((set, s) => 
+            // Note: On IE set.add() does not return the set
+            Array.isArray(s) ? addStyles(s, set) : (set.add(s), set), set);
+            // Array.from does not work on Set in IE, otherwise return
+            // Array.from(addStyles(userStyles, new Set<CSSResult>())).reverse()
+            const set = addStyles(userStyles, new Set());
+            const styles = [];
+            set.forEach((v) => styles.unshift(v));
+            this._styles = styles;
         }
-        return styles;
+        else {
+            this._styles = [userStyles];
+        }
     }
     /**
      * Performs element initialization. By default this calls `createRenderRoot`
@@ -2316,6 +2364,7 @@ class LitElement extends UpdatingElement {
      */
     initialize() {
         super.initialize();
+        this.constructor._getUniqueStyles();
         this.renderRoot =
             this.createRenderRoot();
         // Note, if renderRoot is not a shadowRoot, styles would/could apply to the
@@ -2379,12 +2428,16 @@ class LitElement extends UpdatingElement {
      * Updates the element. This method reflects property values to attributes
      * and calls `render` to render DOM via lit-html. Setting properties inside
      * this method will *not* trigger another update.
-     * * @param _changedProperties Map of changed properties with old values
+     * @param _changedProperties Map of changed properties with old values
      */
     update(changedProperties) {
-        super.update(changedProperties);
+        // Setting properties in `render` should not trigger an update. Since
+        // updates are allowed after super.update, it's important to call `render`
+        // before that.
         const templateResult = this.render();
-        if (templateResult instanceof TemplateResult) {
+        super.update(changedProperties);
+        // If render is not implemented by the component, don't call lit-html render
+        if (templateResult !== renderNotImplemented) {
             this.constructor
                 .render(templateResult, this.renderRoot, { scopeName: this.localName, eventContext: this });
         }
@@ -2401,11 +2454,13 @@ class LitElement extends UpdatingElement {
         }
     }
     /**
-     * Invoked on each update to perform rendering tasks. This method must return
-     * a lit-html TemplateResult. Setting properties inside this method will *not*
-     * trigger the element to update.
+     * Invoked on each update to perform rendering tasks. This method may return
+     * any value renderable by lit-html's NodePart - typically a TemplateResult.
+     * Setting properties inside this method will *not* trigger the element to
+     * update.
      */
     render() {
+        return renderNotImplemented;
     }
 }
 /**
@@ -2417,11 +2472,10 @@ class LitElement extends UpdatingElement {
  */
 LitElement['finalized'] = true;
 /**
- * Render method used to render the lit-html TemplateResult to the element's
- * DOM.
- * @param {TemplateResult} Template to render.
- * @param {Element|DocumentFragment} Node into which to render.
- * @param {String} Element name.
+ * Render method used to render the value to the element's DOM.
+ * @param result The value to render.
+ * @param container Node into which to render.
+ * @param options Element name.
  * @nocollapse
  */
 LitElement.render = render$1;
@@ -2435,6 +2489,8 @@ const LabelsMixin = (base) => {
           label div#label-text, ::slotted(*) {
             align-self: center;
             width: var(--labels-mixin-input-label-width, auto);
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
         `
@@ -2533,7 +2589,7 @@ const SyntheticValidatorMixin = (base) => {
       // Run custom validator. Note that custom validator
       // will only ever run on filed without an existing customError.
       if (!this.validity.customError) {
-        const ownErrorMessage = this.validator();
+        const ownErrorMessage = this._runValidator();
         if (ownErrorMessage) this.setCustomValidity(ownErrorMessage);
       }
 
@@ -2555,9 +2611,24 @@ const SyntheticValidatorMixin = (base) => {
       }
     }
 
+    _runValidator () {
+      // Call the validator with a value. Here an element could be a checkbox,
+      // a select, an simple text input, etc.
+      // If the containing form has _getElementValueSource, that is used to
+      // figure out what to pass to the validato (as well as _submitObject)
+      let value;
+      let submitObject;
+      if (this.form && this.form._getElementValueSource) {
+        value = this[this.form._getElementValueSource(this)];
+        submitObject = this.form.submitObject;
+      }
+      const ownErrorMessage = this.validator(value, submitObject);
+      if (ownErrorMessage) this.setCustomValidity(ownErrorMessage);
+    }
+
     checkValidity () {
       if (!this.validity.customError) {
-        const ownErrorMessage = this.validator();
+        const ownErrorMessage = this._runValidator();
         if (ownErrorMessage) this.setCustomValidity(ownErrorMessage);
       }
 
@@ -2634,9 +2705,34 @@ const LitBits = (base) => {
     static get lit () {
       return {
         LitElement,
-        css
+        css,
+        html
       }
     }
+
+    get lit () {
+      return {
+        LitElement,
+        css,
+        html
+      }
+    }
+
+    //  customStyles allows us to dynamically update the shadowRoot adopted StyleSheets by setting this.customStyles with a CSSResult object
+    get customStyles () {
+      return this._customStyles || css``
+    }
+
+    set customStyles (cssTemplate) {
+      if (typeof cssTemplate === 'string') {
+        cssTemplate = unsafeCSS`${cssTemplate}`; 
+      }
+      this._customStyles = cssTemplate;
+      this.constructor._styles = [...this.constructor._styles, this._customStyles];
+      this.adoptStyles();
+      this.requestUpdate();
+    }
+
   }
 };
 
@@ -3284,6 +3380,7 @@ class EeAutocompleteItemLi extends ThemeableMixin('ee-autocomplete-item-li')(Sty
 
         li {
           list-style: none;
+          text-align: left;
         }
 
       `
@@ -3392,23 +3489,27 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
           position: relative;
         }
 
-        #suggestions {
+        #suggestions-elements {
           box-sizing: border-box;
           background-color: white;
           position: absolute;
           z-index: 1000;
-          max-height: 480px;
+          max-height: 200px;
+          max-width: calc(95% - 17px);
           overflow-y: scroll;
           top: 90%;
+          left: 17px;
           box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.2), 0 0 2px 2px rgba(0, 0, 0, 0.05);
+          visibility: hidden;
         }
 
-        #suggestions[populated] {
-          width: 100%;
+        #suggestions-elements[populated] {
+          width: auto;
+          min-width: var(--ee-autocomplete-suggestions-min-width, 400px);
           padding: 10px;
         }
 
-        #suggestions > *[selected], #suggestions > *:focus, #suggestions > *:hover  {
+        #suggestions-elements > *[selected], #suggestions-elements > *:focus, #suggestions-elements > *:hover  {
           background-color: #eee;
         }
 
@@ -3434,9 +3535,15 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
         type: String,
         attribute: 'target-for-id'
       },
+      displaySingleSuggestion: {
+        type: Boolean, attribute: 'display-single-suggestion'
+      },
       picked: {
         type: Boolean,
         reflect: true
+      },
+      pickedData: {
+        type: Object
       },
       suggestions: {
         type: Array,
@@ -3463,6 +3570,7 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
     this.target = null;
     this.targetForId = null;
     this.suggestions = [];
+    this.pickedData = {};
     this.itemElement = 'ee-autocomplete-item-li';
     this.itemElementConfig = {};
     this.itemElementAttributes = {};
@@ -3518,6 +3626,9 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
         mutations.forEach((mutation) => {
           if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
             this.picked = !!this.targetForId.getAttribute('value');
+            if (!this.targetForId.getAttribute('value')) {
+              this.pickedData = null;
+            }
           }
         });
       });
@@ -3559,7 +3670,9 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
     if (this.themeRender) return this.themeRender()
     return html`
       <slot></slot>
-      <div @click="${this._picked}" id="suggestions" role="listbox" @keydown=${this._handleKeyEvents}></div>
+      <div @click="${this._picked}" id="suggestions" role="listbox" @keydown=${this._handleKeyEvents}>
+        <div id="suggestions-elements"></div>
+      </div>
     `
   }
 
@@ -3570,20 +3683,20 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
       break
     case 'KeyDown':
       if (this.suggestions.length) {
-        const suggestionsDiv = this.shadowRoot.querySelector('#suggestions');
+        const suggestionsDiv = this.shadowRoot.querySelector('#suggestions-elements');
         suggestionsDiv.firstChild.focus();
       }
     }
   }
 
   pickFirst () {
-    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions');
+    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions-elements');
     suggestionsDiv.querySelector('[selected]').click();
   }
 
   focusNext () {
     if (!this.suggestions.length) return
-    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions');
+    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions-elements');
     let selected = suggestionsDiv.querySelector('[selected]') || suggestionsDiv.firstElementChild;
     if (this.suggestions.length > 1) {
       selected.toggleAttribute('selected', false);
@@ -3602,22 +3715,33 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
       if (this.targetForId) {
         this.targetForId.value = e.target.idValue;
         this.picked = true;
+        this.pickedData = e.target.data;
       }
     }
     this._dismissSuggestions();
     this.targetElement.focus();
 
     // Dispatch input event since input happened
-    const inputEvent = new CustomEvent('input', { composed: true, bubbles: true, cancelable: false, detail: { synthetic: true } });
+    this._dispatchPickedEvent();
+  }
+
+  _dispatchPickedEvent () {
+    if (!this.picked) return
+    const inputEvent = new CustomEvent('input', { composed: true, bubbles: true, cancelable: false, detail: { synthetic: true, data: this.pickedData } });
     this.targetElement.dispatchEvent(inputEvent);
+  }
+
+  _jsonCopy (o) {
+    return JSON.parse(JSON.stringify(o))
   }
 
   async updated (cp) {
     if (!cp.has('suggestions')) return
 
-    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions');
+    const suggestionsDiv = this.shadowRoot.querySelector('#suggestions-elements');
 
-    while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild); }
+    // while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }
+    suggestionsDiv.innerHTML = '';
 
     if (this._autocompleteInFlight) return
 
@@ -3630,10 +3754,10 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
 
     for (const suggestion of this.suggestions) {
       const el = document.createElement(this.itemElement);
-      el.config = { ...el.config, ...this.itemElementConfig };
+      el.config = { ...this._jsonCopy(el.config), ...this._jsonCopy(this.itemElementConfig) };
       for (const k of Object.keys(this.itemElementAttributes)) el.setAttribute(k, this.itemElementAttributes[k]);
-      el.data = suggestion;
-      el.onkeydown = this._handleKeyEvents.bind(this);
+      el.data = this._jsonCopy(suggestion);
+      // el.onkeydown = this._handleKeyEvents.bind(this)
       // Make span focusable AND in the tab list
       el.setAttribute('tabindex', 0);
       suggestionsDiv.appendChild(el);
@@ -3655,6 +3779,11 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
         if (this.targetForId) {
           this.targetForId.value = firstOption.idValue;
           this.picked = true;
+          this.pickedData = firstOption.data;
+          if (!this.displaySingleSuggestion) {
+            this._dismissSuggestions();
+            this._dispatchPickedEvent();
+          }
         }
       }
     }
@@ -3666,7 +3795,42 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
     if (this.suggestions.length) {
       suggestionsDiv.toggleAttribute('populated', true);
       suggestionsDiv.firstChild.toggleAttribute('selected', true);
+      const bounding = this._isOutOfViewport(suggestionsDiv);
+      if (bounding.any) {
+        console.log(bounding);
+        console.log(suggestionsDiv);
+        suggestionsDiv.style.transform = `translateY(${this._calcTranslateY(bounding.top, bounding.bottom, suggestionsDiv)}px) translateX(${this._calcTranslateX(bounding.left, bounding.right)}px)`;
+      }
+      suggestionsDiv.style.visibility = 'unset';
     }
+  }
+
+  _calcTranslateY (top, bottom, el) {
+    top = Number(top) * -1;
+    bottom = Number(bottom) * -1;
+    const inputOffset = el && bottom ? el.offsetHeight * -1 + this.targetElement.offsetHeight * -1 : 0;
+    return top + inputOffset
+  }
+
+  _calcTranslateX (left, right) {
+    left = Number(left) * -1;
+    right = Number(right) * -1;
+    return left + right
+  }
+
+  _isOutOfViewport (elem) {
+    // Get element's bounding
+    const bounding = elem.getBoundingClientRect();
+
+    // Check if it's out of the viewport on each side
+    const out = {};
+    out.top = bounding.top < 0 ? bounding.top : false;
+    out.left = bounding.left < 0 ? bounding.left : false;
+    out.bottom = bounding.bottom > (window.innerHeight || document.documentElement.clientHeight) ? bounding.bottom - window.innerHeight : false;
+    out.right = bounding.right > (window.innerWidth || document.documentElement.clientWidth) ? bounding.right - window.innerWidth : false;
+    out.any = !!(out.top || out.left || out.bottom || out.right);
+    out.all = !!(out.top && out.left && out.bottom && out.right);
+    return out
   }
 
   _dismissSuggestions () {
@@ -3676,7 +3840,7 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
   }
 
   _handleKeyEvents (e) {
-    const target = e.currentTarget;
+    const target = e.currentTarget.getRootNode().activeElement;
 
     if (!this.suggestions.length || !target.parentElement) return
 
@@ -3733,12 +3897,18 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
       this._attemptedAutocompleteFlight = e;
       return
     }
-    this._autocompleteInFlight = true;
 
     if (this.targetForId) {
       this.targetForId.value = '';
       this.picked = false;
+      this.pickedData = null;
     }
+
+    // No input: do not run a wide search
+    if (!this.targetElement.value) return
+
+    // IN FLIGHT!
+    this._autocompleteInFlight = true;
 
     // Set the url, which will also depend on recordId
     const value = target.autocompleteValue || target.value;
@@ -3784,11 +3954,11 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
       // Convert the result to JSON
       const v = await response.json();
 
+      this.suggestions = v;
+
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true });
       this.dispatchEvent(event);
-
-      this.suggestions = v;
     }
 
     this._autocompleteInFlight = false;
@@ -3801,18 +3971,25 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
 }
 customElements.define('ee-autocomplete', EeAutocomplete);
 
-const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`;
+// const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
+const chevronLeft = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>`;
 
 class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       css`
-        :host {
+       :host {
+          --ee-drawer-width: 300px;
+          --ee-drawer-background-color: #393939;
           display: block;
           position: fixed;
+          box-sizing: border-box;
           top: 0;
           left: 0;
           z-index: 1;
+          width: 20px;
+          height: 100vh;
+          user-select: none;
         }
 
         :host([opened]) {
@@ -3822,7 +3999,7 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
 
         div.container {
           height: 100vh;
-          position: fixed;
+          position: absolute;
           top: 0;
           left: 0;
           will-change: transform;
@@ -3843,22 +4020,34 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
 
         #close {
           -webkit-appearance: none;
-          color: white;
-          fill: white;
+          color: var(--ee-drawer-background-color, #393939);
+          fill: var(--ee-drawer-background-color, #393939);
           position: absolute;
           top: 5px;
           right: 5px;
           z-index: 10;
-          background: transparent;
+          background-color: var(--ee-drawer-background-color, #393939);
           border: none;
+          cursor: pointer;
+          right: 0;
+          height: 99%;
+          box-sizing: border-box;
+          padding: 0 2px;
         }
 
-        button#close:focus, button#close:active {
-            outline: none !important;
-          }
+        #close svg {
+          height: 20px;
+          width: 20px;
+        }
 
-        button#close:active {
-          filter: brightness(50%)
+        #close:focus, #close:active {
+          outline: none !important;
+        }
+
+        #close:active, #close:hover {
+          filter: brightness(120%);
+          fill: var(--ee-drawer-selected-color, white);
+          color: var(--ee-drawer-selected-color, white);
         }
 
         .container > nav  {
@@ -3869,7 +4058,7 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
           padding: 30px 24px;
           background: var(--ee-drawer-background-color);
           position: relative;
-          overflow: scroll;
+          overflow: auto;
           padding-bottom: 64px;
         }
 
@@ -3878,9 +4067,10 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
           display: block;
           text-decoration: none;
           color: var(--ee-drawer-color, #ddd);
-          line-height: 40px;
+          line-height: 32px;
           padding: 0 24px;
           cursor: pointer;
+          font-size: 0.9em;
         }
 
         .container  > nav ::slotted(a[selected]),
@@ -3898,6 +4088,7 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
 
         .container  > nav ::slotted(.head) {
           color: var(--ee-drawer-color, white);
+          box-sizing: border-box
           width: 100%;
           border-bottom: 1px solid var(--ee-drawer-selected-color, white);
           padding: 6px 70% 6px 0;
@@ -3912,7 +4103,9 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
     return {
       opened: { type: Boolean, reflect: true },
       modal: { type: Boolean },
-      closeButton: { type: Boolean, attribute: 'close-button' }
+      closeButton: { type: Boolean, attribute: 'close-button' },
+      closeThreshold: { type: Number },
+      openThreshold: { type: Number }
     }
   }
 
@@ -3921,18 +4114,43 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
     this.modal = false;
     this.closeButton = true;
     this.opened = false;
+    this.closeThreshold = 0.25;
+    this.openThreshold = 0.8;
   }
 
   connectedCallback () {
     super.connectedCallback();
     this.addEventListener('click', this._handleOutsideClick);
+    this.addEventListener('touchstart', this._handleDragStart);
+    this.addEventListener('touchmove', this._handleDrag);
+    this.addEventListener('touchend', this._handleDragEnd);
+    // Will add these in the future to support dragging in desktop
+    // this.addEventListener('mousedown', this._handleDragStart)
+    // this.addEventListener('mousemove', this._handleDrag)
+    // this.addEventListener('mouseup', this._handleDragEnd)
+  }
+
+  disconnectedCallback () {
+    super.disconnectedCallback();
+    this.removeEventListener('click', this._handleOutsideClick);
+    this.removeEventListener('touchstart', this._handleDragStart);
+    this.removeEventListener('touchmove', this._handleDrag);
+    this.removeEventListener('touchend', this._handleDragEnd);
+    // Will add these in the future to support dragging in desktop
+    // this.removeEventListener('mousedown', this._handleDragStart)
+    // this.removeEventListener('mousemove', this._handleDrag)
+    // this.removeEventListener('mouseup', this._handleDragEnd)
+  }
+
+  firstUpdated () {
+    this.container = this.shadowRoot.querySelector('div.container');
   }
 
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
       <div class="container">
-        ${this.closeButton ? html`<button id="close" @click="${this.close}">${close}</button>` : ''}
+        ${this.closeButton ? html`<button id="close" @click="${this.close}">${chevronLeft}</button>` : ''}
         <nav>
           <slot></slot>
         </nav>
@@ -3944,12 +4162,55 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
     this.opened = true;
   }
 
+  close () {
+    this.opened = false;
+  }
+
+  toggle () {
+    this.opened = !this.opened;
+  }
+
   _handleOutsideClick (e) {
     if (e.target.nodeName === 'EE-DRAWER') this.close();
   }
 
-  close () {
-    this.opened = false;
+  _handleDragStart (e) {
+    e.preventDefault();
+    this.dragStart = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+    console.log(this.dragStart);
+    if (!this.opened) this.style.width = '100vw';
+    return false
+  }
+
+  _handleDrag (e) {
+    if (e.type === 'touchmove') e.preventDefault();
+    console.log(this.dragStart);
+    const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+    const offset = x - this.dragStart;
+    const w = this.container.getBoundingClientRect().width;
+    if (offset < -w + this.openThreshold * w) {
+      this.close();
+      return
+    }
+    if (offset > w - this.closeThreshold * w) {
+      this.open();
+      this.container.style.transform = '';
+      return
+    }
+    requestAnimationFrame(() => {
+      this.container.style.transform = `translateX(calc(-100% + ${offset}px))`;
+    });
+    return false
+  }
+
+  _handleDragEnd (e) {
+    this.dragStart = undefined;
+    e.preventDefault();
+    requestAnimationFrame(() => {
+      this.container.style.transform = '';
+    });
+    this.style.width = '';
+    return false
   }
 }
 customElements.define('ee-drawer', EeDrawer);
@@ -4014,16 +4275,20 @@ const NativeReflectorMixin = (base) => {
     afterSettingProperty () {}
 
     getAttribute (attr) {
-      if (this.skipAttributes.indexOf(attr) !== -1) {
+      if (!this.native || this.skipAttributes.indexOf(attr) !== -1) {
         return super.getAttribute(attr)
       }
 
-      const nativeAttribute = this.native.getAttribute(attr);
+      return this.native.getAttribute(attr)
+
+      /*
+      const nativeAttribute = this.native.getAttribute(attr)
       if (nativeAttribute !== null) return nativeAttribute
 
       // This shouldn't really happen, but it's here as a fallback
       // TODO: Maybe delete it and always return the native's value regardless
       return super.getAttribute(attr)
+      */
     }
 
     setAttribute (attr, value) {
@@ -4163,7 +4428,7 @@ const NativeReflectorMixin = (base) => {
 
               // This is required by litElement since it won't
               // create a setter if there is already one
-              this._requestUpdate(prop, oldValue);
+              this.requestUpdate(prop, oldValue);
 
               if (typeof this.afterSettingProperty === 'function') {
                 this.afterSettingProperty(prop, newValue);
@@ -4206,6 +4471,7 @@ const NativeReflectorMixin = (base) => {
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
+const previousValues = new WeakMap();
 /**
  * For AttributeParts, sets the attribute if the value is defined and removes
  * the attribute if the value is undefined.
@@ -4213,15 +4479,19 @@ const NativeReflectorMixin = (base) => {
  * For other part types, this directive is a no-op.
  */
 const ifDefined = directive((value) => (part) => {
+    const previousValue = previousValues.get(part);
     if (value === undefined && part instanceof AttributePart) {
-        if (value !== part.value) {
+        // If the value is undefined, remove the attribute, but only if the value
+        // was previously defined.
+        if (previousValue !== undefined || !previousValues.has(part)) {
             const name = part.committer.name;
             part.committer.element.removeAttribute(name);
         }
     }
-    else {
+    else if (value !== previousValue) {
         part.setValue(value);
     }
+    previousValues.set(part, value);
 });
 
 const plusIcon = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>`;
@@ -4331,7 +4601,6 @@ class EeToolbar extends ThemeableMixin('ee-toolbar')(StyleableMixin(LitElement))
         }
 
         :host ::slotted([title]) {
-          pointer-events: none;
           display: flex;
           margin: auto 20px;
         }
@@ -4677,6 +4946,13 @@ class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitElement))
           display: inline-block;
         }
 
+        :host([status="loading"]) ::slotted(*),
+        :host([status="saving"]) ::slotted(*),
+        :host([status="loading-error"]) ::slotted(*),
+        :host([status="saving-error"]) ::slotted(*) {
+          z-index: 0;
+        }
+
         #overlay {
           display: none; /* Hide by default */
           position: absolute;
@@ -4684,7 +4960,6 @@ class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitElement))
           left: 0;
           right: 0;
           bottom: 0;
-          z-index: 100000;
           text-align: center;
           transition: background var(--ee-network-transition-duration, 200ms);
         }
@@ -4693,6 +4968,7 @@ class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitElement))
           display: block;
           color: var(--ee-network-overlay-loading-color, #666);
           background-color: var(--ee-network-overlay-loading-background-color, rgba(190, 190, 190, 0.75));
+          z-index: 10;
         }
 
         #overlay.clear {
@@ -4703,6 +4979,7 @@ class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitElement))
           cursor: pointer; /* Hint that the object is clickable */
           color: var(--ee-network-overlay-error-color, #c00);
           background-color: var(--ee-network-overlay-error-background-color, rgba(255, 0, 0, 0.25));
+          z-index: 10;
         }
 
         #overlay #statusMessage {
@@ -4782,10 +5059,10 @@ class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitElement))
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
+      <slot></slot>
       <div id="overlay" class="${this.overlayClass}" @click="${this._overlayClicked}">
         <div id="statusMessage">${this.statusMessages[this.status]}</div>
       </div>
-      <slot></slot>
     `
   }
 
@@ -4811,6 +5088,20 @@ class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitElement))
       break
     }
   }
+
+  /*
+    TODO DOCUMENTATION:
+    // EVENT LISTENING WAY. With @retry-successful="${this._refetched.bind(this)}" in ee-network
+    async _retrySuccessful (e) {
+      this[this.localDataProperty] = await e.detail.fetched.json()
+    }
+
+    // REFETCH WAY. WITH .retryMethod="${this._retry.bind(this)}" in ee-network
+    async _retry (status, url, initObject) {
+      const job = await this.fetch(url, initObject)
+      this.job = await job.json()
+    }
+ */
 
   async _overlayClicked (e) {
     if (this.noReloadOnTap) return
@@ -4855,27 +5146,49 @@ class EeNetwork extends ThemeableMixin('ee-network')(StyleableMixin(LitElement))
 
     this.status = isGet ? 'loading' : 'saving';
     this._setOverlay();
-    this.messenger(this.status, url, initObject);
+    this.messenger({
+      status: this.status,
+      url,
+      initObject,
+      networkElement: this
+    });
     this.prefetch(initObject);
 
     try {
       const response = await fetch(initObject.url, initObject);
+
+      // console.log('Cloning the response and waiting for the text...')
+      // Wait for the _actual_ data to get here
+      const r2 = response.clone();
+      const v = await r2.json();
+
       if (response.ok) {
         this.status = isGet ? 'loaded' : 'saved';
       } else {
         this.status = isGet ? 'loading-error' : 'saving-error';
       }
       this._setOverlay();
-      this.messenger(this.status, url, initObject, response);
+      this.messenger({
+        status: this.status,
+        url,
+        initObject,
+        response,
+        networkElement: this
+      });
       // Response hook
-      this.response(response);
+      this.response(response, v, initObject);
 
       return response
     } catch (e) {
       this.status = isGet ? 'loading-error' : 'saving-error';
       this._setOverlay();
-      this.messenger(this.status, url, initObject);
-      this.response(null);
+      this.messenger({
+        status: this.status,
+        url,
+        initObject,
+        networkElement: this
+      });
+      this.response(null, null, initObject);
       throw (e)
     }
   }
@@ -4988,23 +5301,31 @@ class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
       css`
         :host {
           position: relative;
-          width: 100%;
           border-bottom: 1px solid var(var(--ee-tabs-lines-color, #bbb));
         }
 
         :host nav {
-          position: sticky;
+          position: var(--ee-tabs-nav-position, sticky);
           top:0;
           width: 100%;
           border-bottom: 1px solid var(--ee-tabs-lines-color, #bbb);
           display: flex;
           height: var(--ee-tabs-height, 32px);
-          z-index: var(--ee-tabs-z-index, 10);
+          z-index: var(--ee-tabs-z-index);
+          overflow: var(--ee-tabs-nav-overflow);
         }
 
-        :host div#contentContainer {
+        :host #contentContainer {
           height: 100%;
-          overflow: auto;
+        }
+
+        /* TODO: Why don't these selectors work? */
+        :host #contentContainer ::slotted(*) {
+          display: none;
+        }
+
+        :host #contentContainer ::slotted(*[active]) {
+          display: initial;
         }
 
         :host nav ::slotted(*) .icon {
@@ -5019,7 +5340,7 @@ class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
           color: var(--ee-tabs-color, black);
           text-decoration: none;
           line-height: var(--ee-tabs-height, 20px);
-          padding: 4px 24px;
+          padding: 4px 12px;
           border: unset;
           border-left: 0.5px solid var(--ee-tabs-lines-color, #bbb);
           border-right: 0.5px solid var(--ee-tabs-lines-color, #bbb);
@@ -5030,6 +5351,10 @@ class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
           text-align: center;
           background-color:  var(--ee-tabs-background-color, whitesmoke);
           cursor: default;
+        }
+
+        :host([min-width-tabs]) nav > ::slotted(*) {
+          max-width: max-content;
         }
 
         :host nav > ::slotted(*:last-child) {
@@ -5053,7 +5378,7 @@ class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
           border-left: 0.5px solid var(--ee-tabs-lines-color, #bbb);
           border-right: 0.5px solid var(--ee-tabs-lines-color, #bbb);
           border-bottom: 4px solid var(--ee-tabs-active-color, black);
-          filter: brightness(150%)
+          filter: brightness(115%)
         }
 
         :host nav > ::slotted(*:active) {
@@ -5084,7 +5409,8 @@ class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
       useHash: { type: Boolean, attribute: 'use-hash' },
       passive: { type: Boolean },
       default: { type: String },
-      nameAttribute: { type: String, attribute: 'name-attribute' }
+      nameAttribute: { type: String, attribute: 'name-attribute' },
+      minWidthTabs: { type: Boolean, reflect: true, attribute: 'min-width-tabs' }
     }
   }
 
@@ -5210,14 +5536,312 @@ class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
 }
 customElements.define('ee-tabs', EeTabs);
 
+// DraggableListMixin
+
+// These are declared outside the mixin to make sure diffrent instances access the same data
+window.moving = null;
+window.originContainer = null;
+window.targetContainer = null;
+const targetRows = [];
+window.lastEntered = null;
+
+const debounce = (callback, wait, immediate = false) => {
+  let timeout = null;
+  return function () {
+    const callNow = immediate && !timeout;
+    const next = () => callback.apply(this, arguments);
+    clearTimeout(timeout);
+    timeout = setTimeout(next, wait);
+    if (callNow) {
+      next();
+    }
+  }
+};
+
+const debouncedPortionOfDragenterListener = debounce(async function (e) {
+  console.log('Debounced dragenter');
+  requestAnimationFrame(() => {
+    // The targetRows array might have previous targets in it. Remove the target class from them
+    targetRows.forEach(element => {
+      element.classList.remove('target');
+    });
+    targetRows.splice(0, targetRows.length);
+    // Add target class and push the current target to the targetRows array
+    window.lastEntered.classList.add('target');
+    targetRows.push(this);
+  });
+  await window.targetContainer.dragenterHook(e, window.moving, this);
+}, 100, true);
+
+const DraggableListMixin = (base) => {
+  return class Base extends base {
+    // Necessary styles to be added to the litElement based target element:
+    static get styles () {
+      return [
+        super.styles,
+        css`
+          @-webkit-keyframes fadeIn {
+            0%   { opacity: 0; }
+            100% { opacity: 1; }
+          }
+          @-moz-keyframes fadeIn {
+            0%   { opacity: 0; }
+            100% { opacity: 1; }
+          }
+          @-o-keyframes fadeIn {
+            0%   { opacity: 0; }
+            100% { opacity: 1; }
+          }
+          @keyframes fadeIn {
+            0%   { opacity: 0; }
+            100% { opacity: 1; }
+          }
+
+          @-webkit-keyframes flash {
+            0%   {opacity: 0}
+            70% {opacity: 0.5;}
+            100% {opacity: 0;}
+          }
+
+          @-moz-keyframes flash {
+            0%   {opacity: 0}
+            70% {opacity: 0.5;}
+            100% {opacity: 0;}
+          }
+
+          @-o-keyframes flash {
+            0%   {opacity: 0}
+            70% {opacity: 0.5;}
+            100% {opacity: 0;}
+          }
+
+          @keyframes flash {
+            0%   {opacity: 0}
+            70% {opacity: 0.5;}
+            100% {opacity: 0;}
+          }
+
+          ::slotted(.success-overlay), ::slotted(.error-overlay) {
+            position: relative;
+          }
+
+          ::slotted(.success-overlay)::after, ::slotted(.error-overlay)::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: green;
+            opacity: 0;
+            animation: flash 0.3s ease;
+          }
+
+          ::slotted(.error-overlay)::after {
+            background-color: red;
+          }
+
+          ::slotted(.target), ::slotted(.moving) {
+            /* visibility: hidden; */
+            /* height: 0; */
+            box-sizing: border-box;
+            outline: 6px solid orange;
+            background-color: papayawhip;
+            opacity: 0.2;
+          }
+
+          ::slotted(.target) {
+            position: relative;
+            box-sizing: border-box;
+            background-color: white;
+            /* margin-top: 40px; */
+          }
+/*
+          ::slotted(.target)::before {
+            content: attr(drop-label);
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            vertical-align: middle;
+            position: absolute;
+            top: -100%;
+            bottom: 100%;
+            left: 0;
+            width: 100%;
+            background-color: purple;
+            /* animation: fadeIn 0.3s ease-in;*/
+          } */
+        `
+      ]
+    }
+
+    static get properties () {
+      return {
+        dragDrop: { type: Boolean, attribute: 'drag-drop' }
+      }
+    }
+
+    constructor () {
+      super();
+      this.addEventListener('enable-dnd', this._enableDndForElement);
+    }
+
+    _enableDndForElement (e) {
+      const el = e.srcElement;
+      // Do not enable if drag-drop attribute is not present in the list element, if
+      if (!this.dragDrop) return
+      e.stopPropagation();
+      const dndHandle = el.querySelector('#dnd-handle');
+
+      // el.dndContainerElement = this // NOT USED ANYWHERE
+
+      // If element is marked as no-drag, skip this block
+      if (!el.hasAttribute('no-drag')) {
+        // If a DND handle is defined (element with ID dnd-handle), then
+        // use THAT as the only option to move elements around
+        if (dndHandle) {
+          // Hovering the handle will enable dragging the element
+          dndHandle.addEventListener('mouseover', () => {
+            el.setAttribute('draggable', 'true');
+            el.addEventListener('dragstart', this._dragstartListener, false);
+          });
+          dndHandle.addEventListener('mouseout', () => {
+            el.removeAttribute('draggable');
+            el.removeEventListener('dragstart', this._dragstartListener);
+          });
+        } else {
+          el.setAttribute('draggable', 'true');
+          el.addEventListener('dragstart', this._dragstartListener, false);
+        }
+      }
+
+      // Enables drop event, in the element is not marked as no-drop
+      if (!el.hasAttribute('no-drop')) {
+        // Add event listeners to element
+        el.addEventListener('dragenter', this._dragenterListener, false);
+        el.addEventListener('dragend', this._dragendListener, false);
+        el.addEventListener('drop', this._dropListener, false);
+
+        el.addEventListener('dragleave', this._dragleaveListener, false);
+        el.addEventListener('dragexit', this._dragexitListener, false);
+        el.addEventListener('dragover', this._dragoverListener, false);
+      }
+    }
+
+    // HOOKS to be redefined by the mixing class
+
+    async dragstartHook (e, moving) { return true }
+    async dragenterHook (e, moving, target) { return true }
+    async dragendHook (e, moving, target) { return true }
+    async dropHook (e, moving, target) { return true }
+
+    async dragexitHook (e, moving) { return true }
+    async dragleaveHook (e, moving, target) { return true }
+    async dragoverHook (e, moving, target) { return true }
+    validDropHook (e, moving, target) { return true }
+
+    // # Drag and Drop Handlers and hooks
+    //
+    // All the logic used during DnD is defined in these handlers, which are registered as listeners during instantiation.
+    // All listeners are private and not supposed to be modified. They call a hook for each type of event.
+    // The hooks should be redefined to handle any work that's needed during of in response to the drag event.
+    _dragstartListener (e) {
+      window.lastEntered = null;
+      // Start out by assuming the user is moving, and that moving is allowed. This can be changed in the hook.
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.dropEffect = 'move';
+      // The proper way to 'move' data around while dragging is to use the dataTransfer interface. However, webKit based browsers
+      // only make that data accessible in the drop event, so getting anything in dragenter or dragover is impossible.
+      // To make it simpler and fully intereoperable, we store a reference to the parent of the moving item and the item itself
+      // in the Mixin's outer scope
+      window.originContainer = this.parentElement;
+      window.moving = this;
+      // Use requestAnimationFrame API to update styles, toa void performance issues
+      requestAnimationFrame(() => {
+        window.moving.classList.add('moving');
+      });
+      // All handler hooks are called from the list parent, which must implement them.
+      window.originContainer.dragstartHook(e, window.moving);
+    }
+
+    _dragenterListener (e) {
+      if (this === window.lastEntered) return
+
+      // Like in dragstart with the moving item, we store the target's parent reference for later use
+      window.targetContainer = this.parentElement;
+      if (!window.targetContainer.validDropHook(e, window.moving, this)) {
+        return
+      }
+
+      // preventDefault is necessary to ALLOW custom dragenter handling
+      e.preventDefault();
+      window.previousLastEntered = window.lastEntered;
+      window.lastEntered = this;
+
+      debouncedPortionOfDragenterListener.call(this, e);
+    }
+
+    // dragover, dragleave and dragexit listeners are setup and hooks are available, but no work is done here by default
+    _dragoverListener (e) {
+      // preventDefault is necessary to ALLOW custom dragover and dropping handling
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+
+      window.targetContainer.dragoverHook(e, window.moving, this);
+    }
+
+    _dragleaveListener (e) {
+      window.targetContainer.dragleaveHook(e, window.moving, this);
+    }
+
+    _dragexitListener (e) {
+      window.targetContainer.dragexitHook(e, window.moving, this);
+    }
+
+    _dragendListener (e) {
+      // some niche cases might result in this method running when references are empty. Bail to avoid errors
+      if (!window.originContainer || !window.targetContainer) return
+
+      if (!window.originContainer.validDropHook(e, window.moving, window.lastEntered)) return
+
+      // This hook needs to be a promise, so references are not cleared before the hook is done
+      window.originContainer.dragendHook(e, window.moving).then(() => {
+        // only clear styles and references if dropEffect is none, which should be set while validating the target in the hooks
+        // if (e.dataTransfer.dropEffect === 'none') {
+        requestAnimationFrame(() => {
+          this.classList.remove('moving');
+          console.log(targetRows);
+          targetRows.forEach(element => {
+            element.classList.remove('target');
+          });
+          targetRows.splice(0, targetRows.length);
+          window.moving = null;
+          window.originContainer = null;
+          window.targetContainer = null;
+          window.lastEntered = null;
+        });
+        // }
+      });
+    }
+
+    _dropListener (e) {
+      e.preventDefault();
+      // Like with dragend, the hook needs to return a promise to avoid timing issues.
+      window.targetContainer.dropHook(e, window.moving, this);
+    }
+  }
+};
+
 // https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 // https://dev.to/drews256/ridiculously-easy-row-and-column-layouts-with-flexbox-1k01
 
 // https://github.com/Victor-Bernabe/lit-media-query/blob/master/lit-media-query.js
 
-class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElement)) {
+// eslint-disable-next-line new-cap
+class EeTable extends DraggableListMixin(ThemeableMixin('ee-table')(StyleableMixin(LitElement))) {
   static get styles () {
     return [
+      super.styles || [],
       css`
         :host {
           display: block;
@@ -5268,6 +5892,7 @@ class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElement)) {
   }
 
   firstUpdated () {
+    super.firstUpdated();
     this._handleResize();
   }
 
@@ -5284,8 +5909,13 @@ class EeTable extends ThemeableMixin('ee-table')(StyleableMixin(LitElement)) {
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      <slot @slotchange="${() => { console.log('slot change'); this._handleResize(); }}"></slot>
+      <slot @slotchange="${this._slotChanged}"></slot>
     `
+  }
+
+  _slotChanged () {
+    this._handleResize();
+    // this._updateDragDrop()
   }
 }
 customElements.define('ee-table', EeTable);
@@ -5301,6 +5931,7 @@ class EeCell extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement)) {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          padding: 3px;
           border: 1px solid transparent;
         }
 
@@ -5330,6 +5961,17 @@ class EeCell extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement)) {
         :host([s5]) {
           flex-grow: 5;
         }
+
+        /*
+         ::slotted(#dnd-handle) {
+          cursor: pointer;
+        }
+
+        ::slotted(*) {
+          cursor: pointer;
+        }
+        */
+
       `
     ]
   }
@@ -5357,7 +5999,43 @@ class EeCell extends ThemeableMixin('ee-cell')(StyleableMixin(LitElement)) {
 }
 customElements.define('ee-cell', EeCell);
 
-class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) {
+// DraggableElement
+// ===============
+const DraggableElementMixin = (base) => {
+  return class Base extends base {
+    // Necessary styles to be added to the litElement based target element:
+    static get styles () {
+      return [
+        super.styles
+      ]
+    }
+
+    // These properties are also added to the target element.
+    static get properties () {
+      return {
+        dragData: { type: Object, attribute: 'drag-data' }
+      }
+    }
+
+    constructor () {
+      super();
+      this.dragData = {};
+      this.addEventListener('drop', function(e) {
+        console.log('DROP EVENT HAPPENED HERE');
+      });
+    }
+
+    firstUpdated () {
+      super.firstUpdated();
+      if (this.hasAttribute('enable-dnd')) {
+        this.dispatchEvent(new CustomEvent('enable-dnd', { bubbles: true }));
+      }
+    }
+  }
+};
+
+class EeRow extends DraggableElementMixin(ThemeableMixin('ee-row')(StyleableMixin(LitElement))) {
+  
   static get styles () {
     return [
       css`
@@ -5366,6 +6044,7 @@ class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
+          align-items: center;
           width: 100%;
           border: 1px solid transparent;
           border-bottom: var(--ee-row-border-bottom, 1px solid #777);
@@ -5393,6 +6072,12 @@ class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) {
           background: var(--ee-row-background, white);
         }
 
+        :host([frozen][footer]) {
+          bottom: 0;
+          top: unset;
+          border-top: var(--ee-row-border-bottom, 1px solid #777);
+        }
+
         :host([size=small]) ::slotted(ee-cell) {
           flex-basis: 100%;
         }
@@ -5404,29 +6089,45 @@ class EeRow extends ThemeableMixin('ee-row')(StyleableMixin(LitElement)) {
 
         :host([size=medium]) ::slotted(ee-cell[extra]),
         :host([size=small]) ::slotted(ee-cell[extra])
-         {
+        {
           display:none !important;
         }
 
         :host([size=small]) ::slotted(ee-cell[header]) {
           display: none !important;
         }
+
+        /* Drag and Drop Styles */
+        #dnd-handle, ::slotted(#dnd-handle) {
+          display: none;
+          max-width: 18px;
+          height: 18px;
+          cursor: move;
+        }
+
+        :host([header]) .handle,
+        :host([header]) ::slotted(.handle) {
+          pointer-events: none;
+          visibility: hidden;
+        }
+
+        :host([draggable]) .handle,
+        :host([draggable]) ::slotted(.handle) {
+          display: block;
+        }
       `
     ]
   }
 
+
   static get properties () {
     return {
+      header: { type: Boolean }
     }
   }
 
   constructor () {
     super();
-    this.SOMETHING = false;
-  }
-
-  connectedCallback () {
-    super.connectedCallback();
   }
 
   render () {
@@ -5466,6 +6167,12 @@ class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeReflectorMix
     return valid
   }
 
+  clearAllCustomValidity (elements) {
+    for (const el of elements) {
+      if (typeof el.setCustomValidity === 'function') el.setCustomValidity('');
+    }
+  }
+
   checkValidity () {
     // Check validity in form
     let valid = true;
@@ -5494,6 +6201,9 @@ class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeReflectorMix
     for (const el of this.elements) {
       const valueSource = this._getElementValueSource(el);
 
+      // Reset validity, so that error messages are also reset
+      if (typeof el.setCustomValidity === 'function') el.setCustomValidity('');
+
       if (this._radioElement(el)) {
         el[valueSource] = el.getAttribute(valueSource) !== null;
       } else if (this._checkboxElement(el)) {
@@ -5501,6 +6211,116 @@ class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeReflectorMix
       } else {
         el[valueSource] = el.getAttribute(valueSource);
       }
+    }
+  }
+
+  createSubmitObject (elements) {
+    const r = {};
+    for (const el of elements) {
+      const elName = el.getAttribute('name');
+      // Every submit element MUST have a name set
+      if (typeof elName === 'undefined' || elName === null) continue
+
+      // Radio will only happen once thanks to checking for undefined
+      if (typeof r[elName] !== 'undefined') continue
+      if (el.getAttribute('no-submit') !== null) continue
+      // Checkboxes are special: they might be handled as native ones,
+      // (NOTHING set if unchecked, and their value set if checked) or
+      // as booleans (true for checked, or false for unchecked)
+      if (this._checkboxElement(el)) {
+        if (this.submitCheckboxesAsNative) {
+          // As native checkboxes.
+          const val = this.getFormElementValue(elName);
+          if (val) r[elName] = val;
+        } else {
+          // As more app-friendly boolean value
+          r[elName] = !!this.getFormElementValue(elName);
+        }
+      // For "file" types (uploads), it will
+      } else if (el.type === 'file' || el.getAttribute('as-file')) {
+        r[elName] = el;
+      } else {
+        r[elName] = this.getFormElementValue(elName);
+      }
+    }
+    return r
+  }
+
+  getFormElementValue (elName) {
+    const elements = [...this.elements].filter(el => el.getAttribute('name') === elName);
+
+    if (!elements.length) {
+      console.error('Trying to set', elName, 'but no such element in form');
+      return
+    }
+
+    if (elements.length === 1) {
+      const el = elements[0];
+
+      const valueSource = this._getElementValueSource(el);
+      if (this._checkboxElement(el)) {
+        return el[valueSource]
+          ? (el.value ? el.value : 'on')
+          : undefined
+      } else if (this._selectElement(el)) {
+        return el[valueSource]
+      } else {
+        return el[valueSource]
+      }
+    } else {
+      const nonRadio = elements.filter(el => !this._radioElement(el));
+      if (nonRadio.length) {
+        console.error('Duplicate name', elName, 'for non-radio elements');
+        return
+      }
+
+      const checked = elements.find(el => {
+        const valueSource = this._getElementValueSource(el);
+        return el[valueSource]
+      });
+      if (checked) return checked.value
+      else return undefined
+    }
+  }
+
+  setFormElementValue (elName, value, skipHiddenElements) {
+    const el = [...this.elements].find(el => {
+      if (this._radioElement(el)) {
+        return el.getAttribute('name') === elName && el.value === value
+      } else {
+        return el.getAttribute('name') === elName
+      }
+    });
+
+    // Don't do anything if the element wasn't found OR if the type was hidden
+    // (which 99.9% of the time is set by the form)
+    if ((!el || (el.getAttribute('type') === 'hidden')) && skipHiddenElements) return
+    // Get the original value
+    const valueSource = this._getElementValueSource(el);
+
+    // CHECKBOXES
+    if (this._checkboxElement(el)) {
+      el[valueSource] = !!value;
+
+    // RADIO
+    // Radio elements
+    } else if (this._radioElement(el)) {
+      el[valueSource] = true;
+      const others = [...this.elements].filter(e =>
+        el !== e &&
+        this._radioElement(el)
+      );
+      for (const other of others) other[valueSource] = false;
+
+    // SELECT
+    // Selectable elements (with prop selectedIndex)
+    } else if (this._selectElement(el)) {
+      if (!value) el.selectedIndex = 0;
+      else el[valueSource] = value;
+
+    // Any other case
+    } else {
+      el[valueSource] = value;
     }
   }
 
@@ -5593,10 +6413,10 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       },
 
       // This will allow users to redefine methods declaratively
-      createSubmitObject: { type: Function, attribute: false },
       presubmit: { type: Function, attribute: false },
       response: { type: Function, attribute: false },
-      postload: { type: Function, attribute: false },
+      incomingData: { type: Function, attribute: false },
+      dataLoaded: { type: Function, attribute: false },
       extrapolateErrors: { type: Function, attribute: false }
 
     }
@@ -5613,7 +6433,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.attemptedFlight = false;
     this.inFlightMap = new WeakMap();
     this.attemptedFlightMap = new WeakMap();
-
     this.submitObject = {};
   }
 
@@ -5667,7 +6486,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
 
   setFormElementValues (o) {
     for (const k in o) {
-      this.setFormElementValue(k, o[k]);
+      this.setFormElementValue(k, o[k], true);
     }
   }
 
@@ -5686,49 +6505,39 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     return o
   }
 
-  createSubmitObject (elements) {
-    const r = {};
-    for (const el of elements) {
-      const elName = el.getAttribute('name');
-      // Every submit element MUST have a name set
-      if (typeof elName === 'undefined' || elName === null) continue
+  async presubmit (fetchOptions) {}
 
-      // Radio will only happen once thanks to checking for undefined
-      if (typeof r[elName] !== 'undefined') continue
-      if (el.getAttribute('no-submit') !== null) continue
-      // Checkboxes are special: they might be handled as native ones,
-      // (NOTHING set if unchecked, and their value set if checked) or
-      // as booleans (true for checked, or false for unchecked)
-      if (this._checkboxElement(el)) {
-        if (this.submitCheckboxesAsNative) {
-          // As native checkboxes.
-          const val = this.getFormElementValue(elName);
-          if (val) r[elName] = val;
-        } else {
-          // As more app-friendly boolean value
-          r[elName] = !!this.getFormElementValue(elName);
-        }
-      } else {
-        r[elName] = this.getFormElementValue(elName);
-      }
-    }
-    return r
-  }
+  async response (response, errs, fetchOptions) {} // If (response !== null and response.ok), it worked
 
-  presubmit () {}
+  async incomingData (o, op) {} // op can be 'autoload' or 'submit'
 
-  response () {}
+  async dataLoaded (o, op) {} // op can be 'autoload' or 'submit'
 
-  postload () {}
-
+  // Disabled here is set (and checked) with both the attribute and the property
+  // 'disabled' since an element might be disabled in the html, but might
+  // not have had a chance to render yet (in which case, for non-native elemtns,
+  // it would mean that the property is not yet there, since the reflector hasn't
+  // yet run)
   _disableElements (elements) {
+    this.__disabled = new WeakMap();
     for (const el of elements) {
-      if (!el.disabled) el.setAttribute('disabled', true);
+      if (!el.disabled && !el.hasAttribute('disabled')) {
+        el.setAttribute('disabled', true);
+        el.disabled = true;
+        this.__disabled.set(el, true);
+      }
     }
   }
 
   _enableElements (elements) {
-    for (const el of elements) el.removeAttribute('disabled');
+    this.__disabled = this.__disabled || new WeakMap();
+    for (const el of elements) {
+      if (this.__disabled.has(el)) {
+        el.removeAttribute('disabled');
+        el.disabled = false;
+        this.__disabled.delete(el);
+      }
+    }
   }
 
   _fetchEl (specificElement) {
@@ -5761,103 +6570,32 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     }
   }
 
-  getFormElementValue (elName) {
-    const elements = [...this.elements].filter(el => el.getAttribute('name') === elName);
-
-    if (!elements.length) {
-      console.error('Trying to set', elName, 'but no such element in form');
-      return
-    }
-
-    if (elements.length === 1) {
-      const el = elements[0];
-
-      const valueSource = this._getElementValueSource(el);
-      if (this._checkboxElement(el)) {
-        return el[valueSource]
-          ? (el.value ? el.value : 'on')
-          : undefined
-      } else if (this._selectElement(el)) {
-        return el[valueSource]
-      } else {
-        return el[valueSource]
-      }
-    } else {
-      const nonRadio = elements.filter(el => !this._radioElement(el));
-      if (nonRadio.length) {
-        console.error('Duplicate name', elName, 'for non-radio elements');
-        return
-      }
-
-      const checked = elements.find(el => {
-        const valueSource = this._getElementValueSource(el);
-        return el[valueSource]
-      });
-      if (checked) return checked.value
-      else return undefined
-    }
-  }
-
-  setFormElementValue (elName, value) {
-    const el = [...this.elements].find(el => {
-      if (this._radioElement(el)) {
-        return el.getAttribute('name') === elName && el.value === value
-      } else {
-        return el.getAttribute('name') === elName
-      }
-    });
-
-    if (!el) return
-
-    // Get the original value
-    const valueSource = this._getElementValueSource(el);
-
-    // CHECKBOXES
-    if (this._checkboxElement(el)) {
-      el[valueSource] = !!value;
-
-    // RADIO
-    // Radio elements
-    } else if (this._radioElement(el)) {
-      el[valueSource] = true;
-      const others = [...this.elements].filter(e =>
-        el !== e &&
-        this._radioElement(el)
-      );
-      for (const other of others) other[valueSource] = false;
-
-    // SELECT
-    // Selectable elements (with prop selectedIndex)
-    } else if (this._selectElement(el)) {
-      if (!value) el.selectedIndex = 0;
-      else el[valueSource] = value;
-
-    // Any other case
-    } else {
-      el[valueSource] = value;
-    }
+  async _wait (ms) {
+    return new Promise(resolve => {
+      setTimeout(resolve, ms);
+    })
   }
 
   async submit (specificElement) {
     // Clear all custom validities if they are set
     // Native elements will NEED this, or any invalid state
     // will persist even if validation passes
+    // Then, make up submit object and check whether reportValidity returns
+    // false (which basically means "abort")
     if (specificElement) {
-      if (typeof specificElement.setCustomValidity === 'function') specificElement.setCustomValidity('');
+      this.clearAllCustomValidity([specificElement]);
       this.submitObject = this.createSubmitObject([specificElement]);
       if (typeof specificElement.reportValidity === 'function' && !specificElement.reportValidity()) return
     } else {
-      for (const el of this.elements) {
-        if (typeof el.setCustomValidity === 'function') el.setCustomValidity('');
-      }
+      this.clearAllCustomValidity(this.elements);
       this.submitObject = this.createSubmitObject(this.elements);
       if (!this.reportValidity()) return
     }
-    // Old unused code
-    // if (specificElement && typeof specificElement.reportValidity === 'function' && !this.reportValidity()) return
 
-    // Run validators before submitting the form. If one of them fails,
-    // it won't go further
+    // Give users the ability to listen to @submit and then Allow for a presubmit hook
+    const submitEvent = new CustomEvent('submit', { cancelable: true, bubbles: true, composed: true });
+    this.dispatchEvent(submitEvent);
+    if (submitEvent.defaultPrevented) return
 
     // inFlightMap is a map of all connections, using the specificElement
     // as key (or "window" if there is no specific element)
@@ -5896,24 +6634,55 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     const fetchOptions = {
       url,
       method,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': this.getAttribute('enctype') || 'application/json' },
       redirect: 'follow', // manual, *follow, error
       body: this.submitObject // body data type must match "Content-Type" header
     };
 
     // HOOK: Allow devs to customise the request about to be sent to the server
-    this.presubmit(fetchOptions);
+    await this.presubmit(fetchOptions);
 
     // Disable the elements
     if (!specificElement) this._disableElements(this.elements);
+
+    // Delete the multipart/form-data header if it was set, since
+    // the browser will set it (with the right boundary parameter)
+    // https://muffinman.io/uploading-files-using-fetch-multipart-form-data/
+    // https://stackoverflow.com/questions/35192841/fetch-post-with-multipart-form-data
+    //
+    // ALSO turn body into a FormData object, with all values appended.
+    // Note that for files. createSubmitObject will assign the element itself
+    // as the value.
+    if (fetchOptions.headers['Content-Type'] === 'multipart/form-data') {
+      delete fetchOptions.headers['Content-Type'];
+
+      const body = fetchOptions.body;
+      const formData = new FormData();
+
+      for (const k in body) {
+        if (body[k] instanceof HTMLElement) {
+          const filesInEl = body[k].files;
+          for (const f of filesInEl) formData.append(k, f);
+        } else {
+          formData.append(k, body[k]);
+        }
+      }
+      fetchOptions.body = formData;
+    }
 
     // Attempt the submission
     let networkError = false;
     let response;
     let errs;
+    const body =
+      fetchOptions.headers['Content-Type'] === 'application/json' &&
+      typeof fetchOptions.body === 'object' &&
+      fetchOptions.body !== null
+        ? JSON.stringify(fetchOptions.body)
+        : fetchOptions.body;
     try {
       // fetch() wants a stingified body
-      const fo = { ...fetchOptions, ...{ body: JSON.stringify(fetchOptions.body) } };
+      const fo = { ...fetchOptions, ...{ body: body } };
       const el = this._fetchEl(specificElement);
       response = await el.fetch(fetchOptions.url, fo);
     } catch (e) {
@@ -5926,14 +6695,17 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       console.log('Network error!');
 
       // Re-enable the elements
-      if (!specificElement) this._enableElements(this.elements);
+      if (!specificElement) {
+        this._enableElements(this.elements);
+        await this._wait(0);
+      }
 
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-error', { detail: { type: 'network' }, bubbles: true, composed: true });
       this.dispatchEvent(event);
 
       // Response hook
-      this.response(null, null, fetchOptions);
+      await this.response(null, null, fetchOptions);
     //
     // CASE #2: HTTP error.
     // Invalidate the problem fields
@@ -5954,7 +6726,10 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
 
       // Re-enable the elements
       // This must happen before setCustomValidity() and reportValidity()
-      if (!specificElement) this._enableElements(this.elements);
+      if (!specificElement) {
+        this._enableElements(this.elements);
+        await this._wait(0);
+      }
 
       // Set error messages
       if (errs.errors && errs.errors.length) {
@@ -5972,7 +6747,7 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       }
 
       // Response hook
-      this.response(response, errs, fetchOptions);
+      await this.response(response, errs, fetchOptions);
     // CASE #3: NO error. Set fields to their
     // new values
     } else {
@@ -5983,6 +6758,8 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
       if (this.inFlightMap.has(mapIndex)) {
         attempted = this.inFlightMap.get(mapIndex).attempted;
       }
+
+      await this.incomingData(v, 'submit');
 
       // HOOK Set the form values, in case the server processed some values
       // Note: this is only ever called if set-form-after-submit was
@@ -5998,19 +6775,24 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
           }
         }
       }
-      this.postload(v, 'submit');
-
-      if (this.resetFormAfterSubmit && !attempted && !specificElement) this.reset();
 
       // Re-enable the elements
-      if (!specificElement) this._enableElements(this.elements);
+      if (!specificElement) {
+        this._enableElements(this.elements);
+        await this._wait(0);
+      }
+
+      // Maybe reset the form if it was so required
+      if (this.resetFormAfterSubmit && !attempted && !specificElement) this.reset();
+
+      await this.dataLoaded(v, 'submit');
 
       // Emit event to make it possible to tell the user via UI about the problem
       const event = new CustomEvent('form-ok', { detail: { response }, bubbles: true, composed: true });
       this.dispatchEvent(event);
 
       // Response hook
-      this.response(response, v, fetchOptions);
+      await this.response(response, v, fetchOptions);
     }
 
     if (this.inFlightMap.has(mapIndex)) {
@@ -6023,7 +6805,9 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
   }
 
   async updated (changedProperties) {
-    super.updated();
+    // The 'await' here has the side effect of waiting for the next tick,
+    // which means that children elements will have a chance to render
+    await super.updated();
 
     // If no-autoload is set to true, or there is no autoload or no recordId,
     // simply give up: nothing to do
@@ -6060,19 +6844,22 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
         v = {};
       }
 
+      await this.incomingData(v, 'autoload');
+
       // Set values
       this.setFormElementValues(v);
 
       // Re-enabled all disabled fields
       this._enableElements(this.elements);
+      await this._wait(0);
 
-      // Run reportValidity if validateOnRender is on
+      // Run reportValidity if validateOnLoad is on
       if (this.validateOnLoad) {
         this.reportValidity();
       }
 
-      // Run postload hook
-      this.postload(v, 'autoload');
+      // Run hook
+      await this.dataLoaded(v, 'autoload');
     }
   }
 
@@ -6119,7 +6906,7 @@ const FormElementMixin = (base) => {
     assignFormProperty () {
       // if (this.tagName === 'NN-FORM' || this.tagName === 'EN-FORM') return
       let el = this;
-      while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM' && el.tagName !== 'EN-FORM')) { } // eslint-disable-line no-empty
+      while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM' && el.tagName !== 'EN-FORM' && !el.hasAttribute('as-form'))) { } // eslint-disable-line no-empty
       this.form = el;
     }
   }
@@ -6209,6 +6996,7 @@ const NativeValidatorMixin = (base) => {
     }
 
     setCustomValidity (m) {
+      if (!this.native) return
       return this.native.setCustomValidity(m)
     }
 
@@ -6225,10 +7013,11 @@ const NativeValidatorMixin = (base) => {
       }
       const ownErrorMessage = this.validator(value, submitObject);
       if (ownErrorMessage) this.setCustomValidity(ownErrorMessage);
-
     }
 
     reportValidity () {
+      if (!this.native) return true
+
       // Run custom validator. Note that custom validator
       // will only ever run on filed without an existing customError.
       if (!this.native.validity.customError) {
@@ -6254,6 +7043,7 @@ const NativeValidatorMixin = (base) => {
     }
 
     checkValidity () {
+      if (!this.native) return true
       // Run custom validator. Note that custom validator
       // will only ever run on filed without an existing customError.
       if (!this.native.validity.customError) {
@@ -6383,6 +7173,19 @@ class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(NativeValida
     return [...super.reflectProperties, ...buttonElement]
   }
 
+  // This is necessary as a workaround to this chrome bug:
+  // https://bugs.chromium.org/p/chromium/issues/detail?id=1061240&can=2&q=status%3Aunconfirmed&colspec=ID%20Stars%20Area%20Feature%20Status%20Summary%20Modified%20OS&sort=-id
+  static get styles () {
+    return [
+      super.styles || [],
+      css`
+        :host([disabled]) {
+          pointer-events: none;
+        }
+      `
+    ]
+  }
+
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
@@ -6392,7 +7195,7 @@ class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(NativeValida
     `
   }
 
-  _clicked () {
+  _clicked (e) {
     if (this.getAttribute('type') === 'submit') this.form.submit();
   }
 }
@@ -6485,7 +7288,7 @@ class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixin(Nativ
 
   static get properties () {
     return {
-      enterOnSubmit: { type: Boolean, attribute: 'enter-on-submit' }
+      submitOnEnter: { type: Boolean, attribute: 'submit-on-enter' }
     }
   }
 
@@ -6496,8 +7299,8 @@ class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixin(Nativ
 
   // Submit on enter with forms with only one element
   _eventListener (e) {
-    if (e.keyCode === 13 && ([...this.form.elements].length === 1 || this.enterOnSubmit)) {
-      if (this.form) this.form.submit();
+    if (this.form && e.keyCode === 13 && (this.form.elements.length === 1 || this.submitOnEnter)) {
+      this.form.submit();
     }
   }
 
@@ -6583,12 +7386,17 @@ class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixin(Nativ
           width: 1px;
           white-space: nowrap; /* 1 */
         }
+
+        nn-button { 
+          margin: auto
+        }
       `
     ]
   }
 
   static get properties () {
     return {
+      hideNative: { type: Boolean },
       fileName: { type: String },
       manyFilesText: {
         type: String,
@@ -6608,7 +7416,7 @@ class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixin(Nativ
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input type="file" id="native" @change="${this.fileNameChanged}" hidden>
+      <input type="file" id="native" @change="${this.fileNameChanged}" ?hidden=${this.hideNative}>
       ${this.ifValidationMessageAfter}
       ${this.fileName}
       ${this.ifLabelAfter}
@@ -6617,7 +7425,8 @@ class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixin(Nativ
 
   fileNameChanged (e) {
     const native = this.shadowRoot.querySelector('#native');
-    this.fileName = native.files.length > 1 ? this.manyFilesText : native.value;
+    const v = native.value;
+    this.fileName = native.files.length > 1 ? this.manyFilesText : v.slice(v.lastIndexOf('\\') + 1);
   }
 }
 customElements.define('nn-input-file', NnInputFile);
@@ -6880,17 +7689,28 @@ class NnSelect extends ThemeableMixin('nn-select')(FormElementMixin(NativeValida
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <slot @slotchange="${this.addSlotToSelect}"></slot>
+      <div style="display: none">
+        <slot id="slot" @slotchange="${this.refreshOptions}"></slot>
+      </div>
       <select id="native" real-time-event="selected"></select>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }
 
-  addSlotToSelect (e) {
+  async refreshOptions (e) {
     const select = this.shadowRoot.querySelector('#native');
-    for (const option of e.srcElement.assignedElements()) {
-      select.appendChild(option);
+    const slot = this.shadowRoot.querySelector('#slot');
+    if (!select || !slot) return
+
+    const options = slot.assignedElements();
+    select.innerHTML = '';
+    // while (select.firstChild) {
+    //   if (!select.lastChild.value) break
+    //   select.removeChild(select.lastElementChild)
+    // }
+    for (const option of options) {
+      select.appendChild(option.cloneNode(true));
     }
 
     // The element's value depends on what it can contain. For example
