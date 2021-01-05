@@ -42,6 +42,34 @@ window.targetContainer = null
 const targetRows = []
 window.lastEntered = null
 
+const debounce = (callback, wait, immediate = false) => {
+  let timeout = null
+  return function () {
+    const callNow = immediate && !timeout
+    const next = () => callback.apply(this, arguments)
+    clearTimeout(timeout)
+    timeout = setTimeout(next, wait)
+    if (callNow) {
+      next()
+    }
+  }
+}
+
+const debouncedPortionOfDragenterListener = debounce(async function (e) {
+  console.log('Debounced dragenter')
+  requestAnimationFrame(() => {
+    // The targetRows array might have previous targets in it. Remove the target class from them
+    targetRows.forEach(element => {
+      element.classList.remove('target')
+    })
+    targetRows.splice(0, targetRows.length)
+    // Add target class and push the current target to the targetRows array
+    window.lastEntered.classList.add('target')
+    targetRows.push(this)
+  })
+  await window.targetContainer.dragenterHook(e, window.moving, this)
+}, 100, true)
+
 export const DraggableListMixin = (base) => {
   return class Base extends base {
     // Necessary styles to be added to the litElement based target element:
@@ -247,17 +275,7 @@ export const DraggableListMixin = (base) => {
       window.previousLastEntered = window.lastEntered
       window.lastEntered = this
 
-      requestAnimationFrame(() => {
-        // The targetRows array might have previous targets in it. Remove the target class from them
-        targetRows.forEach(element => {
-          element.classList.remove('target')
-        })
-        targetRows.splice(0, targetRows.length)
-        // Add target class and push the current target to the targetRows array
-        window.lastEntered.classList.add('target')
-        targetRows.push(this)
-      })
-      window.targetContainer.dragenterHook(e, window.moving, this)
+      debouncedPortionOfDragenterListener.call(this, e)
     }
 
     // dragover, dragleave and dragexit listeners are setup and hooks are available, but no work is done here by default
