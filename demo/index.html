@@ -34,10 +34,18 @@
 
   </style>
   <body>
+    <ee-drawer backdrop>
+      <a href="/demo">Demo</a>
+      <a href="/demo#tab1">Tab 1</a>
+      <a href="/demo#tab2">Tab 2</a>
+      <a href="/demo#tab3">Tab 3</a>
+      <a href="/demo#tab4">Tab 4</a>
+
+    </ee-drawer>
     <ee-header menu header-title="TPE demo"></ee-header>
 
-    <ee-tabs default="tab2">
-      <span name="tab1">Form controls</span>
+    <ee-tabs default="tab2" >
+      <span name="tab1">Form</span>
       <span name="tab2">Table</span>
       <span name="tab3">Tab 3</span>
       <span name="tab4">Tab 4</span>
@@ -136,9 +144,6 @@
       <div name="tab3" slot="content"></div>
       <div name="tab4" slot="content"></div>
     </ee-tabs>
-    <ee-drawer modal>
-      <a>Other demo page</a>
-    </ee-drawer>
   </body>
   <script>
     function toggleDrawer () {
