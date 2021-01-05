@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit-element'
+import { LitElement, css, html, unsafeCSS } from 'lit-element'
 
 export const ThemeableMixin = (path) => (base) => {
   const common = (window.TP_THEME && window.TP_THEME.common) || (p => p)
@@ -31,12 +31,12 @@ export const LitBits = (base) => {
 
     set customStyles (cssTemplate) {
       if (typeof cssTemplate === 'string') {
-        cssTemplate = unsafeCSS`${cssTemplate}` 
+        cssTemplate = unsafeCSS`${cssTemplate}`
       }
       this._customStyles = cssTemplate
       this.constructor._styles = [...this.constructor._styles, this._customStyles]
       this.adoptStyles()
-      this.requestUpdate();
+      this.requestUpdate()
     }
 
   }
