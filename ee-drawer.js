@@ -153,7 +153,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
 
   constructor () {
     super()
-    this.backdrop = false
+    this.backdrop = true
     this.closeButton = true
     this.opened = false
     // These properties allow the developer to decide how far the user needs to drag in order to trigger open and close events. Values between 0 and 1.
@@ -218,6 +218,12 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
   }
 
   _handleOutsideClick (e) {
+    // This flag can be set to avoid closing the drawer after finishing a drag, which triggers a click
+    if (this.ignoreNextClick) {
+      this.ignoreNextClick = false
+      return
+    }
+
     if (e.target.nodeName === 'EE-DRAWER') this.close()
   }
 
@@ -235,7 +241,7 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     this.dragging = true
 
     // Always call preventDefault when in a touch enabled device, to avoid duplicate simulated mouse events afterwards
-    if (e.type === 'touchmove') e.preventDefault()
+    e.preventDefault()
 
     // Now, we need to compare the current pointer/touch position with the position at the start of the drag. We calculate the offset and get the width of the drawer.
     const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX
@@ -253,6 +259,8 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
       return
     } else if (offset > openTrigger) {
       this.open()
+      // Necessary for mouse events, because calling preventDefault in mouseup handler does not cancel the click event after
+      this.ignoreNextClick = true
       this._finishDrag()
       return
     }
@@ -268,13 +276,13 @@ export class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElem
     // If this event follows a touchmove/mousemove event, call preventDefault. It is necessary to prevent the click event from firing, as it is next the Event order:
     // https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent#Event_order
     if (this.dragging) e.preventDefault()
+    this.dragStart = undefined
+    this.dragging = false
     this._finishDrag()
   }
 
   _finishDrag () {
     // This will clear flags and inline styles after the drag is done
-    this.dragStart = undefined
-    this.dragging = false
     requestAnimationFrame(() => {
       this.container.style.transform = ''
       if (!this.opened) this.style.width = ''
