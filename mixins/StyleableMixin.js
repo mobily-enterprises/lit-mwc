@@ -1,3 +1,27 @@
+// StyleableMixin
+// ==============
+//
+// This mixin adds the capability to use common _<style>_ tags.
+// Our goal is to reduce friction for anyone not used to custom elements, shadow DOM
+// and prefers to create and style their projects using plain HTML markup.
+//
+// Usage is simple. Any TPE elements accepts plain CSS code added as <style slot="style"></style>,
+// nested in the elements markup, like so:
+//
+// ```
+// <nn-input-text>
+//   <style slot="style">
+//    #native {
+//      color: blue;
+//    }
+//   </style>
+// </nn-input-text>
+// ```
+//
+// That allows developers to pierce the shadow DOM and override all of the elements styles
+// using familiar syntax.
+//
+
 export const StyleableMixin = (base) => {
   return class Base extends base {
     static get styles () {

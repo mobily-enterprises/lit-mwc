@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "demo": "web-dev-server --node-resolve --watch --open /demo/index.html auto",
+    "demo": "web-dev-server --node-resolve --watch auto",
     "start": "node server.js",
     "build": "rm -rf distr/* distr/**/*;rollup -c",
     "docs": "cd docs-src;./makeDocs.sh"

@@ -15,12 +15,13 @@ class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(NativeValida
     return [...super.reflectProperties, ...buttonElement]
   }
 
-  // This is necessary as a workaround to this chrome bug:
-  // https://bugs.chromium.org/p/chromium/issues/detail?id=1061240&can=2&q=status%3Aunconfirmed&colspec=ID%20Stars%20Area%20Feature%20Status%20Summary%20Modified%20OS&sort=-id
   static get styles () {
     return [
       super.styles || [],
       css`
+      /*  This is necessary as a workaround to this chrome bug:
+      /   https://bugs.chromium.org/p/chromium/issues/detail?id=1061240&can=2&q=status%3Aunconfirmed&colspec=ID%20Stars%20Area%20Feature%20Status%20Summary%20Modified%20OS&sort=-id 
+      */
         :host([disabled]) {
           pointer-events: none;
         }

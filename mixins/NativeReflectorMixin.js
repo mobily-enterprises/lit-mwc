@@ -23,7 +23,7 @@
 //
 // The idea is that between `<nn-button>` and `<button>` _everything_ is
 // reflected. This is great in theory, but there is a level of trickery
-// required to make things work properly. For example some attributes will
+// required to make things work properly. For example, some attributes will
 // _always_ need to be skipped (`id`, `style`, `class`). Also, it's impossible
 // to simply reflect every property, since 1) they could be anywhere in the
 // prototype chain 2) Some properties should never be reflected (see:
