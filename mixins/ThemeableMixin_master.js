@@ -38,6 +38,5 @@ export const LitBits = (base) => {
       this.adoptStyles()
       this.requestUpdate()
     }
-
   }
 }
