@@ -2264,6 +2264,16 @@ class CSSResult {
         return this.cssText;
     }
 }
+/**
+ * Wrap a value for interpolation in a css tagged template literal.
+ *
+ * This is unsafe because untrusted CSS text can be used to phone home
+ * or exfiltrate data to an attacker controlled site. Take care to only use
+ * this with trusted input.
+ */
+const unsafeCSS = (value) => {
+    return new CSSResult(String(value), constructionToken);
+};
 const textFromCSSResult = (value) => {
     if (value instanceof CSSResult) {
         return value.cssText;
@@ -2480,15 +2490,23 @@ LitElement['finalized'] = true;
  */
 LitElement.render = render$1;
 
+// LabelsMixin
+
 const LabelsMixin = (base) => {
   return class Base extends base {
+// In the scoped CSS, the label content is set to keep the correct alignment and avoid overflowing text.
     static get styles () {
       return [
         super.styles || [],
-        css`
+        css`             
           label div#label-text, ::slotted(*) {
-            align-self: center;
+            display: inline-block;
+            vertical-align: text-bottom;
+            /* It's also possible to control the width of the label with a custom 
+            / CSS property **labels-mixin-input-label-width**.
+            */
             width: var(--labels-mixin-input-label-width, auto);
+            /* Make sure content larger than the element is clipped and show an ellipsis */
             overflow: hidden;
             text-overflow: ellipsis;
           }
@@ -2497,44 +2515,44 @@ const LabelsMixin = (base) => {
       ]
     }
 
+// The **label** property takes a string which is shown as the label.
+// The **labelPosition** property is set with attribute label-position, used to determine if <label>
+// will be rendered before or after the native input element
     static get properties () {
       return {
         label: { type: String },
         labelPosition: {
           type: String,
           attribute: 'label-position'
-        },
-        labelForElement: {
-          type: String,
-          attribute: 'false'
         }
-
       }
     }
 
     constructor () {
       super();
+      // Label position is set to `before` by default
       this.labelPosition = 'before';
-      this.labelForElement = 'native';
     }
 
+    // This getter return the label template
     get labelTemplate () {
       return html`
-        <label id="label" for="${this.labelForElement}">
+        <label id="label" for="native">
           <div id="label-text">${this.label}</div>
           <slot id="label-slot" name="label"></slot>
         </label>
       `
     }
 
+    // Note that the mixin wouldn't be able to modify the mixed in element's **render** method to include the label in the right position,
+    // so _LabelsMixin_ provides the two getters below, that will only return the **labelTemplate** value if **labelPosition** is the correct value.
+    // This can be use the mixed in element's render method
     get ifLabelBefore () {
-      if (this.labelPosition === 'after') return ''
-      return this.labelTemplate
+      return (this.labelPosition === 'before') ? this.labelTemplate : ''
     }
 
     get ifLabelAfter () {
-      if (this.labelPosition === 'before') return ''
-      return this.labelTemplate
+      return (this.labelPosition === 'after') ? this.labelTemplate : ''
     }
   }
 };
@@ -2663,6 +2681,30 @@ const SyntheticValidatorMixin = (base) => {
   }
 };
 
+// StyleableMixin
+// ==============
+//
+// This mixin adds the capability to use common _<style>_ tags.
+// Our goal is to reduce friction for anyone not used to custom elements, shadow DOM
+// and prefers to create and style their projects using plain HTML markup.
+//
+// Usage is simple. Any TPE elements accepts plain CSS code added as <style slot="style"></style>,
+// nested in the elements markup, like so:
+//
+// ```
+// <nn-input-text>
+//   <style slot="style">
+//    #native {
+//      color: blue;
+//    }
+//   </style>
+// </nn-input-text>
+// ```
+//
+// That allows developers to pierce the shadow DOM and override all of the elements styles
+// using familiar syntax.
+//
+
 const StyleableMixin = (base) => {
   return class Base extends base {
     static get styles () {
@@ -2694,11 +2736,42 @@ const StyleableMixin = (base) => {
   }
 };
 
-const ThemeableMixin = (path) => (base) => {
+/* eslint-disable new-cap */
+
+const ThemeableMixin = (name) => (base) => {
   const common = (window.TP_THEME && window.TP_THEME.common) || (p => p);
-  const theme = (window.TP_THEME && window.TP_THEME[path]) || (p => p);
-  return theme(common(LitBits(base)))
+  const elementTheme = (window.TP_THEME && window.TP_THEME[name]) || (p => p);
+  return elementTheme(common(CustomThemeMixin(LitBits(base))))
 };
+
+// In addition to applying the imported theme, ThemeableMixin adds a non-standard LitElement property: _customStyles_.
+// Using _customStyles_ allows developers to completely bypass the shadowRoot scope and redefine any part or all of the elements CSS
+// using a stylesheet string or a CSSTemplateResult object.
+// The principle behind this mechanism is that if a new style is added using this property, the adopteStylesheet of the element is
+// updated in realtime. This approach can be costly for performance if abused, but for the main purpose of overriding scoped CSS, it won't
+// have any side effects.
+
+const CustomThemeMixin = (base) => {
+  return class Theme extends base {
+    get customStyles () {
+      return this._customStyles || ''
+    }
+
+    set customStyles (cssTemplate) {
+      if (typeof cssTemplate === 'string') {
+        cssTemplate = super.lit.unsafeCSS`${cssTemplate}`;
+      }
+      this._customStyles = cssTemplate;
+      this.constructor._styles = [...this.constructor._styles, this._customStyles];
+      this.adoptStyles();
+      this.requestUpdate();
+    }
+  }
+};
+
+// LitBits is a workaround developed to address this [issue](https://github.com/Polymer/lit-html/issues/1015#issuecomment-577903812).
+// This makes sure the same instance of lit-html is used in the entire mixin chain. That issue should be revolved by lit-html's
+// next [version update](https://www.polymer-project.org/blog/2020-09-22-lit-element-and-lit-html-next-preview).
 
 const LitBits = (base) => {
   return class Base extends base {
@@ -2706,6 +2779,7 @@ const LitBits = (base) => {
       return {
         LitElement,
         css,
+        unsafeCSS,
         html
       }
     }
@@ -2714,25 +2788,10 @@ const LitBits = (base) => {
       return {
         LitElement,
         css,
+        unsafeCSS,
         html
       }
     }
-
-    //  customStyles allows us to dynamically update the shadowRoot adopted StyleSheets by setting this.customStyles with a CSSResult object
-    get customStyles () {
-      return this._customStyles || css``
-    }
-
-    set customStyles (cssTemplate) {
-      if (typeof cssTemplate === 'string') {
-        cssTemplate = unsafeCSS`${cssTemplate}`; 
-      }
-      this._customStyles = cssTemplate;
-      this.constructor._styles = [...this.constructor._styles, this._customStyles];
-      this.adoptStyles();
-      this.requestUpdate();
-    }
-
   }
 };
 
@@ -3971,62 +4030,119 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
 }
 customElements.define('ee-autocomplete', EeAutocomplete);
 
-// const close = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>`
 const chevronLeft = html`<svg class="icon" height="24" viewBox="0 0 24 24" width="24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>`;
 
 class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
   static get styles () {
     return [
       css`
+        /* The base style for the ee-drawer element.*/
        :host {
           --ee-drawer-width: 300px;
           --ee-drawer-background-color: #393939;
+          --ee-drawer-selected-color: white;
           display: block;
           position: fixed;
           box-sizing: border-box;
           top: 0;
           left: 0;
-          z-index: 1;
-          width: 20px;
+          z-index: 1; /* z-index is 1 by default, which should fit most scenarios. But it can be adjust by the ee-drawer parent's CSS, is needed */ 
+          width: 20px; /* It is reduced to 20px width, which is enough to provide a target are for dragging on the viewport's left edge  */
           height: 100vh;
           user-select: none;
         }
 
+        /* Take entire viewport when opened */
         :host([opened]) {
           width: 100vw;
           height: 100vh;
         }
 
-        div.container {
+        /* This class contains the actual drawer UI. It is full height and aligned to the :host edges, but moved horizontally -100% (left) of it's width */
+        #container {
           height: 100vh;
           position: absolute;
           top: 0;
           left: 0;
+          overflow-x: hidden;
+          background-color: var(--ee-drawer-background-color);
           will-change: transform;
           transform: translateX(-100%);
-          overflow-x: hidden;
           transition: transform 0.3s ease-out;
-          background-color: var(--ee-drawer-background-color, #393939);
         }
 
-        :host([opened]) div.container {
+        /* Reposition the drawer content to the original left edge alignment when opened */
+        :host([opened]) #container {
           will-change: transform;
           transform: translateX(0);
         }
 
-        :host([modal][opened]) div.container {
+        /* Only add the container shadow when opened */
+        :host([backdrop][opened]) #container {
           box-shadow: var(--ee-drawer-shadow, 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.14), 0 0 0 100vw rgba(0, 0, 0, 0.15))
         }
 
+        /* The nav element styles.*/
+
+        #nav  {
+          box-sizing: border-box;
+          width: 100%;
+          min-width: var(--ee-drawer-width);
+          height: 100%;
+          padding: 30px 24px;
+          background: var(--ee-drawer-background-color);
+          position: relative;
+          overflow: auto;
+          padding-bottom: 64px;
+        }
+
+        /* This will style the drawer items. If the developer decides not to use an <a> tag, the item must have class="drawer-item"  */
+        #nav ::slotted(a),
+        #nav ::slotted(.drawer-item) {
+          display: block;
+          text-decoration: none;
+          color: var(--ee-drawer-color, #ddd);
+          line-height: 32px;
+          padding: 0 24px;
+          cursor: pointer;
+          font-size: 0.9em;
+        }
+
+        #nav ::slotted(a[selected]),
+        #nav ::slotted(.drawer-item[selected]) {
+          color: var(--ee-drawer-selected-color);
+          font-weight: bolder;
+          border-left: 3px solid var(--ee-drawer-selected-color);
+          background-color: rgba(255,255,255, 0.1);
+        }
+
+        #nav ::slotted(a:hover),
+        #nav ::slotted(.drawer-item:hover) {
+          background-color: rgba(255,255,255, 0.05);
+        }
+
+        /* A header item can be slotted with class="head". It can be a simple heading tag, or an element containing anything*/
+        #nav ::slotted(.head) {
+          color: var(--ee-drawer-color, white);
+          box-sizing: border-box;
+          width: 100%;
+          border-bottom: 1px solid var(--ee-drawer-selected-color);
+          padding: 6px 70% 6px 0;
+          font-size: 1.15em;
+          margin: 10px auto;
+        }
+
+        /* Close button styles */
+
         #close {
           -webkit-appearance: none;
-          color: var(--ee-drawer-background-color, #393939);
-          fill: var(--ee-drawer-background-color, #393939);
+          color: var(--ee-drawer-background-color);
+          fill: var(--ee-drawer-background-color);
           position: absolute;
           top: 5px;
           right: 5px;
           z-index: 10;
-          background-color: var(--ee-drawer-background-color, #393939);
+          background-color: var(--ee-drawer-background-color);
           border: none;
           cursor: pointer;
           right: 0;
@@ -4046,54 +4162,8 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
 
         #close:active, #close:hover {
           filter: brightness(120%);
-          fill: var(--ee-drawer-selected-color, white);
-          color: var(--ee-drawer-selected-color, white);
-        }
-
-        .container > nav  {
-          box-sizing: border-box;
-          width: 100%;
-          min-width: 300px;
-          height: 100%;
-          padding: 30px 24px;
-          background: var(--ee-drawer-background-color);
-          position: relative;
-          overflow: auto;
-          padding-bottom: 64px;
-        }
-
-        .container > nav ::slotted(a),
-        .container > nav ::slotted(.drawer-item) {
-          display: block;
-          text-decoration: none;
-          color: var(--ee-drawer-color, #ddd);
-          line-height: 32px;
-          padding: 0 24px;
-          cursor: pointer;
-          font-size: 0.9em;
-        }
-
-        .container  > nav ::slotted(a[selected]),
-        .container  > nav ::slotted(.drawer-item[selected]) {
+          fill: var(--ee-drawer-selected-color);
           color: var(--ee-drawer-selected-color);
-          font-weight: bolder;
-          border-left: 3px solid var(--ee-drawer-selected-color, white);
-          background-color: rgba(255,255,255, 0.1);
-        }
-
-        .container  > nav ::slotted(a:hover),
-        .container  > nav ::slotted(.drawer-item:hover) {
-          background-color: rgba(255,255,255, 0.05);
-        }
-
-        .container  > nav ::slotted(.head) {
-          color: var(--ee-drawer-color, white);
-          box-sizing: border-box
-          width: 100%;
-          border-bottom: 1px solid var(--ee-drawer-selected-color, white);
-          padding: 6px 70% 6px 0;
-          font-size: 1.15em;
-          margin: 10px auto;
         }
       `
     ]
@@ -4102,7 +4172,7 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
   static get properties () {
     return {
       opened: { type: Boolean, reflect: true },
-      modal: { type: Boolean },
+      backdrop: { type: Boolean, reflect: true },
       closeButton: { type: Boolean, attribute: 'close-button' },
       closeThreshold: { type: Number },
       openThreshold: { type: Number }
@@ -4111,23 +4181,28 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
 
   constructor () {
     super();
-    this.modal = false;
+    this.backdrop = true;
     this.closeButton = true;
     this.opened = false;
-    this.closeThreshold = 0.25;
-    this.openThreshold = 0.8;
+    // These properties allow the developer to decide how far the user needs to drag in order to trigger open and close events. Values between 0 and 1.
+    this.closeThreshold = 0.6;
+    this.openThreshold = 0.6;
   }
 
   connectedCallback () {
     super.connectedCallback();
     this.addEventListener('click', this._handleOutsideClick);
+    // Add listeners for the events to handle dragging the drawer. Touchevents must be added, besides the fact the mouse events are emulated in mobile devices
+    // When these listeners are not added, scrolling behavior from the browser takes over and prevents emulated mouse events from firing.
+    // To make sure behavior is consistent, the handlers must call event.preventDefault() which will avoid scrolling and duplicate emulated events
+    // https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent
     this.addEventListener('touchstart', this._handleDragStart);
     this.addEventListener('touchmove', this._handleDrag);
     this.addEventListener('touchend', this._handleDragEnd);
-    // Will add these in the future to support dragging in desktop
-    // this.addEventListener('mousedown', this._handleDragStart)
-    // this.addEventListener('mousemove', this._handleDrag)
-    // this.addEventListener('mouseup', this._handleDragEnd)
+    // These are also needed to support dragging in desktop
+    this.addEventListener('mousedown', this._handleDragStart);
+    this.addEventListener('mousemove', this._handleDrag);
+    this.addEventListener('mouseup', this._handleDragEnd);
   }
 
   disconnectedCallback () {
@@ -4136,22 +4211,22 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
     this.removeEventListener('touchstart', this._handleDragStart);
     this.removeEventListener('touchmove', this._handleDrag);
     this.removeEventListener('touchend', this._handleDragEnd);
-    // Will add these in the future to support dragging in desktop
-    // this.removeEventListener('mousedown', this._handleDragStart)
-    // this.removeEventListener('mousemove', this._handleDrag)
-    // this.removeEventListener('mouseup', this._handleDragEnd)
+    // These are also needed to support dragging in desktop
+    this.removeEventListener('mousedown', this._handleDragStart);
+    this.removeEventListener('mousemove', this._handleDrag);
+    this.removeEventListener('mouseup', this._handleDragEnd);
   }
 
   firstUpdated () {
-    this.container = this.shadowRoot.querySelector('div.container');
+    this.container = this.shadowRoot.querySelector('div#container');
   }
 
   render () {
     if (this.themeRender) return this.themeRender()
     return html`
-      <div class="container">
+      <div id="container">
         ${this.closeButton ? html`<button id="close" @click="${this.close}">${chevronLeft}</button>` : ''}
-        <nav>
+        <nav id="nav">
           <slot></slot>
         </nav>
       </div>
@@ -4171,46 +4246,75 @@ class EeDrawer extends ThemeableMixin('ee-drawer')(StyleableMixin(LitElement)) {
   }
 
   _handleOutsideClick (e) {
+    // This flag can be set to avoid closing the drawer after finishing a drag, which triggers a click
+    if (this.ignoreNextClick) {
+      this.ignoreNextClick = false;
+      return
+    }
+
     if (e.target.nodeName === 'EE-DRAWER') this.close();
   }
 
   _handleDragStart (e) {
-    e.preventDefault();
+    // save starting point reference
     this.dragStart = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-    console.log(this.dragStart);
+    // Force ee-drawer to be full viewport width during the event
     if (!this.opened) this.style.width = '100vw';
-    return false
   }
 
   _handleDrag (e) {
-    if (e.type === 'touchmove') e.preventDefault();
-    console.log(this.dragStart);
+    // ignore event if there wasn't a dragStart immediatelly before
+    if (this.dragStart === undefined) return
+    // Set this flag so it's possible to know if there's an ongoing drag
+    this.dragging = true;
+
+    // Always call preventDefault when in a touch enabled device, to avoid duplicate simulated mouse events afterwards
+    e.preventDefault();
+
+    // Now, we need to compare the current pointer/touch position with the position at the start of the drag. We calculate the offset and get the width of the drawer.
     const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
     const offset = x - this.dragStart;
     const w = this.container.getBoundingClientRect().width;
-    if (offset < -w + this.openThreshold * w) {
+
+    // Determine the movement tolerance before triggering open or close during dragging.
+    const openTrigger = (w - this.openThreshold * w);
+    const closeTrigger = -1 * (w - this.closeThreshold * w);
+
+    // Check if user dragged far enough for either closing or opening the drawer, call _finishDrag to cleanup
+    if (offset < closeTrigger) {
       this.close();
+      this._finishDrag();
       return
-    }
-    if (offset > w - this.closeThreshold * w) {
+    } else if (offset > openTrigger) {
       this.open();
-      this.container.style.transform = '';
+      // Necessary for mouse events, because calling preventDefault in mouseup handler does not cancel the click event after
+      this.ignoreNextClick = true;
+      this._finishDrag();
       return
     }
+
+    // if still within trigering range, update drawer position smoothly, using requestAnimationFrame
     requestAnimationFrame(() => {
-      this.container.style.transform = `translateX(calc(-100% + ${offset}px))`;
+      this.container.style.transform = `translateX(calc(${this.opened ? '' : '-100% +'} ${offset}px))`;
     });
     return false
   }
 
   _handleDragEnd (e) {
+    // If this event follows a touchmove/mousemove event, call preventDefault. It is necessary to prevent the click event from firing, as it is next the Event order:
+    // https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent#Event_order
+    if (this.dragging) e.preventDefault();
     this.dragStart = undefined;
-    e.preventDefault();
+    this.dragging = false;
+    this._finishDrag();
+  }
+
+  _finishDrag () {
+    // This will clear flags and inline styles after the drag is done
     requestAnimationFrame(() => {
       this.container.style.transform = '';
+      if (!this.opened) this.style.width = '';
     });
-    this.style.width = '';
-    return false
   }
 }
 customElements.define('ee-drawer', EeDrawer);
@@ -7173,12 +7277,13 @@ class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(NativeValida
     return [...super.reflectProperties, ...buttonElement]
   }
 
-  // This is necessary as a workaround to this chrome bug:
-  // https://bugs.chromium.org/p/chromium/issues/detail?id=1061240&can=2&q=status%3Aunconfirmed&colspec=ID%20Stars%20Area%20Feature%20Status%20Summary%20Modified%20OS&sort=-id
   static get styles () {
     return [
       super.styles || [],
       css`
+      /*  This is necessary as a workaround to this chrome bug:
+      /   https://bugs.chromium.org/p/chromium/issues/detail?id=1061240&can=2&q=status%3Aunconfirmed&colspec=ID%20Stars%20Area%20Feature%20Status%20Summary%20Modified%20OS&sort=-id 
+      */
         :host([disabled]) {
           pointer-events: none;
         }
@@ -7239,37 +7344,6 @@ class NnInputColor extends ThemeableMixin('nn-input-color')(FormElementMixin(Nat
   }
 }
 window.customElements.define('nn-input-color', NnInputColor);
-
-class NnInputDatalist extends ThemeableMixin('nn-input-datalist')(FormElementMixin(NativeValidatorMixin(LabelsMixin(StyleableMixin(InputMixin(NativeReflectorMixin(LitElement))))))) {
-  get skipAttributes () {
-    return [
-      ...super.skipAttributes,
-      'list'
-    ]
-  }
-
-  render () {
-    if (this.themeRender) return this.themeRender()
-    return html`
-      ${this.ifLabelBefore}
-      <slot @slotchange="${this.addSlotToSelect}"></slot>
-      ${this.ifValidationMessageBefore}
-      <input type="text" id="native" list="_datalist" real-time-event="input">
-      ${this.ifValidationMessageAfter}
-      <datalist id="_datalist">
-      </datalist>
-      ${this.ifLabelAfter}
-    `
-  }
-
-  addSlotToSelect (e) {
-    const select = this.shadowRoot.querySelector('#_datalist');
-    for (const option of e.srcElement.assignedElements()) {
-      select.appendChild(option);
-    }
-  }
-}
-customElements.define('nn-input-datalist', NnInputDatalist);
 
 // This element is a thin wrap to `<input type=text`>.
 

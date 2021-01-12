@@ -1,3 +1,7 @@
+// FormElementMixin
+// ================
+//
+
 export const FormElementMixin = (base) => {
   return class Base extends base {
     get skipAttributes () {

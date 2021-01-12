@@ -8,7 +8,7 @@
 
 // For now, the children also need to abide to a few rules:
 //
-// 1. It needs CSS to provide the correct visual state as draggable or not:
+// 1. A child element needs CSS to provide the correct visual state as draggable or not:
 //
 //   /* Drag and Drop Styles */
 //   #handle {
@@ -29,13 +29,14 @@
 //     cursor: move;
 //   }
 //
-// 2. It needs to have a "header" attribute if the first child is used as a table header and will not be draggable
+// 2. It needs to have a "no-drag" and/or "no-drop" attribute if the first child is used as a table header and will not be draggable and/or droppable.
 // 3. It needs as "drag-data" attribute and/or "dragData" property if any usable data is necessary for the DnD operation. More on that later.
 //
 // This is the DraggabeListMixin declaration:
 import { css } from 'lit-element'
 
-// These are declared outside the mixin to make sure diffrent instances access the same data
+// These are declared outside the mixin to make sure different instances access the same data.
+// This is important in order to support dragging items between separate lists.
 window.moving = null
 window.originContainer = null
 window.targetContainer = null
