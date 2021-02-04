@@ -140,8 +140,6 @@ export const DraggableListMixin = (base) => {
           }
 
           ::slotted(.target), ::slotted(.moving) {
-            /* visibility: hidden; */
-            /* height: 0; */
             box-sizing: border-box;
             outline: 6px solid orange;
             background-color: papayawhip;
@@ -152,23 +150,7 @@ export const DraggableListMixin = (base) => {
             position: relative;
             box-sizing: border-box;
             background-color: white;
-            /* margin-top: 40px; */
           }
-/*
-          ::slotted(.target)::before {
-            content: attr(drop-label);
-            font-weight: bold;
-            color: white;
-            text-align: center;
-            vertical-align: middle;
-            position: absolute;
-            top: -100%;
-            bottom: 100%;
-            left: 0;
-            width: 100%;
-            background-color: purple;
-            /* animation: fadeIn 0.3s ease-in;*/
-          } */
         `
       ]
     }
