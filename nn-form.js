@@ -72,7 +72,7 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
       if (this._radioElement(el)) {
         el[valueSource] = el.getAttribute(valueSource) !== null
       } else if (this._checkboxElement(el)) {
-        el[valueSource] = el.getAttribute(valueSource) !== null
+        el[valueSource] = el.hasAttribute(valueSource)
       } else {
         el[valueSource] = el.getAttribute(valueSource)
       }
@@ -88,7 +88,7 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
 
       // Radio will only happen once thanks to checking for undefined
       if (typeof r[elName] !== 'undefined') continue
-      if (el.getAttribute('no-submit') !== null) continue
+      if (el.hasAttribute('no-submit')) continue
       // Checkboxes are special: they might be handled as native ones,
       // (NOTHING set if unchecked, and their value set if checked) or
       // as booleans (true for checked, or false for unchecked)
@@ -102,7 +102,7 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
           r[elName] = !!this.getFormElementValue(elName)
         }
       // For "file" types (uploads), it will
-      } else if (el.type === 'file' || el.getAttribute('as-file')) {
+      } else if (el.getAttribute('type') === 'file' || el.getAttribute('as-file')) {
         r[elName] = el
       } else {
         r[elName] = this.getFormElementValue(elName)
@@ -190,24 +190,30 @@ export class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeRefle
   }
 
   _selectElement (el) {
-    if (typeof el.selectedIndex !== 'undefined' || el.getAttribute('as-select') !== null) return true
+    if (typeof el.selectedIndex !== 'undefined' || el.hasAttribute('as-select')) return true
     return false
   }
 
   _checkboxElement (el) {
-    if (el.type === 'checkbox') return true
-    if (el.getAttribute('as-checkbox') !== null) return true
+    if (el.getAttribute('type') === 'checkbox') return true
+    if (el.hasAttribute('as-checkbox')) return true
     return false
   }
 
   _radioElement (el) {
-    if (el.type === 'radio') return true
-    if (el.getAttribute('as-radio') !== null) return true
+    if (el.getAttribute('type') === 'radio') return true
+    if (el.hasAttribute('as-radio')) return true
     return false
   }
 
   _getElementValueSource (el) {
-    if (el.type === 'checkbox' || el.type === 'radio') return 'checked'
+    if (
+      el.getAttribute('type') === 'checkbox' ||
+      el.getAttribute('type') === 'radio' ||
+      el.hasAttribute('as-checkbox') ||
+      el.hasAttribute('as-radio')
+    ) return 'checked'
+
     if (el.getAttribute('value-source')) return el.getAttribute('value-source')
     return 'value'
   }
