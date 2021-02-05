@@ -68,7 +68,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.fetchingElement = null
     this.submitCheckboxesAsNative = false
     this._boundRealtimeSubmitter = this._realTimeSubmitter.bind(this)
-    this.inFlight = false
     this.attemptedFlight = false
     this.inFlightMap = new WeakMap()
     this.attemptedFlightMap = new WeakMap()
