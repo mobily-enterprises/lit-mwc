@@ -203,7 +203,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   _keydownEvent (e) {
     switch (e.key) {
     case 'Escape':
-      this._dismissSuggestions()
+      this.dismissSuggestions()
       break
     case 'KeyDown':
       if (this.suggestions.length) {
@@ -242,7 +242,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
         this.pickedData = e.target.data
       }
     }
-    this._dismissSuggestions()
+    this.dismissSuggestions()
     this.targetElement.focus()
 
     // Dispatch input event since input happened
@@ -305,7 +305,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           this.picked = true
           this.pickedData = firstOption.data
           if (!this.displaySingleSuggestion) {
-            this._dismissSuggestions()
+            this.dismissSuggestions()
             this._dispatchPickedEvent()
           }
         }
@@ -357,7 +357,21 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     return out
   }
 
-  _dismissSuggestions () {
+  toggleSuggestions () {
+    if (this.suggestions.length) {
+      this.dismissSuggestions()
+      this.targetElement.value = ''
+    } else {
+      this.openSuggestions()
+    }
+  }
+
+  openSuggestions () {
+    this.targetElement.value = ' '
+    this._inputEvent({})
+  }
+
+  dismissSuggestions () {
     const suggestionsDiv = this.shadowRoot.querySelector('#suggestions')
     suggestionsDiv.toggleAttribute('populated', false)
     this.suggestions = []
@@ -388,7 +402,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       this.targetElement.focus()
       break
     case 'Escape':
-      this._dismissSuggestions()
+      this.dismissSuggestions()
       this.targetElement.focus()
       break
     }
@@ -405,7 +419,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
 
     // There is more input: a new query will be made,
     // so the list is now stale
-    this._dismissSuggestions()
+    this.dismissSuggestions()
 
     // If the target element is not valid, don't take off at all
     // TAKEN OUT as autocomplete might be necessary to actually make
