@@ -221,6 +221,15 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source  current " href="../mixins.html">
                           mixins
@@ -233,6 +242,24 @@
                   <li>
                       <a class="source  indented " href="AddHasValueAttributeMixin.html">
                           AddHasValueAttributeMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="DraggableElementMixin.html">
+                          DraggableElementMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="DraggableListMixin.html">
+                          DraggableListMixin.js
                       </a>
                   </li>
                 
@@ -330,161 +357,16 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
         <div class="contentPage">
           
             
-            <p>This is the centrepiece of the <code>nn-</code> elements. Every <code>nn-</code> element has the
-characteristic of being basically a native element with theming steroids.
-Each <code>nn-</code> element has, in its template, a native element marked as
-<code>id=&quot;native&quot;</code> which identifies the element they represent. For example
-the <code>Button.js</code> file will implement <code>nn-button</code> element, which in turn will
-have <code>&lt;button id=&quot;native&quot;</code> in its template.</p>
-<p>The approach to <code>nn-</code> elements is to reflect as much as possible, in terms
-of properties and attributes, from the <code>nn-</code> element down to the <code>native</code> one.</p>
-<p>This means that the <code>nn-</code> element is a “gateway” to properties and attributes
-of the actual native element inside.</p>
-<p>For example writing:</p>
-<pre><code>&lt;nn-button label=<span class="hljs-string">"Some label"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-button</span>&gt;</span></span></code></pre><p>Will imply that the contained <code>&lt;button&gt;</code> element (which is marked as
-<code>native</code>) also has the <code>label</code> attribute set to <code>Some label</code>.</p>
-<p>The idea is that between <code>&lt;nn-button&gt;</code> and <code>&lt;button&gt;</code> <em>everything</em> is
-reflected. This is great in theory, but there is a level of trickery
-required to make things work properly. For example some attributes will
-<em>always</em> need to be skipped (<code>id</code>, <code>style</code>, <code>class</code>). Also, it’s impossible
-to simply reflect every property, since 1) they could be anywhere in the
-prototype chain 2) Some properties should never be reflected (see:
-<code>setAttribute()</code>, <code>hasChildNodes()</code>, and so on).</p>
-<p>So, the approach is:</p>
-<ul>
-<li>All attributes are reflected, <em>except</em> some that are blacklisted (in
-<code>this.skipAttributes</code>)</li>
-<li>Only properties/methods listed in <code>this.reflectProperties</code> are reflected.
-Each element will provide a comprehensive list of reflected properties, which
-will depend on the HTML specs of the targeted <code>native</code> element.</li>
-<li>Some “boot” properties are assigned when the element is first updated.</li>
-</ul>
-<h2 id="into-the-code">Into the code</h2>
-
-            
-          
-            
             <p>First of all, NativeRefletorMixin is declared as a mixing in function:</p>
 
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { element } <span class="hljs-keyword">from</span> <span class="hljs-string">'../htmlApi.js'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { element } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../htmlApi.js&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> NativeReflectorMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{ <span class="hljs-comment">// eslint-disable-line</span></pre></div>
@@ -493,41 +375,48 @@ will depend on the HTML specs of the targeted <code>native</code> element.</li>
             
             <p>The firstUpdated method is used to perform one-time work after the element’s
 template has been created. In this case, it will need to:</p>
-<p>1) Find the native element (marked with <code>id=&quot;native&quot;</code>)
-3) Start reflection of attributes and properties</p>
+<ol>
+<li>Find the native element (marked with <code>id=&quot;native&quot;</code>)</li>
+<li>Start reflection of attributes and properties</li>
+</ol>
 
             
               <div class='highlight'><pre>    firstUpdated () {
       <span class="hljs-comment">/* Find the native element */</span>
-      <span class="hljs-keyword">this</span>.native = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'#native'</span>)
+      <span class="hljs-built_in">this</span>.native = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#native&#x27;</span>)
 
       <span class="hljs-comment">/* Reflect all attributes and properties */</span>
       <span class="hljs-comment">/*  - all properties are reflected except some (listed in skipAttributes) */</span>
       <span class="hljs-comment">/*  - only elected properties are reflected (listed in reflectProperties) */</span>
-      <span class="hljs-keyword">this</span>._reflectAttributesAndProperties()
+      <span class="hljs-built_in">this</span>._reflectAttributesAndProperties()
     }
 
-    <span class="hljs-keyword">get</span> reflectProperties () {
+    get reflectProperties () {
       <span class="hljs-keyword">return</span> element
     }
 
-    <span class="hljs-keyword">get</span> skipProperties () {
-      <span class="hljs-keyword">return</span> [<span class="hljs-string">'style'</span>]
+    get skipProperties () {
+      <span class="hljs-keyword">return</span> [<span class="hljs-string">&#x27;style&#x27;</span>]
     }
 
-    <span class="hljs-keyword">get</span> skipAttributes () {
-      <span class="hljs-keyword">return</span> [<span class="hljs-string">'id'</span>, <span class="hljs-string">'style'</span>, <span class="hljs-string">'class'</span>]
+    get skipAttributes () {
+      <span class="hljs-keyword">return</span> [<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;style&#x27;</span>, <span class="hljs-string">&#x27;class&#x27;</span>]
     }
 
     afterSettingProperty () {}
 
     getAttribute (attr) {
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.skipAttributes.indexOf(attr) !== <span class="hljs-number">-1</span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.getAttribute(attr)
+      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.native || <span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.getAttribute(attr)
       }
 
-      <span class="hljs-keyword">const</span> nativeAttribute = <span class="hljs-keyword">this</span>.native.getAttribute(attr)
-      <span class="hljs-keyword">if</span> (nativeAttribute !== <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> nativeAttribute</pre></div>
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.native.getAttribute(attr)
+
+      <span class="hljs-comment">/*
+      const nativeAttribute = this.native.getAttribute(attr)
+      if (nativeAttribute !== null) return nativeAttribute
+
+</span></pre></div>
             
           
             
@@ -535,7 +424,8 @@ template has been created. In this case, it will need to:</p>
 TODO: Maybe delete it and always return the native’s value regardless</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.getAttribute(attr)
+              <div class='highlight'><pre>      <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.getAttribute(attr)
+      */
     }
 
     setAttribute (attr, value) {</pre></div>
@@ -545,14 +435,14 @@ TODO: Maybe delete it and always return the native’s value regardless</p>
             <p>Set the attribute</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">super</span>.setAttribute(attr, value)</pre></div>
+              <div class='highlight'><pre>      <span class="hljs-built_in">super</span>.setAttribute(attr, value)</pre></div>
             
           
             
             <p>Skip the ones in the skipAttributes list</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.skipAttributes.indexOf(attr) !== <span class="hljs-number">-1</span>) <span class="hljs-keyword">return</span></pre></div>
+              <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
             
           
             
@@ -560,7 +450,7 @@ TODO: Maybe delete it and always return the native’s value regardless</p>
 element, taking care of the ‘nn’ syntax</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">this</span>._setSubAttr(attr, value)
+              <div class='highlight'><pre>      <span class="hljs-built_in">this</span>._setSubAttr(attr, value)
     }
 
     removeAttribute (attr) {</pre></div>
@@ -570,14 +460,14 @@ element, taking care of the ‘nn’ syntax</p>
             <p>Set the attribute</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">super</span>.removeAttribute(attr)</pre></div>
+              <div class='highlight'><pre>      <span class="hljs-built_in">super</span>.removeAttribute(attr)</pre></div>
             
           
             
             <p>Skip the ones in the skipAttributes list</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.skipAttributes.indexOf(attr) !== <span class="hljs-number">-1</span>) <span class="hljs-keyword">return</span></pre></div>
+              <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
             
           
             
@@ -585,11 +475,11 @@ element, taking care of the ‘nn’ syntax</p>
 element, taking care of the ‘nn’ syntax</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">this</span>._setSubAttr(attr, <span class="hljs-literal">null</span>)
+              <div class='highlight'><pre>      <span class="hljs-built_in">this</span>._setSubAttr(attr, <span class="hljs-literal">null</span>)
     }
 
     _setSubAttr (subAttr, attrValue) {
-      <span class="hljs-keyword">const</span> tokens = subAttr.split(<span class="hljs-string">'::'</span>)</pre></div>
+      <span class="hljs-keyword">const</span> tokens = subAttr.split(<span class="hljs-string">&#x27;::&#x27;</span>)</pre></div>
             
           
             
@@ -599,7 +489,7 @@ is the case, simply give up. _reflectAttributesAndProperties() will
 be run afterwards to sync things up anyway</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.native) <span class="hljs-keyword">return</span></pre></div>
+              <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.native) <span class="hljs-keyword">return</span></pre></div>
             
           
             
@@ -608,8 +498,8 @@ be run afterwards to sync things up anyway</p>
             
               <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (tokens.length === <span class="hljs-number">1</span>) {
         (attrValue === <span class="hljs-literal">null</span>)
-          ? <span class="hljs-keyword">this</span>.native.removeAttribute(subAttr)
-          : <span class="hljs-keyword">this</span>.native.setAttribute(subAttr, attrValue)</pre></div>
+          ? <span class="hljs-built_in">this</span>.native.removeAttribute(subAttr)
+          : <span class="hljs-built_in">this</span>.native.setAttribute(subAttr, attrValue)</pre></div>
             
           
             
@@ -618,7 +508,7 @@ corresponding ID</p>
 
             
               <div class='highlight'><pre>      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tokens.length === <span class="hljs-number">2</span>) {
-        <span class="hljs-keyword">const</span> dstElement = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">`#<span class="hljs-subst">${tokens[<span class="hljs-number">0</span>]}</span>`</span>)
+        <span class="hljs-keyword">const</span> dstElement = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">`#<span class="hljs-subst">${tokens[<span class="hljs-number">0</span>]}</span>`</span>)
         <span class="hljs-keyword">if</span> (dstElement) {
           attrValue === <span class="hljs-literal">null</span>
             ? dstElement.removeAttribute(tokens[<span class="hljs-number">1</span>])
@@ -635,11 +525,11 @@ corresponding ID</p>
 <p>Assign all starting attribute to the destination element</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> attributeObject <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>.attributes) {
+              <div class='highlight'><pre>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> attributeObject <span class="hljs-keyword">of</span> <span class="hljs-built_in">this</span>.attributes) {
         <span class="hljs-keyword">const</span> attr = attributeObject.name
 
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.skipAttributes.indexOf(attr) !== <span class="hljs-number">-1</span>) <span class="hljs-keyword">continue</span>
-        <span class="hljs-keyword">this</span>._setSubAttr(attr, <span class="hljs-keyword">super</span>.getAttribute(attr))
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">continue</span>
+        <span class="hljs-built_in">this</span>._setSubAttr(attr, <span class="hljs-built_in">super</span>.getAttribute(attr))
       }</pre></div>
             
           
@@ -650,7 +540,7 @@ them to the destination element</p>
             
               <div class='highlight'><pre>      <span class="hljs-keyword">const</span> thisObserver = <span class="hljs-keyword">new</span> MutationObserver(<span class="hljs-function">(<span class="hljs-params">mutations</span>) =&gt;</span> {
         mutations.forEach(<span class="hljs-function">(<span class="hljs-params">mutation</span>) =&gt;</span> {
-          <span class="hljs-keyword">if</span> (mutation.type === <span class="hljs-string">'attributes'</span>) {
+          <span class="hljs-keyword">if</span> (mutation.type === <span class="hljs-string">&#x27;attributes&#x27;</span>) {
             <span class="hljs-keyword">const</span> attr = mutation.attributeName</pre></div>
             
           
@@ -658,14 +548,14 @@ them to the destination element</p>
             <p>Don’t reflect forbidden attributes</p>
 
             
-              <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.skipAttributes.indexOf(attr) !== <span class="hljs-number">-1</span>) <span class="hljs-keyword">return</span></pre></div>
+              <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
             
           
             
             <p>Don’t reflect attributes with ::</p>
 
             
-              <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (attr.indexOf(<span class="hljs-string">'::'</span>) !== <span class="hljs-number">-1</span>) <span class="hljs-keyword">return</span></pre></div>
+              <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (attr.indexOf(<span class="hljs-string">&#x27;::&#x27;</span>) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
             
           
             
@@ -674,8 +564,8 @@ point in re-assigning it, especially since the observer
 might have been triggered by this very mixin</p>
 
             
-              <div class='highlight'><pre>            <span class="hljs-keyword">const</span> newValue = <span class="hljs-keyword">this</span>.native.getAttribute(attr)
-            <span class="hljs-keyword">const</span> thisValue = <span class="hljs-keyword">super</span>.getAttribute(attr)
+              <div class='highlight'><pre>            <span class="hljs-keyword">const</span> newValue = <span class="hljs-built_in">this</span>.native.getAttribute(attr)
+            <span class="hljs-keyword">const</span> thisValue = <span class="hljs-built_in">super</span>.getAttribute(attr)
             <span class="hljs-keyword">if</span> (newValue === thisValue) <span class="hljs-keyword">return</span></pre></div>
             
           
@@ -684,52 +574,65 @@ might have been triggered by this very mixin</p>
 
             
               <div class='highlight'><pre>            (newValue === <span class="hljs-literal">null</span>)
-              ? <span class="hljs-keyword">super</span>.removeAttribute(attr)
-              : <span class="hljs-keyword">super</span>.setAttribute(attr, newValue)
+              ? <span class="hljs-built_in">super</span>.removeAttribute(attr)
+              : <span class="hljs-built_in">super</span>.setAttribute(attr, newValue)
           }
         })
       })
-      thisObserver.observe(<span class="hljs-keyword">this</span>.native, { <span class="hljs-attr">attributes</span>: <span class="hljs-literal">true</span> })</pre></div>
+      thisObserver.observe(<span class="hljs-built_in">this</span>.native, { <span class="hljs-attr">attributes</span>: <span class="hljs-literal">true</span> })</pre></div>
             
           
             
             <p>STEP #2: METHODS (as bound functions) AND PROPERTIES (as getters/setters)</p>
-<p>Don’t do this unnecessarily</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">const</span> proto = <span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-keyword">this</span>)
-      <span class="hljs-keyword">if</span> (proto._alreadyReflecting) <span class="hljs-keyword">return</span>
+              <div class='highlight'><pre>      <span class="hljs-keyword">const</span> uniqProps = [...new <span class="hljs-built_in">Set</span>(<span class="hljs-built_in">this</span>.reflectProperties)]
+      <span class="hljs-keyword">const</span> proto = <span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-built_in">this</span>)
 
-      <span class="hljs-keyword">const</span> uniqProps = [...new <span class="hljs-built_in">Set</span>(<span class="hljs-keyword">this</span>.reflectProperties)]
-      uniqProps.forEach(<span class="hljs-function"><span class="hljs-params">prop</span> =&gt;</span> {
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.skipProperties.indexOf(prop) !== <span class="hljs-number">-1</span>) <span class="hljs-keyword">return</span>
+      <span class="hljs-keyword">if</span> (!proto._alreadyReflecting) {
+        uniqProps.forEach(<span class="hljs-function"><span class="hljs-params">prop</span> =&gt;</span> {
+          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipProperties.indexOf(prop) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>
+          <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-built_in">this</span>), prop, {
+            <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+              <span class="hljs-keyword">const</span> dst = <span class="hljs-built_in">this</span>.native
+              <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.native) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dst[prop] === <span class="hljs-string">&#x27;function&#x27;</span>) <span class="hljs-keyword">return</span> dst[prop].bind(dst)
+              <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> dst[prop]
+            },
+            <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newValue</span>) </span>{
+              <span class="hljs-keyword">const</span> dst = <span class="hljs-built_in">this</span>.native</pre></div>
+            
+          
+            
+            <p>It IS possile that this.native isn’t set yet, since the
+property observer is on the prototype. So, you could have
+one nn-input-box without a value assigned (and the observer is
+installed for prototype) and then another one with a property
+assigned at creation (observer is set, but this.native is not yet set)
+If that is the case, it will assign the object’s prop. Then,
+when firstUpdated() runs, it will forward-assign this value to
+this.native</p>
 
-        <span class="hljs-keyword">let</span> oldProp
-        <span class="hljs-keyword">let</span> oldPropWasPresent = <span class="hljs-literal">false</span>
-        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(<span class="hljs-keyword">this</span>, prop)) {
-          oldProp = <span class="hljs-keyword">this</span>[prop]
-          oldPropWasPresent = <span class="hljs-literal">true</span>
-        }
-        <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-keyword">this</span>), prop, {
-          <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-            <span class="hljs-keyword">const</span> dst = <span class="hljs-keyword">this</span>.native
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dst[prop] === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span> dst[prop].bind(dst)
-            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> dst[prop]
-          },
-          <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newValue</span>) </span>{
-            <span class="hljs-keyword">const</span> dst = <span class="hljs-keyword">this</span>.native
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>.beforeSettingProperty === <span class="hljs-string">'function'</span>) {
-              <span class="hljs-keyword">this</span>.beforeSettingProperty(prop, newValue)
-            }
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dst[prop] === <span class="hljs-string">'function'</span>) <span class="hljs-keyword">return</span>
-            <span class="hljs-keyword">const</span> oldValue = dst[prop]</pre></div>
+            
+              <div class='highlight'><pre>              <span class="hljs-keyword">if</span> (!dst) {
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> newValue !== <span class="hljs-string">&#x27;undefined&#x27;</span>) {
+                  <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">this</span>, prop, { <span class="hljs-attr">value</span>: newValue, <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span> })
+                }
+                <span class="hljs-keyword">return</span>
+              }
+
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">this</span>.beforeSettingProperty === <span class="hljs-string">&#x27;function&#x27;</span>) {
+                <span class="hljs-built_in">this</span>.beforeSettingProperty(prop, newValue)
+              }
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dst[prop] === <span class="hljs-string">&#x27;function&#x27;</span>) <span class="hljs-keyword">return</span>
+              <span class="hljs-keyword">const</span> oldValue = dst[prop]</pre></div>
             
           
             
             <p>Set the new value</p>
 
             
-              <div class='highlight'><pre>            dst[prop] = newValue</pre></div>
+              <div class='highlight'><pre>              dst[prop] = newValue</pre></div>
             
           
             
@@ -737,21 +640,36 @@ might have been triggered by this very mixin</p>
 create a setter if there is already one</p>
 
             
-              <div class='highlight'><pre>            <span class="hljs-keyword">this</span>._requestUpdate(prop, oldValue)
+              <div class='highlight'><pre>              <span class="hljs-built_in">this</span>.requestUpdate(prop, oldValue)
 
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>.afterSettingProperty === <span class="hljs-string">'function'</span>) {
-              <span class="hljs-keyword">this</span>.afterSettingProperty(prop, newValue)
-            }
-          },
-          <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
-          <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">this</span>.afterSettingProperty === <span class="hljs-string">&#x27;function&#x27;</span>) {
+                <span class="hljs-built_in">this</span>.afterSettingProperty(prop, newValue)
+              }
+            },
+            <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>
+          })
         })
-        <span class="hljs-keyword">if</span> (oldPropWasPresent) {
-          <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>[prop]
-          <span class="hljs-keyword">this</span>[prop] = oldProp
+        proto._alreadyReflecting = <span class="hljs-literal">true</span>
+      }</pre></div>
+            
+          
+            
+            <p>Assign existing properties, in case the setter had already been triggered
+BEFORE firstUpdated() (in which case, the setter would have assigned
+OBJECT properties, without reflection)</p>
+
+            
+              <div class='highlight'><pre>      uniqProps.forEach(<span class="hljs-function"><span class="hljs-params">prop</span> =&gt;</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipProperties.indexOf(prop) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>
+
+        <span class="hljs-keyword">let</span> propValue
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(<span class="hljs-built_in">this</span>, prop)) {
+          propValue = <span class="hljs-built_in">this</span>[prop]
+          <span class="hljs-keyword">delete</span> <span class="hljs-built_in">this</span>[prop]
+          <span class="hljs-built_in">this</span>[prop] = propValue
         }
       })
-      proto._alreadyReflecting = <span class="hljs-literal">true</span>
     }
   }
 }</pre></div>

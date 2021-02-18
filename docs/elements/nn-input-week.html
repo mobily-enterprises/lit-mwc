@@ -218,11 +218,26 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
                       </a>
                   </li>
+                
+              
+                
+                
+              
+                
                 
               
                 
@@ -273,117 +288,6 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
@@ -392,22 +296,22 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-<span class="hljs-keyword">import</span> { NnInputText } <span class="hljs-keyword">from</span> <span class="hljs-string">'./nn-input-text'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { html } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { NnInputText } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./nn-input-text&#x27;</span>
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnInputWeek</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">NnInputText</span> </span>{
   render () {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelBefore}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageBefore}</span><span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"password"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span>&gt;</span>
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageAfter}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelBefore}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageBefore}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;week&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native&quot;</span>&gt;</span>
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelAfter}</span><span class="xml">
     `</span>
   }
 }
-<span class="hljs-built_in">window</span>.customElements.define(<span class="hljs-string">'nn-input-week'</span>, NnInputWeek)</pre></div>
+<span class="hljs-built_in">window</span>.customElements.define(<span class="hljs-string">&#x27;nn-input-week&#x27;</span>, NnInputWeek)</pre></div>
             
           
         </div>

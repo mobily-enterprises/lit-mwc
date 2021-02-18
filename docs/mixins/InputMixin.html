@@ -218,6 +218,15 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source  current " href="../mixins.html">
                           mixins
@@ -230,6 +239,24 @@
                   <li>
                       <a class="source  indented " href="AddHasValueAttributeMixin.html">
                           AddHasValueAttributeMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="DraggableElementMixin.html">
+                          DraggableElementMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="DraggableListMixin.html">
+                          DraggableListMixin.js
                       </a>
                   </li>
                 
@@ -327,117 +354,6 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
@@ -446,15 +362,15 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { inputElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'../htmlApi.js'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { inputElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../htmlApi.js&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> InputMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{
-    <span class="hljs-keyword">get</span> skipAttributes () {
-      <span class="hljs-keyword">return</span> [...super.skipAttributes, <span class="hljs-string">'type'</span>]
+    get skipAttributes () {
+      <span class="hljs-keyword">return</span> [...super.skipAttributes, <span class="hljs-string">&#x27;type&#x27;</span>]
     }
 
-    <span class="hljs-keyword">get</span> reflectProperties () {
+    get reflectProperties () {
       <span class="hljs-keyword">return</span> [...super.reflectProperties, ...inputElement]
     }
   }

@@ -218,11 +218,26 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
                       </a>
                   </li>
+                
+              
+                
+                
+              
+                
                 
               
                 
@@ -273,117 +288,6 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
@@ -392,24 +296,24 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
-<span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/InputMixin.js'</span>
-<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/FormElementMixin.js'</span>
-<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeValidatorMixin.js'</span>
-<span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/LabelsMixin.js'</span>
-<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeReflectorMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/InputMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/FormElementMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeValidatorMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/LabelsMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin.js&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnInputFile</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">input</span>-<span class="hljs-title">file</span>')(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))))) </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnInputFile</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">nn</span>-<span class="hljs-title">input</span>-<span class="hljs-title">file</span>&#x27;)(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))))) </span>{
+  <span class="hljs-keyword">static</span> get styles () {
     <span class="hljs-keyword">return</span> [
-      <span class="hljs-keyword">super</span>.styles,
+      <span class="hljs-built_in">super</span>.styles,
       css`<span class="css">
         <span class="hljs-comment">/* From https://zellwk.com/blog/hide-content-accessibly/ */</span>
         <span class="hljs-selector-attr">[hidden]</span> {
           <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
-          <span class="hljs-attribute">clip</span>: <span class="hljs-built_in">rect</span>(0 0 0 0);
+          <span class="hljs-attribute">clip</span>: <span class="hljs-built_in">rect</span>(<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>);
           <span class="hljs-attribute">height</span>: auto; <span class="hljs-comment">/* new - was 1px */</span>
           <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>; <span class="hljs-comment">/* new - was -1px */</span>
           <span class="hljs-attribute">overflow</span>: hidden;
@@ -418,27 +322,32 @@
           <span class="hljs-attribute">width</span>: <span class="hljs-number">1px</span>;
           <span class="hljs-attribute">white-space</span>: nowrap; <span class="hljs-comment">/* 1 */</span>
         }
+
+        nn-<span class="hljs-selector-tag">button</span> { 
+          <span class="hljs-attribute">margin</span>: auto
+        }
       `</span>
     ]
   }
 
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
+  <span class="hljs-keyword">static</span> get properties () {
     <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">hideNative</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span> },
       <span class="hljs-attr">fileName</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span> },
       <span class="hljs-attr">manyFilesText</span>: {
         <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
-        <span class="hljs-attr">attribute</span>: <span class="hljs-string">'many-files-text'</span>
+        <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;many-files-text&#x27;</span>
       }
     }
   }
 
-  <span class="hljs-keyword">constructor</span> () {
-    <span class="hljs-keyword">super</span>()
-    <span class="hljs-keyword">this</span>.manyFilesText = <span class="hljs-string">'Many'</span>
+  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-built_in">super</span>()
+    <span class="hljs-built_in">this</span>.manyFilesText = <span class="hljs-string">&#x27;Many&#x27;</span>
   }
 
   render () {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()</pre></div>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()</pre></div>
             
           
             
@@ -446,21 +355,22 @@
 
             
               <div class='highlight'><pre>    <span class="hljs-keyword">return</span> html`<span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelBefore}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageBefore}</span><span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"file"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span> @<span class="hljs-attr">change</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.fileNameChanged}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">hidden</span>&gt;</span>
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageAfter}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.fileName}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelBefore}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageBefore}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;file&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native&quot;</span> @<span class="hljs-attr">change</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.fileNameChanged}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> ?<span class="hljs-attr">hidden</span>=</span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.hideNative}</span><span class="xml"><span class="hljs-tag">&gt;</span>
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.fileName}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelAfter}</span><span class="xml">
     `</span>
   }
 
   fileNameChanged (e) {
-    <span class="hljs-keyword">const</span> native = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'#native'</span>)
-    <span class="hljs-keyword">this</span>.fileName = native.files.length &gt; <span class="hljs-number">1</span> ? <span class="hljs-keyword">this</span>.manyFilesText : native.value
+    <span class="hljs-keyword">const</span> native = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#native&#x27;</span>)
+    <span class="hljs-keyword">const</span> v = native.value
+    <span class="hljs-built_in">this</span>.fileName = native.files.length &gt; <span class="hljs-number">1</span> ? <span class="hljs-built_in">this</span>.manyFilesText : v.slice(v.lastIndexOf(<span class="hljs-string">&#x27;\\&#x27;</span>) + <span class="hljs-number">1</span>)
   }
 }
-customElements.define(<span class="hljs-string">'nn-input-file'</span>, NnInputFile)</pre></div>
+customElements.define(<span class="hljs-string">&#x27;nn-input-file&#x27;</span>, NnInputFile)</pre></div>
             
           
         </div>

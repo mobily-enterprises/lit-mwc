@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <title>nn-input-button.js</title>
+  <title>ee-cell.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
   <link rel="stylesheet" media="all" href="../tpe.css" />
@@ -14,7 +14,7 @@
         <div class="topbar">
           <div id="logo" alt="TPE">
           </div>
-          <h3>nn-input-button.js</h3>
+          <h3>ee-cell.js</h3>
           <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
           <div class="links">
             <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
@@ -296,23 +296,88 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
-<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeReflectorMixin.js&#x27;</span>
-<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/FormElementMixin.js&#x27;</span>
-<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeValidatorMixin.js&#x27;</span>
-<span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/InputMixin.js&#x27;</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin.js&#x27;</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin&#x27;</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnInputButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">nn</span>-<span class="hljs-title">input</span>-<span class="hljs-title">button</span>&#x27;)(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))) </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeCell</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">ee</span>-<span class="hljs-title">cell</span>&#x27;)(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LitElement</span>)) </span>{
+  <span class="hljs-keyword">static</span> get styles () {
+    <span class="hljs-keyword">return</span> [
+      css`<span class="css">
+        <span class="hljs-selector-pseudo">:host</span> {
+          <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">1</span>;
+          <span class="hljs-attribute">flex-shrink</span>: <span class="hljs-number">1</span>;
+          <span class="hljs-attribute">box-sizing</span>: border-box;
+          <span class="hljs-attribute">white-space</span>: nowrap;
+          <span class="hljs-attribute">overflow</span>: hidden;
+          <span class="hljs-attribute">text-overflow</span>: ellipsis;
+          <span class="hljs-attribute">padding</span>: <span class="hljs-number">3px</span>;
+          <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid transparent;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[selectable]</span><span class="hljs-selector-pseudo">:hover</span>) {
+          <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--ee-cell-hover-border-color, <span class="hljs-number">#ddd</span>);
+          <span class="hljs-attribute">background-color</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--ee-cell-hover-background-color, <span class="hljs-number">#eee</span>);
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[sq]</span>) {
+          <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">0.25</span>;
+        }
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[sh]</span>) {
+          <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">0.5</span>;
+        }
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[s1]</span>) {
+          <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">1</span>;
+        }
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[s2]</span>) {
+          <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">2</span>;
+        }
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[s3]</span>) {
+          <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">3</span>;
+        }
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[s4]</span>) {
+          <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">4</span>;
+        }
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[s5]</span>) {
+          <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">5</span>;
+        }
+
+        <span class="hljs-comment">/*
+         ::slotted(#dnd-handle) {
+          cursor: pointer;
+        }
+
+        ::slotted(*) {
+          cursor: pointer;
+        }
+        */</span>
+
+      `</span>
+    ]
+  }
+
+  <span class="hljs-keyword">static</span> get properties () {
+    <span class="hljs-keyword">return</span> {
+    }
+  }
+
+  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-built_in">super</span>()
+    <span class="hljs-built_in">this</span>.SOMETHING = <span class="hljs-literal">false</span>
+  }
+
+  connectedCallback () {
+    <span class="hljs-built_in">super</span>.connectedCallback()
+  }
+
   render () {
     <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native&quot;</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
-     `</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+    `</span>
   }
 }
-customElements.define(<span class="hljs-string">&#x27;nn-input-button&#x27;</span>, NnInputButton)</pre></div>
+customElements.define(<span class="hljs-string">&#x27;ee-cell&#x27;</span>, EeCell)</pre></div>
             
           
         </div>

@@ -218,6 +218,15 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source  current " href="../mixins.html">
                           mixins
@@ -230,6 +239,24 @@
                   <li>
                       <a class="source  indented " href="AddHasValueAttributeMixin.html">
                           AddHasValueAttributeMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="DraggableElementMixin.html">
+                          DraggableElementMixin.js
+                      </a>
+                  </li>
+                
+              
+                
+                
+                  <li>
+                      <a class="source  indented " href="DraggableListMixin.html">
+                          DraggableListMixin.js
                       </a>
                   </li>
                 
@@ -327,117 +354,6 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
@@ -446,15 +362,15 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { html } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SyntheticValidatorMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
+    <span class="hljs-keyword">static</span> get properties () {
       <span class="hljs-keyword">return</span> {
         <span class="hljs-attr">validationMessagePosition</span>: {
           <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
-          <span class="hljs-attr">attribute</span>: <span class="hljs-string">'validation-message-position'</span>
+          <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;validation-message-position&#x27;</span>
         },
         <span class="hljs-attr">shownValidationMessage</span>: {
           <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
@@ -468,29 +384,29 @@
       }
     }
 
-    <span class="hljs-keyword">constructor</span> () {
-      <span class="hljs-keyword">super</span>()
-      <span class="hljs-keyword">this</span>.shownValidationMessage = <span class="hljs-string">''</span>
-      <span class="hljs-keyword">this</span>.validator = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">''</span>
-      <span class="hljs-keyword">this</span>.validationMessagePosition = <span class="hljs-string">'before'</span>
-      <span class="hljs-keyword">this</span>.validity = { <span class="hljs-attr">valid</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">_customValidationMessage</span>: <span class="hljs-string">''</span> }
+    <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) {
+      <span class="hljs-built_in">super</span>()
+      <span class="hljs-built_in">this</span>.shownValidationMessage = <span class="hljs-string">&#x27;&#x27;</span>
+      <span class="hljs-built_in">this</span>.validator = <span class="hljs-function">() =&gt;</span> <span class="hljs-string">&#x27;&#x27;</span>
+      <span class="hljs-built_in">this</span>.validationMessagePosition = <span class="hljs-string">&#x27;before&#x27;</span>
+      <span class="hljs-built_in">this</span>.validity = { <span class="hljs-attr">valid</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">_customValidationMessage</span>: <span class="hljs-string">&#x27;&#x27;</span> }
     }
 
     setCustomValidity (m) {
-      <span class="hljs-keyword">if</span> (m === <span class="hljs-string">''</span>) {
-        <span class="hljs-keyword">this</span>.validity = {
+      <span class="hljs-keyword">if</span> (m === <span class="hljs-string">&#x27;&#x27;</span>) {
+        <span class="hljs-built_in">this</span>.validity = {
           <span class="hljs-attr">valid</span>: <span class="hljs-literal">true</span>,
-          <span class="hljs-attr">_customValidationMessage</span>: <span class="hljs-string">''</span>
+          <span class="hljs-attr">_customValidationMessage</span>: <span class="hljs-string">&#x27;&#x27;</span>
         }
-        <span class="hljs-keyword">this</span>.toggleAttribute(<span class="hljs-string">'valid'</span>, <span class="hljs-literal">true</span>)
-        <span class="hljs-keyword">if</span> (m === <span class="hljs-string">''</span>) <span class="hljs-keyword">this</span>.shownValidationMessage = <span class="hljs-string">''</span>
+        <span class="hljs-built_in">this</span>.toggleAttribute(<span class="hljs-string">&#x27;valid&#x27;</span>, <span class="hljs-literal">true</span>)
+        <span class="hljs-keyword">if</span> (m === <span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-built_in">this</span>.shownValidationMessage = <span class="hljs-string">&#x27;&#x27;</span>
       } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">this</span>.validity = {
+        <span class="hljs-built_in">this</span>.validity = {
           <span class="hljs-attr">valid</span>: <span class="hljs-literal">false</span>,
           <span class="hljs-attr">customError</span>: <span class="hljs-literal">true</span>,
           <span class="hljs-attr">_customValidationMessage</span>: m
         }
-        <span class="hljs-keyword">this</span>.toggleAttribute(<span class="hljs-string">'valid'</span>, <span class="hljs-literal">false</span>)
+        <span class="hljs-built_in">this</span>.toggleAttribute(<span class="hljs-string">&#x27;valid&#x27;</span>, <span class="hljs-literal">false</span>)
       }
     }
 
@@ -502,9 +418,9 @@
 will only ever run on filed without an existing customError.</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.validity.customError) {
-        <span class="hljs-keyword">const</span> ownErrorMessage = <span class="hljs-keyword">this</span>.validator()
-        <span class="hljs-keyword">if</span> (ownErrorMessage) <span class="hljs-keyword">this</span>.setCustomValidity(ownErrorMessage)
+              <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.validity.customError) {
+        <span class="hljs-keyword">const</span> ownErrorMessage = <span class="hljs-built_in">this</span>._runValidator()
+        <span class="hljs-keyword">if</span> (ownErrorMessage) <span class="hljs-built_in">this</span>.setCustomValidity(ownErrorMessage)
       }</pre></div>
             
           
@@ -512,31 +428,51 @@ will only ever run on filed without an existing customError.</p>
             <p>Hide the error message by default</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">this</span>.shownValidationMessage = <span class="hljs-string">''</span>
+              <div class='highlight'><pre>      <span class="hljs-built_in">this</span>.shownValidationMessage = <span class="hljs-string">&#x27;&#x27;</span>
 
-      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.validity.valid) {
-        <span class="hljs-keyword">this</span>.toggleAttribute(<span class="hljs-string">'valid'</span>, <span class="hljs-literal">false</span>)
-        <span class="hljs-keyword">this</span>.shownValidationMessage = <span class="hljs-keyword">this</span>.validity._customValidationMessage
-        <span class="hljs-keyword">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">'invalid'</span>, {
+      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.validity.valid) {
+        <span class="hljs-built_in">this</span>.toggleAttribute(<span class="hljs-string">&#x27;valid&#x27;</span>, <span class="hljs-literal">false</span>)
+        <span class="hljs-built_in">this</span>.shownValidationMessage = <span class="hljs-built_in">this</span>.validity._customValidationMessage
+        <span class="hljs-built_in">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">&#x27;invalid&#x27;</span>, {
           <span class="hljs-attr">cancelable</span>: <span class="hljs-literal">true</span>,
           <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">false</span>,
           <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span>
         }))
         <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
       } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">this</span>.toggleAttribute(<span class="hljs-string">'valid'</span>, <span class="hljs-literal">true</span>)
+        <span class="hljs-built_in">this</span>.toggleAttribute(<span class="hljs-string">&#x27;valid&#x27;</span>, <span class="hljs-literal">true</span>)
         <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
       }
     }
 
+    _runValidator () {</pre></div>
+            
+          
+            
+            <p>Call the validator with a value. Here an element could be a checkbox,
+a select, an simple text input, etc.
+If the containing form has _getElementValueSource, that is used to
+figure out what to pass to the validato (as well as _submitObject)</p>
+
+            
+              <div class='highlight'><pre>      <span class="hljs-keyword">let</span> value
+      <span class="hljs-keyword">let</span> submitObject
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.form &amp;&amp; <span class="hljs-built_in">this</span>.form._getElementValueSource) {
+        value = <span class="hljs-built_in">this</span>[<span class="hljs-built_in">this</span>.form._getElementValueSource(<span class="hljs-built_in">this</span>)]
+        submitObject = <span class="hljs-built_in">this</span>.form.submitObject
+      }
+      <span class="hljs-keyword">const</span> ownErrorMessage = <span class="hljs-built_in">this</span>.validator(value, submitObject)
+      <span class="hljs-keyword">if</span> (ownErrorMessage) <span class="hljs-built_in">this</span>.setCustomValidity(ownErrorMessage)
+    }
+
     checkValidity () {
-      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.validity.customError) {
-        <span class="hljs-keyword">const</span> ownErrorMessage = <span class="hljs-keyword">this</span>.validator()
-        <span class="hljs-keyword">if</span> (ownErrorMessage) <span class="hljs-keyword">this</span>.setCustomValidity(ownErrorMessage)
+      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.validity.customError) {
+        <span class="hljs-keyword">const</span> ownErrorMessage = <span class="hljs-built_in">this</span>._runValidator()
+        <span class="hljs-keyword">if</span> (ownErrorMessage) <span class="hljs-built_in">this</span>.setCustomValidity(ownErrorMessage)
       }
 
-      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.validity.valid) {
-        <span class="hljs-keyword">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">'invalid'</span>, {
+      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.validity.valid) {
+        <span class="hljs-built_in">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">&#x27;invalid&#x27;</span>, {
           <span class="hljs-attr">cancelable</span>: <span class="hljs-literal">true</span>,
           <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">false</span>,
           <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span>
@@ -546,20 +482,20 @@ will only ever run on filed without an existing customError.</p>
       <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
     }
 
-    <span class="hljs-keyword">get</span> ifValidationMessageBefore () {
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.validationMessagePosition === <span class="hljs-string">'after'</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.validationMessageTemplate
+    get ifValidationMessageBefore () {
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.validationMessagePosition === <span class="hljs-string">&#x27;after&#x27;</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.validationMessageTemplate
     }
 
-    <span class="hljs-keyword">get</span> ifValidationMessageAfter () {
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.validationMessagePosition === <span class="hljs-string">'before'</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.validationMessageTemplate
+    get ifValidationMessageAfter () {
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.validationMessagePosition === <span class="hljs-string">&#x27;before&#x27;</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.validationMessageTemplate
     }
 
-    <span class="hljs-keyword">get</span> validationMessageTemplate () {
+    get validationMessageTemplate () {
       <span class="hljs-keyword">return</span> html`<span class="xml">
-        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"error-message"</span>&gt;</span>
-          </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.shownValidationMessage}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;error-message&quot;</span>&gt;</span>
+          </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.shownValidationMessage}</span><span class="xml">
         <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
       `</span>
     }

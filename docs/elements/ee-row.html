@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <title>ee-toolbar.js</title>
+  <title>ee-row.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
   <link rel="stylesheet" media="all" href="../tpe.css" />
@@ -14,7 +14,7 @@
         <div class="topbar">
           <div id="logo" alt="TPE">
           </div>
-          <h3>ee-toolbar.js</h3>
+          <h3>ee-row.js</h3>
           <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
           <div class="links">
             <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
@@ -296,62 +296,105 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css, unsafeCSS } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
 <span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin&#x27;</span>
 <span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin&#x27;</span>
+<span class="hljs-keyword">import</span> { DraggableElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/DraggableElementMixin&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeToolbar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">ee</span>-<span class="hljs-title">toolbar</span>&#x27;)(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LitElement</span>)) </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeRow</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DraggableElementMixin</span>(<span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">ee</span>-<span class="hljs-title">row</span>&#x27;)(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LitElement</span>))) </span>{
+  
   <span class="hljs-keyword">static</span> get styles () {
     <span class="hljs-keyword">return</span> [
-      <span class="hljs-built_in">super</span>.styles,
       css`<span class="css">
         <span class="hljs-selector-pseudo">:host</span> {
-          <span class="hljs-attribute">display</span>: flex;
           <span class="hljs-attribute">box-sizing</span>: border-box;
-          <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-          <span class="hljs-attribute">align-items</span>: center;
-          <span class="hljs-attribute">position</span>: relative;
-          <span class="hljs-attribute">height</span>: <span class="hljs-built_in">var</span>(--ee-toolbar-height, <span class="hljs-number">100%</span>);
-          <span class="hljs-attribute">max-height</span>: <span class="hljs-built_in">var</span>(--ee-toolbar-max-height, <span class="hljs-number">96px</span>);
-          <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">5px</span>;
-          <span class="hljs-attribute">pointer-events</span>: none;
-          <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">var</span>(--ee-toolbar-font-size, <span class="hljs-number">20px</span>);
-        }
-
-        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-pseudo">::slotted</span>(*) {
-          <span class="hljs-attribute">pointer-events</span>: auto;
-        }
-
-        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-pseudo">::slotted</span>(<span class="hljs-selector-class">.icon</span>) {
-          <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0</span>;
-        }
-
-        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-pseudo">::slotted</span>(<span class="hljs-selector-attr">[title]</span>) {
           <span class="hljs-attribute">display</span>: flex;
-          <span class="hljs-attribute">margin</span>: auto <span class="hljs-number">20px</span>;
+          <span class="hljs-attribute">flex-direction</span>: row;
+          <span class="hljs-attribute">flex-wrap</span>: wrap;
+          <span class="hljs-attribute">align-items</span>: center;
+          <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+          <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid transparent;
+          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-built_in">var</span>(--ee-row-border-bottom, <span class="hljs-number">1px</span> solid <span class="hljs-number">#777</span>);
         }
 
-        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-pseudo">::slotted</span>(<span class="hljs-selector-attr">[bottom-item]</span>) {
-          <span class="hljs-attribute">position</span>: absolute;
-          <span class="hljs-attribute">top</span>: unset;
-          <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
-          <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
-          <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-pseudo">:last-child</span>) {
+          <span class="hljs-attribute">border-color</span>: transparent;
         }
 
-        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-pseudo">::slotted</span>(<span class="hljs-selector-attr">[top-item]</span>) {
-          <span class="hljs-attribute">position</span>: absolute;
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[header]</span>) {
+          <span class="hljs-attribute">height</span>: <span class="hljs-built_in">var</span>(--ee-row-header-height, <span class="hljs-number">2em</span>);
+          <span class="hljs-attribute">box-sizing</span>: border-box;
+          <span class="hljs-attribute">font-weight</span>: bold;
+          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-built_in">var</span>(--ee-row-header-border-bottom, <span class="hljs-number">2px</span> solid <span class="hljs-number">#777</span>);
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[header]</span>)) {
+          <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--ee-row-hover-border-color, <span class="hljs-number">#ddd</span>);
+          <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--ee-row-hover-background, <span class="hljs-number">#eee</span>) <span class="hljs-meta">!important</span>;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[frozen]</span>) {
+          <span class="hljs-attribute">position</span>: sticky;
           <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
-          <span class="hljs-attribute">bottom</span>: unset;
-          <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
-          <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+          <span class="hljs-attribute">background</span>: <span class="hljs-built_in">var</span>(--ee-row-background, white);
         }
 
-        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-pseudo">::slotted</span>(<span class="hljs-selector-attr">[spacer]</span>) {
-          <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">64px</span>;
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[frozen]</span><span class="hljs-selector-attr">[footer]</span>) {
+          <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+          <span class="hljs-attribute">top</span>: unset;
+          <span class="hljs-attribute">border-top</span>: <span class="hljs-built_in">var</span>(--ee-row-border-bottom, <span class="hljs-number">1px</span> solid <span class="hljs-number">#777</span>);
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[size=small]</span>) <span class="hljs-selector-pseudo">::slotted</span>(ee-cell) {
+          <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">100%</span>;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[size=medium]</span>) <span class="hljs-selector-pseudo">::slotted</span>(ee-cell),
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[size=large]</span>) <span class="hljs-selector-pseudo">::slotted</span>(ee-cell) {
+          <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">0</span>;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[size=medium]</span>) <span class="hljs-selector-pseudo">::slotted</span>(ee-cell<span class="hljs-selector-attr">[extra]</span>),
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[size=small]</span>) <span class="hljs-selector-pseudo">::slotted</span>(ee-cell<span class="hljs-selector-attr">[extra]</span>)
+        {
+          <span class="hljs-attribute">display</span>:none <span class="hljs-meta">!important</span>;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[size=small]</span>) <span class="hljs-selector-pseudo">::slotted</span>(ee-cell<span class="hljs-selector-attr">[header]</span>) {
+          <span class="hljs-attribute">display</span>: none <span class="hljs-meta">!important</span>;
+        }
+
+        <span class="hljs-comment">/* Drag and Drop Styles */</span>
+        <span class="hljs-selector-id">#dnd-handle</span>, <span class="hljs-selector-pseudo">::slotted</span>(<span class="hljs-selector-id">#dnd-handle</span>) {
+          <span class="hljs-attribute">display</span>: none;
+          <span class="hljs-attribute">max-width</span>: <span class="hljs-number">18px</span>;
+          <span class="hljs-attribute">height</span>: <span class="hljs-number">18px</span>;
+          <span class="hljs-attribute">cursor</span>: move;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[header]</span>) <span class="hljs-selector-class">.handle</span>,
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[header]</span>) <span class="hljs-selector-pseudo">::slotted</span>(<span class="hljs-selector-class">.handle</span>) {
+          <span class="hljs-attribute">pointer-events</span>: none;
+          <span class="hljs-attribute">visibility</span>: hidden;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[draggable]</span>) <span class="hljs-selector-class">.handle</span>,
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[draggable]</span>) <span class="hljs-selector-pseudo">::slotted</span>(<span class="hljs-selector-class">.handle</span>) {
+          <span class="hljs-attribute">display</span>: block;
         }
       `</span>
     ]
+  }
+
+
+  <span class="hljs-keyword">static</span> get properties () {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">header</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span> }
+    }
+  }
+
+  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-built_in">super</span>()
   }
 
   render () {
@@ -361,7 +404,7 @@
     `</span>
   }
 }
-customElements.define(<span class="hljs-string">&#x27;ee-toolbar&#x27;</span>, EeToolbar)</pre></div>
+customElements.define(<span class="hljs-string">&#x27;ee-row&#x27;</span>, EeRow)</pre></div>
             
           
         </div>

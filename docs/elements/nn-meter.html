@@ -218,11 +218,26 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
                       </a>
                   </li>
+                
+              
+                
+                
+              
+                
                 
               
                 
@@ -273,117 +288,6 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
@@ -392,30 +296,30 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
-<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
-<span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/LabelsMixin.js'</span>
-<span class="hljs-keyword">import</span> { meterElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./htmlApi'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeReflectorMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/LabelsMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { meterElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./htmlApi&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnMeter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">meter</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>)))) </span>{
-  <span class="hljs-keyword">get</span> reflectProperties () {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnMeter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">nn</span>-<span class="hljs-title">meter</span>&#x27;)(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>)))) </span>{
+  get reflectProperties () {
     <span class="hljs-keyword">return</span> [...super.reflectProperties, ...meterElement]
   }
 
   render () {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelBefore}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageBefore}</span><span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">meter</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span> <span class="hljs-attr">real-time-event</span>=<span class="hljs-string">"input"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">meter</span>&gt;</span>
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageAfter}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelBefore}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageBefore}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">meter</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native&quot;</span> <span class="hljs-attr">real-time-event</span>=<span class="hljs-string">&quot;input&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">meter</span>&gt;</span>
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelAfter}</span><span class="xml">
     `</span>
   }
 }
-customElements.define(<span class="hljs-string">'nn-meter'</span>, NnMeter)</pre></div>
+customElements.define(<span class="hljs-string">&#x27;nn-meter&#x27;</span>, NnMeter)</pre></div>
             
           
         </div>

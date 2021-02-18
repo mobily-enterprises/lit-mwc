@@ -218,11 +218,26 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
                       </a>
                   </li>
+                
+              
+                
+                
+              
+                
                 
               
                 
@@ -273,117 +288,6 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
@@ -392,37 +296,51 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
-<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/FormElementMixin.js'</span>
-<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeValidatorMixin.js'</span>
-<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
-<span class="hljs-keyword">import</span> { buttonElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./htmlApi.js'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeReflectorMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/FormElementMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeValidatorMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { buttonElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./htmlApi.js&#x27;</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">button</span>')(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))) </span>{
-  <span class="hljs-keyword">get</span> skipAttributes () {
-    <span class="hljs-keyword">return</span> [...super.skipAttributes, <span class="hljs-string">'form'</span>]
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">nn</span>-<span class="hljs-title">button</span>&#x27;)(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))) </span>{
+  get skipAttributes () {
+    <span class="hljs-keyword">return</span> [...super.skipAttributes, <span class="hljs-string">&#x27;form&#x27;</span>]
   }
 
-  <span class="hljs-keyword">get</span> reflectProperties () {
+  get reflectProperties () {
     <span class="hljs-keyword">return</span> [...super.reflectProperties, ...buttonElement]
   }
 
+  <span class="hljs-keyword">static</span> get styles () {
+    <span class="hljs-keyword">return</span> [
+      <span class="hljs-built_in">super</span>.styles || [],
+      css`<span class="css">
+      <span class="hljs-comment">/*  This is necessary as a workaround to this chrome <span class="hljs-doctag">bug:</span>
+      /   https://bugs.chromium.org/p/chromium/issues/detail?id=1061240&amp;can=2&amp;q=status%3Aunconfirmed&amp;colspec=ID%20Stars%20Area%20Feature%20Status%20Summary%20Modified%20OS&amp;sort=-id 
+      */</span>
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[disabled]</span>) {
+          <span class="hljs-attribute">pointer-events</span>: none;
+        }
+      `</span>
+    ]
+  }
+
   render () {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._clicked}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>._clicked}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native&quot;</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
     `</span>
   }
 
-  _clicked () {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.getAttribute(<span class="hljs-string">'type'</span>) === <span class="hljs-string">'submit'</span>) <span class="hljs-keyword">this</span>.form.submit()
+  _clicked (e) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.getAttribute(<span class="hljs-string">&#x27;type&#x27;</span>) === <span class="hljs-string">&#x27;submit&#x27;</span>) <span class="hljs-built_in">this</span>.form.submit()
   }
 }
-customElements.define(<span class="hljs-string">'nn-button'</span>, NnButton)</pre></div>
+customElements.define(<span class="hljs-string">&#x27;nn-button&#x27;</span>, NnButton)</pre></div>
             
           
         </div>

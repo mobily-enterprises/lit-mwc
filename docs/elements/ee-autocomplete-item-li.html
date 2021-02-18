@@ -218,11 +218,26 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
                       </a>
                   </li>
+                
+              
+                
+                
+              
+                
                 
               
                 
@@ -273,117 +288,6 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
@@ -392,14 +296,14 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin.js&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeAutocompleteItemLi</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">ee</span>-<span class="hljs-title">autocomplete</span>-<span class="hljs-title">item</span>-<span class="hljs-title">li</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LitElement</span>)) </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeAutocompleteItemLi</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">ee</span>-<span class="hljs-title">autocomplete</span>-<span class="hljs-title">item</span>-<span class="hljs-title">li</span>&#x27;)(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LitElement</span>)) </span>{
+  <span class="hljs-keyword">static</span> get styles () {
     <span class="hljs-keyword">return</span> [
-      <span class="hljs-keyword">super</span>.styles,
+      <span class="hljs-built_in">super</span>.styles,
       css`<span class="css">
         <span class="hljs-selector-pseudo">:host</span> {
           <span class="hljs-attribute">display</span>: block;
@@ -407,23 +311,24 @@
           <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ddd</span>;
         }
 
-        <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-pseudo">:last-child)</span> {
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-pseudo">:last-child</span>) {
           <span class="hljs-attribute">border-bottom</span>: unset;
         }
 
-        <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-pseudo">:hover)</span> {
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-pseudo">:hover</span>) {
           <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#eee</span>;
         }
 
         <span class="hljs-selector-tag">li</span> {
           <span class="hljs-attribute">list-style</span>: none;
+          <span class="hljs-attribute">text-align</span>: left;
         }
 
       `</span>
     ]
   }
 
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
+  <span class="hljs-keyword">static</span> get properties () {
     <span class="hljs-keyword">return</span> {
       <span class="hljs-attr">data</span>: {
         <span class="hljs-attr">type</span>: <span class="hljs-built_in">Object</span>,
@@ -436,47 +341,47 @@
     }
   }
 
-  <span class="hljs-keyword">constructor</span> () {
-    <span class="hljs-keyword">super</span>()
-    <span class="hljs-keyword">this</span>.config = {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'id'</span>,
-      <span class="hljs-attr">path</span>: <span class="hljs-string">'name'</span>
+  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-built_in">super</span>()
+    <span class="hljs-built_in">this</span>.config = {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;id&#x27;</span>,
+      <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;name&#x27;</span>
     }
   }
 
   render () {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.data[<span class="hljs-keyword">this</span>.config.path]}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.data[<span class="hljs-built_in">this</span>.config.path]}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
     `</span>
   }
 
   <span class="hljs-comment">/* API */</span>
 
-  <span class="hljs-keyword">get</span> idValue () {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.data[<span class="hljs-keyword">this</span>.config.id]
+  get idValue () {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.data[<span class="hljs-built_in">this</span>.config.id]
   }
 
-  <span class="hljs-keyword">get</span> textValue () {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.data[<span class="hljs-keyword">this</span>.config.path]
+  get textValue () {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.data[<span class="hljs-built_in">this</span>.config.path]
   }
 
   stringToData (string) {
     <span class="hljs-keyword">return</span> {
-      [<span class="hljs-keyword">this</span>.config.path]: string
+      [<span class="hljs-built_in">this</span>.config.path]: string
     }
   }
 
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> PickedElement () {
+  <span class="hljs-keyword">static</span> get PickedElement () {
     <span class="hljs-keyword">return</span> EeAutocompleteItemLiView
   }
 }
-customElements.define(<span class="hljs-string">'ee-autocomplete-item-li'</span>, ThemeableMixin(<span class="hljs-string">'ee-autocomplete-item-li-view'</span>)(EeAutocompleteItemLi))
+customElements.define(<span class="hljs-string">&#x27;ee-autocomplete-item-li&#x27;</span>, EeAutocompleteItemLi)
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeAutocompleteItemLiView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">LitElement</span> </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeAutocompleteItemLiView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">ee</span>-<span class="hljs-title">autocomplete</span>-<span class="hljs-title">item</span>-<span class="hljs-title">li</span>-<span class="hljs-title">view</span>&#x27;)(<span class="hljs-title">EeAutocompleteItemLi</span>) </span>{
+  <span class="hljs-keyword">static</span> get styles () {
     <span class="hljs-keyword">return</span> [
-      <span class="hljs-keyword">super</span>.styles,
+      <span class="hljs-built_in">super</span>.styles,
       css`<span class="css">
         <span class="hljs-selector-pseudo">:host</span> {
           <span class="hljs-attribute">display</span>: inline-block;
@@ -485,7 +390,7 @@ customElements.define(<span class="hljs-string">'ee-autocomplete-item-li'</span>
     ]
   }
 
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
+  <span class="hljs-keyword">static</span> get properties () {
     <span class="hljs-keyword">return</span> {
       <span class="hljs-attr">data</span>: {
         <span class="hljs-attr">type</span>: <span class="hljs-built_in">Object</span>,
@@ -498,22 +403,22 @@ customElements.define(<span class="hljs-string">'ee-autocomplete-item-li'</span>
     }
   }
 
-  <span class="hljs-keyword">constructor</span> () {
-    <span class="hljs-keyword">super</span>()
-    <span class="hljs-keyword">this</span>.config = {
-      <span class="hljs-attr">id</span>: <span class="hljs-string">'id'</span>,
-      <span class="hljs-attr">path</span>: <span class="hljs-string">'name'</span>
+  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-built_in">super</span>()
+    <span class="hljs-built_in">this</span>.config = {
+      <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;id&#x27;</span>,
+      <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;name&#x27;</span>
     }
   }
 
   render () {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-      -</span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.data[<span class="hljs-keyword">this</span>.config.path]}</span><span class="xml">-
+      -</span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.data[<span class="hljs-built_in">this</span>.config.path]}</span><span class="xml">-
     `</span>
   }
 }
-customElements.define(<span class="hljs-string">'ee-autocomplete-item-li-view'</span>, EeAutocompleteItemLiView)</pre></div>
+customElements.define(<span class="hljs-string">&#x27;ee-autocomplete-item-li-view&#x27;</span>, EeAutocompleteItemLiView)</pre></div>
             
           
         </div>

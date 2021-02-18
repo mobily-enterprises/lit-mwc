@@ -218,11 +218,26 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
                       </a>
                   </li>
+                
+              
+                
+                
+              
+                
                 
               
                 
@@ -273,117 +288,6 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
@@ -392,19 +296,19 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { html, css, LitElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
-<span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/InputMixin.js'</span>
-<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/FormElementMixin.js'</span>
-<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeValidatorMixin.js'</span>
-<span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/LabelsMixin.js'</span>
-<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { html, css, LitElement } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeReflectorMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/InputMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/FormElementMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeValidatorMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/LabelsMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin.js&#x27;</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EnInputRange</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">en</span>-<span class="hljs-title">input</span>-<span class="hljs-title">range</span>')(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))))) </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EnInputRange</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">en</span>-<span class="hljs-title">input</span>-<span class="hljs-title">range</span>&#x27;)(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))))) </span>{
+  <span class="hljs-keyword">static</span> get styles () {
     <span class="hljs-keyword">return</span> [
-      <span class="hljs-keyword">super</span>.styles,
+      <span class="hljs-built_in">super</span>.styles,
       css`<span class="css">
         <span class="hljs-selector-pseudo">:host</span> {
           <span class="hljs-attribute">display</span>: flex;
@@ -418,7 +322,7 @@
     ]
   }
 
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
+  <span class="hljs-keyword">static</span> get properties () {
     <span class="hljs-keyword">return</span> {
       <span class="hljs-attr">shownValue</span>: {
         <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
@@ -428,20 +332,20 @@
   }
 
   firstUpdated () {
-    <span class="hljs-keyword">super</span>.firstUpdated()
-    <span class="hljs-keyword">this</span>.shownValue = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'#native'</span>).value
+    <span class="hljs-built_in">super</span>.firstUpdated()
+    <span class="hljs-built_in">this</span>.shownValue = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#native&#x27;</span>).value
   }
 
   render () {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> @<span class="hljs-attr">slotchange</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.slotChanged}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"range-amount-before"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"range-amount-before"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelBefore}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageBefore}</span><span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> @<span class="hljs-attr">change</span>=</span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.updateShownValue}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attr">type</span>=<span class="hljs-string">"range"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span> <span class="hljs-attr">real-time-event</span>=<span class="hljs-string">"input"</span>&gt;</span>
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageAfter}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelAfter}</span><span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> @<span class="hljs-attr">slotchange</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.slotChanged}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"range-amount-after"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"range-amount-after"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> @<span class="hljs-attr">slotchange</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.slotChanged}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;range-amount-before&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;range-amount-before&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelBefore}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageBefore}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> @<span class="hljs-attr">change</span>=</span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.updateShownValue}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;range&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native&quot;</span> <span class="hljs-attr">real-time-event</span>=<span class="hljs-string">&quot;input&quot;</span>&gt;</span>
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelAfter}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> @<span class="hljs-attr">slotchange</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.slotChanged}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;range-amount-after&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;range-amount-after&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
     `</span>
   }
 
@@ -449,7 +353,7 @@
     <span class="hljs-keyword">if</span> (slot) {
       <span class="hljs-keyword">const</span> slotContents = slot.assignedElements()[<span class="hljs-number">0</span>]
       <span class="hljs-keyword">if</span> (slotContents) {
-        <span class="hljs-keyword">const</span> amountSpan = slotContents.querySelector(<span class="hljs-string">'span#range-amount'</span>)
+        <span class="hljs-keyword">const</span> amountSpan = slotContents.querySelector(<span class="hljs-string">&#x27;span#range-amount&#x27;</span>)
         <span class="hljs-keyword">if</span> (amountSpan) {
           amountSpan.innerHTML = <span class="hljs-built_in">Number</span>(value)
         }
@@ -459,20 +363,20 @@
 
   updateShownValue (e) {
     <span class="hljs-keyword">let</span> slot
-    <span class="hljs-keyword">this</span>.shownValue = e.srcElement.value
+    <span class="hljs-built_in">this</span>.shownValue = e.srcElement.value
 
-    slot = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'slot#range-amount-before'</span>)
-    <span class="hljs-keyword">this</span>._updateSpanInSlot(slot, <span class="hljs-keyword">this</span>.shownValue)
+    slot = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;slot#range-amount-before&#x27;</span>)
+    <span class="hljs-built_in">this</span>._updateSpanInSlot(slot, <span class="hljs-built_in">this</span>.shownValue)
 
-    slot = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'slot#range-amount-after'</span>)
-    <span class="hljs-keyword">this</span>._updateSpanInSlot(slot, <span class="hljs-keyword">this</span>.shownValue)
+    slot = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;slot#range-amount-after&#x27;</span>)
+    <span class="hljs-built_in">this</span>._updateSpanInSlot(slot, <span class="hljs-built_in">this</span>.shownValue)
   }
 
   slotChanged (e) {
-    <span class="hljs-keyword">this</span>._updateSpanInSlot(e.srcElement, <span class="hljs-keyword">this</span>.shownValue)
+    <span class="hljs-built_in">this</span>._updateSpanInSlot(e.srcElement, <span class="hljs-built_in">this</span>.shownValue)
   }
 }
-<span class="hljs-built_in">window</span>.customElements.define(<span class="hljs-string">'en-input-range'</span>, EnInputRange)</pre></div>
+<span class="hljs-built_in">window</span>.customElements.define(<span class="hljs-string">&#x27;en-input-range&#x27;</span>, EnInputRange)</pre></div>
             
           
         </div>

@@ -218,11 +218,26 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
                       </a>
                   </li>
+                
+              
+                
+                
+              
+                
                 
               
                 
@@ -273,117 +288,6 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
@@ -401,13 +305,14 @@
  set custom validators, as well as custom error messages for native regexp-based
  validation.</p>
 <p> For example:</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"group"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"group"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;group&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;group&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-  group.validator = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">const</span> value = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#group'</span>).value
-    <span class="hljs-keyword">if</span> (group.value.startsWith(<span class="hljs-string">'a'</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">'No group can start with "a"'</span>
+  group.validator = <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-keyword">const</span> value = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#group&#x27;</span>).value
+    <span class="hljs-keyword">if</span> (group.value.startsWith(<span class="hljs-string">&#x27;a&#x27;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;No group can start with &quot;a&quot;&#x27;</span>
   }
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
 <p>This will ensure that upon validation the field will display the error
 <code>No group can start with &quot;a&quot;</code> if the field starts with “a”.</p>
 <p>Note that validation will happen before form submission.</p>
@@ -441,37 +346,37 @@
 </ul>
 
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeReflectorMixin.js'</span>
-<span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/InputMixin.js'</span>
-<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/FormElementMixin.js'</span>
-<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/NativeValidatorMixin.js'</span>
-<span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/LabelsMixin.js'</span>
-<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { NativeReflectorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeReflectorMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { InputMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/InputMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { FormElementMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/FormElementMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { NativeValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/NativeValidatorMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/LabelsMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin.js&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnInputText</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">nn</span>-<span class="hljs-title">input</span>-<span class="hljs-title">text</span>')(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))))) </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnInputText</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">nn</span>-<span class="hljs-title">input</span>-<span class="hljs-title">text</span>&#x27;)(<span class="hljs-title">FormElementMixin</span>(<span class="hljs-title">NativeValidatorMixin</span>(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">InputMixin</span>(<span class="hljs-title">NativeReflectorMixin</span>(<span class="hljs-title">LitElement</span>))))))) </span>{
   render () {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelBefore}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageBefore}</span><span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"native"</span> <span class="hljs-attr">real-time-event</span>=<span class="hljs-string">"input"</span>&gt;</span>
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifValidationMessageAfter}</span><span class="xml">
-      </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.ifLabelAfter}</span><span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"datalist-slot"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"datalist"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelBefore}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageBefore}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native&quot;</span> <span class="hljs-attr">real-time-event</span>=<span class="hljs-string">&quot;input&quot;</span>&gt;</span>
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelAfter}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;datalist-slot&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;datalist&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
     `</span>
   }
 
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
+  <span class="hljs-keyword">static</span> get properties () {
     <span class="hljs-keyword">return</span> {
-      <span class="hljs-attr">enterOnSubmit</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">'enter-on-submit'</span> }
+      <span class="hljs-attr">submitOnEnter</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;submit-on-enter&#x27;</span> }
     }
   }
 
-  <span class="hljs-keyword">constructor</span> () {
-    <span class="hljs-keyword">super</span>()
-    <span class="hljs-keyword">this</span>._boundKeyEventListener = <span class="hljs-keyword">this</span>._eventListener.bind(<span class="hljs-keyword">this</span>)
+  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-built_in">super</span>()
+    <span class="hljs-built_in">this</span>._boundKeyEventListener = <span class="hljs-built_in">this</span>._eventListener.bind(<span class="hljs-built_in">this</span>)
   }</pre></div>
             
           
@@ -480,41 +385,33 @@
 
             
               <div class='highlight'><pre>  _eventListener (e) {
-    <span class="hljs-keyword">if</span> (e.keyCode === <span class="hljs-number">13</span> &amp;&amp; ([...this.form.elements].length === <span class="hljs-number">1</span> || <span class="hljs-keyword">this</span>.enterOnSubmit)) {
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.form) <span class="hljs-keyword">this</span>.form.submit()
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.form &amp;&amp; e.keyCode === <span class="hljs-number">13</span> &amp;&amp; (<span class="hljs-built_in">this</span>.form.elements.length === <span class="hljs-number">1</span> || <span class="hljs-built_in">this</span>.submitOnEnter)) {
+      <span class="hljs-built_in">this</span>.form.submit()
     }
-  }
-
-  connectedCallback () {
-    <span class="hljs-keyword">super</span>.connectedCallback()
-    <span class="hljs-keyword">this</span>.addEventListener(<span class="hljs-string">'keydown'</span>, <span class="hljs-keyword">this</span>._boundKeyEventListener)
-  }
-
-  disconnectedCallback () {
-    <span class="hljs-keyword">super</span>.disconnectedCallBack()
-    <span class="hljs-keyword">this</span>.removeEventListener(<span class="hljs-string">'keydown'</span>, <span class="hljs-keyword">this</span>._boundKeyEventListener)
   }
 
   firstUpdated () {
-    <span class="hljs-keyword">super</span>.firstUpdated()
+    <span class="hljs-built_in">super</span>.firstUpdated()
 
-    <span class="hljs-keyword">const</span> slot = <span class="hljs-keyword">this</span>.shadowRoot.querySelector(<span class="hljs-string">'#datalist-slot'</span>)
+    <span class="hljs-built_in">this</span>.addEventListener(<span class="hljs-string">&#x27;keydown&#x27;</span>, <span class="hljs-built_in">this</span>._boundKeyEventListener)
+
+    <span class="hljs-keyword">const</span> slot = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#datalist-slot&#x27;</span>)
     <span class="hljs-keyword">const</span> slotFirstAssignedElement = slot &amp;&amp; slot.assignedElements()[<span class="hljs-number">0</span>]
     <span class="hljs-keyword">const</span> datalistOptions = slotFirstAssignedElement &amp;&amp; slotFirstAssignedElement.children
     <span class="hljs-keyword">if</span> (datalistOptions &amp;&amp; datalistOptions.length) {
-      <span class="hljs-keyword">const</span> datalistElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'datalist'</span>)
-      datalistElement.setAttribute(<span class="hljs-string">'id'</span>, <span class="hljs-string">'_datalist'</span>)
-      <span class="hljs-keyword">this</span>.setAttribute(<span class="hljs-string">'list'</span>, <span class="hljs-string">'_datalist'</span>)
+      <span class="hljs-keyword">const</span> datalistElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;datalist&#x27;</span>)
+      datalistElement.setAttribute(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;_datalist&#x27;</span>)
+      <span class="hljs-built_in">this</span>.setAttribute(<span class="hljs-string">&#x27;list&#x27;</span>, <span class="hljs-string">&#x27;_datalist&#x27;</span>)
       <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> el <span class="hljs-keyword">of</span> datalistOptions) {
-        <span class="hljs-keyword">const</span> optionElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'option'</span>)
-        optionElement.setAttribute(<span class="hljs-string">'value'</span>, el.getAttribute(<span class="hljs-string">'value'</span>))
+        <span class="hljs-keyword">const</span> optionElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;option&#x27;</span>)
+        optionElement.setAttribute(<span class="hljs-string">&#x27;value&#x27;</span>, el.getAttribute(<span class="hljs-string">&#x27;value&#x27;</span>))
         datalistElement.appendChild(optionElement)
       }
-      <span class="hljs-keyword">this</span>.shadowRoot.appendChild(datalistElement)
+      <span class="hljs-built_in">this</span>.shadowRoot.appendChild(datalistElement)
     }
   }
 }
-customElements.define(<span class="hljs-string">'nn-input-text'</span>, NnInputText)</pre></div>
+customElements.define(<span class="hljs-string">&#x27;nn-input-text&#x27;</span>, NnInputText)</pre></div>
             
           
         </div>

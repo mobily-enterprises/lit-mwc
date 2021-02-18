@@ -218,11 +218,26 @@
               
                 
                 
+              
+                
+                
+              
+                
+                
+              
+                
+                
                   <li>
                       <a class="source " href="../mixins.html">
                           mixins
                       </a>
                   </li>
+                
+              
+                
+                
+              
+                
                 
               
                 
@@ -273,117 +288,6 @@
                   </li>
                 
               
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
-                
-                
-              
             </ul>
           </div>
         
@@ -392,22 +296,29 @@
             
             
             
-              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">'lit-element'</span>
-<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/StyleableMixin.js'</span>
-<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">'./mixins/ThemeableMixin.js'</span>
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin.js&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeNetwork</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>('<span class="hljs-title">ee</span>-<span class="hljs-title">network</span>')(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LitElement</span>)) </span>{
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> styles () {
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeNetwork</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">ee</span>-<span class="hljs-title">network</span>&#x27;)(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LitElement</span>)) </span>{
+  <span class="hljs-keyword">static</span> get styles () {
     <span class="hljs-keyword">return</span> [
-      <span class="hljs-keyword">super</span>.styles,
+      <span class="hljs-built_in">super</span>.styles,
       css`<span class="css">
         <span class="hljs-selector-pseudo">:host</span> {
           <span class="hljs-attribute">display</span>: block;
           <span class="hljs-attribute">position</span>: relative;
         }
 
-        <span class="hljs-selector-pseudo">:host(</span><span class="hljs-selector-attr">[inline]</span>) {
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[inline]</span>) {
           <span class="hljs-attribute">display</span>: inline-block;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[status=<span class="hljs-string">&quot;loading&quot;</span>]</span>) <span class="hljs-selector-pseudo">::slotted</span>(*),
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[status=<span class="hljs-string">&quot;saving&quot;</span>]</span>) <span class="hljs-selector-pseudo">::slotted</span>(*),
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[status=<span class="hljs-string">&quot;loading-error&quot;</span>]</span>) <span class="hljs-selector-pseudo">::slotted</span>(*),
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[status=<span class="hljs-string">&quot;saving-error&quot;</span>]</span>) <span class="hljs-selector-pseudo">::slotted</span>(*) {
+          <span class="hljs-attribute">z-index</span>: <span class="hljs-number">0</span>;
         }
 
         <span class="hljs-selector-id">#overlay</span> {
@@ -417,25 +328,37 @@
           <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
           <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
           <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
-          <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
           <span class="hljs-attribute">text-align</span>: center;
-          <span class="hljs-attribute">transition</span>: background <span class="hljs-built_in">var</span>(--ee-network-transition-duration, 200ms);
+          <span class="hljs-attribute">transition</span>: background <span class="hljs-built_in">var</span>(--ee-network-transition-duration, <span class="hljs-number">200ms</span>);
         }
+
         <span class="hljs-selector-id">#overlay</span><span class="hljs-selector-class">.overlay-loading</span> {
           <span class="hljs-attribute">display</span>: block;
-          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-loading-color, #666);
-          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-loading-background-color, rgba(102, 102, 102, 0.25));
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-loading-color, <span class="hljs-number">#666</span>);
+          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-loading-background-color, <span class="hljs-built_in">rgba</span>(<span class="hljs-number">190</span>, <span class="hljs-number">190</span>, <span class="hljs-number">190</span>, <span class="hljs-number">0.75</span>));
+          <span class="hljs-attribute">z-index</span>: <span class="hljs-number">10</span>;
         }
+
         <span class="hljs-selector-id">#overlay</span><span class="hljs-selector-class">.clear</span> {
         }
+
         <span class="hljs-selector-id">#overlay</span><span class="hljs-selector-class">.overlay-error</span> {
           <span class="hljs-attribute">display</span>: block;
           <span class="hljs-attribute">cursor</span>: pointer; <span class="hljs-comment">/* Hint that the object is clickable */</span>
-          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-error-color, #c00);
-          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-error-background-color, rgba(255, 0, 0, 0.25));
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-error-color, <span class="hljs-number">#c00</span>);
+          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-network-overlay-error-background-color, <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.25</span>));
+          <span class="hljs-attribute">z-index</span>: <span class="hljs-number">10</span>;
         }
 
-        <span class="hljs-selector-id">#content-wrapper</span><span class="hljs-selector-class">.overlay-error</span> {
+        <span class="hljs-selector-id">#overlay</span> <span class="hljs-selector-id">#statusMessage</span> {
+          <span class="hljs-attribute">position</span>: absolute;
+          <span class="hljs-attribute">top</span>: <span class="hljs-number">50%</span>;
+          <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">50%</span>);
+          <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+        }
+
+        <span class="hljs-selector-id">#content-wrapper</span><span class="hljs-selector-class">.overlay-error</span>,
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[status=<span class="hljs-string">&quot;overlay-error&quot;</span>]</span>) {
           <span class="hljs-attribute">pointer-events</span>: none;
           <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.25</span>;
           <span class="hljs-attribute">min-height</span>: <span class="hljs-number">1.25rem</span>; <span class="hljs-comment">/* <span class="hljs-doctag">FIXME:</span> find a proper value, this is made up */</span>
@@ -444,28 +367,32 @@
     ]
   }
 
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">get</span> properties () {
+  <span class="hljs-keyword">static</span> get properties () {
     <span class="hljs-keyword">return</span> {
       <span class="hljs-attr">manageLoadingErrors</span>: {
         <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>,
-        <span class="hljs-attr">attribute</span>: <span class="hljs-string">'manage-loading-errors'</span>
+        <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;manage-loading-errors&#x27;</span>
       },
-      <span class="hljs-attr">reloadMethod</span>: {
-        <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
-        <span class="hljs-attr">attribute</span>: <span class="hljs-string">'reload-method'</span>
+      <span class="hljs-attr">manageSavingErrors</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>,
+        <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;manage-saving-errors&#x27;</span>
+      },
+      <span class="hljs-attr">retryMethod</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>,
+        <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span>
       },
       <span class="hljs-attr">noReloadOnTap</span>: {
         <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>,
-        <span class="hljs-attr">attribute</span>: <span class="hljs-string">'no-reload-on-tap'</span>
+        <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;no-reload-on-tap&#x27;</span>
       },
       <span class="hljs-attr">status</span>: {
-        <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>
+        <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+        <span class="hljs-attr">reflect</span>: <span class="hljs-literal">true</span>
       },
       <span class="hljs-attr">statusMessages</span>: {
         <span class="hljs-attr">type</span>: <span class="hljs-built_in">Object</span>,
-        <span class="hljs-attr">attribute</span>: <span class="hljs-string">'status-messages'</span>
+        <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;status-messages&#x27;</span>
       },
-
       <span class="hljs-attr">messenger</span>: {
         <span class="hljs-attr">type</span>: <span class="hljs-built_in">Function</span>,
         <span class="hljs-attr">attribute</span>: <span class="hljs-literal">false</span>
@@ -479,57 +406,83 @@
     }
   }
 
-  <span class="hljs-keyword">constructor</span> () {
-    <span class="hljs-keyword">super</span>()
-    <span class="hljs-keyword">this</span>.manageLoadingErrors = <span class="hljs-literal">false</span>
-    <span class="hljs-keyword">this</span>.reloadMethod = <span class="hljs-literal">null</span>
-    <span class="hljs-keyword">this</span>.noReloadOnTap = <span class="hljs-literal">false</span>
-    <span class="hljs-keyword">this</span>.status = <span class="hljs-string">'loaded'</span>
-    <span class="hljs-keyword">this</span>.statusMessages = {
-      <span class="hljs-attr">loading</span>: <span class="hljs-string">'Loading\u2026'</span>, <span class="hljs-comment">// &amp;hellip; equivalent</span>
-      <span class="hljs-attr">saving</span>: <span class="hljs-string">'Saving\u2026'</span>, <span class="hljs-comment">// &amp;hellip; equivalent</span>
-      <span class="hljs-attr">error</span>: <span class="hljs-string">'An error has occurred. Click here to try again.'</span>
+  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-built_in">super</span>()
+    <span class="hljs-built_in">this</span>.manageLoadingErrors = <span class="hljs-literal">false</span>
+    <span class="hljs-built_in">this</span>.manageSavingErrors = <span class="hljs-literal">false</span>
+    <span class="hljs-built_in">this</span>.retryMethod = <span class="hljs-literal">null</span>
+    <span class="hljs-built_in">this</span>.noReloadOnTap = <span class="hljs-literal">false</span>
+    <span class="hljs-built_in">this</span>.status = <span class="hljs-string">&#x27;loaded&#x27;</span>
+    <span class="hljs-built_in">this</span>.statusMessages = {
+      <span class="hljs-attr">loading</span>: <span class="hljs-string">&#x27;Loading\u2026&#x27;</span>, <span class="hljs-comment">// &amp;hellip; equivalent</span>
+      <span class="hljs-attr">saving</span>: <span class="hljs-string">&#x27;Saving\u2026&#x27;</span>, <span class="hljs-comment">// &amp;hellip; equivalent</span>
+      <span class="hljs-attr">error</span>: <span class="hljs-string">&#x27;An error has occurred. Click here to try again.&#x27;</span>
     }
 
-    <span class="hljs-keyword">this</span>.lastInitObject = <span class="hljs-literal">null</span>
-    <span class="hljs-keyword">this</span>.lastUrl = <span class="hljs-literal">null</span>
-    <span class="hljs-keyword">this</span>.response = <span class="hljs-keyword">this</span>.prefetch = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {}
+    <span class="hljs-built_in">this</span>.lastInitObject = <span class="hljs-literal">null</span>
+    <span class="hljs-built_in">this</span>.lastUrl = <span class="hljs-literal">null</span>
+    <span class="hljs-built_in">this</span>.response = <span class="hljs-built_in">this</span>.prefetch = <span class="hljs-function">() =&gt;</span> {}
   }
 
   render () {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.themeRender()
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
     <span class="hljs-keyword">return</span> html`<span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"overlay"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.overlayClass}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>._overlayClicked}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
-        </span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.statusMessages[<span class="hljs-keyword">this</span>.status]}</span><span class="xml">
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content-wrapper"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"</span></span></span><span class="hljs-subst">${<span class="hljs-keyword">this</span>.status}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;overlay&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.overlayClass}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>._overlayClicked}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;statusMessage&quot;</span>&gt;</span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.statusMessages[<span class="hljs-built_in">this</span>.status]}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     `</span>
   }
 
   firstUpdated () {
-    <span class="hljs-keyword">this</span>._setOverlay()
+    <span class="hljs-built_in">this</span>._setOverlay()
   }
 
   _setOverlay () {
-    <span class="hljs-keyword">switch</span> (<span class="hljs-keyword">this</span>.status) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'loaded'</span>:
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'saved'</span>:
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'saving-error'</span>:
-      <span class="hljs-keyword">this</span>.overlayClass = <span class="hljs-string">'clear'</span>
+    <span class="hljs-keyword">switch</span> (<span class="hljs-built_in">this</span>.status) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;loaded&#x27;</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;saved&#x27;</span>:
+      <span class="hljs-built_in">this</span>.overlayClass = <span class="hljs-string">&#x27;clear&#x27;</span>
       <span class="hljs-keyword">break</span>
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'loading'</span>:
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'saving'</span>:
-      <span class="hljs-keyword">this</span>.overlayClass = <span class="hljs-string">'overlay-loading'</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;loading&#x27;</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;saving&#x27;</span>:
+      <span class="hljs-built_in">this</span>.overlayClass = <span class="hljs-string">&#x27;overlay-loading&#x27;</span>
       <span class="hljs-keyword">break</span>
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'loading-error'</span>:
-      <span class="hljs-keyword">this</span>.overlayClass = <span class="hljs-keyword">this</span>.manageLoadingErrors ? <span class="hljs-string">'overlay-error'</span> : <span class="hljs-string">'clear'</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;loading-error&#x27;</span>:
+      <span class="hljs-built_in">this</span>.overlayClass = <span class="hljs-built_in">this</span>.manageLoadingErrors ? <span class="hljs-string">&#x27;overlay-error&#x27;</span> : <span class="hljs-string">&#x27;clear&#x27;</span>
+      <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;saving-error&#x27;</span>:
+      <span class="hljs-built_in">this</span>.overlayClass = <span class="hljs-built_in">this</span>.manageSavingErrors ? <span class="hljs-string">&#x27;overlay-error&#x27;</span> : <span class="hljs-string">&#x27;clear&#x27;</span>
+      <span class="hljs-keyword">break</span>
     }
   }
 
-  _overlayClicked (e) {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.noReloadOnTap) <span class="hljs-keyword">return</span></pre></div>
+  <span class="hljs-comment">/*
+    TODO DOCUMENTATION:
+</span></pre></div>
+            
+          
+            
+            <p>EVENT LISTENING WAY. With @retry-successful=”${this._refetched.bind(this)}” in ee-network</p>
+
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">async</span> _retrySuccessful (e) {
+      <span class="hljs-built_in">this</span>[<span class="hljs-built_in">this</span>.localDataProperty] = <span class="hljs-keyword">await</span> e.detail.fetched.json()
+    }</pre></div>
+            
+          
+            
+            <p>REFETCH WAY. WITH .retryMethod=”${this._retry.bind(this)}” in ee-network</p>
+
+            
+              <div class='highlight'><pre>    <span class="hljs-keyword">async</span> _retry (status, url, initObject) {
+      <span class="hljs-keyword">const</span> job = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.fetch(url, initObject)
+      <span class="hljs-built_in">this</span>.job = <span class="hljs-keyword">await</span> job.json()
+    }
+ */
+
+  <span class="hljs-keyword">async</span> _overlayClicked (e) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.noReloadOnTap) <span class="hljs-keyword">return</span></pre></div>
             
           
             
@@ -544,9 +497,22 @@
             <p>If the status is ‘error’, try to reload</p>
 
             
-              <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.status === <span class="hljs-string">'loading-error'</span>) {
-      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.reloadMethod) <span class="hljs-keyword">this</span>.fetch(<span class="hljs-keyword">this</span>.lastUrl, <span class="hljs-keyword">this</span>.lastInitObject)
-      <span class="hljs-keyword">else</span> <span class="hljs-keyword">this</span>.reloadMethod(<span class="hljs-keyword">this</span>.lastUrl, <span class="hljs-keyword">this</span>.lastInitObject)
+              <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.status === <span class="hljs-string">&#x27;loading-error&#x27;</span> || <span class="hljs-built_in">this</span>.status === <span class="hljs-string">&#x27;saving-error&#x27;</span>) {
+      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.retryMethod) {
+        <span class="hljs-keyword">const</span> fetched = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.fetch(<span class="hljs-built_in">this</span>.lastUrl, <span class="hljs-built_in">this</span>.lastInitObject)
+        <span class="hljs-keyword">if</span> (fetched.ok) {
+          <span class="hljs-built_in">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">&#x27;retry-successful&#x27;</span>, {
+            <span class="hljs-attr">detail</span>: {
+              <span class="hljs-attr">url</span>: <span class="hljs-built_in">this</span>.lastUrl,
+              <span class="hljs-attr">initObject</span>: <span class="hljs-built_in">this</span>.lastInitObject,
+              fetched
+            },
+            <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">false</span>
+          }))
+        }
+      }
+      <span class="hljs-keyword">else</span> <span class="hljs-built_in">this</span>.retryMethod(<span class="hljs-built_in">this</span>.status, <span class="hljs-built_in">this</span>.lastUrl, <span class="hljs-built_in">this</span>.lastInitObject)
     }
   }
 
@@ -555,8 +521,8 @@
   messenger () {}
 
   <span class="hljs-keyword">async</span> fetch (url, initObject = {}) {
-    <span class="hljs-keyword">this</span>.lastUrl = url
-    <span class="hljs-keyword">this</span>.lastInitObject = initObject</pre></div>
+    <span class="hljs-built_in">this</span>.lastUrl = url
+    <span class="hljs-built_in">this</span>.lastInitObject = initObject</pre></div>
             
           
             
@@ -564,43 +530,69 @@
 applu to GET</p>
 
             
-              <div class='highlight'><pre>    <span class="hljs-keyword">const</span> fetchMethod = (initObject &amp;&amp; initObject.method &amp;&amp; initObject.method.toUpperCase()) || <span class="hljs-string">'GET'</span>
-    <span class="hljs-keyword">const</span> isGet = fetchMethod === <span class="hljs-string">'GET'</span>
+              <div class='highlight'><pre>    <span class="hljs-keyword">const</span> fetchMethod = (initObject &amp;&amp; initObject.method &amp;&amp; initObject.method.toUpperCase()) || <span class="hljs-string">&#x27;GET&#x27;</span>
+    <span class="hljs-keyword">const</span> isGet = fetchMethod === <span class="hljs-string">&#x27;GET&#x27;</span>
     initObject.url = url
 
-    <span class="hljs-keyword">this</span>.status = isGet ? <span class="hljs-string">'loading'</span> : <span class="hljs-string">'saving'</span>
-    <span class="hljs-keyword">this</span>._setOverlay()
-    <span class="hljs-keyword">this</span>.messenger(<span class="hljs-keyword">this</span>.status, url, initObject)
-    <span class="hljs-keyword">this</span>.prefetch(initObject)
+    <span class="hljs-built_in">this</span>.status = isGet ? <span class="hljs-string">&#x27;loading&#x27;</span> : <span class="hljs-string">&#x27;saving&#x27;</span>
+    <span class="hljs-built_in">this</span>._setOverlay()
+    <span class="hljs-built_in">this</span>.messenger({
+      <span class="hljs-attr">status</span>: <span class="hljs-built_in">this</span>.status,
+      url,
+      initObject,
+      <span class="hljs-attr">networkElement</span>: <span class="hljs-built_in">this</span>
+    })
+    <span class="hljs-built_in">this</span>.prefetch(initObject)
 
     <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(initObject.url, initObject)
+      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(initObject.url, initObject)</pre></div>
+            
+          
+            
+            <p>console.log(‘Cloning the response and waiting for the text…’)
+Wait for the <em>actual</em> data to get here</p>
+
+            
+              <div class='highlight'><pre>      <span class="hljs-keyword">const</span> r2 = response.clone()
+      <span class="hljs-keyword">const</span> v = <span class="hljs-keyword">await</span> r2.json()
+
       <span class="hljs-keyword">if</span> (response.ok) {
-        <span class="hljs-keyword">this</span>.status = isGet ? <span class="hljs-string">'loaded'</span> : <span class="hljs-string">'saved'</span>
+        <span class="hljs-built_in">this</span>.status = isGet ? <span class="hljs-string">&#x27;loaded&#x27;</span> : <span class="hljs-string">&#x27;saved&#x27;</span>
       } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">this</span>.status = isGet ? <span class="hljs-string">'loading-error'</span> : <span class="hljs-string">'saving-error'</span>
+        <span class="hljs-built_in">this</span>.status = isGet ? <span class="hljs-string">&#x27;loading-error&#x27;</span> : <span class="hljs-string">&#x27;saving-error&#x27;</span>
       }
-      <span class="hljs-keyword">this</span>._setOverlay()
-      <span class="hljs-keyword">this</span>.messenger(<span class="hljs-keyword">this</span>.status, url, initObject, response)</pre></div>
+      <span class="hljs-built_in">this</span>._setOverlay()
+      <span class="hljs-built_in">this</span>.messenger({
+        <span class="hljs-attr">status</span>: <span class="hljs-built_in">this</span>.status,
+        url,
+        initObject,
+        response,
+        <span class="hljs-attr">networkElement</span>: <span class="hljs-built_in">this</span>
+      })</pre></div>
             
           
             
             <p>Response hook</p>
 
             
-              <div class='highlight'><pre>      <span class="hljs-keyword">this</span>.response(response)
+              <div class='highlight'><pre>      <span class="hljs-built_in">this</span>.response(response, v, initObject)
 
       <span class="hljs-keyword">return</span> response
     } <span class="hljs-keyword">catch</span> (e) {
-      <span class="hljs-keyword">this</span>.status = isGet ? <span class="hljs-string">'loading-error'</span> : <span class="hljs-string">'saving-error'</span>
-      <span class="hljs-keyword">this</span>._setOverlay()
-      <span class="hljs-keyword">this</span>.messenger(<span class="hljs-keyword">this</span>.status, url, initObject)
-      <span class="hljs-keyword">this</span>.response(<span class="hljs-literal">null</span>)
+      <span class="hljs-built_in">this</span>.status = isGet ? <span class="hljs-string">&#x27;loading-error&#x27;</span> : <span class="hljs-string">&#x27;saving-error&#x27;</span>
+      <span class="hljs-built_in">this</span>._setOverlay()
+      <span class="hljs-built_in">this</span>.messenger({
+        <span class="hljs-attr">status</span>: <span class="hljs-built_in">this</span>.status,
+        url,
+        initObject,
+        <span class="hljs-attr">networkElement</span>: <span class="hljs-built_in">this</span>
+      })
+      <span class="hljs-built_in">this</span>.response(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, initObject)
       <span class="hljs-keyword">throw</span> (e)
     }
   }
 }
-customElements.define(<span class="hljs-string">'ee-network'</span>, EeNetwork)</pre></div>
+customElements.define(<span class="hljs-string">&#x27;ee-network&#x27;</span>, EeNetwork)</pre></div>
             
           
         </div>
