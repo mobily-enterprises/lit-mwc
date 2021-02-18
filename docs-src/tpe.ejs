@@ -50,13 +50,7 @@ function tocClasses(s, source) {
             </a>
           </div>
         </div>
-
-        <% if (firstSectionIsTitle) { %>
-          <% var section = sections.shift(); %>
-          <% if (!(/^\s*$/).test(section.codeText)) { %>
-            <%- section.codeHtml %>
-          <% } %>
-        <% } %>
+        <%=title%>
       </div>
       <div class="main">
         <% if (sources.length > 1) { %>
