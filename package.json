@@ -1,6 +1,6 @@
 {
   "name": "tpe",
-  "version": "0.0.69",
+  "version": "0.0.70",
   "description": "The Platform Elements",
   "main": "server.js",
   "scripts": {
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/mobily-enterprises/nn#readme",
   "dependencies": {
+    "docco-next": "^0.9.4",
     "lit-element": "^2.1.0"
   },
   "standard": {
