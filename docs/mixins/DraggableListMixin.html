@@ -22,13 +22,7 @@
             </a>
           </div>
         </div>
-
-        
-          
-          
-            <div class='highlight'><pre><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span></pre></div>
-          
-        
+        DraggableListMixin
       </div>
       <div class="main">
         
@@ -363,6 +357,42 @@
           </div>
         
         <div class="contentPage">
+          
+            
+            <p>This mixin adds a Drag and Drop API basic implementation to any element.
+The base element (the one to which the Mixin is added) needs to have slotted children,
+for which the mixin will add drag events listeners.
+These capabilities are applied solely to the direct slotted children, and not their children.</p>
+<p>For now, the children also need to abide to a few rules:</p>
+<ol>
+<li><p>A child element needs CSS to provide the correct visual state as draggable or not:</p>
+<p>/* Drag and Drop Styles */
+#handle {
+ display: none;
+ max-width: 18px;
+ height: 18px;
+}</p>
+<p>:host([header]) .handle,
+:host([header]) ::slotted(.handle) {
+ pointer-events: none;
+ visibility: hidden;
+}</p>
+<p>:host([draggable]) .handle,
+:host([draggable]) ::slotted(.handle) {
+ display: block;
+ cursor: move;
+}</p>
+</li>
+<li><p>It needs to have a “no-drag” and/or “no-drop” attribute if the first child is used as a table header and will not be draggable and/or droppable.</p>
+</li>
+<li><p>It needs as “drag-data” attribute and/or “dragData” property if any usable data is necessary for the DnD operation. More on that later.</p>
+</li>
+</ol>
+<p>This is the DraggabeListMixin declaration:</p>
+
+            
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span></pre></div>
+            
           
             
             <p>These are declared outside the mixin to make sure different instances access the same data.

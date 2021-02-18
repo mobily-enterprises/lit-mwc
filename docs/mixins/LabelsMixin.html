@@ -22,16 +22,7 @@
             </a>
           </div>
         </div>
-
-        
-          
-          
-            <div class='highlight'><pre><span class="hljs-keyword">import</span> { html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> LabelsMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
-  <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{</pre></div>
-          
-        
+        LabelsMixin
       </div>
       <div class="main">
         
@@ -366,6 +357,28 @@
           </div>
         
         <div class="contentPage">
+          
+            
+            <p>The LabelsMixin is custom solution to supporting label positioning and optional usage in TPE.
+For native elements, the <label> tag can be placed before or after the form control element,
+and that still works fine in our implementation. However, to support robust theming and simplify
+markup, all nn- elements have internal label tags, which allows scoped CSS to keep consistency
+and control the design, while keeping the native platform features of the <label> tag intact.</p>
+<p>The one downside we faced was that positioning the label would be taken out of the developers control.
+To mitigate this, LabelsMixin provides the following features:</p>
+<ul>
+<li>the <strong>label</strong> attribute, which accepts any string value to be used as the label</li>
+<li>one extra non-standard property: <strong>label-position</strong></li>
+<li>Option to slot any element to be used as abel content</li>
+</ul>
+<p>The Mixin is declared here.</p>
+
+            
+              <div class='highlight'><pre><span class="hljs-keyword">import</span> { html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> LabelsMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{</pre></div>
+            
           
             
             <p>In the scoped CSS, the label content is set to keep the correct alignment and avoid overflowing text.</p>

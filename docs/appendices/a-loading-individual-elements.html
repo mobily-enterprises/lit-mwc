@@ -22,11 +22,7 @@
             </a>
           </div>
         </div>
-
-        
-          
-          
-        
+        Loading individual elements
       </div>
       <div class="main">
         
@@ -301,6 +297,20 @@
           </div>
         
         <div class="contentPage">
+          
+            
+            <p>The files in <code>distr</code> contain the bundled version of the full TPE library, minified and converted to ES5, in order to make sure that it’s fully compatible with any browser.</p>
+<p>Although distributing individual elements as a bundled, minified ES5 files is technically possible, each file would need to be loaded using AMD – which would be cumbersome at best.</p>
+<p>Alternatively, it’s theoretically possible to load the elements using ES6, like so:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-bundle.js&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./node_modules/tpe/themes/material/material.js&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./node_modules/tpe/tpe.js&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+</code></pre>
+<p>However, since TPE depends on <code>lit-element</code>, it will import it with the statement <code>import &#39;lit-element&#39;</code> which will fail since 1) Import demands a relative path 2) There isn’t a web standard (yet?) to “resolve” the paths of root modules. Even if <code>lit-element</code> were to be copied into the TPE tree, and changed every import of lit-element to a relative path, there is still a problem in terms of browser adoption of ES6.</p>
+<p>Using the bundled, minified and ES5 version of TPE is the preferred way of using it in web sites. Complex web applications most likely have an established build pipeline which can easily include TPE.</p>
+<p>When (if?) module name resolution becomes a standard and ES6 features will be widespread, TPE’s individual elements will be usable directly.</p>
+
+            
           
         </div>
       </div>

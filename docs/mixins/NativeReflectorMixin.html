@@ -22,11 +22,7 @@
             </a>
           </div>
         </div>
-
-        
-          
-          
-        
+        NativeReflectorMixin
       </div>
       <div class="main">
         
@@ -361,6 +357,42 @@
           </div>
         
         <div class="contentPage">
+          
+            
+            <p>This is the centrepiece of the <code>nn-</code> elements. Every <code>nn-</code> element has the
+characteristic of being basically a native element with theming steroids.
+Each <code>nn-</code> element has, in its template, a native element marked as
+<code>id=&quot;native&quot;</code> which identifies the element they represent. For example
+the <code>Button.js</code> file will implement <code>nn-button</code> element, which in turn will
+have <code>&lt;button id=&quot;native&quot;</code> in its template.</p>
+<p>The approach to <code>nn-</code> elements is to reflect as much as possible, in terms
+of properties and attributes, from the <code>nn-</code> element down to the <code>native</code> one.</p>
+<p>This means that the <code>nn-</code> element is a “gateway” to properties and attributes
+of the actual native element inside.</p>
+<p>For example writing:</p>
+<pre><code>&lt;nn-button label=<span class="hljs-string">&quot;Some label&quot;</span>&gt;&lt;/nn-button&gt;
+</code></pre>
+<p>Will imply that the contained <code>&lt;button&gt;</code> element (which is marked as
+<code>native</code>) also has the <code>label</code> attribute set to <code>Some label</code>.</p>
+<p>The idea is that between <code>&lt;nn-button&gt;</code> and <code>&lt;button&gt;</code> <em>everything</em> is
+reflected. This is great in theory, but there is a level of trickery
+required to make things work properly. For example, some attributes will
+<em>always</em> need to be skipped (<code>id</code>, <code>style</code>, <code>class</code>). Also, it’s impossible
+to simply reflect every property, since 1) they could be anywhere in the
+prototype chain 2) Some properties should never be reflected (see:
+<code>setAttribute()</code>, <code>hasChildNodes()</code>, and so on).</p>
+<p>So, the approach is:</p>
+<ul>
+<li>All attributes are reflected, <em>except</em> some that are blacklisted (in
+<code>this.skipAttributes</code>)</li>
+<li>Only properties/methods listed in <code>this.reflectProperties</code> are reflected.
+Each element will provide a comprehensive list of reflected properties, which
+will depend on the HTML specs of the targeted <code>native</code> element.</li>
+<li>Some “boot” properties are assigned when the element is first updated.</li>
+</ul>
+<h2 id="into-the-code">Into the code</h2>
+
+            
           
             
             <p>First of all, NativeRefletorMixin is declared as a mixing in function:</p>

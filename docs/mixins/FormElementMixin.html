@@ -22,30 +22,7 @@
             </a>
           </div>
         </div>
-
-        
-          
-          
-            <div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> FormElementMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
-  <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{
-    get skipAttributes () {
-      <span class="hljs-keyword">return</span> [
-        ...super.skipAttributes, <span class="hljs-string">&#x27;form&#x27;</span>
-      ]
-    }
-
-    get skipProperties () {
-      <span class="hljs-keyword">return</span> [...super.skipProperties, <span class="hljs-string">&#x27;form&#x27;</span>]
-    }
-
-    connectedCallback () {
-      <span class="hljs-built_in">super</span>.connectedCallback()
-      <span class="hljs-built_in">this</span>.assignFormProperty()
-    }
-
-    assignFormProperty () {</pre></div>
-          
-        
+        FormElementMixin
       </div>
       <div class="main">
         
@@ -380,6 +357,29 @@
           </div>
         
         <div class="contentPage">
+          
+            
+            
+            
+              <div class='highlight'><pre><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> FormElementMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{
+    get skipAttributes () {
+      <span class="hljs-keyword">return</span> [
+        ...super.skipAttributes, <span class="hljs-string">&#x27;form&#x27;</span>
+      ]
+    }
+
+    get skipProperties () {
+      <span class="hljs-keyword">return</span> [...super.skipProperties, <span class="hljs-string">&#x27;form&#x27;</span>]
+    }
+
+    connectedCallback () {
+      <span class="hljs-built_in">super</span>.connectedCallback()
+      <span class="hljs-built_in">this</span>.assignFormProperty()
+    }
+
+    assignFormProperty () {</pre></div>
+            
           
             
             <p>if (this.tagName === ‘NN-FORM’ || this.tagName === ‘EN-FORM’) return</p>
