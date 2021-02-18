@@ -112,9 +112,9 @@ nav.side-menu li a.indented {
   text-transform: unset;
 }
 
-nav.side-menu li a.current { 
+nav.side-menu li a.current {
   font-weight: bold;
-  color: #454545;  
+  color: #454545;
 }
 
 nav.side-menu li a:hover {
@@ -127,7 +127,7 @@ nav.side-menu li a:active {
   outline: 1px dashed #cdcdcd;
 }
 
-article { 
+article {
   box-sizing: border-box;
   width: 100%;
   padding: 50px 15%;
@@ -140,7 +140,7 @@ article {
   .header div.topbar div.links {
     margin-left: 40px;
   }
-  
+
   nav.side-menu {
     display: none;
   }
@@ -166,8 +166,8 @@ article {
   }
 
   nav {
-    width: 280px;
-    margin-right: 2%; 
+    width: 380px;
+    margin-right: 2%;
     max-height: 100%;
     overflow: auto;
   }

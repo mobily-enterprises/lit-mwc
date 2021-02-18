@@ -12,6 +12,7 @@ function display(s) {
 }
 
 function prettySource(s) {
+  if (s === 'index.md') s = 'home.md'
   if (s.endsWith('.md')) s = s.replace(/\.md$/g, '').replace(/\-/g, ' ')
 
   if (s.match('/')) {
@@ -23,7 +24,7 @@ function prettySource(s) {
 
 function tocClasses(s, source) {
   var indent = s.match('/') ? ' indented ' : ''
-  var current = s === source  || s.split('.')[0] === source.split('/')[0] 
+  var current = s === source  || s.split('.')[0] === source.split('/')[0]
     ? ' current '
     : ''
   return '' + indent + current

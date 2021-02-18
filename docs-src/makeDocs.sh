@@ -6,6 +6,7 @@ echo "tpelements.com" > ../docs/CNAME
   -c tpe.css\
   -t tpe.ejs\
   -o ../docs\
+  index.md\
   get-started.md\
   documentation.md\
   codelabs.md
