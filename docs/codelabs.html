@@ -1,65 +1,55 @@
 <!DOCTYPE html>
 
-<%
-function display(s) {
 
-  if (s.match('/')) {
-    var sourceClean = source.replace(/\.[a-zA-Z]*$/, '')
-    var sc1 = sourceClean.split('/')[0]
-    return s.split('/')[0] === sourceClean.split('/')[0] && sc1 !== 'elements'
-  }
-  return true
-}
-
-function prettySource(s) {
-  if (s.endsWith('.md')) s = s.replace(/\.md$/g, '').replace(/\-/g, ' ')
-
-  if (s.match('/')) {
-    s = s.split('/')[1]
-  }
-
-  return s
-}
-
-function tocClasses(s, source) {
-  var indent = s.match('/') ? ' indented ' : ''
-  var current = s === source  || s.split('.')[0] === source.split('/')[0] 
-    ? ' current '
-    : ''
-  return '' + indent + current
-}
-%>
 <html lang="en">
 <head>
-  <title><%= title %></title>
+  <title>codelabs.md</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
-  <link rel="stylesheet" media="all" href="<%= css %>" />
+  <link rel="stylesheet" media="all" href="tpe.css" />
 </head>
 <body>
   <header class="header">
     <div class="topbar">
       <div id="logo" alt="TPE">
       </div>
-      <h3 class="page-title"><%= title %></h3>
+      <h3 class="page-title">codelabs.md</h3>
       <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
-      <% if (sources.length > 1) { %>
+      
         <nav class="header-menu" role="navigation">
           <ul>
-            <% for (var i=0, l = sources.length; i < l; i++) { %>
-              <% var s = sources[i]; %>
-              <% if (display(s)) { %>
+            
+              
+              
                 <li>
-                    <a class="source <%= tocClasses(s, source) %>" href="<%= relativeToThisFile(finalPath(s)) %>">
-                        <%- prettySource(s) %>
+                    <a class="source " href="get-started.html">
+                        get started
                     </a>
                 </li>
-              <% } %>
-            <% } %>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="documentation.html">
+                        documentation
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source  current " href="codelabs.html">
+                        codelabs
+                    </a>
+                </li>
+              
+            
           </ul>
         </nav>
-      <% } %>
+      
       <div class="links">
         <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
           <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -71,31 +61,47 @@ function tocClasses(s, source) {
     </div>
   </header>
   <main role="main">
-    <% if (sources.length > 1) { %>
+    
       <nav class="side-menu" role="navigation">
         <ul>
-          <% for (var i=0, l = sources.length; i < l; i++) { %>
-            <% var s = sources[i]; %>
-            <% if (display(s)) { %>
+          
+            
+            
               <li>
-                  <a class="source <%= tocClasses(s, source) %>" href="<%= relativeToThisFile(finalPath(s)) %>">
-                      <%- prettySource(s) %>
+                  <a class="source " href="get-started.html">
+                      get started
                   </a>
               </li>
-            <% } %>
-          <% } %>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="documentation.html">
+                      documentation
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source  current " href="codelabs.html">
+                      codelabs
+                  </a>
+              </li>
+            
+          
         </ul>
       </nav>
-    <% } %>
+    
     <section class="contentPage">
       <article>
-        <% for (var i = 0, l = sections.length; i<l; i++) { %>
-          <% var section = sections[i]; %>
-          <%- section.docsHtml %>
-          <% if (!(/^\s*$/).test(section.codeText)) { %>
-            <%- section.codeHtml %>
-          <% } %>
-        <% } %>
+        
+          
+          
+          
+        
       </article>
     </section>
   </main>
