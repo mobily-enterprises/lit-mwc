@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/mobily-enterprises/nn#readme",
   "dependencies": {
-    "docco-next": "^0.9.4",
+    "docco-next": "^0.9.5",
     "lit-element": "^2.1.0"
   },
   "standard": {

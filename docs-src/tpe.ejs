@@ -24,7 +24,7 @@ function prettySource(s) {
 
 function tocClasses(s, source) {
   var indent = s.match('/') ? ' indented ' : ''
-  var current = s === source  || s.split('.')[0] === source.split('/')[0] 
+  var current = s === source  || s.split('.')[0] === source.split('/')[0]
     ? ' current '
     : ''
   return '' + indent + current
@@ -92,11 +92,8 @@ function tocClasses(s, source) {
       </nav>
     <% } %>
     <section class="content-page">
-      <% if (source === 'index.md') { %>
-        <div class="home-hero">
-      <% } else { %>
+      <%-includeText(source + '.head.html', true) %>
         <article>
-      <% } %>
           <% for (var i = 0, l = sections.length; i<l; i++) { %>
             <% var section = sections[i]; %>
             <%- section.docsHtml %>
@@ -104,38 +101,8 @@ function tocClasses(s, source) {
               <%- section.codeHtml %>
             <% } %>
           <% } %>
-      <% if (source === 'index.md') { %>
-        </div>
-        <div class="home-compare">
-          <div>
-            <h4>From this...</h4>
-            <blockquote>
-              <pre> 
-<%='<label for="native">'%>
-<%='  Native Input'%>
-<%='<input id="native" placeholder="placeholder">'%>
-<%='</label>'%>
-                <label for="native">
-                  Native Input
-                  <input id="native" placeholder="placeholder">
-                </label>
-              </pre>
-            </blockquote>
-          </div>
-          <div>
-            <h4>...to this!</h4>
-            <blockquote>
-              <pre>
-              </pre>
-            </blockquote>
-          </div>
-        </div>
-        <div class="home-showcase">
-          <h4>Try it out live</h4>
-        </div>
-      <% } else { %> 
         </article>
-      <% } %> 
+        <%-includeText(source + '.foot.html', true) %>
     </section>
   </main>
   <footer></footer>

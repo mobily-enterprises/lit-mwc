@@ -1,7 +1,4 @@
+
 #
 
-## The Platform Elements  
-  
-  
-#### Powerful, themeable, enhanced native elements  
-
+THIS IS THE REST
