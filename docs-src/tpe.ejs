@@ -24,7 +24,7 @@ function prettySource(s) {
 
 function tocClasses(s, source) {
   var indent = s.match('/') ? ' indented ' : ''
-  var current = s === source  || s.split('.')[0] === source.split('/')[0]
+  var current = s === source  || s.split('.')[0] === source.split('/')[0] 
     ? ' current '
     : ''
   return '' + indent + current
@@ -41,6 +41,9 @@ function tocClasses(s, source) {
 <body>
   <header class="header">
     <div class="topbar">
+      <button id="menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
       <div id="logo" alt="TPE">
       </div>
       <h3 class="page-title"><%= title %></h3>
@@ -73,7 +76,7 @@ function tocClasses(s, source) {
   </header>
   <main role="main">
     <% if (sources.length > 1) { %>
-      <nav class="side-menu" role="navigation">
+      <nav id="drawer" class="side-menu" role="navigation">
         <ul>
           <% for (var i=0, l = sources.length; i < l; i++) { %>
             <% var s = sources[i]; %>
@@ -88,18 +91,55 @@ function tocClasses(s, source) {
         </ul>
       </nav>
     <% } %>
-    <section class="contentPage">
-      <article>
-        <% for (var i = 0, l = sections.length; i<l; i++) { %>
-          <% var section = sections[i]; %>
-          <%- section.docsHtml %>
-          <% if (!(/^\s*$/).test(section.codeText)) { %>
-            <%- section.codeHtml %>
+    <section class="content-page">
+      <% if (source === 'index.md') { %>
+        <div class="home-hero">
+      <% } else { %>
+        <article>
+      <% } %>
+          <% for (var i = 0, l = sections.length; i<l; i++) { %>
+            <% var section = sections[i]; %>
+            <%- section.docsHtml %>
+            <% if (!(/^\s*$/).test(section.codeText)) { %>
+              <%- section.codeHtml %>
+            <% } %>
           <% } %>
-        <% } %>
-      </article>
+      <% if (source === 'index.md') { %>
+        </div>
+        <div class="home-compare">
+          <div>
+            <h4>From this...</h4>
+            <blockquote>
+              <pre>
+                <%- '<input\> \</input\>' %> 
+              </pre>
+            </blockquote>
+          </div>
+          <div>
+            <h4>...to this!</h4>
+            <blockquote>
+              <pre>
+              </pre>
+            </blockquote>
+          </div>
+        </div>
+        <div class="home-showcase">
+          <h4>Try it out live</h4>
+        </div>
+      <% } else { %> 
+        </article>
+      <% } %> 
     </section>
   </main>
   <footer></footer>
 </body>
+<script>
+  const menuBtn = document.getElementById('menu-btn')
+  const drawer = document.getElementById('drawer')
+  menuBtn.addEventListener('click', () => {
+    requestAnimationFrame(() => {
+      drawer.toggleAttribute('open')
+    })
+  })
+</script>
 </html>

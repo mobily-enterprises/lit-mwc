@@ -12,6 +12,9 @@
 <body>
   <header class="header">
     <div class="topbar">
+      <button id="menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
       <div id="logo" alt="TPE">
       </div>
       <h3 class="page-title">codelabs.md</h3>
@@ -19,6 +22,15 @@
       
         <nav class="header-menu" role="navigation">
           <ul>
+            
+              
+              
+                <li>
+                    <a class="source " href="index.html">
+                        home
+                    </a>
+                </li>
+              
             
               
               
@@ -62,8 +74,17 @@
   </header>
   <main role="main">
     
-      <nav class="side-menu" role="navigation">
+      <nav id="drawer" class="side-menu" role="navigation">
         <ul>
+          
+            
+            
+              <li>
+                  <a class="source " href="index.html">
+                      home
+                  </a>
+              </li>
+            
           
             
             
@@ -95,16 +116,29 @@
         </ul>
       </nav>
     
-    <section class="contentPage">
-      <article>
-        
+    <section class="content-page">
+      
+        <article>
+      
           
+            
+            
+            
           
-          
-        
-      </article>
+       
+        </article>
+       
     </section>
   </main>
   <footer></footer>
 </body>
+<script>
+  const menuBtn = document.getElementById('menu-btn')
+  const drawer = document.getElementById('drawer')
+  menuBtn.addEventListener('click', () => {
+    requestAnimationFrame(() => {
+      drawer.toggleAttribute('open')
+    })
+  })
+</script>
 </html>

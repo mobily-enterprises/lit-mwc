@@ -1,3 +1,139 @@
+
+/*
+
+Taken straight from Docco highlight styles, which uses the Github code styling.
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+pre code {
+  display: block; padding: 0.5em;
+  color: #000;
+}
+
+pre .hljs-comment,
+pre .hljs-template_comment,
+pre .hljs-diff .hljs-header,
+pre .hljs-javadoc {
+  color: #408080;
+  font-style: italic
+}
+
+pre .hljs-keyword,
+pre .hljs-assignment,
+pre .hljs-literal,
+pre .hljs-css .hljs-rule .hljs-keyword,
+pre .hljs-winutils,
+pre .hljs-javascript .hljs-title,
+pre .hljs-lisp .hljs-title,
+pre .hljs-subst {
+  color: #954121;
+  /*font-weight: bold*/
+}
+
+pre .hljs-number,
+pre .hljs-hexcolor {
+  color: #40a070
+}
+
+pre .hljs-string,
+pre .hljs-tag .hljs-value,
+pre .hljs-phpdoc,
+pre .hljs-tex .hljs-formula {
+  color: #219161;
+}
+
+pre .hljs-title,
+pre .hljs-id {
+  color: #19469D;
+}
+pre .hljs-params {
+  color: #00F;
+}
+
+pre .hljs-javascript .hljs-title,
+pre .hljs-lisp .hljs-title,
+pre .hljs-subst {
+  font-weight: normal
+}
+
+pre .hljs-class .hljs-title,
+pre .hljs-haskell .hljs-label,
+pre .hljs-tex .hljs-command {
+  color: #458;
+  font-weight: bold
+}
+
+pre .hljs-tag,
+pre .hljs-tag .hljs-title,
+pre .hljs-rules .hljs-property,
+pre .hljs-django .hljs-tag .hljs-keyword {
+  color: #000080;
+  font-weight: normal
+}
+
+pre .hljs-attribute,
+pre .hljs-variable,
+pre .hljs-instancevar,
+pre .hljs-lisp .hljs-body {
+  color: #008080
+}
+
+pre .hljs-regexp {
+  color: #B68
+}
+
+pre .hljs-class {
+  color: #458;
+  font-weight: bold
+}
+
+pre .hljs-symbol,
+pre .hljs-ruby .hljs-symbol .hljs-string,
+pre .hljs-ruby .hljs-symbol .hljs-keyword,
+pre .hljs-ruby .hljs-symbol .hljs-keymethods,
+pre .hljs-lisp .hljs-keyword,
+pre .hljs-tex .hljs-special,
+pre .hljs-input_number {
+  color: #990073
+}
+
+pre .hljs-builtin,
+pre .hljs-constructor,
+pre .hljs-built_in,
+pre .hljs-lisp .hljs-title {
+  color: #0086b3
+}
+
+pre .hljs-preprocessor,
+pre .hljs-pi,
+pre .hljs-doctype,
+pre .hljs-shebang,
+pre .hljs-cdata {
+  color: #999;
+  font-weight: bold
+}
+
+pre .hljs-deletion {
+  background: #fdd
+}
+
+pre .hljs-addition {
+  background: #dfd
+}
+
+pre .hljs-diff .hljs-change {
+  background: #0086b3
+}
+
+pre .hljs-chunk {
+  color: #aaa
+}
+
+pre .hljs-tex .hljs-formula {
+  opacity: 0.5;
+}
+
 /* Base Style */
 body {
   box-sizing: border-box;
@@ -10,7 +146,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat SemiBold', sans-serif;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   line-height: 1.2em;
 }
 
@@ -55,7 +191,6 @@ header {
 }
 
 .header div.topbar #logo {
-  margin-left: 30px;
   height: 64px;
   min-width: 148px;
   width: 20%;
@@ -86,6 +221,28 @@ div.links svg {
   display: none;
 }
 
+#menu-btn {
+  display: flex;
+  place-items: center;
+  margin: auto 0;
+  padding: 10px;
+  white-space: nowrap;
+  height: var(--nn-button-height, 30px);
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 4px;
+  border: none;
+  border-color: transparent;
+  text-transform: uppercase;
+  font-size: 14px;
+  border-image: none;
+  align-items: center;
+}
+
+#menu-btn:hover, #menu-btn:active {
+  outline: 1px solid #343434;
+}
+
 nav ul, ol {
   padding-inline-start: 0;
 }
@@ -99,11 +256,32 @@ nav.header-menu {
   display: none;
 }
 
+nav.side-menu {
+  box-sizing: border-box;
+  position: absolute;
+  height: calc(100vh - 64px);
+  width: 200px;
+  bottom: 0;
+  left: -200px;
+  background: #343434;
+  color: white;
+  z-index: 10;
+  transform: translateX(0);
+  transition: transform 0.2s ease-in-out;
+  padding-left: 20px;
+}
+
+nav.side-menu[open] {
+  transform: translateX(100%);
+  box-shadow: 10px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
 nav.side-menu li a, nav.side-menu li a:visited, nav.side-menu li a:active {
   text-transform: capitalize;
   cursor: pointer;
   border-bottom: none;
-  color: #454545;
+  color: whitesmoke;
   height: 16px;
 }
 
@@ -112,9 +290,11 @@ nav.side-menu li a.indented {
   text-transform: unset;
 }
 
-nav.side-menu li a.current { 
-  font-weight: bold;
-  color: #454545;  
+nav.side-menu li a.current {
+  font-weight: bolder;
+  color:white;
+  width: 100%;
+  border-bottom: 2px solid whitesmoke;
 }
 
 nav.side-menu li a:hover {
@@ -127,20 +307,57 @@ nav.side-menu li a:active {
   outline: 1px dashed #cdcdcd;
 }
 
-article { 
+/* Content Styles */
+
+section.content-page {
+  width: 100%;
+  max-height: calc(100vh - 64px);
+  overflow: auto;
+}
+
+article {
   box-sizing: border-box;
   width: 100%;
+  max-width: 1000px;
   padding: 50px 15%;
+}
+
+/* Home Styles */
+
+.home-hero {
+  box-sizing: border-box;
+  height: 25vh;
+  padding-top: 2em;
+  color: whitesmoke;
+  background-color: #343434;
+  background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%239C92AC' fill-opacity='0.09' fill-rule='evenodd'/%3E%3C/svg%3E");  
+}
+
+.home-hero * {
+  text-align: center;
+}
+
+.home-compare div, .home-showcase {
+  width: 100%;
+  text-align: center;
 }
 
 /* Dekstop Layout */
 
 @media (min-width: 800px) {
 
+  .header div.topbar #logo { 
+    margin-left: 30px;
+  }
+
   .header div.topbar div.links {
     margin-left: 40px;
   }
-  
+
+  #menu-btn {
+     display: none;
+  }
+
   nav.side-menu {
     display: none;
   }
@@ -152,8 +369,35 @@ article {
 
   nav.header-menu ul{
     display: flex;
-    margin-block-start: 0.7em;
+    margin-block-start: 0.8em;
     margin-block-end: 0.3em;
+  }
+
+  nav.header-menu li a, nav.header-menu li a:visited, nav.header-menu li a:active {
+    text-transform: capitalize;
+    cursor: pointer;
+    border-bottom: none;
+    color: #454545;
+    height: 16px;
+  }
+  
+  nav.header-menu li a.indented {
+    text-transform: unset;
+  }
+  
+  nav.header-menu li a.current {
+    font-weight: bold;
+    color: #454545;
+  }
+  
+  nav.header-menu li a:hover {
+    border-bottom: 2px solid #b8d0f9;
+  }
+  
+  nav.header-menu li a:active {
+    border-width: 3px;
+    height: 15px;
+    outline: 1px dashed #cdcdcd;
   }
 
   .page-title {
@@ -166,10 +410,16 @@ article {
   }
 
   nav {
-    width: 280px;
-    margin-right: 2%; 
+    width: 380px;
+    margin-right: 2%;
     max-height: 100%;
     overflow: auto;
+  }
+
+  /* Home Styles */
+
+  .home-compare {
+    display: flex;
   }
 
 }
