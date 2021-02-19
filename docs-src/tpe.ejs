@@ -110,8 +110,15 @@ function tocClasses(s, source) {
           <div>
             <h4>From this...</h4>
             <blockquote>
-              <pre>
-                <%- '<input\> \</input\>' %> 
+              <pre> 
+<%='<label for="native">'%>
+<%='  Native Input'%>
+<%='<input id="native" placeholder="placeholder">'%>
+<%='</label>'%>
+                <label for="native">
+                  Native Input
+                  <input id="native" placeholder="placeholder">
+                </label>
               </pre>
             </blockquote>
           </div>
