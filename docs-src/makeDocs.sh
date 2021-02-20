@@ -36,7 +36,6 @@ cd ..
   -t tpe.ejs\
   -o ../docs\
   index.md\
-  get-started.md\
   documentation.md\
   codelabs.md\
   codelabs/how-to/index.md\

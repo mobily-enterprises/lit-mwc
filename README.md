@@ -1,1 +1,1 @@
-docs-src/get-started.md
+# The platform elements

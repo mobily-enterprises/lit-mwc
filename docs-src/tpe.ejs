@@ -111,7 +111,7 @@ function tocClasses(s, source) {
     <section class="content-page">
 
 
-      <% debugger; if (source.startsWith('code') ) { %>
+      <% if (source === 'code.md' || source.startsWith('code/') ) { %>
         <nav3 class="header-menu" role="navigation">
           <ul>
             <% for (var i=0, l = sources.length; i < l; i++) { %>
