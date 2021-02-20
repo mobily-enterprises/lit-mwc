@@ -1,4 +1,27 @@
+/* Code block styles */
 
+pre, code {
+  background-color: #efefef;
+  line-height: 1.5em;
+  font-size: 0.9em;
+  padding: 1px 6px;
+  border-radius: 3px;
+  white-space: pre-wrap;
+  overflow: hidden;
+}
+
+pre {
+  padding: 10px;
+  /* box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); */
+  transition: box-shadow 0.3s ease-in-out;
+  border: 1px solid #efefef;
+}
+
+pre:hover {
+  box-shadow: 0 2px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease-in-out;
+  border: 1px solid #e7e7e7;
+}
 /*
 
 Taken straight from Docco highlight styles, which uses the Github code styling.

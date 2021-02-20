@@ -27,7 +27,6 @@
   },
   "homepage": "https://github.com/mobily-enterprises/nn#readme",
   "dependencies": {
-    "docco-next": "^0.9.5",
     "lit-element": "^2.1.0"
   },
   "standard": {
@@ -46,6 +45,7 @@
     "@babel/preset-env": "^7.x.x",
     "@web/dev-server": "0.0.24",
     "core-js": "^3.3.2",
+    "docco-next": "^0.9.5",
     "eslint": "^6.3.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-html": "^6.0.0",
