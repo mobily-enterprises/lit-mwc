@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+  <title>nn-input-date-time-local.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="../../tpe.css" />
+
+
+  
+
+
+</head>
+<body>
+  <header class="header">
+    <div class="topbar">
+      <button id="menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
+      <div id="logo" alt="TPE">
+      </div>
+      <h3 class="page-title">nn-input-date-time-local.js</h3>
+      <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
+      
+        <nav class="header-menu" role="navigation">
+          <ul>
+            
+              
+              
+                <li>
+                    <a class="source " href="../../index.html">
+                        home
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../get-started.html">
+                        get started
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../documentation.html">
+                        documentation
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../codelabs.html">
+                        codelabs
+                    </a>
+                </li>
+              
+            
+              
+              
+            
+              
+              
+                <li>
+                    <a class="source  current " href="../../code.html">
+                        code
+                    </a>
+                </li>
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+          </ul>
+        </nav>
+      
+      <div class="links">
+        <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <title>GitHub icon</title>
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+  <main role="main">
+    
+      <nav id="drawer" class="side-menu" role="navigation">
+        <ul>
+          
+            
+            
+              <li>
+                  <a class="source " href="../../index.html">
+                      home
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../get-started.html">
+                      get started
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../documentation.html">
+                      documentation
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../codelabs.html">
+                      codelabs
+                  </a>
+              </li>
+            
+          
+            
+            
+          
+            
+            
+              <li>
+                  <a class="source  current " href="../../code.html">
+                      code
+                  </a>
+              </li>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </ul>
+      </nav>
+    
+    <section class="content-page">
+
+
+      
+        <nav3 class="header-menu" role="navigation">
+          <ul>
+            
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/AddHasValueAttributeMixin.html">
+                      code/mixins/AddHasValueAttributeMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/DraggableElementMixin.html">
+                      code/mixins/DraggableElementMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/DraggableListMixin.html">
+                      code/mixins/DraggableListMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/FormElementMixin.html">
+                      code/mixins/FormElementMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/InputMixin.html">
+                      code/mixins/InputMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/LabelsMixin.html">
+                      code/mixins/LabelsMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/NativeReflectorMixin.html">
+                      code/mixins/NativeReflectorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/NativeValidatorMixin.html">
+                      code/mixins/NativeValidatorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/StyleableMixin.html">
+                      code/mixins/StyleableMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/SyntheticValidatorMixin.html">
+                      code/mixins/SyntheticValidatorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/ThemeableMixin.html">
+                      code/mixins/ThemeableMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="babel.config.html">
+                      code/elements/babel.config.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-input-spans.html">
+                      code/elements/ee-autocomplete-input-spans.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-item-country.html">
+                      code/elements/ee-autocomplete-item-country.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-item-email.html">
+                      code/elements/ee-autocomplete-item-email.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-item-li.html">
+                      code/elements/ee-autocomplete-item-li.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete.html">
+                      code/elements/ee-autocomplete.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-cell.html">
+                      code/elements/ee-cell.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-drawer.html">
+                      code/elements/ee-drawer.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-fab.html">
+                      code/elements/ee-fab.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-fade-in.html">
+                      code/elements/ee-fade-in.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-header.html">
+                      code/elements/ee-header.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-nav-bar.html">
+                      code/elements/ee-nav-bar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-network.html">
+                      code/elements/ee-network.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-row.html">
+                      code/elements/ee-row.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-snack-bar.html">
+                      code/elements/ee-snack-bar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-table.html">
+                      code/elements/ee-table.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-tabs.html">
+                      code/elements/ee-tabs.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-toolbar.html">
+                      code/elements/ee-toolbar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="en-form.html">
+                      code/elements/en-form.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="en-input-range.html">
+                      code/elements/en-input-range.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="htmlApi.html">
+                      code/elements/htmlApi.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="loader.html">
+                      code/elements/loader.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-button.html">
+                      code/elements/nn-button.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-form.html">
+                      code/elements/nn-form.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-button.html">
+                      code/elements/nn-input-button.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-checkbox.html">
+                      code/elements/nn-input-checkbox.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-color.html">
+                      code/elements/nn-input-color.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-date.html">
+                      code/elements/nn-input-date.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented  current " href="nn-input-date-time-local.html">
+                      code/elements/nn-input-date-time-local.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-email.html">
+                      code/elements/nn-input-email.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-file.html">
+                      code/elements/nn-input-file.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-month.html">
+                      code/elements/nn-input-month.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-number.html">
+                      code/elements/nn-input-number.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-password.html">
+                      code/elements/nn-input-password.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-radio.html">
+                      code/elements/nn-input-radio.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-range.html">
+                      code/elements/nn-input-range.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-search.html">
+                      code/elements/nn-input-search.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-submit.html">
+                      code/elements/nn-input-submit.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-tel.html">
+                      code/elements/nn-input-tel.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-text.html">
+                      code/elements/nn-input-text.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-time.html">
+                      code/elements/nn-input-time.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-url.html">
+                      code/elements/nn-input-url.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-week.html">
+                      code/elements/nn-input-week.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-meter.html">
+                      code/elements/nn-meter.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-progress.html">
+                      code/elements/nn-progress.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-select.html">
+                      code/elements/nn-select.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-textarea.html">
+                      code/elements/nn-textarea.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="rollup.config.html">
+                      code/elements/rollup.config.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="tpe-babel.html">
+                      code/elements/tpe-babel.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="tpe.html">
+                      code/elements/tpe.js
+                  </a>
+                </li>
+            
+          </ul>
+        </nav3>
+      
+
+      
+      <article>
+        
+          
+          
+          
+            <div class='highlight'><pre><span class="hljs-keyword">import</span> { html } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { NnInputText } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./nn-input-text&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin&#x27;</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NnInputDateTimeLocal</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">nn</span>-<span class="hljs-title">input</span>-<span class="hljs-title">date</span>&#x27;)(<span class="hljs-title">NnInputText</span>) </span>{
+  render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
+    <span class="hljs-keyword">return</span> html`<span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelBefore}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageBefore}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;datetime-local&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native&quot;</span>&gt;</span>
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelAfter}</span><span class="xml">
+    `</span>
+  }
+}
+<span class="hljs-built_in">window</span>.customElements.define(<span class="hljs-string">&#x27;nn-input-datetime-local&#x27;</span>, NnInputDateTimeLocal)</pre></div>
+          
+        
+      </article>
+
+        
+    </section>
+  </main>
+  <footer></footer>
+</body>
+<script>
+  const menuBtn = document.getElementById('menu-btn')
+  const drawer = document.getElementById('drawer')
+  menuBtn.addEventListener('click', () => {
+    requestAnimationFrame(() => {
+      drawer.toggleAttribute('open')
+    })
+  })
+</script>
+
+
+
+
+</html>

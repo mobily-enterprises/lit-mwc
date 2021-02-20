@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+  <title>ee-autocomplete-input-spans.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="../../tpe.css" />
+
+
+  
+
+
+</head>
+<body>
+  <header class="header">
+    <div class="topbar">
+      <button id="menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
+      <div id="logo" alt="TPE">
+      </div>
+      <h3 class="page-title">ee-autocomplete-input-spans.js</h3>
+      <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
+      
+        <nav class="header-menu" role="navigation">
+          <ul>
+            
+              
+              
+                <li>
+                    <a class="source " href="../../index.html">
+                        home
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../get-started.html">
+                        get started
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../documentation.html">
+                        documentation
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../codelabs.html">
+                        codelabs
+                    </a>
+                </li>
+              
+            
+              
+              
+            
+              
+              
+                <li>
+                    <a class="source  current " href="../../code.html">
+                        code
+                    </a>
+                </li>
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+          </ul>
+        </nav>
+      
+      <div class="links">
+        <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <title>GitHub icon</title>
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+  <main role="main">
+    
+      <nav id="drawer" class="side-menu" role="navigation">
+        <ul>
+          
+            
+            
+              <li>
+                  <a class="source " href="../../index.html">
+                      home
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../get-started.html">
+                      get started
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../documentation.html">
+                      documentation
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../codelabs.html">
+                      codelabs
+                  </a>
+              </li>
+            
+          
+            
+            
+          
+            
+            
+              <li>
+                  <a class="source  current " href="../../code.html">
+                      code
+                  </a>
+              </li>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </ul>
+      </nav>
+    
+    <section class="content-page">
+
+
+      
+        <nav3 class="header-menu" role="navigation">
+          <ul>
+            
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/AddHasValueAttributeMixin.html">
+                      code/mixins/AddHasValueAttributeMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/DraggableElementMixin.html">
+                      code/mixins/DraggableElementMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/DraggableListMixin.html">
+                      code/mixins/DraggableListMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/FormElementMixin.html">
+                      code/mixins/FormElementMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/InputMixin.html">
+                      code/mixins/InputMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/LabelsMixin.html">
+                      code/mixins/LabelsMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/NativeReflectorMixin.html">
+                      code/mixins/NativeReflectorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/NativeValidatorMixin.html">
+                      code/mixins/NativeValidatorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/StyleableMixin.html">
+                      code/mixins/StyleableMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/SyntheticValidatorMixin.html">
+                      code/mixins/SyntheticValidatorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/ThemeableMixin.html">
+                      code/mixins/ThemeableMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="babel.config.html">
+                      code/elements/babel.config.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented  current " href="ee-autocomplete-input-spans.html">
+                      code/elements/ee-autocomplete-input-spans.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-item-country.html">
+                      code/elements/ee-autocomplete-item-country.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-item-email.html">
+                      code/elements/ee-autocomplete-item-email.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-item-li.html">
+                      code/elements/ee-autocomplete-item-li.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete.html">
+                      code/elements/ee-autocomplete.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-cell.html">
+                      code/elements/ee-cell.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-drawer.html">
+                      code/elements/ee-drawer.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-fab.html">
+                      code/elements/ee-fab.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-fade-in.html">
+                      code/elements/ee-fade-in.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-header.html">
+                      code/elements/ee-header.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-nav-bar.html">
+                      code/elements/ee-nav-bar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-network.html">
+                      code/elements/ee-network.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-row.html">
+                      code/elements/ee-row.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-snack-bar.html">
+                      code/elements/ee-snack-bar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-table.html">
+                      code/elements/ee-table.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-tabs.html">
+                      code/elements/ee-tabs.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-toolbar.html">
+                      code/elements/ee-toolbar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="en-form.html">
+                      code/elements/en-form.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="en-input-range.html">
+                      code/elements/en-input-range.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="htmlApi.html">
+                      code/elements/htmlApi.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="loader.html">
+                      code/elements/loader.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-button.html">
+                      code/elements/nn-button.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-form.html">
+                      code/elements/nn-form.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-button.html">
+                      code/elements/nn-input-button.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-checkbox.html">
+                      code/elements/nn-input-checkbox.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-color.html">
+                      code/elements/nn-input-color.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-date.html">
+                      code/elements/nn-input-date.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-date-time-local.html">
+                      code/elements/nn-input-date-time-local.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-email.html">
+                      code/elements/nn-input-email.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-file.html">
+                      code/elements/nn-input-file.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-month.html">
+                      code/elements/nn-input-month.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-number.html">
+                      code/elements/nn-input-number.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-password.html">
+                      code/elements/nn-input-password.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-radio.html">
+                      code/elements/nn-input-radio.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-range.html">
+                      code/elements/nn-input-range.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-search.html">
+                      code/elements/nn-input-search.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-submit.html">
+                      code/elements/nn-input-submit.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-tel.html">
+                      code/elements/nn-input-tel.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-text.html">
+                      code/elements/nn-input-text.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-time.html">
+                      code/elements/nn-input-time.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-url.html">
+                      code/elements/nn-input-url.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-week.html">
+                      code/elements/nn-input-week.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-meter.html">
+                      code/elements/nn-meter.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-progress.html">
+                      code/elements/nn-progress.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-select.html">
+                      code/elements/nn-select.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-textarea.html">
+                      code/elements/nn-textarea.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="rollup.config.html">
+                      code/elements/rollup.config.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="tpe-babel.html">
+                      code/elements/tpe-babel.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="tpe.html">
+                      code/elements/tpe.js
+                  </a>
+                </li>
+            
+          </ul>
+        </nav3>
+      
+
+      
+      <article>
+        
+          
+          
+          
+            <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { LabelsMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/LabelsMixin.js&#x27;</span>
+<span class="hljs-keyword">import</span> { SyntheticValidatorMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/SyntheticValidatorMixin&#x27;</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin&#x27;</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeAutocompleteInputSpans</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">ee</span>-<span class="hljs-title">autocomplete</span>-<span class="hljs-title">input</span>-<span class="hljs-title">spans</span>&#x27;)(<span class="hljs-title">SyntheticValidatorMixin</span>(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LabelsMixin</span>(<span class="hljs-title">LitElement</span>)))) </span>{
+  <span class="hljs-keyword">static</span> get properties () {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">name</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>
+      },
+      <span class="hljs-attr">valueAs</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+        <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;value-as&#x27;</span>
+      },
+      <span class="hljs-attr">valueSeparator</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+        <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;value-separator&#x27;</span>
+      }
+    }
+  }
+
+  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-built_in">super</span>()
+    <span class="hljs-built_in">this</span>.labelForElement = <span class="hljs-string">&#x27;ni&#x27;</span>
+    <span class="hljs-built_in">this</span>.valueAs = <span class="hljs-string">&#x27;text&#x27;</span> <span class="hljs-comment">// can be text, ids, json</span>
+    <span class="hljs-built_in">this</span>.removeIcon = <span class="hljs-string">&#x27;&lt;svg class=&quot;icon&quot; height=&quot;15&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;15&quot;&gt;&lt;path d=&quot;M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&#x27;</span>
+    <span class="hljs-built_in">this</span>.itemElement = <span class="hljs-string">&#x27;&#x27;</span>
+    <span class="hljs-built_in">this</span>.itemElementConfig = {}
+    <span class="hljs-built_in">this</span>.itemElementAttributes = {}
+    <span class="hljs-built_in">this</span>.valueSeparator = <span class="hljs-string">&#x27;,&#x27;</span>
+  }
+
+  <span class="hljs-keyword">static</span> get styles () {
+    <span class="hljs-keyword">return</span> [
+      <span class="hljs-built_in">super</span>.styles,
+      css`<span class="css">
+        <span class="hljs-selector-pseudo">:host</span> {
+          <span class="hljs-attribute">display</span>: inline;
+        }
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-pseudo">:focus</span>) {
+          <span class="hljs-attribute">outline</span>: none;
+        }
+
+        <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span> {
+          <span class="hljs-attribute">position</span>: relative;
+          <span class="hljs-attribute">display</span>: inline-block;
+        }
+
+        <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span> &gt; *<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-tag">button</span>) {
+          <span class="hljs-attribute">position</span>: relative;
+          <span class="hljs-attribute">display</span>: inline-block;
+          <span class="hljs-attribute">padding</span>: <span class="hljs-number">3px</span> <span class="hljs-number">6px</span>;
+          <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">24px</span>;
+          <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ddd</span>;
+          <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">1em</span>;
+          <span class="hljs-attribute">margin</span>: <span class="hljs-number">2px</span>;
+          <span class="hljs-attribute">vertical-align</span>: middle;
+          <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1em</span>;
+        }
+
+        <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span> &gt; *<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-tag">button</span>)<span class="hljs-selector-attr">[invalid]</span> {
+          <span class="hljs-attribute">background-color</span>: pink;
+          <span class="hljs-attribute">border-color</span>: red;
+        }
+
+        <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span><span class="hljs-selector-pseudo">:active</span> &gt; *<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-tag">button</span>), <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span><span class="hljs-selector-pseudo">:focus</span> &gt; *<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-tag">button</span>), <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span><span class="hljs-selector-pseudo">:hover</span> &gt; *<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-tag">button</span>) {
+          <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">3px</span> <span class="hljs-number">0</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>), <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> <span class="hljs-number">0</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.06</span>);
+          <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#eee</span>;
+          <span class="hljs-attribute">outline</span>: none;
+        }
+        <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span><span class="hljs-selector-pseudo">:active</span> &gt; *<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-tag">button</span>), <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span><span class="hljs-selector-pseudo">:focus</span> &gt; *<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-tag">button</span>) {
+          <span class="hljs-attribute">border-color</span>: <span class="hljs-number">#ccc</span>;
+        }
+
+        <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.remove</span> {
+          appearance: none;
+          -moz-appearance: none;
+          -webkit-appearance: none;
+          fill: <span class="hljs-number">#999</span>;
+          <span class="hljs-attribute">border</span>: none;
+          <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+          <span class="hljs-attribute">display</span>: inline-block;
+          <span class="hljs-attribute">position</span>: absolute;
+          <span class="hljs-attribute">top</span>: <span class="hljs-number">55%</span>;
+          <span class="hljs-attribute">right</span>: <span class="hljs-number">4px</span>;
+          <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">50%</span>);
+          <span class="hljs-attribute">background</span>: none;
+          <span class="hljs-attribute">z-index</span>:<span class="hljs-number">0</span>;
+        }
+
+        <span class="hljs-selector-id">#list</span> &gt; *<span class="hljs-selector-pseudo">:focus</span>, <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span> *<span class="hljs-selector-pseudo">:active</span> {
+          <span class="hljs-attribute">outline</span>: none;
+        }
+
+        <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.remove</span> svg {
+          <span class="hljs-attribute">z-index</span>: -<span class="hljs-number">1</span>;
+        }
+
+        <span class="hljs-selector-id">#list</span> &gt; <span class="hljs-selector-tag">span</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-class">.remove</span><span class="hljs-selector-pseudo">:hover</span> {
+          fill: <span class="hljs-number">#555</span>;
+        }
+
+        <span class="hljs-selector-tag">input</span> {
+          <span class="hljs-attribute">box-sizing</span>: border-box;
+          <span class="hljs-attribute">display</span>: inline-block;
+          <span class="hljs-attribute">outline</span>: none;
+          <span class="hljs-attribute">vertical-align</span>: middle;
+          <span class="hljs-attribute">height</span>: <span class="hljs-number">1.5em</span>;
+          <span class="hljs-attribute">border</span>: none;
+          <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.9em</span>;
+          <span class="hljs-attribute">width</span>: <span class="hljs-number">120px</span>;
+        }
+
+        <span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">:focus</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">:hover</span> {
+          <span class="hljs-attribute">outline</span>: none
+        }
+
+        <span class="hljs-selector-tag">span</span><span class="hljs-selector-class">.error-message</span> {
+          <span class="hljs-attribute">color</span>: red;
+        }
+
+        <span class="hljs-selector-pseudo">:invalid</span> {
+          <span class="hljs-attribute">background-color</span>: pink;
+          <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#bb7777</span>;
+        }
+      `</span>
+    ]
+  }
+
+  render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
+    <span class="hljs-keyword">return</span> html`<span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelBefore}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageBefore}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;list&quot;</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>._listClicked}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> @<span class="hljs-attr">keydown</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>._handleKeyEvents}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> @<span class="hljs-attr">input</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>._inputReceived}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;1&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;ta&quot;</span> <span class="hljs-attr">spellcheck</span>=<span class="hljs-string">&quot;false&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;false&quot;</span> <span class="hljs-attr">autocapitalize</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">autocorrect</span>=<span class="hljs-string">&quot;off&quot;</span> <span class="hljs-attr">dir</span>=<span class="hljs-string">&quot;ltr&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;combobox&quot;</span> <span class="hljs-attr">aria-autocomplete</span>=<span class="hljs-string">&quot;list&quot;</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifValidationMessageAfter}</span><span class="xml">
+      </span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.ifLabelAfter}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;ni&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;hidden&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>.name}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
+    `</span>
+  }
+
+  connectedCallback () {
+    <span class="hljs-built_in">super</span>.connectedCallback()
+    <span class="hljs-built_in">this</span>.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-built_in">this</span>.focus)
+  }
+
+  disconnectedCallback () {
+    <span class="hljs-built_in">super</span>.connectedCallback()
+    <span class="hljs-built_in">this</span>.removeEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-built_in">this</span>.focus)
+  }
+
+  firstUpdated () {
+    <span class="hljs-built_in">this</span>._updateNativeInputValue()
+  }
+
+  focus () {
+    <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#ta&#x27;</span>).focus()
+  }
+
+  _listClicked (e) {
+    e.stopPropagation()
+  }
+
+  get value () {
+    <span class="hljs-keyword">let</span> r
+    <span class="hljs-keyword">let</span> list
+    <span class="hljs-keyword">switch</span> (<span class="hljs-built_in">this</span>.valueAs) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;json&#x27;</span>:
+      r = {}
+      list = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#list&#x27;</span>)
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> span <span class="hljs-keyword">of</span> list.children) {
+        <span class="hljs-keyword">if</span> (span.id === <span class="hljs-string">&#x27;ta&#x27;</span>) <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">const</span> idValue = span.firstChild.idValue
+        r[idValue] = span.firstChild.data
+      }
+      <span class="hljs-keyword">return</span> r
+    <span class="hljs-attr">default</span>:
+      r = []
+      list = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#list&#x27;</span>)
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> span <span class="hljs-keyword">of</span> list.children) {
+        <span class="hljs-keyword">if</span> (span.id === <span class="hljs-string">&#x27;ta&#x27;</span>) <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.valueAs === <span class="hljs-string">&#x27;text&#x27;</span>) {</pre></div>
+          
+        
+          
+          <p>Won’t push invalid spans to the final value</p>
+
+          
+            <div class='highlight'><pre>          <span class="hljs-keyword">if</span> (span.getAttribute(<span class="hljs-string">&#x27;invalid&#x27;</span>) === <span class="hljs-literal">null</span>) r.push(span.firstChild.textValue)
+        } <span class="hljs-keyword">else</span> {
+          r.push(span.firstChild.idValue)
+        }
+      }
+      <span class="hljs-keyword">return</span> r.join(<span class="hljs-built_in">this</span>.valueSeparator)
+    }
+  }
+
+  set value (v) {
+    <span class="hljs-keyword">const</span> list = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#list&#x27;</span>)</pre></div>
+          
+        
+          
+          <p>Remove all children</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-keyword">while</span> (list.firstChild) {
+      <span class="hljs-keyword">if</span> (list.firstChild.id === <span class="hljs-string">&#x27;ta&#x27;</span>) <span class="hljs-keyword">break</span>
+      list.removeChild(list.firstChild)
+    }</pre></div>
+          
+        
+          
+          <p>Assign all children using pickedElement</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(v)) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> o <span class="hljs-keyword">of</span> v) {
+        <span class="hljs-built_in">this</span>.pickedElement(o, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>)
+      }
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> v === <span class="hljs-string">&#x27;object&#x27;</span> &amp;&amp; v !== <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> k <span class="hljs-keyword">of</span> <span class="hljs-built_in">Object</span>.keys(v)) {
+        <span class="hljs-keyword">const</span> $o = v[k]
+        <span class="hljs-built_in">this</span>.pickedElement($o, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>)
+      }
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> v === <span class="hljs-string">&#x27;string&#x27;</span>) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> s <span class="hljs-keyword">of</span> v.split(<span class="hljs-built_in">this</span>.valueSeparator)) {
+        <span class="hljs-built_in">this</span>.pickedElement(s, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>)
+      }
+    }</pre></div>
+          
+        
+          
+          <p>Sets the native input</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-built_in">this</span>._updateNativeInputValue()</pre></div>
+          
+        
+          
+          <p>Rerun validator</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-built_in">this</span>.setCustomValidity(<span class="hljs-string">&#x27;&#x27;</span>)
+    <span class="hljs-built_in">this</span>.reportValidity()
+  }
+
+  get validationMessage () {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.validity._customValidationMessage
+  }
+
+  get autocompleteValue () {
+    <span class="hljs-keyword">const</span> ta = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#ta&#x27;</span>)
+    <span class="hljs-keyword">if</span> (ta) <span class="hljs-keyword">return</span> ta.value
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>
+  }
+
+  <span class="hljs-comment">/* END OF CONSTRAINTS API */</span></pre></div>
+          
+        
+          
+          <p>Run this when there are no suggestions and the user hits Tab or Enter in #ta
+This will run pickElement with a STRING, which will get the element to
+work out a data structure based on the string</p>
+
+          
+            <div class='highlight'><pre>  _pickCurrentValue () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.valueAs === <span class="hljs-string">&#x27;text&#x27;</span>) {
+      <span class="hljs-built_in">this</span>.pickedElement(<span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#ta&#x27;</span>).value, <span class="hljs-literal">true</span>)
+    }
+  }
+
+  _askToRemove (e) {
+    <span class="hljs-keyword">const</span> target = e.currentTarget
+    <span class="hljs-built_in">this</span>._removeItem(target.parentElement.parentElement)
+  }
+
+  _updateNativeInputValue () {
+    <span class="hljs-keyword">const</span> ni = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#ni&#x27;</span>)
+    ni.value = <span class="hljs-built_in">this</span>.value
+  }
+
+  _removeItem (target, which = <span class="hljs-string">&#x27;previous&#x27;</span>) {</pre></div>
+          
+        
+          
+          <p>Focus previous item before deleting target. If it’s the first/only, select the input</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-keyword">const</span> previous = target.previousElementSibling || target.nextElementSibling
+    previous.focus()
+    target.remove()
+    <span class="hljs-built_in">this</span>._updateNativeInputValue()</pre></div>
+          
+        
+          
+          <p>Rerun validator</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-built_in">this</span>.setCustomValidity(<span class="hljs-string">&#x27;&#x27;</span>)
+    <span class="hljs-built_in">this</span>.reportValidity()
+  }
+
+  _createRemoveBtn () {
+    <span class="hljs-keyword">const</span> el = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;button&#x27;</span>)
+    el.innerHTML = <span class="hljs-built_in">this</span>.removeIcon
+    el.onclick = <span class="hljs-built_in">this</span>._askToRemove.bind(<span class="hljs-built_in">this</span>)
+    el.classList.add(<span class="hljs-string">&#x27;remove&#x27;</span>)
+    <span class="hljs-keyword">return</span> el
+  }
+
+  _handleKeyEvents (e) {
+    <span class="hljs-keyword">const</span> target = e.currentTarget
+
+    <span class="hljs-keyword">switch</span> (e.key) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowLeft&#x27;</span>:
+      <span class="hljs-keyword">if</span> (target.previousElementSibling) {
+        e.preventDefault()
+        target.previousElementSibling.focus()
+      }
+      <span class="hljs-keyword">break</span>
+
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowRight&#x27;</span>:
+      <span class="hljs-keyword">if</span> (target.id !== <span class="hljs-string">&#x27;ta&#x27;</span>) {
+        e.preventDefault()
+        target.nextElementSibling
+          ? target.nextElementSibling.focus()
+          : target.parentElement.firstElementChild.focus()
+      }
+      <span class="hljs-keyword">break</span>
+
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowDown&#x27;</span>:
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.parentElement.suggestions.length) {
+        e.preventDefault()
+        <span class="hljs-built_in">this</span>.parentElement.focusNext()
+      }
+      <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;Backspace&#x27;</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;Delete&#x27;</span>:
+      <span class="hljs-keyword">if</span> (target.id === <span class="hljs-string">&#x27;ta&#x27;</span> &amp;&amp; target.parentElement.children.length &gt; <span class="hljs-number">1</span> &amp;&amp; !target.value) {
+        <span class="hljs-built_in">this</span>._removeItem(target.previousElementSibling)
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (target.id !== <span class="hljs-string">&#x27;ta&#x27;</span>) {
+        <span class="hljs-built_in">this</span>._removeItem(target)
+      }
+      <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;Tab&#x27;</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;Enter&#x27;</span>:
+      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.autocompleteValue) <span class="hljs-keyword">break</span>
+      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.parentElement.suggestions.length) {
+        e.preventDefault()
+        <span class="hljs-built_in">this</span>._pickCurrentValue()
+      } <span class="hljs-keyword">else</span> {
+        e.preventDefault()
+        <span class="hljs-built_in">this</span>.parentElement.pickFirst()
+      }
+    }
+  }
+
+  <span class="hljs-comment">/* API */</span>
+  get multiInputApi () { <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span> }
+
+  pickedElement (data, force = <span class="hljs-literal">false</span>, skipValidation = <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">const</span> parentEl = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-built_in">this</span>.itemElement)
+    <span class="hljs-keyword">const</span> el = <span class="hljs-keyword">new</span> parentEl.constructor.PickedElement()
+
+    el.config = { ...el.config, ...this.itemElementConfig }
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> k <span class="hljs-keyword">of</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.itemElementAttributes)) el.setAttribute(k, <span class="hljs-built_in">this</span>.itemElementAttributes[k])</pre></div>
+          
+        
+          
+          <p>Convert string into data if necessary</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> data === <span class="hljs-string">&#x27;string&#x27;</span>) {
+      <span class="hljs-keyword">if</span> (!data.length) <span class="hljs-keyword">return</span>
+      data = parentEl.stringToData(data)
+      <span class="hljs-keyword">if</span> (!data.valid) {
+        el.toggleAttribute(<span class="hljs-string">&#x27;invalid&#x27;</span>, <span class="hljs-literal">true</span>)
+        <span class="hljs-keyword">if</span> (!force) <span class="hljs-keyword">return</span>
+      }
+    }
+    el.data = data
+
+    <span class="hljs-keyword">const</span> list = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#list&#x27;</span>)
+    <span class="hljs-keyword">const</span> span = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;span&#x27;</span>)</pre></div>
+          
+        
+          
+          <p>-1 means that it will not in the list of tabs, but
+it will be focusable (spans aren’t by default)</p>
+
+          
+            <div class='highlight'><pre>    span.setAttribute(<span class="hljs-string">&#x27;tabindex&#x27;</span>, -<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">const</span> ta = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#ta&#x27;</span>)
+    <span class="hljs-keyword">const</span> removeBtn = <span class="hljs-built_in">this</span>._createRemoveBtn()
+
+    span.onkeydown = <span class="hljs-built_in">this</span>._handleKeyEvents.bind(<span class="hljs-built_in">this</span>)</pre></div>
+          
+        
+          
+          <p>Span will be not in the list of tabs
+Necessary since this is a button and it IS
+in tab list by default</p>
+
+          
+            <div class='highlight'><pre>    removeBtn.setAttribute(<span class="hljs-string">&#x27;tabindex&#x27;</span>, -<span class="hljs-number">1</span>)
+    span.appendChild(el)
+    el.appendChild(removeBtn)
+
+    list.insertBefore(span, ta)
+    ta.value = <span class="hljs-string">&#x27;&#x27;</span>
+
+    <span class="hljs-built_in">this</span>._updateNativeInputValue()</pre></div>
+          
+        
+          
+          <p>Rerun validator</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (!skipValidation) {
+      <span class="hljs-built_in">this</span>.setCustomValidity(<span class="hljs-string">&#x27;&#x27;</span>)
+      <span class="hljs-built_in">this</span>.reportValidity()
+    }
+  }
+
+  get textInputValue () {
+    <span class="hljs-keyword">const</span> targetElementTextArea = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#ta&#x27;</span>)
+    <span class="hljs-keyword">return</span> targetElementTextArea
+      ? targetElementTextArea.value
+      : <span class="hljs-string">&#x27;&#x27;</span>
+  }
+
+  setPickedElement (itemElement, itemElementConfig, itemElementAttributes) {
+    <span class="hljs-built_in">this</span>.itemElement = itemElement
+    <span class="hljs-built_in">this</span>.itemElementConfig = itemElementConfig
+    <span class="hljs-built_in">this</span>.itemElementAttributes = itemElementAttributes
+  }
+}
+
+<span class="hljs-built_in">window</span>.customElements.define(<span class="hljs-string">&#x27;ee-autocomplete-input-spans&#x27;</span>, EeAutocompleteInputSpans)</pre></div>
+          
+        
+      </article>
+
+        
+    </section>
+  </main>
+  <footer></footer>
+</body>
+<script>
+  const menuBtn = document.getElementById('menu-btn')
+  const drawer = document.getElementById('drawer')
+  menuBtn.addEventListener('click', () => {
+    requestAnimationFrame(() => {
+      drawer.toggleAttribute('open')
+    })
+  })
+</script>
+
+
+
+
+</html>

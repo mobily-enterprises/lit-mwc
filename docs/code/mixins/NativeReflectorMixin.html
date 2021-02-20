@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+  <title>NativeReflectorMixin</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="../../tpe.css" />
+
+
+  
+
+
+</head>
+<body>
+  <header class="header">
+    <div class="topbar">
+      <button id="menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
+      <div id="logo" alt="TPE">
+      </div>
+      <h3 class="page-title">NativeReflectorMixin</h3>
+      <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
+      
+        <nav class="header-menu" role="navigation">
+          <ul>
+            
+              
+              
+                <li>
+                    <a class="source " href="../../index.html">
+                        home
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../get-started.html">
+                        get started
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../documentation.html">
+                        documentation
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../codelabs.html">
+                        codelabs
+                    </a>
+                </li>
+              
+            
+              
+              
+            
+              
+              
+                <li>
+                    <a class="source  current " href="../../code.html">
+                        code
+                    </a>
+                </li>
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+          </ul>
+        </nav>
+      
+      <div class="links">
+        <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <title>GitHub icon</title>
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+  <main role="main">
+    
+      <nav id="drawer" class="side-menu" role="navigation">
+        <ul>
+          
+            
+            
+              <li>
+                  <a class="source " href="../../index.html">
+                      home
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../get-started.html">
+                      get started
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../documentation.html">
+                      documentation
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../codelabs.html">
+                      codelabs
+                  </a>
+              </li>
+            
+          
+            
+            
+          
+            
+            
+              <li>
+                  <a class="source  current " href="../../code.html">
+                      code
+                  </a>
+              </li>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </ul>
+      </nav>
+    
+    <section class="content-page">
+
+
+      
+        <nav3 class="header-menu" role="navigation">
+          <ul>
+            
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+                <li>
+                  <a class="source  indented " href="AddHasValueAttributeMixin.html">
+                      code/mixins/AddHasValueAttributeMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="DraggableElementMixin.html">
+                      code/mixins/DraggableElementMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="DraggableListMixin.html">
+                      code/mixins/DraggableListMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="FormElementMixin.html">
+                      code/mixins/FormElementMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="InputMixin.html">
+                      code/mixins/InputMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="LabelsMixin.html">
+                      code/mixins/LabelsMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented  current " href="NativeReflectorMixin.html">
+                      code/mixins/NativeReflectorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="NativeValidatorMixin.html">
+                      code/mixins/NativeValidatorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="StyleableMixin.html">
+                      code/mixins/StyleableMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="SyntheticValidatorMixin.html">
+                      code/mixins/SyntheticValidatorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ThemeableMixin.html">
+                      code/mixins/ThemeableMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/babel.config.html">
+                      code/elements/babel.config.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-autocomplete-input-spans.html">
+                      code/elements/ee-autocomplete-input-spans.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-autocomplete-item-country.html">
+                      code/elements/ee-autocomplete-item-country.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-autocomplete-item-email.html">
+                      code/elements/ee-autocomplete-item-email.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-autocomplete-item-li.html">
+                      code/elements/ee-autocomplete-item-li.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-autocomplete.html">
+                      code/elements/ee-autocomplete.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-cell.html">
+                      code/elements/ee-cell.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-drawer.html">
+                      code/elements/ee-drawer.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-fab.html">
+                      code/elements/ee-fab.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-fade-in.html">
+                      code/elements/ee-fade-in.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-header.html">
+                      code/elements/ee-header.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-nav-bar.html">
+                      code/elements/ee-nav-bar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-network.html">
+                      code/elements/ee-network.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-row.html">
+                      code/elements/ee-row.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-snack-bar.html">
+                      code/elements/ee-snack-bar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-table.html">
+                      code/elements/ee-table.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-tabs.html">
+                      code/elements/ee-tabs.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/ee-toolbar.html">
+                      code/elements/ee-toolbar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/en-form.html">
+                      code/elements/en-form.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/en-input-range.html">
+                      code/elements/en-input-range.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/htmlApi.html">
+                      code/elements/htmlApi.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/loader.html">
+                      code/elements/loader.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-button.html">
+                      code/elements/nn-button.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-form.html">
+                      code/elements/nn-form.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-button.html">
+                      code/elements/nn-input-button.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-checkbox.html">
+                      code/elements/nn-input-checkbox.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-color.html">
+                      code/elements/nn-input-color.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-date.html">
+                      code/elements/nn-input-date.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-date-time-local.html">
+                      code/elements/nn-input-date-time-local.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-email.html">
+                      code/elements/nn-input-email.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-file.html">
+                      code/elements/nn-input-file.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-month.html">
+                      code/elements/nn-input-month.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-number.html">
+                      code/elements/nn-input-number.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-password.html">
+                      code/elements/nn-input-password.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-radio.html">
+                      code/elements/nn-input-radio.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-range.html">
+                      code/elements/nn-input-range.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-search.html">
+                      code/elements/nn-input-search.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-submit.html">
+                      code/elements/nn-input-submit.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-tel.html">
+                      code/elements/nn-input-tel.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-text.html">
+                      code/elements/nn-input-text.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-time.html">
+                      code/elements/nn-input-time.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-url.html">
+                      code/elements/nn-input-url.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-input-week.html">
+                      code/elements/nn-input-week.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-meter.html">
+                      code/elements/nn-meter.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-progress.html">
+                      code/elements/nn-progress.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-select.html">
+                      code/elements/nn-select.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/nn-textarea.html">
+                      code/elements/nn-textarea.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/rollup.config.html">
+                      code/elements/rollup.config.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/tpe-babel.html">
+                      code/elements/tpe-babel.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../elements/tpe.html">
+                      code/elements/tpe.js
+                  </a>
+                </li>
+            
+          </ul>
+        </nav3>
+      
+
+      
+      <article>
+        
+          
+          <p>This is the centrepiece of the <code>nn-</code> elements. Every <code>nn-</code> element has the
+characteristic of being basically a native element with theming steroids.
+Each <code>nn-</code> element has, in its template, a native element marked as
+<code>id=&quot;native&quot;</code> which identifies the element they represent. For example
+the <code>Button.js</code> file will implement <code>nn-button</code> element, which in turn will
+have <code>&lt;button id=&quot;native&quot;</code> in its template.</p>
+<p>The approach to <code>nn-</code> elements is to reflect as much as possible, in terms
+of properties and attributes, from the <code>nn-</code> element down to the <code>native</code> one.</p>
+<p>This means that the <code>nn-</code> element is a “gateway” to properties and attributes
+of the actual native element inside.</p>
+<p>For example writing:</p>
+<pre><code>&lt;nn-button label=<span class="hljs-string">&quot;Some label&quot;</span>&gt;&lt;/nn-button&gt;
+</code></pre>
+<p>Will imply that the contained <code>&lt;button&gt;</code> element (which is marked as
+<code>native</code>) also has the <code>label</code> attribute set to <code>Some label</code>.</p>
+<p>The idea is that between <code>&lt;nn-button&gt;</code> and <code>&lt;button&gt;</code> <em>everything</em> is
+reflected. This is great in theory, but there is a level of trickery
+required to make things work properly. For example, some attributes will
+<em>always</em> need to be skipped (<code>id</code>, <code>style</code>, <code>class</code>). Also, it’s impossible
+to simply reflect every property, since 1) they could be anywhere in the
+prototype chain 2) Some properties should never be reflected (see:
+<code>setAttribute()</code>, <code>hasChildNodes()</code>, and so on).</p>
+<p>So, the approach is:</p>
+<ul>
+<li>All attributes are reflected, <em>except</em> some that are blacklisted (in
+<code>this.skipAttributes</code>)</li>
+<li>Only properties/methods listed in <code>this.reflectProperties</code> are reflected.
+Each element will provide a comprehensive list of reflected properties, which
+will depend on the HTML specs of the targeted <code>native</code> element.</li>
+<li>Some “boot” properties are assigned when the element is first updated.</li>
+</ul>
+<h2 id="into-the-code">Into the code</h2>
+
+          
+        
+          
+          <p>First of all, NativeRefletorMixin is declared as a mixing in function:</p>
+
+          
+            <div class='highlight'><pre><span class="hljs-keyword">import</span> { element } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../htmlApi.js&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> NativeReflectorMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{ <span class="hljs-comment">// eslint-disable-line</span></pre></div>
+          
+        
+          
+          <p>The firstUpdated method is used to perform one-time work after the element’s
+template has been created. In this case, it will need to:</p>
+<ol>
+<li>Find the native element (marked with <code>id=&quot;native&quot;</code>)</li>
+<li>Start reflection of attributes and properties</li>
+</ol>
+
+          
+            <div class='highlight'><pre>    firstUpdated () {
+      <span class="hljs-comment">/* Find the native element */</span>
+      <span class="hljs-built_in">this</span>.native = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#native&#x27;</span>)
+
+      <span class="hljs-comment">/* Reflect all attributes and properties */</span>
+      <span class="hljs-comment">/*  - all properties are reflected except some (listed in skipAttributes) */</span>
+      <span class="hljs-comment">/*  - only elected properties are reflected (listed in reflectProperties) */</span>
+      <span class="hljs-built_in">this</span>._reflectAttributesAndProperties()
+    }
+
+    get reflectProperties () {
+      <span class="hljs-keyword">return</span> element
+    }
+
+    get skipProperties () {
+      <span class="hljs-keyword">return</span> [<span class="hljs-string">&#x27;style&#x27;</span>]
+    }
+
+    get skipAttributes () {
+      <span class="hljs-keyword">return</span> [<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;style&#x27;</span>, <span class="hljs-string">&#x27;class&#x27;</span>]
+    }
+
+    afterSettingProperty () {}
+
+    getAttribute (attr) {
+      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.native || <span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.getAttribute(attr)
+      }
+
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.native.getAttribute(attr)
+
+      <span class="hljs-comment">/*
+      const nativeAttribute = this.native.getAttribute(attr)
+      if (nativeAttribute !== null) return nativeAttribute
+
+</span></pre></div>
+          
+        
+          
+          <p>This shouldn’t really happen, but it’s here as a fallback
+TODO: Maybe delete it and always return the native’s value regardless</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.getAttribute(attr)
+      */
+    }
+
+    setAttribute (attr, value) {</pre></div>
+          
+        
+          
+          <p>Set the attribute</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-built_in">super</span>.setAttribute(attr, value)</pre></div>
+          
+        
+          
+          <p>Skip the ones in the skipAttributes list</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
+          
+        
+          
+          <p>Assign the same attribute to the contained native
+element, taking care of the ‘nn’ syntax</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-built_in">this</span>._setSubAttr(attr, value)
+    }
+
+    removeAttribute (attr) {</pre></div>
+          
+        
+          
+          <p>Set the attribute</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-built_in">super</span>.removeAttribute(attr)</pre></div>
+          
+        
+          
+          <p>Skip the ones in the skipAttributes list</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
+          
+        
+          
+          <p>Assign the same attribute to the contained native
+element, taking care of the ‘nn’ syntax</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-built_in">this</span>._setSubAttr(attr, <span class="hljs-literal">null</span>)
+    }
+
+    _setSubAttr (subAttr, attrValue) {
+      <span class="hljs-keyword">const</span> tokens = subAttr.split(<span class="hljs-string">&#x27;::&#x27;</span>)</pre></div>
+          
+        
+          
+          <p>Safeguard: if this.native is not yet set, it means that
+an attribute was set BEFORE the element was rendered. If that
+is the case, simply give up. _reflectAttributesAndProperties() will
+be run afterwards to sync things up anyway</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.native) <span class="hljs-keyword">return</span></pre></div>
+          
+        
+          
+          <p>No :: found, simply change attribute in <code>native</code></p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (tokens.length === <span class="hljs-number">1</span>) {
+        (attrValue === <span class="hljs-literal">null</span>)
+          ? <span class="hljs-built_in">this</span>.native.removeAttribute(subAttr)
+          : <span class="hljs-built_in">this</span>.native.setAttribute(subAttr, attrValue)</pre></div>
+          
+        
+          
+          <p>Yes, :: is there: assign the attribute to the element with the
+corresponding ID</p>
+
+          
+            <div class='highlight'><pre>      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tokens.length === <span class="hljs-number">2</span>) {
+        <span class="hljs-keyword">const</span> dstElement = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">`#<span class="hljs-subst">${tokens[<span class="hljs-number">0</span>]}</span>`</span>)
+        <span class="hljs-keyword">if</span> (dstElement) {
+          attrValue === <span class="hljs-literal">null</span>
+            ? dstElement.removeAttribute(tokens[<span class="hljs-number">1</span>])
+            : dstElement.setAttribute(tokens[<span class="hljs-number">1</span>], attrValue)
+        }
+      }
+    }
+
+    _reflectAttributesAndProperties () {</pre></div>
+          
+        
+          
+          <p>STEP #1: ATTRIBUTES FIRST</p>
+<p>Assign all starting attribute to the destination element</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> attributeObject <span class="hljs-keyword">of</span> <span class="hljs-built_in">this</span>.attributes) {
+        <span class="hljs-keyword">const</span> attr = attributeObject.name
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">continue</span>
+        <span class="hljs-built_in">this</span>._setSubAttr(attr, <span class="hljs-built_in">super</span>.getAttribute(attr))
+      }</pre></div>
+          
+        
+          
+          <p>Observe changes in attribute from the source element, and reflect
+them to the destination element</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-keyword">const</span> thisObserver = <span class="hljs-keyword">new</span> MutationObserver(<span class="hljs-function">(<span class="hljs-params">mutations</span>) =&gt;</span> {
+        mutations.forEach(<span class="hljs-function">(<span class="hljs-params">mutation</span>) =&gt;</span> {
+          <span class="hljs-keyword">if</span> (mutation.type === <span class="hljs-string">&#x27;attributes&#x27;</span>) {
+            <span class="hljs-keyword">const</span> attr = mutation.attributeName</pre></div>
+          
+        
+          
+          <p>Don’t reflect forbidden attributes</p>
+
+          
+            <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
+          
+        
+          
+          <p>Don’t reflect attributes with ::</p>
+
+          
+            <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (attr.indexOf(<span class="hljs-string">&#x27;::&#x27;</span>) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
+          
+        
+          
+          <p>Check if the value has changed. If it hasn’t, there is no
+point in re-assigning it, especially since the observer
+might have been triggered by this very mixin</p>
+
+          
+            <div class='highlight'><pre>            <span class="hljs-keyword">const</span> newValue = <span class="hljs-built_in">this</span>.native.getAttribute(attr)
+            <span class="hljs-keyword">const</span> thisValue = <span class="hljs-built_in">super</span>.getAttribute(attr)
+            <span class="hljs-keyword">if</span> (newValue === thisValue) <span class="hljs-keyword">return</span></pre></div>
+          
+        
+          
+          <p>Assign the new value</p>
+
+          
+            <div class='highlight'><pre>            (newValue === <span class="hljs-literal">null</span>)
+              ? <span class="hljs-built_in">super</span>.removeAttribute(attr)
+              : <span class="hljs-built_in">super</span>.setAttribute(attr, newValue)
+          }
+        })
+      })
+      thisObserver.observe(<span class="hljs-built_in">this</span>.native, { <span class="hljs-attr">attributes</span>: <span class="hljs-literal">true</span> })</pre></div>
+          
+        
+          
+          <p>STEP #2: METHODS (as bound functions) AND PROPERTIES (as getters/setters)</p>
+
+          
+            <div class='highlight'><pre>      <span class="hljs-keyword">const</span> uniqProps = [...new <span class="hljs-built_in">Set</span>(<span class="hljs-built_in">this</span>.reflectProperties)]
+      <span class="hljs-keyword">const</span> proto = <span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-built_in">this</span>)
+
+      <span class="hljs-keyword">if</span> (!proto._alreadyReflecting) {
+        uniqProps.forEach(<span class="hljs-function"><span class="hljs-params">prop</span> =&gt;</span> {
+          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipProperties.indexOf(prop) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>
+          <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">Object</span>.getPrototypeOf(<span class="hljs-built_in">this</span>), prop, {
+            <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+              <span class="hljs-keyword">const</span> dst = <span class="hljs-built_in">this</span>.native
+              <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.native) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dst[prop] === <span class="hljs-string">&#x27;function&#x27;</span>) <span class="hljs-keyword">return</span> dst[prop].bind(dst)
+              <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> dst[prop]
+            },
+            <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newValue</span>) </span>{
+              <span class="hljs-keyword">const</span> dst = <span class="hljs-built_in">this</span>.native</pre></div>
+          
+        
+          
+          <p>It IS possile that this.native isn’t set yet, since the
+property observer is on the prototype. So, you could have
+one nn-input-box without a value assigned (and the observer is
+installed for prototype) and then another one with a property
+assigned at creation (observer is set, but this.native is not yet set)
+If that is the case, it will assign the object’s prop. Then,
+when firstUpdated() runs, it will forward-assign this value to
+this.native</p>
+
+          
+            <div class='highlight'><pre>              <span class="hljs-keyword">if</span> (!dst) {
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> newValue !== <span class="hljs-string">&#x27;undefined&#x27;</span>) {
+                  <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">this</span>, prop, { <span class="hljs-attr">value</span>: newValue, <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span> })
+                }
+                <span class="hljs-keyword">return</span>
+              }
+
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">this</span>.beforeSettingProperty === <span class="hljs-string">&#x27;function&#x27;</span>) {
+                <span class="hljs-built_in">this</span>.beforeSettingProperty(prop, newValue)
+              }
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dst[prop] === <span class="hljs-string">&#x27;function&#x27;</span>) <span class="hljs-keyword">return</span>
+              <span class="hljs-keyword">const</span> oldValue = dst[prop]</pre></div>
+          
+        
+          
+          <p>Set the new value</p>
+
+          
+            <div class='highlight'><pre>              dst[prop] = newValue</pre></div>
+          
+        
+          
+          <p>This is required by litElement since it won’t
+create a setter if there is already one</p>
+
+          
+            <div class='highlight'><pre>              <span class="hljs-built_in">this</span>.requestUpdate(prop, oldValue)
+
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">this</span>.afterSettingProperty === <span class="hljs-string">&#x27;function&#x27;</span>) {
+                <span class="hljs-built_in">this</span>.afterSettingProperty(prop, newValue)
+              }
+            },
+            <span class="hljs-attr">configurable</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>
+          })
+        })
+        proto._alreadyReflecting = <span class="hljs-literal">true</span>
+      }</pre></div>
+          
+        
+          
+          <p>Assign existing properties, in case the setter had already been triggered
+BEFORE firstUpdated() (in which case, the setter would have assigned
+OBJECT properties, without reflection)</p>
+
+          
+            <div class='highlight'><pre>      uniqProps.forEach(<span class="hljs-function"><span class="hljs-params">prop</span> =&gt;</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipProperties.indexOf(prop) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>
+
+        <span class="hljs-keyword">let</span> propValue
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(<span class="hljs-built_in">this</span>, prop)) {
+          propValue = <span class="hljs-built_in">this</span>[prop]
+          <span class="hljs-keyword">delete</span> <span class="hljs-built_in">this</span>[prop]
+          <span class="hljs-built_in">this</span>[prop] = propValue
+        }
+      })
+    }
+  }
+}</pre></div>
+          
+        
+      </article>
+
+        
+    </section>
+  </main>
+  <footer></footer>
+</body>
+<script>
+  const menuBtn = document.getElementById('menu-btn')
+  const drawer = document.getElementById('drawer')
+  menuBtn.addEventListener('click', () => {
+    requestAnimationFrame(() => {
+      drawer.toggleAttribute('open')
+    })
+  })
+</script>
+
+
+
+
+</html>

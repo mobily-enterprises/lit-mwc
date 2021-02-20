@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+  <title>ee-tabs.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="../../tpe.css" />
+
+
+  
+
+
+</head>
+<body>
+  <header class="header">
+    <div class="topbar">
+      <button id="menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </button>
+      <div id="logo" alt="TPE">
+      </div>
+      <h3 class="page-title">ee-tabs.js</h3>
+      <!-- <img id="logo" src="/images/TPE_logo_white.png" height="60px" alt="TPE" > -->
+      
+        <nav class="header-menu" role="navigation">
+          <ul>
+            
+              
+              
+                <li>
+                    <a class="source " href="../../index.html">
+                        home
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../get-started.html">
+                        get started
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../documentation.html">
+                        documentation
+                    </a>
+                </li>
+              
+            
+              
+              
+                <li>
+                    <a class="source " href="../../codelabs.html">
+                        codelabs
+                    </a>
+                </li>
+              
+            
+              
+              
+            
+              
+              
+                <li>
+                    <a class="source  current " href="../../code.html">
+                        code
+                    </a>
+                </li>
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+              
+              
+            
+          </ul>
+        </nav>
+      
+      <div class="links">
+        <a href="https://github.com/mobily-enterprises/tpe" target="_blank" title="View on GitHub">
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <title>GitHub icon</title>
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+  <main role="main">
+    
+      <nav id="drawer" class="side-menu" role="navigation">
+        <ul>
+          
+            
+            
+              <li>
+                  <a class="source " href="../../index.html">
+                      home
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../get-started.html">
+                      get started
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../documentation.html">
+                      documentation
+                  </a>
+              </li>
+            
+          
+            
+            
+              <li>
+                  <a class="source " href="../../codelabs.html">
+                      codelabs
+                  </a>
+              </li>
+            
+          
+            
+            
+          
+            
+            
+              <li>
+                  <a class="source  current " href="../../code.html">
+                      code
+                  </a>
+              </li>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </ul>
+      </nav>
+    
+    <section class="content-page">
+
+
+      
+        <nav3 class="header-menu" role="navigation">
+          <ul>
+            
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/AddHasValueAttributeMixin.html">
+                      code/mixins/AddHasValueAttributeMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/DraggableElementMixin.html">
+                      code/mixins/DraggableElementMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/DraggableListMixin.html">
+                      code/mixins/DraggableListMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/FormElementMixin.html">
+                      code/mixins/FormElementMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/InputMixin.html">
+                      code/mixins/InputMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/LabelsMixin.html">
+                      code/mixins/LabelsMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/NativeReflectorMixin.html">
+                      code/mixins/NativeReflectorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/NativeValidatorMixin.html">
+                      code/mixins/NativeValidatorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/StyleableMixin.html">
+                      code/mixins/StyleableMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/SyntheticValidatorMixin.html">
+                      code/mixins/SyntheticValidatorMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="../mixins/ThemeableMixin.html">
+                      code/mixins/ThemeableMixin.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="babel.config.html">
+                      code/elements/babel.config.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-input-spans.html">
+                      code/elements/ee-autocomplete-input-spans.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-item-country.html">
+                      code/elements/ee-autocomplete-item-country.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-item-email.html">
+                      code/elements/ee-autocomplete-item-email.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete-item-li.html">
+                      code/elements/ee-autocomplete-item-li.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-autocomplete.html">
+                      code/elements/ee-autocomplete.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-cell.html">
+                      code/elements/ee-cell.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-drawer.html">
+                      code/elements/ee-drawer.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-fab.html">
+                      code/elements/ee-fab.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-fade-in.html">
+                      code/elements/ee-fade-in.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-header.html">
+                      code/elements/ee-header.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-nav-bar.html">
+                      code/elements/ee-nav-bar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-network.html">
+                      code/elements/ee-network.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-row.html">
+                      code/elements/ee-row.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-snack-bar.html">
+                      code/elements/ee-snack-bar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-table.html">
+                      code/elements/ee-table.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented  current " href="ee-tabs.html">
+                      code/elements/ee-tabs.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="ee-toolbar.html">
+                      code/elements/ee-toolbar.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="en-form.html">
+                      code/elements/en-form.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="en-input-range.html">
+                      code/elements/en-input-range.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="htmlApi.html">
+                      code/elements/htmlApi.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="loader.html">
+                      code/elements/loader.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-button.html">
+                      code/elements/nn-button.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-form.html">
+                      code/elements/nn-form.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-button.html">
+                      code/elements/nn-input-button.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-checkbox.html">
+                      code/elements/nn-input-checkbox.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-color.html">
+                      code/elements/nn-input-color.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-date.html">
+                      code/elements/nn-input-date.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-date-time-local.html">
+                      code/elements/nn-input-date-time-local.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-email.html">
+                      code/elements/nn-input-email.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-file.html">
+                      code/elements/nn-input-file.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-month.html">
+                      code/elements/nn-input-month.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-number.html">
+                      code/elements/nn-input-number.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-password.html">
+                      code/elements/nn-input-password.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-radio.html">
+                      code/elements/nn-input-radio.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-range.html">
+                      code/elements/nn-input-range.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-search.html">
+                      code/elements/nn-input-search.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-submit.html">
+                      code/elements/nn-input-submit.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-tel.html">
+                      code/elements/nn-input-tel.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-text.html">
+                      code/elements/nn-input-text.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-time.html">
+                      code/elements/nn-input-time.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-url.html">
+                      code/elements/nn-input-url.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-input-week.html">
+                      code/elements/nn-input-week.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-meter.html">
+                      code/elements/nn-meter.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-progress.html">
+                      code/elements/nn-progress.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-select.html">
+                      code/elements/nn-select.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="nn-textarea.html">
+                      code/elements/nn-textarea.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="rollup.config.html">
+                      code/elements/rollup.config.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="tpe-babel.html">
+                      code/elements/tpe-babel.js
+                  </a>
+                </li>
+            
+              
+              
+                <li>
+                  <a class="source  indented " href="tpe.html">
+                      code/elements/tpe.js
+                  </a>
+                </li>
+            
+          </ul>
+        </nav3>
+      
+
+      
+      <article>
+        
+          
+          
+          
+            <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
+<span class="hljs-keyword">import</span> { StyleableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/StyleableMixin&#x27;</span>
+<span class="hljs-keyword">import</span> { ThemeableMixin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./mixins/ThemeableMixin&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeTabs</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ThemeableMixin</span>(&#x27;<span class="hljs-title">ee</span>-<span class="hljs-title">tabs</span>&#x27;)(<span class="hljs-title">StyleableMixin</span>(<span class="hljs-title">LitElement</span>)) </span>{
+  <span class="hljs-keyword">static</span> get styles () {
+    <span class="hljs-keyword">return</span> [
+      <span class="hljs-built_in">super</span>.styles,
+      css`<span class="css">
+        <span class="hljs-selector-pseudo">:host</span> {
+          <span class="hljs-attribute">position</span>: relative;
+          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(<span class="hljs-built_in">var</span>(--ee-tabs-lines-color, <span class="hljs-number">#bbb</span>));
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> {
+          <span class="hljs-attribute">position</span>: <span class="hljs-built_in">var</span>(--ee-tabs-nav-position, sticky);
+          <span class="hljs-attribute">top</span>:<span class="hljs-number">0</span>;
+          <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-lines-color, <span class="hljs-number">#bbb</span>);
+          <span class="hljs-attribute">display</span>: flex;
+          <span class="hljs-attribute">height</span>: <span class="hljs-built_in">var</span>(--ee-tabs-height, <span class="hljs-number">32px</span>);
+          <span class="hljs-attribute">z-index</span>: <span class="hljs-built_in">var</span>(--ee-tabs-z-index);
+          <span class="hljs-attribute">overflow</span>: <span class="hljs-built_in">var</span>(--ee-tabs-nav-overflow);
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-id">#contentContainer</span> {
+          <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+        }
+
+        <span class="hljs-comment">/* <span class="hljs-doctag">TODO:</span> Why don&#x27;t these selectors work? */</span>
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-id">#contentContainer</span> <span class="hljs-selector-pseudo">::slotted</span>(*) {
+          <span class="hljs-attribute">display</span>: none;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-id">#contentContainer</span> <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-attr">[active]</span>) {
+          <span class="hljs-attribute">display</span>: initial;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> <span class="hljs-selector-pseudo">::slotted</span>(*) <span class="hljs-selector-class">.icon</span> {
+          fill: <span class="hljs-built_in">var</span>(--ee-tabs-color);
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-attr">[active]</span>) <span class="hljs-selector-class">.icon</span> {
+          fill: <span class="hljs-built_in">var</span>(--ee-tabs-active-color, black);
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*) {
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-tabs-color, black);
+          <span class="hljs-attribute">text-decoration</span>: none;
+          <span class="hljs-attribute">line-height</span>: <span class="hljs-built_in">var</span>(--ee-tabs-height, <span class="hljs-number">20px</span>);
+          <span class="hljs-attribute">padding</span>: <span class="hljs-number">4px</span> <span class="hljs-number">12px</span>;
+          <span class="hljs-attribute">border</span>: unset;
+          <span class="hljs-attribute">border-left</span>: <span class="hljs-number">0.5px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-lines-color, <span class="hljs-number">#bbb</span>);
+          <span class="hljs-attribute">border-right</span>: <span class="hljs-number">0.5px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-lines-color, <span class="hljs-number">#bbb</span>);
+          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">4px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-background-color, <span class="hljs-number">#bbb</span>);
+          <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.9em</span>;
+          <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
+          <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+          <span class="hljs-attribute">text-align</span>: center;
+          <span class="hljs-attribute">background-color</span>:  <span class="hljs-built_in">var</span>(--ee-tabs-background-color, whitesmoke);
+          <span class="hljs-attribute">cursor</span>: default;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span>(<span class="hljs-selector-attr">[min-width-tabs]</span>) <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*) {
+          <span class="hljs-attribute">max-width</span>: max-content;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-pseudo">:last-child</span>) {
+          <span class="hljs-attribute">border-right-color</span>: <span class="hljs-built_in">var</span>(--ee-tabs-background-color, <span class="hljs-number">#bbb</span>)
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-pseudo">:first</span>-child) {
+          <span class="hljs-attribute">border-left-color</span>: <span class="hljs-built_in">var</span>(--ee-tabs-background-color, <span class="hljs-number">#bbb</span>)
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-attr">[active]</span>) {
+          <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--ee-tabs-active-color);
+          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">4px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-active-color, black);
+          <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--ee-tabs-active-background-color, white);
+          <span class="hljs-attribute">font-size</span>: bold;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-pseudo">:focus</span>),
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-pseudo">:hover</span>) {
+          <span class="hljs-comment">/* outline:0 ; */</span>
+          <span class="hljs-attribute">border-left</span>: <span class="hljs-number">0.5px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-lines-color, <span class="hljs-number">#bbb</span>);
+          <span class="hljs-attribute">border-right</span>: <span class="hljs-number">0.5px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-lines-color, <span class="hljs-number">#bbb</span>);
+          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">4px</span> solid <span class="hljs-built_in">var</span>(--ee-tabs-active-color, black);
+          <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">brightness</span>(<span class="hljs-number">115%</span>)
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-pseudo">:active</span>) {
+          <span class="hljs-attribute">background</span>: <span class="hljs-number">#cccccc</span>;
+          <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">4px</span> solid <span class="hljs-number">#bdbdbd</span>;
+          <span class="hljs-attribute">box-shadow</span>: none;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-attr">[disabled]</span>) {
+          <span class="hljs-attribute">box-shadow</span>: none
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-class">.icon</span><span class="hljs-selector-pseudo">:active</span>) {
+          <span class="hljs-attribute">background</span>: <span class="hljs-number">#cccccc</span>;
+          <span class="hljs-attribute">border</span>: unset;
+          <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
+        }
+
+        <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">nav</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-class">.icon</span><span class="hljs-selector-pseudo">:hover</span>) svg, <span class="hljs-selector-pseudo">:host</span> &gt; <span class="hljs-selector-pseudo">::slotted</span>(*<span class="hljs-selector-pseudo">:hover</span>) svg {
+          fill: <span class="hljs-built_in">var</span>(--ee-tabs-color, black);
+        }
+      `</span>
+    ]
+  }
+
+  <span class="hljs-keyword">static</span> get properties () {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">useHash</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;use-hash&#x27;</span> },
+      <span class="hljs-attr">passive</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span> },
+      <span class="hljs-attr">default</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span> },
+      <span class="hljs-attr">nameAttribute</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;name-attribute&#x27;</span> },
+      <span class="hljs-attr">minWidthTabs</span>: { <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>, <span class="hljs-attr">reflect</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;min-width-tabs&#x27;</span> }
+    }
+  }
+
+  <span class="hljs-title">constructor</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-built_in">super</span>()
+    <span class="hljs-built_in">this</span>.nameAttribute = <span class="hljs-string">&#x27;name&#x27;</span>
+    <span class="hljs-built_in">this</span>.useHash = <span class="hljs-literal">false</span>
+    <span class="hljs-built_in">this</span>.passive = <span class="hljs-literal">false</span>
+  }
+
+  <span class="hljs-comment">/** Tabs usage
+   * add elements within the ee-tabs tags to create tabs.
+   * Tab elements must have an name attribute, or you can set a custom value to &#x27;active-attribute&#x27;. Index support will be added soon
+   */</span>
+  render () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.themeRender) <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.themeRender()
+    <span class="hljs-keyword">return</span> html`<span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;tabs&quot;</span> @<span class="hljs-attr">slotchange</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-subst">${<span class="hljs-built_in">this</span>._manageSlottedTabs}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;contentContainer&quot;</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    `</span>
+  }
+
+  _allTabs () {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;slot#tabs&#x27;</span>).assignedElements()
+  }
+
+  _workoutHash () {
+    <span class="hljs-keyword">let</span> tab
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.useHash) {
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.location.hash) tab = <span class="hljs-built_in">window</span>.location.hash.substr(<span class="hljs-number">1</span>)
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.default) tab = <span class="hljs-built_in">this</span>.default
+      <span class="hljs-keyword">else</span> tab = <span class="hljs-built_in">this</span>._allTabs()[<span class="hljs-number">0</span>]
+    }
+    <span class="hljs-keyword">return</span> tab
+  }
+
+  firstUpdated () {
+    <span class="hljs-built_in">super</span>.firstUpdated()
+
+    <span class="hljs-keyword">const</span> tab = <span class="hljs-built_in">this</span>._workoutHash()
+    <span class="hljs-built_in">this</span>.select(tab, <span class="hljs-literal">false</span>)
+
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;popstate&#x27;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+      <span class="hljs-keyword">const</span> tab = <span class="hljs-built_in">this</span>._workoutHash()
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.useHash) {
+        <span class="hljs-built_in">this</span>.select(tab, <span class="hljs-literal">true</span>)
+      }
+    })
+  }
+
+  _isActive (el) {
+    <span class="hljs-keyword">return</span> el.hasAttribute(<span class="hljs-string">&#x27;active&#x27;</span>)
+  }
+
+  select (tab, clearAll = <span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">let</span> pages</pre></div>
+          
+        
+          
+          <p>Find the tab. If it can’t be found, end of story</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> tab === <span class="hljs-string">&#x27;string&#x27;</span>) {
+      tab = <span class="hljs-built_in">this</span>._allTabs().find(<span class="hljs-function"><span class="hljs-params">i</span> =&gt;</span> i.getAttribute(<span class="hljs-built_in">this</span>.nameAttribute) === tab)
+    }
+    <span class="hljs-keyword">if</span> (!tab) <span class="hljs-keyword">return</span></pre></div>
+          
+        
+          
+          <p>If clearAll was passed, clear selection of tabs and (if !passive) pages</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (clearAll) {
+      pages = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;slot[name=&quot;content&quot;]&#x27;</span>).assignedElements()
+
+      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.passive) {
+        <span class="hljs-built_in">this</span>._clearAll(<span class="hljs-built_in">this</span>._allTabs(), pages)
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-built_in">this</span>._clearAll(<span class="hljs-built_in">this</span>._allTabs())
+      }
+    }</pre></div>
+          
+        
+          
+          <p>Activate the tab</p>
+
+          
+            <div class='highlight'><pre>    tab.toggleAttribute(<span class="hljs-string">&#x27;active&#x27;</span>, <span class="hljs-literal">true</span>)
+    tab.active = <span class="hljs-literal">true</span></pre></div>
+          
+        
+          
+          <p>If !passive, activate the corresponding page</p>
+
+          
+            <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.passive) {
+      <span class="hljs-keyword">const</span> name = tab.getAttribute(<span class="hljs-built_in">this</span>.nameAttribute)
+      <span class="hljs-keyword">const</span> activePage = pages.find(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> el.getAttribute(<span class="hljs-built_in">this</span>.nameAttribute) === name)
+      <span class="hljs-keyword">if</span> (activePage) {
+        activePage.toggleAttribute(<span class="hljs-string">&#x27;active&#x27;</span>, <span class="hljs-literal">true</span>)
+        activePage.active = <span class="hljs-literal">true</span>
+      }
+    }
+  }</pre></div>
+          
+        
+          
+          <p>Clear the seletecAttribute from the current active tab and page</p>
+
+          
+            <div class='highlight'><pre>  _clearAll (tabs, pages) {</pre></div>
+          
+        
+          
+          
+          
+            <div class='highlight'><pre>    <span class="hljs-keyword">const</span> currentTab = tabs.find(<span class="hljs-built_in">this</span>._isActive.bind(<span class="hljs-built_in">this</span>))
+    <span class="hljs-keyword">if</span> (currentTab) {
+      currentTab.toggleAttribute(<span class="hljs-string">&#x27;active&#x27;</span>, <span class="hljs-literal">false</span>)
+      currentTab.active = <span class="hljs-literal">false</span>
+    }
+
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.passive) {
+      <span class="hljs-keyword">const</span> currentPage = pages.find(<span class="hljs-built_in">this</span>._isActive.bind(<span class="hljs-built_in">this</span>))
+      <span class="hljs-keyword">if</span> (currentPage) {
+        currentPage.toggleAttribute(<span class="hljs-string">&#x27;active&#x27;</span>, <span class="hljs-literal">false</span>)
+        currentPage.active = <span class="hljs-literal">false</span>
+      }
+    }
+  }</pre></div>
+          
+        
+          
+          <p>This adds a click event listener to all slotted children (the tabs)</p>
+
+          
+            <div class='highlight'><pre>  _manageSlottedTabs (e) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> element <span class="hljs-keyword">of</span> <span class="hljs-built_in">this</span>._allTabs()) {
+      element.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> { <span class="hljs-built_in">this</span>.select.bind(<span class="hljs-built_in">this</span>)(e.currentTarget) })
+      element.setAttribute(<span class="hljs-string">&#x27;tabindex&#x27;</span>, <span class="hljs-number">1</span>)
+    }
+
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.passive &amp;&amp; <span class="hljs-built_in">this</span>.default) {
+      <span class="hljs-built_in">this</span>.select(<span class="hljs-built_in">this</span>.default, <span class="hljs-literal">true</span>)
+    }
+  }
+}
+customElements.define(<span class="hljs-string">&#x27;ee-tabs&#x27;</span>, EeTabs)</pre></div>
+          
+        
+      </article>
+
+        
+    </section>
+  </main>
+  <footer></footer>
+</body>
+<script>
+  const menuBtn = document.getElementById('menu-btn')
+  const drawer = document.getElementById('drawer')
+  menuBtn.addEventListener('click', () => {
+    requestAnimationFrame(() => {
+      drawer.toggleAttribute('open')
+    })
+  })
+</script>
+
+
+
+
+</html>

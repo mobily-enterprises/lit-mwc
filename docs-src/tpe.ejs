@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 
 <%
-function display(s) {
-
-  if (s.match('/')) {
-    var sourceClean = source.replace(/\.[a-zA-Z]*$/, '')
-    var sc1 = sourceClean.split('/')[0]
-    return s.split('/')[0] === sourceClean.split('/')[0] && sc1 !== 'elements'
-  }
-  return true
+function displayAtTop(s) {
+  return !s.match('/')
 }
 
 function prettySource(s) {
@@ -37,6 +31,29 @@ function tocClasses(s, source) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
   <link rel="stylesheet" media="all" href="<%= css %>" />
+
+
+  <% if(source.startsWith('codelabs/')) {%>
+  <!-- Codelabs stuff -->
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+    #codelab-title {
+            display: none !important;
+    }
+  </style>
+  <% } %>
+
+
 </head>
 <body>
   <header class="header">
@@ -53,7 +70,7 @@ function tocClasses(s, source) {
           <ul>
             <% for (var i=0, l = sources.length; i < l; i++) { %>
               <% var s = sources[i]; %>
-              <% if (display(s)) { %>
+              <% if (displayAtTop(s)) { %>
                 <li>
                     <a class="source <%= tocClasses(s, source) %>" href="<%= relativeToThisFile(finalPath(s)) %>">
                         <%- prettySource(s) %>
@@ -80,7 +97,7 @@ function tocClasses(s, source) {
         <ul>
           <% for (var i=0, l = sources.length; i < l; i++) { %>
             <% var s = sources[i]; %>
-            <% if (display(s)) { %>
+            <% if (displayAtTop(s)) { %>
               <li>
                   <a class="source <%= tocClasses(s, source) %>" href="<%= relativeToThisFile(finalPath(s)) %>">
                       <%- prettySource(s) %>
@@ -92,16 +109,35 @@ function tocClasses(s, source) {
       </nav>
     <% } %>
     <section class="content-page">
-      <%-includeText(source + '.head.html', true) %>
-        <article>
-          <% for (var i = 0, l = sections.length; i<l; i++) { %>
-            <% var section = sections[i]; %>
-            <%- section.docsHtml %>
-            <% if (!(/^\s*$/).test(section.codeText)) { %>
-              <%- section.codeHtml %>
+
+
+      <% debugger; if (source.startsWith('code') ) { %>
+        <nav3 class="header-menu" role="navigation">
+          <ul>
+            <% for (var i=0, l = sources.length; i < l; i++) { %>
+              <% var s = sources[i]; %>
+              <% if (!s.startsWith('code/')) continue %>
+                <li>
+                  <a class="source <%= tocClasses(s, source) %>" href="<%= relativeToThisFile(finalPath(s)) %>">
+                      <%- s %>
+                  </a>
+                </li>
             <% } %>
+          </ul>
+        </nav3>
+      <% } %>
+
+      <%-includeText(source + '.head.html', true) %>
+      <article>
+        <% for (var i = 0, l = sections.length; i<l; i++) { %>
+          <% var section = sections[i]; %>
+          <%- section.docsHtml %>
+          <% if (!(/^\s*$/).test(section.codeText)) { %>
+            <%- section.codeHtml %>
           <% } %>
-        </article>
+        <% } %>
+      </article>
+
         <%-includeText(source + '.foot.html', true) %>
     </section>
   </main>
@@ -116,4 +152,14 @@ function tocClasses(s, source) {
     })
   })
 </script>
+
+
+<% if(source.startsWith('codelabs/')) {%>
+<script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+<script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+<script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+<script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+<script src="https://support.google.com/inapp/api.js"></script>
+<% } %>
+
 </html>

@@ -15,12 +15,12 @@
 // ## Developers
 //
 // ### Mixins
-// <<INC[mixin-descr-dev/NativeReflectorMixin.md]
-// <<INC[mixin-descr-dev/InputMixin.md]
-// <<INC[mixin-descr-dev/LabelsMixin.md]
-// <<INC[mixin-descr-dev/StyleableMixin.md]
-// <<INC[mixin-descr-dev/NativeValidatorMixin.md]
-// <<INC[mixin-descr-dev/FormElementMixin.md]
+// <<INC[code/common/mixin-descr-dev/NativeReflectorMixin.md]
+// <<INC[code/common/mixin-descr-dev/InputMixin.md]
+// <<INC[code/common/mixin-descr-dev/LabelsMixin.md]
+// <<INC[code/common/mixin-descr-dev/StyleableMixin.md]
+// <<INC[code/common/mixin-descr-dev/NativeValidatorMixin.md]
+// <<INC[code/common/mixin-descr-dev/FormElementMixin.md]
 import { LitElement, html } from 'lit-element'
 import { NativeReflectorMixin } from './mixins/NativeReflectorMixin.js'
 import { InputMixin } from './mixins/InputMixin.js'

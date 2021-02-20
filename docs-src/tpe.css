@@ -144,17 +144,17 @@ body {
   overflow: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+article h1, article h2, article h3, article h4, article h5, article h6 {
   font-family: 'Montserrat SemiBold', sans-serif;
   /* text-transform: uppercase; */
   line-height: 1.2em;
 }
 
-h1, h2 {
+article h1, article h2 {
   text-align: center;
 }
 
-a {
+article a {
   color: #2f6ec1;
   text-decoration: none;
   border-bottom: 2px solid #b8d0f9;
@@ -162,17 +162,17 @@ a {
   height: 16px;
 }
 
-a:hover {
+article a:hover {
   cursor: pointer;
   border-bottom: 3px solid #b8d0f9;
 }
 
-a:visited {
+article a:visited {
   color: #663399;
   border-bottom: 3px solid #d5b8ff;
 }
 
-b, strong {
+article b, article strong {
   font-family: "Manjari Bold";
 }
 
@@ -387,6 +387,7 @@ article {
   main {
     display: flex;
     flex-direction: row;
+    height: 100%
   }
 
   nav {
