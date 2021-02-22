@@ -112,7 +112,7 @@ function tocClasses(s, source) {
 
 
       <% if (source === 'code.md' || source.startsWith('code/') ) { %>
-        <nav3 class="header-menu" role="navigation">
+        <nav class="header-menu" role="navigation">
           <ul>
             <% for (var i=0, l = sources.length; i < l; i++) { %>
               <% var s = sources[i]; %>
@@ -124,7 +124,7 @@ function tocClasses(s, source) {
                 </li>
             <% } %>
           </ul>
-        </nav3>
+        </nav>
       <% } %>
 
       <%-includeText(source + '.head.html', true) %>
