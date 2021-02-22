@@ -497,8 +497,4 @@ blockquote::after {
     display: flex;
   }
 
-  blockquote {
-    padding: 0.5em 5em;
-  }
-
 }
