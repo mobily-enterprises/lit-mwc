@@ -367,6 +367,10 @@ article {
   font-size: 1.0em;
 }
 
+.home-compare, .home-showcase {
+  margin: 50px 0;
+}
+
 .home-compare > div, .home-showcase > div {
   box-sizing: border-box;
   width: 100%;
@@ -389,8 +393,8 @@ blockquote {
 blockquote::before, blockquote::after {
   content: '';
   position: absolute;
-  left: 25%;
   top: 0;
+  left: 25%;
   width: 50%;
   border: 1px solid #787878;
 }
@@ -499,6 +503,11 @@ blockquote::after {
 
   blockquote {
     padding: 2.5em 5em;
+  }
+
+  blockquote::before, blockquote::after {
+    left: 35%;
+    width: 30%;
   }
 
 }
