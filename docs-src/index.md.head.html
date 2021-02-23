@@ -1,6 +1,3 @@
-<script type="module" defer src="https://unpkg.com/tpe-material/distr/material-esm.js"></script>
-<script type="module" defer src="https://unpkg.com/tpe/distr/tpe-esm.js"></script>
-
 <style>
 
   #logo {
@@ -12,7 +9,8 @@
     background-position: center;
   }
 
-  .header div.topbar #logo {
+  .header div.topbar #logo ,
+  ee-header #logo {
     display: none;
   }
 
@@ -49,13 +47,13 @@
 <div class="home-section home-compare">
   <div>
     <h4>From this...</h4>
-    <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;native-input&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span>Native Input <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span>
+    <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;native-input&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span>Native Input (lowercase only)<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span>
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native-input&quot;</span> <span class="hljs-attr">pattern</span>=<span class="hljs-string">&quot;[a-z]*&quot;</span> /&gt;</span></span>
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native-checkbox&quot;</span> /&gt;</span></span>
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;native-checkbox&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span>Native Checkbox<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span>
 </code></pre>
     <label for="native-input">
-      <span>Native Input </span>
+      <span>Native Input (lowercase only)</span>
     </label>
     <input id="native-input" pattern="[a-z]*" />
 
@@ -66,21 +64,56 @@
   </div>
   <div>
     <h4>...to this!</h4>
-    <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;TPE Input&quot;</span> <span class="hljs-attr">pattern</span>=<span class="hljs-string">&quot;[a-z]*&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span>
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-checkbox</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;TPE Checkbox&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-checkbox</span>&gt;</span></span>
+    <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;TPE Input (lowercase only)&quot;</span> <span class="hljs-attr">pattern</span>=<span class="hljs-string">&quot;[a-z]*&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-checkbox</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;TPE Checkbox&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-checkbox</span>&gt;</span></span>
 </code></pre>
-    <nn-input-text label="TPE Input" pattern="[a-z]+"></nn-input-text>
+    <nn-input-text label="TPE Input (lowercase only)" pattern="[a-z]+"></nn-input-text>
     <nn-input-checkbox label="TPE Checkbox"></nn-input-checkbox>
   </div>
 </div>
 
 <blockquote>
-  The <code>pattern</code> attribute isn’t handled by TPE. Every attribute and <em>every</em> property is mirrored into the contained native element. TPE elements don’t need a manual, since they <em>are</em> native ones.
+  Inthis example, the <code>pattern</code> attribute isn’t handled by TPE. Every attribute and <em>every</em> property is mirrored into the contained native element. TPE elements don’t need a manual, since they <em>are</em> native ones.
 </blockquote>
 
 <div class="home-section">
-  <h2>How it works</h2>
-  <p>Native elements are wrapped inside <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">Custom Elements</a> that reflect all native attributes. </p>
+  <h2>The element collection </h2>
+  <p>Native elements are wrapped inside <a
+  href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">Custom
+  Elements</a> that reflect presence and values for all native properties and
+  attributes. The only differences, for the form control elements, are the
+  embedded labels and the fact that input types all have their own element, like
+  <code>nn-input-email</code> and <code>nn-input-progress</code>.</p>
+  <p>These elements are what we call <strong>Nearly Native</strong> (hence the <em>nn-</em>
+  prefix). We have also come up with two additional categories of elements that
+  can help developers and design build great apps. They are <strong>Enhaced
+  Native</strong> (en-) and <strong>Extra Elements</strong> (ee-).</p>
+  <p>You can <a href="/documentation.html">learn more</a> in the documentation section, but here is a brief summary of how they compare:</p>
+</div>
+<div class="home-section home-compare">
+  <div>
+    <h3>NN ELEMENTS</h3>
+    <blockquote> Look and behave like native elements by default.</blockquote>
+  </div>
+  <div>
+    <h3>EN ELEMENTS</h3>
+    <blockquote> Useful features and capabilities added to native elements.</blockquote>
+  </div>
+  <div>
+    <h3>EE ELEMENTS</h3>
+    <blockquote> Common UI patterns that have no native counterparts.</blockquote>
+  </div>
+</div>
+
+<div class="home-section">
+  <h2>Fully customizable</h2>
+  <p>All elements in the collection can be used directly or extended by
+  Developers to include more functionality needed in your project. TPE has a
+  robust theming solution that makes it possible to implement an entire design
+  system as an easy to build add-on package. It also allows for the use of
+  simple, plain CSS, while still taking adjavantadge of shadow DOM
+  encapsulation. 
+  </p>
 </div>
 
 <div class="home-section home-showcase">

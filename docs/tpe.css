@@ -203,6 +203,10 @@ header {
   color: white;
 }
 
+ee-header {
+  --ee-toolbar-height: 64px;
+}
+
 .header div.topbar {
   position: relative;
   display: flex;
@@ -210,16 +214,22 @@ header {
   height: 64px;
   color: #343434;
   background: white;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2) ;  /* fallback for old browsers */
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2); 
 }
 
-.header div.topbar #logo {
+ee-header {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);  
+}
+
+.header div.topbar #logo,
+ee-header #logo {
   height: 64px;
   min-width: 148px;
   width: 20%;
   background-image: url("images/TPE_logo_black.png");
   background-repeat: no-repeat;
   background-size: contain;
+  margin-right: 20px;
 }
 
 .header div.topbar div.links {
@@ -231,6 +241,9 @@ header {
 
 div.links a, div.links a:hover, div.links a:active {
   border: none;
+  display: flex;
+  height: unset;
+  place-items: center;
 }
 
 div.links svg {
@@ -239,10 +252,11 @@ div.links svg {
 }
 
 nav.toc {
-  min-width: min-content;
+  min-width: max-content;
   margin-right: 2%; 
   max-height: 100%;
   overflow: auto;
+  padding-right: 20px;
 }
 
 nav.toc ul, ol {
@@ -290,14 +304,14 @@ nav.toc li a:active {
 }
 
 #menu-btn {
+  appearance: none;
+  -webkit-appearance: none;
   display: flex;
   place-items: center;
   margin: auto 0;
   padding: 10px;
   white-space: nowrap;
   height: var(--nn-button-height, 30px);
-  appearance: none;
-  -webkit-appearance: none;
   border-radius: 4px;
   border: none;
   border-color: transparent;
@@ -305,6 +319,7 @@ nav.toc li a:active {
   font-size: 14px;
   border-image: none;
   align-items: center;
+  background-color: transparent;
 }
 
 #menu-btn:hover, #menu-btn:active {
@@ -315,61 +330,47 @@ nav ul, ol {
   padding-inline-start: 0;
 }
 
-nav li {
+nav li,
+ee-drawer li {
   margin: 10px auto;
   list-style: none;
 }
 
-nav.header-menu {
+.header-menu {
   display: none;
 }
 
-nav.side-menu {
+.side-menu {
   box-sizing: border-box;
-  position: absolute;
-  height: calc(100vh - 64px);
-  width: 200px;
-  bottom: 0;
-  left: -200px;
-  background: #343434;
   color: white;
-  z-index: 10;
-  transform: translateX(0);
-  transition: transform 0.2s ease-in-out;
-  padding-left: 20px;
+  line-height: 2;
 }
 
-nav.side-menu[open] {
-  transform: translateX(100%);
-  box-shadow: 10px 0 10px rgba(0, 0, 0, 0.2);
-}
-
-
-nav.side-menu li a, nav.side-menu li a:visited, nav.side-menu li a:active {
+.side-menu li a, .side-menu li a:visited, .side-menu li a:active {
   text-transform: capitalize;
   cursor: pointer;
   border-bottom: none;
   color: whitesmoke;
-  height: 16px;
+  height: unset;
 }
 
-nav.side-menu li a.indented {
+.side-menu li a.indented {
   margin-left: 20px;
   text-transform: unset;
 }
 
-nav.side-menu li a.current {
+.side-menu li a.current {
   font-weight: bolder;
   color:white;
   width: 100%;
   border-bottom: 2px solid whitesmoke;
 }
 
-nav.side-menu li a:hover {
+.side-menu li a:hover {
   border-bottom: 2px solid #b8d0f9;
 }
 
-nav.side-menu li a:active {
+.side-menu li a:active {
   border-width: 3px;
   height: 15px;
   outline: 1px dashed #cdcdcd;
@@ -425,6 +426,7 @@ article {
   margin-inline-start: 2em;
 }
 
+
 .home-section > div {
   box-sizing: border-box;
   width: 100%;
@@ -432,11 +434,15 @@ article {
 }
 
 .home-section p {
-  margin-inline-start: 3em;
-  margin-inline-end: 3em;
+  margin-inline-start: 4em;
+  margin-inline-end: 4em;
+  line-height: 1.5;
 }
 
+.home-compare h3, 
 .home-compare h4 {
+  margin-inline-start: 0;
+  margin-block-start: 0;
   text-align: center;
 }
 
@@ -481,22 +487,22 @@ blockquote::after {
      display: none;
   }
 
-  nav.side-menu {
+  .side-menu {
     display: none;
   }
 
-  nav.header-menu {
+  .header-menu {
     display: inline;
     margin-left: auto;
   }
 
-  nav.header-menu ul{
+  .header-menu ul{
     display: flex;
     margin-block-start: 0.8em;
     margin-block-end: 0.3em;
   }
 
-  nav.header-menu li a, nav.header-menu li a:visited, nav.header-menu li a:active {
+  .header-menu li a, .header-menu li a:visited, .header-menu li a:active {
     text-transform: capitalize;
     cursor: pointer;
     border-bottom: none;
@@ -504,20 +510,20 @@ blockquote::after {
     height: 16px;
   }
 
-  nav.header-menu li a.indented {
+  .header-menu li a.indented {
     text-transform: unset;
   }
 
-  nav.header-menu li a.current {
+  .header-menu li a.current {
     font-weight: bold;
     color: #454545;
   }
 
-  nav.header-menu li a:hover {
+  .header-menu li a:hover {
     border-bottom: 2px solid #b8d0f9;
   }
 
-  nav.header-menu li a:active {
+  .header-menu li a:active {
     border-width: 3px;
     height: 15px;
     outline: 1px dashed #cdcdcd;
