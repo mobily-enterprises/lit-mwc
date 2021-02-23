@@ -31,7 +31,9 @@
     }
   }
 
- 
+  blockquote code {
+    background-color: #dcdcdc;
+  }
 
 </style>
 
@@ -41,23 +43,46 @@
 </div>
 
 <blockquote>
-  The Platform Elements (TPE) is not a custom implementation of native elements. It <em>is</em> native elements, enhanced. TPE form controls are 100% customizable, and still behave like you would expect from native elements, while also providing additional capabilities. 
+  The Platform Elements (TPE) is not yet another custom implementation. It <em>is</em> native elements, enhanced. TPE form controls are 100% customizable, and still behave like you would expect from native elements, while also providing additional capabilities. 
 </blockquote>
 
-<div class="home-compare">
+<div class="home-section home-compare">
   <div>
     <h4>From this...</h4>
-      <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;native&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span>Native Input<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span>
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native&quot;</span>  <span class="hljs-attr">pattern</span>=<span class="hljs-string">&quot;[a-z]*&quot;</span> /&gt;</span></span></code></pre>
-      <label for="native"><span>Native Input</span></label>
-      <input id="native" pattern="[a-z]*" />
+    <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;native-input&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span>Native Input <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native-input&quot;</span> <span class="hljs-attr">pattern</span>=<span class="hljs-string">&quot;[a-z]*&quot;</span> /&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;native-checkbox&quot;</span> /&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;native-checkbox&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span>Native Checkbox<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span>
+</code></pre>
+    <label for="native-input">
+      <span>Native Input </span>
+    </label>
+    <input id="native-input" pattern="[a-z]*" />
+
+    <input type="checkbox" id="native-checkbox" />
+    <label for="native-checkbox">
+      <span>Native Checkbox</span>
+    </label>
   </div>
   <div>
     <h4>...to this!</h4>
-    <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;TPE Input&quot;</span> <span class="hljs-attr">pattern</span>=<span class="hljs-string">&quot;[a-z]*&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span></code></pre>
+    <pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-text</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;TPE Input&quot;</span> <span class="hljs-attr">pattern</span>=<span class="hljs-string">&quot;[a-z]*&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-text</span>&gt;</span></span>
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">nn-input-checkbox</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;TPE Checkbox&quot;</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">nn-input-checkbox</span>&gt;</span></span>
+</code></pre>
     <nn-input-text label="TPE Input" pattern="[a-z]+"></nn-input-text>
+    <nn-input-checkbox label="TPE Checkbox"></nn-input-checkbox>
   </div>
 </div>
-<div class="home-showcase">
-  <h4>Try it out live</h4>
+
+<blockquote>
+  The <code>pattern</code> attribute isn’t handled by TPE. Every attribute and <em>every</em> property is mirrored into the contained native element. TPE elements don’t need a manual, since they <em>are</em> native ones.
+</blockquote>
+
+<div class="home-section">
+  <h2>How it works</h2>
+  <p>Native elements are wrapped inside <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">Custom Elements</a> that reflect all native attributes. </p>
+</div>
+
+<div class="home-section home-showcase">
+  <h2>Try it out live</h2>
 </div>

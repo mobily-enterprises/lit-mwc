@@ -177,7 +177,7 @@ article h1, article h2 {
   text-align: center;
 }
 
-article a {
+a {
   color: #2f6ec1;
   text-decoration: none;
   border-bottom: 2px solid #b8d0f9;
@@ -209,7 +209,7 @@ header {
   width: 100%;
   height: 64px;
   color: #343434;
-  background: whitesmoke;
+  background: white;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2) ;  /* fallback for old browsers */
 }
 
@@ -236,6 +236,51 @@ div.links a, div.links a:hover, div.links a:active {
 div.links svg {
   height: 36px;
   fill: #343434;
+}
+
+nav.toc {
+  min-width: min-content;
+  margin-right: 2%; 
+  max-height: 100%;
+  overflow: auto;
+}
+
+nav.toc ul, ol {
+  padding-inline-start: 0;
+}
+
+nav.toc li {
+  margin: 10px auto;
+  list-style: none;
+
+}
+
+nav.toc li a, nav.toc li a:visited, nav.toc li a:active {
+  text-transform: capitalize;
+  cursor: pointer;
+  border-bottom: none;
+  color: #454545;
+  height: 16px;
+}
+
+nav.toc li a.indented {
+  margin-left: 20px;
+  text-transform: unset;
+}
+
+nav.toc li a.current { 
+  font-weight: bold;
+  color: #454545;  
+}
+
+nav.toc li a:hover {
+  border-bottom: 2px solid #b8d0f9;
+}
+
+nav.toc li a:active {
+  border-width: 3px;
+  height: 15px;
+  outline: 1px dashed #cdcdcd;
 }
 
 /* Mobile First layout */
@@ -368,13 +413,27 @@ article {
 }
 
 .home-compare, .home-showcase {
-  margin: 50px 0;
+  margin: 20px 0;
 }
 
-.home-compare > div, .home-showcase > div {
+.home-section h1,
+.home-section h2,
+.home-section h3,
+.home-section h4,
+.home-section h5 {
+  margin-block-start: 2em;
+  margin-inline-start: 2em;
+}
+
+.home-section > div {
   box-sizing: border-box;
   width: 100%;
   padding: 10px;
+}
+
+.home-section p {
+  margin-inline-start: 3em;
+  margin-inline-end: 3em;
 }
 
 .home-compare h4 {
@@ -384,24 +443,26 @@ article {
 blockquote {
   position: relative;
   box-sizing: border-box;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding: 2em;
   font-size: 1.15em;
+  font-weight: bold;
   line-height: 1.8;
   text-align: justify;
-  padding: 1.5em 0;
-}
-
-blockquote::before, blockquote::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 25%;
-  width: 50%;
-  border: 1px solid #787878;
+  background-color: whitesmoke;
+  color: #00695c;
 }
 
 blockquote::after {
-  top: unset;
-  bottom: 0;
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 25%;
+  width: 50%;
+  border: 1px solid whitesmoke;
 }
 
 /* Dekstop Layout */
@@ -502,7 +563,7 @@ blockquote::after {
   }
 
   blockquote {
-    padding: 2.5em 5em;
+    padding: 2em 5em;
   }
 
   blockquote::before, blockquote::after {
