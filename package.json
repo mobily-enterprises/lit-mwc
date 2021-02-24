@@ -45,7 +45,7 @@
     "@babel/preset-env": "^7.x.x",
     "@web/dev-server": "0.0.24",
     "core-js": "^3.3.2",
-    "docco-next": "^0.9.5",
+    "docco-next": "^0.9.7",
     "eslint": "^6.3.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-html": "^6.0.0",
