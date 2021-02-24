@@ -771,8 +771,7 @@
 
       
       <article>
-        
-          
+                  
           
           
             <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
@@ -934,8 +933,7 @@
     <span class="hljs-built_in">this</span>.closeButton = <span class="hljs-literal">true</span>
     <span class="hljs-built_in">this</span>.opened = <span class="hljs-literal">false</span></pre></div>
           
-        
-          
+                  
           <p>These properties allow the developer to decide how far the user needs to drag in order to trigger open and close events. Values between 0 and 1.</p>
 
           
@@ -947,8 +945,7 @@
     <span class="hljs-built_in">super</span>.connectedCallback()
     <span class="hljs-built_in">this</span>.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-built_in">this</span>._handleOutsideClick)</pre></div>
           
-        
-          
+                  
           <p>Add listeners for the events to handle dragging the drawer. Touchevents must be added, besides the fact the mouse events are emulated in mobile devices
 When these listeners are not added, scrolling behavior from the browser takes over and prevents emulated mouse events from firing.
 To make sure behavior is consistent, the handlers must call event.preventDefault() which will avoid scrolling and duplicate emulated events
@@ -959,8 +956,7 @@ To make sure behavior is consistent, the handlers must call event.preventDefault
     <span class="hljs-built_in">this</span>.addEventListener(<span class="hljs-string">&#x27;touchmove&#x27;</span>, <span class="hljs-built_in">this</span>._handleDrag)
     <span class="hljs-built_in">this</span>.addEventListener(<span class="hljs-string">&#x27;touchend&#x27;</span>, <span class="hljs-built_in">this</span>._handleDragEnd)</pre></div>
           
-        
-          
+                  
           <p>These are also needed to support dragging in desktop</p>
 
           
@@ -976,8 +972,7 @@ To make sure behavior is consistent, the handlers must call event.preventDefault
     <span class="hljs-built_in">this</span>.removeEventListener(<span class="hljs-string">&#x27;touchmove&#x27;</span>, <span class="hljs-built_in">this</span>._handleDrag)
     <span class="hljs-built_in">this</span>.removeEventListener(<span class="hljs-string">&#x27;touchend&#x27;</span>, <span class="hljs-built_in">this</span>._handleDragEnd)</pre></div>
           
-        
-          
+                  
           <p>These are also needed to support dragging in desktop</p>
 
           
@@ -1016,8 +1011,7 @@ To make sure behavior is consistent, the handlers must call event.preventDefault
 
   _handleOutsideClick (e) {</pre></div>
           
-        
-          
+                  
           <p>This flag can be set to avoid closing the drawer after finishing a drag, which triggers a click</p>
 
           
@@ -1031,15 +1025,13 @@ To make sure behavior is consistent, the handlers must call event.preventDefault
 
   _handleDragStart (e) {</pre></div>
           
-        
-          
+                  
           <p>save starting point reference</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-built_in">this</span>.dragStart = e.type === <span class="hljs-string">&#x27;touchstart&#x27;</span> ? e.touches[<span class="hljs-number">0</span>].clientX : e.clientX</pre></div>
           
-        
-          
+                  
           <p>Force ee-drawer to be full viewport width during the event</p>
 
           
@@ -1048,29 +1040,25 @@ To make sure behavior is consistent, the handlers must call event.preventDefault
 
   _handleDrag (e) {</pre></div>
           
-        
-          
+                  
           <p>ignore event if there wasn’t a dragStart immediatelly before</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.dragStart === <span class="hljs-literal">undefined</span>) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>Set this flag so it’s possible to know if there’s an ongoing drag</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-built_in">this</span>.dragging = <span class="hljs-literal">true</span></pre></div>
           
-        
-          
+                  
           <p>Always call preventDefault when in a touch enabled device, to avoid duplicate simulated mouse events afterwards</p>
 
           
             <div class='highlight'><pre>    e.preventDefault()</pre></div>
           
-        
-          
+                  
           <p>Now, we need to compare the current pointer/touch position with the position at the start of the drag. We calculate the offset and get the width of the drawer.</p>
 
           
@@ -1078,16 +1066,14 @@ To make sure behavior is consistent, the handlers must call event.preventDefault
     <span class="hljs-keyword">const</span> offset = x - <span class="hljs-built_in">this</span>.dragStart
     <span class="hljs-keyword">const</span> w = <span class="hljs-built_in">this</span>.container.getBoundingClientRect().width</pre></div>
           
-        
-          
+                  
           <p>Determine the movement tolerance before triggering open or close during dragging.</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">const</span> openTrigger = (w - <span class="hljs-built_in">this</span>.openThreshold * w)
     <span class="hljs-keyword">const</span> closeTrigger = -<span class="hljs-number">1</span> * (w - <span class="hljs-built_in">this</span>.closeThreshold * w)</pre></div>
           
-        
-          
+                  
           <p>Check if user dragged far enough for either closing or opening the drawer, call _finishDrag to cleanup</p>
 
           
@@ -1098,8 +1084,7 @@ To make sure behavior is consistent, the handlers must call event.preventDefault
     } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (offset &gt; openTrigger) {
       <span class="hljs-built_in">this</span>.open()</pre></div>
           
-        
-          
+                  
           <p>Necessary for mouse events, because calling preventDefault in mouseup handler does not cancel the click event after</p>
 
           
@@ -1108,8 +1093,7 @@ To make sure behavior is consistent, the handlers must call event.preventDefault
       <span class="hljs-keyword">return</span>
     }</pre></div>
           
-        
-          
+                  
           <p>if still within trigering range, update drawer position smoothly, using requestAnimationFrame</p>
 
           
@@ -1121,8 +1105,7 @@ To make sure behavior is consistent, the handlers must call event.preventDefault
 
   _handleDragEnd (e) {</pre></div>
           
-        
-          
+                  
           <p>If this event follows a touchmove/mousemove event, call preventDefault. It is necessary to prevent the click event from firing, as it is next the Event order:
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent#Event_order">https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent#Event_order</a></p>
 
@@ -1135,8 +1118,7 @@ To make sure behavior is consistent, the handlers must call event.preventDefault
 
   _finishDrag () {</pre></div>
           
-        
-          
+                  
           <p>This will clear flags and inline styles after the drag is done</p>
 
           

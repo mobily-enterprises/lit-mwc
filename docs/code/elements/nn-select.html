@@ -771,8 +771,7 @@
 
       
       <article>
-        
-          
+                  
           
           
             <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
@@ -811,8 +810,7 @@
     <span class="hljs-keyword">const</span> options = slot.assignedElements()
     select.innerHTML = <span class="hljs-string">&#x27;&#x27;</span></pre></div>
           
-        
-          
+                  
           <p>while (select.firstChild) {
   if (!select.lastChild.value) break
   select.removeChild(select.lastElementChild)
@@ -823,8 +821,7 @@
       select.appendChild(option.cloneNode(<span class="hljs-literal">true</span>))
     }</pre></div>
           
-        
-          
+                  
           <p>The element’s value depends on what it can contain. For example
 the first selected option will be the element’s value.
 The assign will ensure that the value is updated as a property

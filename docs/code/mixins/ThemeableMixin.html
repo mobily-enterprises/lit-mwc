@@ -771,13 +771,11 @@
 
       
       <article>
-        
-          
+                  
           <h1 id="themeablemixin">ThemeableMixin</h1>
 
           
-        
-          
+                  
           <p>This mixin is entirely responsible for the flexible theming capabilities of
 TPE. There’s a simple interface to be implemented by the theme developers.
 The theme is defined with an object containing these keys:</p>
@@ -813,8 +811,7 @@ along with two mixins defined below, CustomThemeMixin and LitBits.</p>
   <span class="hljs-keyword">return</span> elementTheme(common(CustomThemeMixin(LitBits(base))))
 }</pre></div>
           
-        
-          
+                  
           <p>In addition to applying the imported theme, ThemeableMixin adds a
 non-standard LitElement property: <em>customStyles</em>. Using <em>customStyles</em> allows
 developers to completely bypass the shadowRoot scope and redefine any part or
@@ -843,8 +840,7 @@ main purpose of overriding scoped CSS, it won’t have any side effects.</p>
   }
 }</pre></div>
           
-        
-          
+                  
           <p>LitBits is a workaround developed to address this
 <a href="https://github.com/Polymer/lit-html/issues/1015#issuecomment-577903812">issue</a>.
 This makes sure the same instance of lit-html is used in the entire mixin

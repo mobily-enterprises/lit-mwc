@@ -771,8 +771,7 @@
 
       
       <article>
-        
-          
+                  
           <p>This is the centrepiece of the <code>nn-</code> elements. Every <code>nn-</code> element has the
 characteristic of being basically a native element with theming steroids.
 Each <code>nn-</code> element has, in its template, a native element marked as
@@ -807,8 +806,7 @@ will depend on the HTML specs of the targeted <code>native</code> element.</li>
 <h2 id="into-the-code">Into the code</h2>
 
           
-        
-          
+                  
           <p>First of all, NativeRefletorMixin is declared as a mixing in function:</p>
 
           
@@ -817,8 +815,7 @@ will depend on the HTML specs of the targeted <code>native</code> element.</li>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> NativeReflectorMixin = <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">base</span> </span>{ <span class="hljs-comment">// eslint-disable-line</span></pre></div>
           
-        
-          
+                  
           <p>The firstUpdated method is used to perform one-time work after the element’s
 template has been created. In this case, it will need to:</p>
 <ol>
@@ -864,8 +861,7 @@ template has been created. In this case, it will need to:</p>
 
 </span></pre></div>
           
-        
-          
+                  
           <p>This shouldn’t really happen, but it’s here as a fallback
 TODO: Maybe delete it and always return the native’s value regardless</p>
 
@@ -876,22 +872,19 @@ TODO: Maybe delete it and always return the native’s value regardless</p>
 
     setAttribute (attr, value) {</pre></div>
           
-        
-          
+                  
           <p>Set the attribute</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-built_in">super</span>.setAttribute(attr, value)</pre></div>
           
-        
-          
+                  
           <p>Skip the ones in the skipAttributes list</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>Assign the same attribute to the contained native
 element, taking care of the ‘nn’ syntax</p>
 
@@ -901,22 +894,19 @@ element, taking care of the ‘nn’ syntax</p>
 
     removeAttribute (attr) {</pre></div>
           
-        
-          
+                  
           <p>Set the attribute</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-built_in">super</span>.removeAttribute(attr)</pre></div>
           
-        
-          
+                  
           <p>Skip the ones in the skipAttributes list</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>Assign the same attribute to the contained native
 element, taking care of the ‘nn’ syntax</p>
 
@@ -927,8 +917,7 @@ element, taking care of the ‘nn’ syntax</p>
     _setSubAttr (subAttr, attrValue) {
       <span class="hljs-keyword">const</span> tokens = subAttr.split(<span class="hljs-string">&#x27;::&#x27;</span>)</pre></div>
           
-        
-          
+                  
           <p>Safeguard: if this.native is not yet set, it means that
 an attribute was set BEFORE the element was rendered. If that
 is the case, simply give up. _reflectAttributesAndProperties() will
@@ -937,8 +926,7 @@ be run afterwards to sync things up anyway</p>
           
             <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.native) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>No :: found, simply change attribute in <code>native</code></p>
 
           
@@ -947,8 +935,7 @@ be run afterwards to sync things up anyway</p>
           ? <span class="hljs-built_in">this</span>.native.removeAttribute(subAttr)
           : <span class="hljs-built_in">this</span>.native.setAttribute(subAttr, attrValue)</pre></div>
           
-        
-          
+                  
           <p>Yes, :: is there: assign the attribute to the element with the
 corresponding ID</p>
 
@@ -965,8 +952,7 @@ corresponding ID</p>
 
     _reflectAttributesAndProperties () {</pre></div>
           
-        
-          
+                  
           <p>STEP #1: ATTRIBUTES FIRST</p>
 <p>Assign all starting attribute to the destination element</p>
 
@@ -978,8 +964,7 @@ corresponding ID</p>
         <span class="hljs-built_in">this</span>._setSubAttr(attr, <span class="hljs-built_in">super</span>.getAttribute(attr))
       }</pre></div>
           
-        
-          
+                  
           <p>Observe changes in attribute from the source element, and reflect
 them to the destination element</p>
 
@@ -989,22 +974,19 @@ them to the destination element</p>
           <span class="hljs-keyword">if</span> (mutation.type === <span class="hljs-string">&#x27;attributes&#x27;</span>) {
             <span class="hljs-keyword">const</span> attr = mutation.attributeName</pre></div>
           
-        
-          
+                  
           <p>Don’t reflect forbidden attributes</p>
 
           
             <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.skipAttributes.indexOf(attr) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>Don’t reflect attributes with ::</p>
 
           
             <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (attr.indexOf(<span class="hljs-string">&#x27;::&#x27;</span>) !== -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>Check if the value has changed. If it hasn’t, there is no
 point in re-assigning it, especially since the observer
 might have been triggered by this very mixin</p>
@@ -1014,8 +996,7 @@ might have been triggered by this very mixin</p>
             <span class="hljs-keyword">const</span> thisValue = <span class="hljs-built_in">super</span>.getAttribute(attr)
             <span class="hljs-keyword">if</span> (newValue === thisValue) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>Assign the new value</p>
 
           
@@ -1027,8 +1008,7 @@ might have been triggered by this very mixin</p>
       })
       thisObserver.observe(<span class="hljs-built_in">this</span>.native, { <span class="hljs-attr">attributes</span>: <span class="hljs-literal">true</span> })</pre></div>
           
-        
-          
+                  
           <p>STEP #2: METHODS (as bound functions) AND PROPERTIES (as getters/setters)</p>
 
           
@@ -1048,8 +1028,7 @@ might have been triggered by this very mixin</p>
             <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newValue</span>) </span>{
               <span class="hljs-keyword">const</span> dst = <span class="hljs-built_in">this</span>.native</pre></div>
           
-        
-          
+                  
           <p>It IS possile that this.native isn’t set yet, since the
 property observer is on the prototype. So, you could have
 one nn-input-box without a value assigned (and the observer is
@@ -1073,15 +1052,13 @@ this.native</p>
               <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> dst[prop] === <span class="hljs-string">&#x27;function&#x27;</span>) <span class="hljs-keyword">return</span>
               <span class="hljs-keyword">const</span> oldValue = dst[prop]</pre></div>
           
-        
-          
+                  
           <p>Set the new value</p>
 
           
             <div class='highlight'><pre>              dst[prop] = newValue</pre></div>
           
-        
-          
+                  
           <p>This is required by litElement since it won’t
 create a setter if there is already one</p>
 
@@ -1099,8 +1076,7 @@ create a setter if there is already one</p>
         proto._alreadyReflecting = <span class="hljs-literal">true</span>
       }</pre></div>
           
-        
-          
+                  
           <p>Assign existing properties, in case the setter had already been triggered
 BEFORE firstUpdated() (in which case, the setter would have assigned
 OBJECT properties, without reflection)</p>

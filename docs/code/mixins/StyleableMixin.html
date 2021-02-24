@@ -771,8 +771,7 @@
 
       
       <article>
-        
-          
+                  
           <p>This mixin adds the capability to use common <em><style></em> tags. Our goal is to
 reduce friction for anyone not used to custom elements, shadow DOM and
 prefers to create and style their projects using plain HTML markup.</p>
@@ -799,8 +798,7 @@ elements styles using familiar syntax.</p>
     firstUpdated () {
       <span class="hljs-built_in">super</span>.firstUpdated()</pre></div>
           
-        
-          
+                  
           <p>Add the equivalent of
 <slot name="style" id="style-slot"></slot>
 To the shadow DOM</p>
@@ -811,8 +809,7 @@ To the shadow DOM</p>
       styleSlot.setAttribute(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;style-slot&#x27;</span>)
       <span class="hljs-built_in">this</span>.shadowRoot.appendChild(styleSlot)</pre></div>
           
-        
-          
+                  
           <p>If an element has one or more <any-tag slot="style"> in its
 light DOM, the newly added styleSlot will have
 them  as an assigned element.

@@ -771,8 +771,7 @@
 
       
       <article>
-        
-          
+                  
           
           
             <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
@@ -962,8 +961,7 @@
         <span class="hljs-keyword">if</span> (span.id === <span class="hljs-string">&#x27;ta&#x27;</span>) <span class="hljs-keyword">continue</span>
         <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.valueAs === <span class="hljs-string">&#x27;text&#x27;</span>) {</pre></div>
           
-        
-          
+                  
           <p>Won’t push invalid spans to the final value</p>
 
           
@@ -979,8 +977,7 @@
   set value (v) {
     <span class="hljs-keyword">const</span> list = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#list&#x27;</span>)</pre></div>
           
-        
-          
+                  
           <p>Remove all children</p>
 
           
@@ -989,8 +986,7 @@
       list.removeChild(list.firstChild)
     }</pre></div>
           
-        
-          
+                  
           <p>Assign all children using pickedElement</p>
 
           
@@ -1009,15 +1005,13 @@
       }
     }</pre></div>
           
-        
-          
+                  
           <p>Sets the native input</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-built_in">this</span>._updateNativeInputValue()</pre></div>
           
-        
-          
+                  
           <p>Rerun validator</p>
 
           
@@ -1037,8 +1031,7 @@
 
   <span class="hljs-comment">/* END OF CONSTRAINTS API */</span></pre></div>
           
-        
-          
+                  
           <p>Run this when there are no suggestions and the user hits Tab or Enter in #ta
 This will run pickElement with a STRING, which will get the element to
 work out a data structure based on the string</p>
@@ -1062,8 +1055,7 @@ work out a data structure based on the string</p>
 
   _removeItem (target, which = <span class="hljs-string">&#x27;previous&#x27;</span>) {</pre></div>
           
-        
-          
+                  
           <p>Focus previous item before deleting target. If it’s the first/only, select the input</p>
 
           
@@ -1072,8 +1064,7 @@ work out a data structure based on the string</p>
     target.remove()
     <span class="hljs-built_in">this</span>._updateNativeInputValue()</pre></div>
           
-        
-          
+                  
           <p>Rerun validator</p>
 
           
@@ -1146,8 +1137,7 @@ work out a data structure based on the string</p>
     el.config = { ...el.config, ...this.itemElementConfig }
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> k <span class="hljs-keyword">of</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.itemElementAttributes)) el.setAttribute(k, <span class="hljs-built_in">this</span>.itemElementAttributes[k])</pre></div>
           
-        
-          
+                  
           <p>Convert string into data if necessary</p>
 
           
@@ -1164,8 +1154,7 @@ work out a data structure based on the string</p>
     <span class="hljs-keyword">const</span> list = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#list&#x27;</span>)
     <span class="hljs-keyword">const</span> span = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;span&#x27;</span>)</pre></div>
           
-        
-          
+                  
           <p>-1 means that it will not in the list of tabs, but
 it will be focusable (spans aren’t by default)</p>
 
@@ -1176,8 +1165,7 @@ it will be focusable (spans aren’t by default)</p>
 
     span.onkeydown = <span class="hljs-built_in">this</span>._handleKeyEvents.bind(<span class="hljs-built_in">this</span>)</pre></div>
           
-        
-          
+                  
           <p>Span will be not in the list of tabs
 Necessary since this is a button and it IS
 in tab list by default</p>
@@ -1192,8 +1180,7 @@ in tab list by default</p>
 
     <span class="hljs-built_in">this</span>._updateNativeInputValue()</pre></div>
           
-        
-          
+                  
           <p>Rerun validator</p>
 
           

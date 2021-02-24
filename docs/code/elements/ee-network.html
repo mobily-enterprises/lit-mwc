@@ -771,8 +771,7 @@
 
       
       <article>
-        
-          
+                  
           
           
             <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
@@ -940,8 +939,7 @@
     TODO DOCUMENTATION:
 </span></pre></div>
           
-        
-          
+                  
           <p>EVENT LISTENING WAY. With @retry-successful=”${this._refetched.bind(this)}” in ee-network</p>
 
           
@@ -949,8 +947,7 @@
       <span class="hljs-built_in">this</span>[<span class="hljs-built_in">this</span>.localDataProperty] = <span class="hljs-keyword">await</span> e.detail.fetched.json()
     }</pre></div>
           
-        
-          
+                  
           <p>REFETCH WAY. WITH .retryMethod=”${this._retry.bind(this)}” in ee-network</p>
 
           
@@ -963,16 +960,14 @@
   <span class="hljs-keyword">async</span> _overlayClicked (e) {
     <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.noReloadOnTap) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>Stop the event here</p>
 
           
             <div class='highlight'><pre>    e.stopPropagation()
     e.preventDefault()</pre></div>
           
-        
-          
+                  
           <p>If the status is ‘error’, try to reload</p>
 
           
@@ -1003,8 +998,7 @@
     <span class="hljs-built_in">this</span>.lastUrl = url
     <span class="hljs-built_in">this</span>.lastInitObject = initObject</pre></div>
           
-        
-          
+                  
           <p>Work out manageErrors, which will only ever
 applu to GET</p>
 
@@ -1026,8 +1020,7 @@ applu to GET</p>
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(initObject.url, initObject)</pre></div>
           
-        
-          
+                  
           <p>console.log(‘Cloning the response and waiting for the text…’)
 Wait for the <em>actual</em> data to get here</p>
 
@@ -1049,8 +1042,7 @@ Wait for the <em>actual</em> data to get here</p>
         <span class="hljs-attr">networkElement</span>: <span class="hljs-built_in">this</span>
       })</pre></div>
           
-        
-          
+                  
           <p>Response hook</p>
 
           

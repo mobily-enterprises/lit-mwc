@@ -771,8 +771,7 @@
 
       
       <article>
-        
-          
+                  
           
           
             <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
@@ -880,8 +879,7 @@
     <span class="hljs-built_in">this</span>._boundKeydownEvent = <span class="hljs-built_in">this</span>._keydownEvent.bind(<span class="hljs-built_in">this</span>)
   }</pre></div>
           
-        
-          
+                  
           <p>If if’s not set, return the first child
 If it’s set:
   If it’s a string, return the #element
@@ -898,8 +896,7 @@ If it’s set:
     <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
   }</pre></div>
           
-        
-          
+                  
           <p>If if’s not set, don’t do anything
 If it’s set:
   If it’s an empty string, look for the first [name] element without no-submit,
@@ -924,8 +921,7 @@ If it’s set:
     <span class="hljs-built_in">this</span>.targetElement = <span class="hljs-built_in">this</span>._findTarget(<span class="hljs-built_in">this</span>.target)
     <span class="hljs-built_in">this</span>.targetForId = <span class="hljs-built_in">this</span>._findTargetForId(<span class="hljs-built_in">this</span>.targetForId)</pre></div>
           
-        
-          
+                  
           <p>The target for Id is the true source of the value
 in case of ID submission. So, two things must happen:</p>
 <ol>
@@ -958,8 +954,7 @@ in case of ID submission. So, two things must happen:</p>
     <span class="hljs-built_in">this</span>.targetElement.addEventListener(<span class="hljs-string">&#x27;input&#x27;</span>, <span class="hljs-built_in">this</span>._boundInputEvent)
     <span class="hljs-built_in">this</span>.targetElement.addEventListener(<span class="hljs-string">&#x27;keydown&#x27;</span>, <span class="hljs-built_in">this</span>._boundKeydownEvent)</pre></div>
           
-        
-          
+                  
           <p>API USE: If the target input element implements multiInputApi,
 then set the basic parameters for all
 picked items (element name, config and attributes)</p>
@@ -969,8 +964,7 @@ picked items (element name, config and attributes)</p>
       <span class="hljs-built_in">this</span>.targetElement.setPickedElement(<span class="hljs-built_in">this</span>.itemElement, <span class="hljs-built_in">this</span>.itemElementConfig, <span class="hljs-built_in">this</span>.itemElementAttributes)
     }</pre></div>
           
-        
-          
+                  
           <p>Setup ARIA attributes on target</p>
 
           
@@ -978,8 +972,7 @@ picked items (element name, config and attributes)</p>
     <span class="hljs-built_in">this</span>.targetElement.setAttribute(<span class="hljs-string">&#x27;aria-controls&#x27;</span>, <span class="hljs-string">&#x27;suggestions&#x27;</span>)
     <span class="hljs-built_in">this</span>.targetElement.toggleAttribute(<span class="hljs-string">&#x27;aria-activedescendant&#x27;</span>, <span class="hljs-literal">true</span>)</pre></div>
           
-        
-          
+                  
           <p>Setup ARIA attributes on ee-autocomplete</p>
 
           
@@ -1049,8 +1042,7 @@ picked items (element name, config and attributes)</p>
     <span class="hljs-built_in">this</span>.dismissSuggestions()
     <span class="hljs-built_in">this</span>.targetElement.focus()</pre></div>
           
-        
-          
+                  
           <p>Dispatch input event since input happened</p>
 
           
@@ -1072,8 +1064,7 @@ picked items (element name, config and attributes)</p>
 
     <span class="hljs-keyword">const</span> suggestionsDiv = <span class="hljs-built_in">this</span>.shadowRoot.querySelector(<span class="hljs-string">&#x27;#suggestions-elements&#x27;</span>)</pre></div>
           
-        
-          
+                  
           <p>while (suggestionsDiv.firstChild) { suggestionsDiv.removeChild(suggestionsDiv.firstChild) }</p>
 
           
@@ -1094,8 +1085,7 @@ picked items (element name, config and attributes)</p>
       <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> k <span class="hljs-keyword">of</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.itemElementAttributes)) el.setAttribute(k, <span class="hljs-built_in">this</span>.itemElementAttributes[k])
       el.data = <span class="hljs-built_in">this</span>._jsonCopy(suggestion)</pre></div>
           
-        
-          
+                  
           <p>el.onkeydown = this._handleKeyEvents.bind(this)
 Make span focusable AND in the tab list</p>
 
@@ -1104,8 +1094,7 @@ Make span focusable AND in the tab list</p>
       suggestionsDiv.appendChild(el)
     }</pre></div>
           
-        
-          
+                  
           <p>Only 1 response and it’s a plain text input? Autocomplete if text fully matches
 beginning of the only result</p>
 
@@ -1165,15 +1154,13 @@ beginning of the only result</p>
 
   _isOutOfViewport (elem) {</pre></div>
           
-        
-          
+                  
           <p>Get element’s bounding</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">const</span> bounding = elem.getBoundingClientRect()</pre></div>
           
-        
-          
+                  
           <p>Check if it’s out of the viewport on each side</p>
 
           
@@ -1240,32 +1227,28 @@ beginning of the only result</p>
 
   <span class="hljs-keyword">async</span> _inputEvent (e) {</pre></div>
           
-        
-          
+                  
           <p>This is a synthetic event triggered by autocomplete itself
 once a selection was made: ignore</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (e.detail &amp;&amp; e.detail.synthetic) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>Nothing can nor should happen without a target</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">const</span> target = <span class="hljs-built_in">this</span>.targetElement
     <span class="hljs-keyword">if</span> (!target) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>There is more input: a new query will be made,
 so the list is now stale</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-built_in">this</span>.dismissSuggestions()</pre></div>
           
-        
-          
+                  
           <p>If the target element is not valid, don’t take off at all
 TAKEN OUT as autocomplete might be necessary to actually make
 it valid
@@ -1288,22 +1271,19 @@ with the same ‘e’</p>
       <span class="hljs-built_in">this</span>.pickedData = <span class="hljs-literal">null</span>
     }</pre></div>
           
-        
-          
+                  
           <p>No input: do not run a wide search</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.targetElement.value) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>IN FLIGHT!</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-built_in">this</span>._autocompleteInFlight = <span class="hljs-literal">true</span></pre></div>
           
-        
-          
+                  
           <p>Set the url, which will also depend on recordId</p>
 
           
@@ -1315,8 +1295,7 @@ with the same ‘e’</p>
       <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;follow&#x27;</span> <span class="hljs-comment">// manual, *follow, error</span>
     }</pre></div>
           
-        
-          
+                  
           <p>Attempt the submission</p>
 
           
@@ -1329,24 +1308,21 @@ with the same ‘e’</p>
       networkError = <span class="hljs-literal">true</span>
     }</pre></div>
           
-        
-          
+                  
           <p>CASE #1: network error.</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (networkError) {
       <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Network error!&#x27;</span>)</pre></div>
           
-        
-          
+                  
           <p>Emit event to make it possible to tell the user via UI about the problem</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-keyword">const</span> event = <span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">&#x27;autocomplete-error&#x27;</span>, { <span class="hljs-attr">detail</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;network&#x27;</span> }, <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span> })
       <span class="hljs-built_in">this</span>.dispatchEvent(event)</pre></div>
           
-        
-          
+                  
           <p>CASE #2: HTTP error.
 Invalidate the problem fields</p>
 
@@ -1356,24 +1332,21 @@ Invalidate the problem fields</p>
 
       <span class="hljs-keyword">const</span> errs = <span class="hljs-keyword">await</span> response.json()</pre></div>
           
-        
-          
+                  
           <p>Emit event to make it possible to tell the user via UI about the problem</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-keyword">const</span> event = <span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">&#x27;autocomplete-error&#x27;</span>, { <span class="hljs-attr">detail</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;http&#x27;</span>, response, errs }, <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span> })
       <span class="hljs-built_in">this</span>.dispatchEvent(event)</pre></div>
           
-        
-          
+                  
           <p>CASE #3: NO error. Set fields to their
 new values</p>
 
           
             <div class='highlight'><pre>    } <span class="hljs-keyword">else</span> {</pre></div>
           
-        
-          
+                  
           <p>Convert the result to JSON</p>
 
           
@@ -1381,8 +1354,7 @@ new values</p>
 
       <span class="hljs-built_in">this</span>.suggestions = v</pre></div>
           
-        
-          
+                  
           <p>Emit event to make it possible to tell the user via UI about the problem</p>
 
           

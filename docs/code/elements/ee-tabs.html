@@ -771,8 +771,7 @@
 
       
       <article>
-        
-          
+                  
           
           
             <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
@@ -957,8 +956,7 @@
   select (tab, clearAll = <span class="hljs-literal">true</span>) {
     <span class="hljs-keyword">let</span> pages</pre></div>
           
-        
-          
+                  
           <p>Find the tab. If it can’t be found, end of story</p>
 
           
@@ -967,8 +965,7 @@
     }
     <span class="hljs-keyword">if</span> (!tab) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>If clearAll was passed, clear selection of tabs and (if !passive) pages</p>
 
           
@@ -982,16 +979,14 @@
       }
     }</pre></div>
           
-        
-          
+                  
           <p>Activate the tab</p>
 
           
             <div class='highlight'><pre>    tab.toggleAttribute(<span class="hljs-string">&#x27;active&#x27;</span>, <span class="hljs-literal">true</span>)
     tab.active = <span class="hljs-literal">true</span></pre></div>
           
-        
-          
+                  
           <p>If !passive, activate the corresponding page</p>
 
           
@@ -1005,15 +1000,13 @@
     }
   }</pre></div>
           
-        
-          
+                  
           <p>Clear the seletecAttribute from the current active tab and page</p>
 
           
             <div class='highlight'><pre>  _clearAll (tabs, pages) {</pre></div>
           
-        
-          
+                  
           
           
             <div class='highlight'><pre>    <span class="hljs-keyword">const</span> currentTab = tabs.find(<span class="hljs-built_in">this</span>._isActive.bind(<span class="hljs-built_in">this</span>))
@@ -1031,8 +1024,7 @@
     }
   }</pre></div>
           
-        
-          
+                  
           <p>This adds a click event listener to all slotted children (the tabs)</p>
 
           

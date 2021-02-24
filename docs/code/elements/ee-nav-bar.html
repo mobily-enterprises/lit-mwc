@@ -771,8 +771,7 @@
 
       
       <article>
-        
-          
+                  
           
           
             <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, html, css } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
@@ -863,16 +862,14 @@
   connectedCallback () {
     <span class="hljs-built_in">super</span>.connectedCallback()</pre></div>
           
-        
-          
+                  
           <p>Listen to local clicked-slot event</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-built_in">this</span>.addEventListener(<span class="hljs-string">&#x27;clicked-slot&#x27;</span>, <span class="hljs-built_in">this</span>._fireSelectedEvent)
   }</pre></div>
           
-        
-          
+                  
           <p>This adds a click event listener to all slotted children (the tabs)</p>
 
           
@@ -884,8 +881,7 @@
     }
   }</pre></div>
           
-        
-          
+                  
           <p>Each tab runs this and fires a clicked-slot event, which carries the selected value, It gets the value from the name attribute of the slotted “tab”</p>
 
           
@@ -894,8 +890,7 @@
     <span class="hljs-built_in">this</span>.dispatchEvent(<span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">&#x27;clicked-slot&#x27;</span>, { <span class="hljs-attr">detail</span>: { <span class="hljs-attr">event</span>: e, <span class="hljs-attr">selected</span>: e.currentTarget.getAttribute(<span class="hljs-built_in">this</span>.selectedAttribute) } }))
   }</pre></div>
           
-        
-          
+                  
           <p>This function runs when the host element receives a clicked-slot event from it’s children. It sets the selected property and fires a ‘selected-changed’ event with that value.</p>
 
           

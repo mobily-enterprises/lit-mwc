@@ -771,8 +771,7 @@
 
       
       <article>
-        
-          
+                  
           
           
             <div class='highlight'><pre><span class="hljs-keyword">import</span> { html } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
@@ -828,8 +827,7 @@
         <span class="hljs-attr">attribute</span>: <span class="hljs-string">&#x27;no-autoload&#x27;</span>
       },</pre></div>
           
-        
-          
+                  
           <p>This will allow users to redefine methods declaratively</p>
 
           
@@ -857,15 +855,13 @@
 
   <span class="hljs-keyword">async</span> _allChildrenCompleted () {</pre></div>
           
-        
-          
+                  
           <p>Wait for all children to be ready to rock and roll</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> el <span class="hljs-keyword">of</span> <span class="hljs-built_in">this</span>.elements) {</pre></div>
           
-        
-          
+                  
           <p>TODO: What about React, Vue, etc.? Uniform API across element libraries?</p>
 
           
@@ -909,8 +905,7 @@
     <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.validateOnRender) {
       <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>._allChildrenCompleted()</pre></div>
           
-        
-          
+                  
           <p>Check validity</p>
 
           
@@ -947,8 +942,7 @@
 
   <span class="hljs-keyword">async</span> dataLoaded (o, op) {} <span class="hljs-comment">// op can be &#x27;autoload&#x27; or &#x27;submit&#x27;</span></pre></div>
           
-        
-          
+                  
           <p>Disabled here is set (and checked) with both the attribute and the property
 ‘disabled’ since an element might be disabled in the html, but might
 not have had a chance to render yet (in which case, for non-native elemtns,
@@ -980,8 +974,7 @@ yet run)</p>
 
   _fetchEl (specificElement) {</pre></div>
           
-        
-          
+                  
           <p>Tries to figure out what the fetching element is.
 if fetching-element was passed, then it’s either considered an ID
 or the element itself.
@@ -1021,8 +1014,7 @@ Otherwise it will look for an ee-network or with an element with class
 
   <span class="hljs-keyword">async</span> submit (specificElement) {</pre></div>
           
-        
-          
+                  
           <p>Clear all custom validities if they are set
 Native elements will NEED this, or any invalid state
 will persist even if validation passes
@@ -1040,8 +1032,7 @@ false (which basically means “abort”)</p>
       <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.reportValidity()) <span class="hljs-keyword">return</span>
     }</pre></div>
           
-        
-          
+                  
           <p>Give users the ability to listen to @submit and then Allow for a presubmit hook</p>
 
           
@@ -1049,16 +1040,14 @@ false (which basically means “abort”)</p>
     <span class="hljs-built_in">this</span>.dispatchEvent(submitEvent)
     <span class="hljs-keyword">if</span> (submitEvent.defaultPrevented) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>inFlightMap is a map of all connections, using the specificElement
 as key (or “window” if there is no specific element)</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">const</span> mapIndex = specificElement || <span class="hljs-built_in">this</span></pre></div>
           
-        
-          
+                  
           <p>The connection is ongoing: add a “specificElement” to the attempted
 field, and simply return.
 Towards the end, this function will check that “attempted” which,
@@ -1072,8 +1061,7 @@ specificElement</p>
     }
     <span class="hljs-built_in">this</span>.inFlightMap.set(mapIndex, { <span class="hljs-attr">attempted</span>: <span class="hljs-literal">false</span> })</pre></div>
           
-        
-          
+                  
           <p>The element’s method can only be null, POST or PUT.
 If not null, and not “PUT”, it’s set to “POST”</p>
 
@@ -1083,8 +1071,7 @@ If not null, and not “PUT”, it’s set to “POST”</p>
       elementMethod = <span class="hljs-string">&#x27;POST&#x27;</span>
     }</pre></div>
           
-        
-          
+                  
           <p>The ‘method’ attribute will have priority no matter what.
 If <code>method</code> is not set, then it will depend on recordId (PUT if present,
 POST if not)</p>
@@ -1094,8 +1081,7 @@ POST if not)</p>
       ? <span class="hljs-built_in">this</span>.recordId ? <span class="hljs-string">&#x27;PUT&#x27;</span> : <span class="hljs-string">&#x27;POST&#x27;</span>
       : elementMethod</pre></div>
           
-        
-          
+                  
           <p>Set the url, which will also depend on recordId</p>
 
           
@@ -1111,22 +1097,19 @@ POST if not)</p>
       <span class="hljs-attr">body</span>: <span class="hljs-built_in">this</span>.submitObject <span class="hljs-comment">// body data type must match &quot;Content-Type&quot; header</span>
     }</pre></div>
           
-        
-          
+                  
           <p>HOOK: Allow devs to customise the request about to be sent to the server</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.presubmit(fetchOptions)</pre></div>
           
-        
-          
+                  
           <p>Disable the elements</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (!specificElement) <span class="hljs-built_in">this</span>._disableElements(<span class="hljs-built_in">this</span>.elements)</pre></div>
           
-        
-          
+                  
           <p>Delete the multipart/form-data header if it was set, since
 the browser will set it (with the right boundary parameter)
 <a href="https://muffinman.io/uploading-files-using-fetch-multipart-form-data/">https://muffinman.io/uploading-files-using-fetch-multipart-form-data/</a>
@@ -1153,8 +1136,7 @@ as the value.</p>
       fetchOptions.body = formData
     }</pre></div>
           
-        
-          
+                  
           <p>Attempt the submission</p>
 
           
@@ -1169,8 +1151,7 @@ as the value.</p>
         : fetchOptions.body
     <span class="hljs-keyword">try</span> {</pre></div>
           
-        
-          
+                  
           <p>fetch() wants a stingified body</p>
 
           
@@ -1182,16 +1163,14 @@ as the value.</p>
       networkError = <span class="hljs-literal">true</span>
     }</pre></div>
           
-        
-          
+                  
           <p>CASE #1: network error.</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (networkError) {
       <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Network error!&#x27;</span>)</pre></div>
           
-        
-          
+                  
           <p>Re-enable the elements</p>
 
           
@@ -1200,31 +1179,27 @@ as the value.</p>
         <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>._wait(<span class="hljs-number">0</span>)
       }</pre></div>
           
-        
-          
+                  
           <p>Emit event to make it possible to tell the user via UI about the problem</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-keyword">const</span> event = <span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">&#x27;form-error&#x27;</span>, { <span class="hljs-attr">detail</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;network&#x27;</span> }, <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span> })
       <span class="hljs-built_in">this</span>.dispatchEvent(event)</pre></div>
           
-        
-          
+                  
           <p>Response hook</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.response(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, fetchOptions)</pre></div>
           
-        
-          
+                  
           <p>CASE #2: HTTP error.
 Invalidate the problem fields</p>
 
           
             <div class='highlight'><pre>    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!response.ok) {</pre></div>
           
-        
-          
+                  
           <p>Try and get the errors object from the reponse’s json</p>
 
           
@@ -1236,16 +1211,14 @@ Invalidate the problem fields</p>
       }
       errs = <span class="hljs-built_in">this</span>.extrapolateErrors(originalErrs) || {}</pre></div>
           
-        
-          
+                  
           <p>Emit event to make it possible to tell the user via UI about the problem</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-keyword">const</span> event = <span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">&#x27;form-error&#x27;</span>, { <span class="hljs-attr">detail</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;http&#x27;</span>, response, errs }, <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span> })
       <span class="hljs-built_in">this</span>.dispatchEvent(event)</pre></div>
           
-        
-          
+                  
           <p>Re-enable the elements
 This must happen before setCustomValidity() and reportValidity()</p>
 
@@ -1255,8 +1228,7 @@ This must happen before setCustomValidity() and reportValidity()</p>
         <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>._wait(<span class="hljs-number">0</span>)
       }</pre></div>
           
-        
-          
+                  
           <p>Set error messages</p>
 
           
@@ -1274,23 +1246,20 @@ This must happen before setCustomValidity() and reportValidity()</p>
         }
       }</pre></div>
           
-        
-          
+                  
           <p>Response hook</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.response(response, errs, fetchOptions)</pre></div>
           
-        
-          
+                  
           <p>CASE #3: NO error. Set fields to their
 new values</p>
 
           
             <div class='highlight'><pre>    } <span class="hljs-keyword">else</span> {</pre></div>
           
-        
-          
+                  
           <p>Convert the result to JSON</p>
 
           
@@ -1303,8 +1272,7 @@ new values</p>
 
       <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.incomingData(v, <span class="hljs-string">&#x27;submit&#x27;</span>)</pre></div>
           
-        
-          
+                  
           <p>HOOK Set the form values, in case the server processed some values
 Note: this is only ever called if set-form-after-submit was
 passed to the form.</p>
@@ -1312,8 +1280,7 @@ passed to the form.</p>
           
             <div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.setFormAfterSubmit) {</pre></div>
           
-        
-          
+                  
           <p>Won’t overwrite fields if another attempt is queued</p>
 
           
@@ -1327,8 +1294,7 @@ passed to the form.</p>
         }
       }</pre></div>
           
-        
-          
+                  
           <p>Re-enable the elements</p>
 
           
@@ -1337,8 +1303,7 @@ passed to the form.</p>
         <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>._wait(<span class="hljs-number">0</span>)
       }</pre></div>
           
-        
-          
+                  
           <p>Maybe reset the form if it was so required</p>
 
           
@@ -1346,16 +1311,14 @@ passed to the form.</p>
 
       <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.dataLoaded(v, <span class="hljs-string">&#x27;submit&#x27;</span>)</pre></div>
           
-        
-          
+                  
           <p>Emit event to make it possible to tell the user via UI about the problem</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-keyword">const</span> event = <span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">&#x27;form-ok&#x27;</span>, { <span class="hljs-attr">detail</span>: { response }, <span class="hljs-attr">bubbles</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">composed</span>: <span class="hljs-literal">true</span> })
       <span class="hljs-built_in">this</span>.dispatchEvent(event)</pre></div>
           
-        
-          
+                  
           <p>Response hook</p>
 
           
@@ -1373,24 +1336,21 @@ passed to the form.</p>
 
   <span class="hljs-keyword">async</span> updated (changedProperties) {</pre></div>
           
-        
-          
+                  
           <p>The ‘await’ here has the side effect of waiting for the next tick,
 which means that children elements will have a chance to render</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">await</span> <span class="hljs-built_in">super</span>.updated()</pre></div>
           
-        
-          
+                  
           <p>If no-autoload is set to true, or there is no autoload or no recordId,
 simply give up: nothing to do</p>
 
           
             <div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.noAutoload || !changedProperties.has(<span class="hljs-string">&#x27;recordId&#x27;</span>)) <span class="hljs-keyword">return</span></pre></div>
           
-        
-          
+                  
           <p>Record ID must be “something”</p>
 
           
@@ -1401,8 +1361,7 @@ simply give up: nothing to do</p>
 
   <span class="hljs-keyword">async</span> preloadData () {</pre></div>
           
-        
-          
+                  
           <p>Work out the action’s URL, adding the record ID  at the end
 (It will be a get)
 If there is a result, fetch the element values</p>
@@ -1412,23 +1371,20 @@ If there is a result, fetch the element values</p>
     <span class="hljs-keyword">let</span> response
     <span class="hljs-keyword">if</span> (action) {</pre></div>
           
-        
-          
+                  
           <p>This will make sure that the element is actually visible
 before doing the fetch</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.updateComplete</pre></div>
           
-        
-          
+                  
           <p>Disable elements</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-built_in">this</span>._disableElements(<span class="hljs-built_in">this</span>.elements)</pre></div>
           
-        
-          
+                  
           <p>Fetch the data and trasform it to json</p>
 
           
@@ -1444,23 +1400,20 @@ before doing the fetch</p>
 
       <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.incomingData(v, <span class="hljs-string">&#x27;autoload&#x27;</span>)</pre></div>
           
-        
-          
+                  
           <p>Set values</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-built_in">this</span>.setFormElementValues(v)</pre></div>
           
-        
-          
+                  
           <p>Re-enabled all disabled fields</p>
 
           
             <div class='highlight'><pre>      <span class="hljs-built_in">this</span>._enableElements(<span class="hljs-built_in">this</span>.elements)
       <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>._wait(<span class="hljs-number">0</span>)</pre></div>
           
-        
-          
+                  
           <p>Run reportValidity if validateOnLoad is on</p>
 
           
@@ -1468,8 +1421,7 @@ before doing the fetch</p>
         <span class="hljs-built_in">this</span>.reportValidity()
       }</pre></div>
           
-        
-          
+                  
           <p>Run hook</p>
 
           
