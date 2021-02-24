@@ -1,3 +1,56 @@
+/* Fonts */
+/* FOnts used in this template. Link below contains all fonts from standard layouts */
+/* https://fonts.google.com/selection?category=Sans+Serif,Display&selection.family=Manjari:400,700|Montserrat:300,400,400i,700,700i,800,800i|Roboto:400,400i,500,500i,700,900 */
+@font-face {
+  font-family: 'Manjari';
+  src: url('public/fonts/Manjari-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manjari Bold';
+  src: url('public/fonts/Manjari-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat SemiBold';
+  src: url('public/fonts/Montserrat-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SourceCodePro';
+  src: url('public/fonts/SourceCodePro-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Animations */
+@-webkit-keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 /* Code block styles */
 
 pre, code {
@@ -161,7 +214,7 @@ pre .hljs-tex .hljs-formula {
 body {
   box-sizing: border-box;
   height: 100vh;
-  font-family: sans-serif;
+  font-family: 'Montserrat SemiBold', sans-serif;
   margin: 0;
   color: #343434;
   overflow: hidden;
@@ -204,7 +257,13 @@ header {
 }
 
 ee-header {
+  position: relative;
   --ee-toolbar-height: 64px;
+  --ee-toolbar-font-size: 16px;
+  height: 64px;
+  display: flex;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
 
 .header div.topbar {
@@ -215,10 +274,6 @@ ee-header {
   color: #343434;
   background: white;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2); 
-}
-
-ee-header {
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);  
 }
 
 .header div.topbar #logo,
@@ -388,6 +443,7 @@ article {
   box-sizing: border-box;
   width: 100%;
   max-width: 1000px;
+  margin: auto;
   padding: 50px 15%;
 }
 
@@ -494,16 +550,22 @@ blockquote::after {
   .header-menu {
     display: inline;
     margin-left: auto;
+    margin-right: 30px;
   }
 
-  .header-menu ul{
+  .header-menu ul {
     display: flex;
     margin-block-start: 0.8em;
-    margin-block-end: 0.3em;
+    margin-block-end: 0.5em;
+    justify-content: space-between;
+  }
+
+  .header-menu li {
+    padding: 0 10px;
   }
 
   .header-menu li a, .header-menu li a:visited, .header-menu li a:active {
-    text-transform: capitalize;
+    text-transform: uppercase;
     cursor: pointer;
     border-bottom: none;
     color: #454545;
@@ -518,12 +580,12 @@ blockquote::after {
     font-weight: bold;
     color: #454545;
   }
-
+  .header-menu li 
   .header-menu li a:hover {
     border-bottom: 2px solid #b8d0f9;
   }
 
-  .header-menu li a:active {
+  a:active {
     border-width: 3px;
     height: 15px;
     outline: 1px dashed #cdcdcd;
@@ -537,13 +599,6 @@ blockquote::after {
     display: flex;
     flex-direction: row;
     height: 100%
-  }
-
-  nav {
-    width: 380px;
-    margin-right: 2%;
-    max-height: 100%;
-    overflow: auto;
   }
 
   /* Home Styles */

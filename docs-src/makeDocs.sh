@@ -24,10 +24,17 @@ for i in *md;do
   mkdir -p "../../docs/codelabs/$id/img"
   cp -pr ../codelabs/"$id"/img/* "../../docs/codelabs/$id/img"
 
+
+
   # Make the main index file, with the right title
   echo "# $title" > "../codelabs/$id/index.md"
 done
 cd ..
+
+# Copy TPE and TPE-material to the output folder
+mkdir -p ../docs/lib
+cp -pr ../distr/tpe-esm.js ../docs/lib/ 
+cp -pr ../../tpe-material/distr/material-esm.js ../docs/lib/ 
 
 # node --inspect-brk ../node_modules/docco-next/bin/docco \
 ../node_modules/docco-next/bin/docco \
@@ -44,3 +51,4 @@ cd ..
   code/elements/*js
 
 cp -r ./images ../docs/
+cp -r ../distr/tpe-esm.js ../docs/lib

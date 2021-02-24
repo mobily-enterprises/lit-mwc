@@ -9,8 +9,8 @@
   <link rel="stylesheet" media="all" href="/public/stylesheets/normalize.css" />
   <link rel="stylesheet" media="all" href="../../tpe.css" />
 
-  <script type="module" async src="https://unpkg.com/tpe-material/distr/material-esm.js"></script>
-  <script type="module" async src="https://unpkg.com/tpe/distr/tpe-esm.js"></script>
+  <script type="module" src="/lib/material-esm.js"></script>
+  <script type="module" src="/lib/tpe-esm.js"></script>
 
   
 
@@ -780,7 +780,7 @@
 TPE. There’s a simple interface to be implemented by the theme developers.
 The theme is defined with an object containing these keys:</p>
 <ul>
-<li>common: A mixin that will be applied to all tpe elements. If the theme
+<li>shared: A mixin that will be applied to all tpe elements. If the theme
 doesn’t use any shared code, this key can be ommitted.</li>
 <li>[<code>name</code>]: in which <code>name</code> matches each element that will be modified in
 the TPE collection. For example, the styles for <strong>nn-input-text</strong> should
@@ -791,13 +791,13 @@ object.</li>
 <strong>window.TP_THEME</strong>, and be available before loading TPE itself. Here’s an
 example:</p>
 <pre><code>    <span class="hljs-built_in">window</span>.TP_THEME = {
-      <span class="hljs-attr">common</span>: MyCommonThemeMixin,
+      <span class="hljs-attr">shared</span>: MySharedThemeMixin,
       <span class="hljs-string">&quot;nn-input-text&quot;</span>: MyInputTextThemeMixin,
       <span class="hljs-string">&quot;nn-button&quot;</span>: MyButtonThemeMixin,
       <span class="hljs-string">&quot;ee-tabs&quot;</span>: MyTabsThemeMixin
     }
 </code></pre>
-<p>The actual mixin is relatively simple. It will check for <code>common</code> and for a
+<p>The actual mixin is relatively simple. It will check for <code>shared</code> and for a
 specific value corresponding to the element name, expect as the functiona
 parameter. If they are present, they will be applied to the target element,
 along with two mixins defined below, CustomThemeMixin and LitBits.</p>
@@ -806,9 +806,9 @@ along with two mixins defined below, CustomThemeMixin and LitBits.</p>
             <div class='highlight'><pre><span class="hljs-keyword">import</span> { LitElement, css, html, unsafeCSS } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lit-element&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> ThemeableMixin = <span class="hljs-function">(<span class="hljs-params">name</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">base</span>) =&gt;</span> {
-  <span class="hljs-keyword">const</span> common = (<span class="hljs-built_in">window</span>.TP_THEME &amp;&amp; <span class="hljs-built_in">window</span>.TP_THEME.common) || (<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p)
+  <span class="hljs-keyword">const</span> shared = (<span class="hljs-built_in">window</span>.TP_THEME &amp;&amp; <span class="hljs-built_in">window</span>.TP_THEME.shared) || (<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p)
   <span class="hljs-keyword">const</span> elementTheme = (<span class="hljs-built_in">window</span>.TP_THEME &amp;&amp; <span class="hljs-built_in">window</span>.TP_THEME[name]) || (<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p)
-  <span class="hljs-keyword">return</span> elementTheme(common(CustomThemeMixin(LitBits(base))))
+  <span class="hljs-keyword">return</span> elementTheme(shared(CustomThemeMixin(LitBits(base))))
 }</pre></div>
           
                   
