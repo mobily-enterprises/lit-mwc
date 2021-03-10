@@ -770,7 +770,9 @@
     <section class="content-page">
 
       
-      <article>
+      
+        <article class="code/elements/nn-input-radio.js">
+      
                   
           
           
@@ -816,7 +818,9 @@
 customElements.define(<span class="hljs-string">&#x27;nn-input-radio&#x27;</span>, NnInputRadio)</pre></div>
           
         
+      
       </article>
+      
 
         
     </section>
@@ -1062,7 +1066,9 @@ customElements.define(<span class="hljs-string">&#x27;nn-input-radio&#x27;</span
   header.menu = (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 800)
   this.addEventListener('click', () => {
     const toc = document.querySelector('.toc')
-    sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    if (toc) {
+      sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    }
   })
   this.addEventListener('load', () => {
     const toc = document.querySelector('.toc')

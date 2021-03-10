@@ -770,7 +770,9 @@
     <section class="content-page">
 
       
-      <article>
+      
+        <article class="code/elements/nn-input-week.js">
+      
                   
           
           
@@ -792,7 +794,9 @@
 <span class="hljs-built_in">window</span>.customElements.define(<span class="hljs-string">&#x27;nn-input-week&#x27;</span>, NnInputWeek)</pre></div>
           
         
+      
       </article>
+      
 
         
     </section>
@@ -1038,7 +1042,9 @@
   header.menu = (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 800)
   this.addEventListener('click', () => {
     const toc = document.querySelector('.toc')
-    sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    if (toc) {
+      sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    }
   })
   this.addEventListener('load', () => {
     const toc = document.querySelector('.toc')

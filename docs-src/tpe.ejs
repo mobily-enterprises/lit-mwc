@@ -43,6 +43,7 @@ function tocClasses(s, source) {
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
   <style>
+    /* Codelabs */
     .success {
       color: #1e8e3e;
     }
@@ -51,6 +52,16 @@ function tocClasses(s, source) {
     }
     #codelab-title {
             display: none !important;
+    }
+    google-codelab {
+      height: calc(100vh - 64px);
+      padding-top: unset;
+    }
+    google-codelab #drawer {
+      z-index: 0;
+    }
+    google-codelab + article {
+      padding: 0;
     }
   </style>
   <% } %>
@@ -108,7 +119,9 @@ function tocClasses(s, source) {
     <section class="content-page">
 
       <%-includeText(source + '.head.html', true) %>
-      <article>
+      <% if (sections.length) { %>
+        <article class="<%= source %>">
+      <% } %>
         <% for (var i = 0, l = sections.length; i<l; i++) { -%>
           <% var section = sections[i]; %>
           <%- section.docsHtml %>
@@ -116,7 +129,9 @@ function tocClasses(s, source) {
             <%- section.codeHtml %>
           <% } %>
         <% } %>
+      <% if (sections.length) { %>
       </article>
+      <% } %>
 
         <%-includeText(source + '.foot.html', true) %>
     </section>
@@ -149,7 +164,9 @@ function tocClasses(s, source) {
   header.menu = (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 800)
   this.addEventListener('click', () => {
     const toc = document.querySelector('.toc')
-    sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    if (toc) {
+      sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    }
   })
   this.addEventListener('load', () => {
     const toc = document.querySelector('.toc')

@@ -770,7 +770,9 @@
     <section class="content-page">
 
       
-      <article>
+      
+        <article class="code/elements/nn-input-text.js">
+      
                   
           <p>This element is a thin wrap to <code>&lt;input type=text</code>&gt;.</p>
 <h2 id="designers">Designers</h2>
@@ -888,7 +890,9 @@
 customElements.define(<span class="hljs-string">&#x27;nn-input-text&#x27;</span>, NnInputText)</pre></div>
           
         
+      
       </article>
+      
 
         
     </section>
@@ -1134,7 +1138,9 @@ customElements.define(<span class="hljs-string">&#x27;nn-input-text&#x27;</span>
   header.menu = (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 800)
   this.addEventListener('click', () => {
     const toc = document.querySelector('.toc')
-    sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    if (toc) {
+      sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    }
   })
   this.addEventListener('load', () => {
     const toc = document.querySelector('.toc')

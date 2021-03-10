@@ -770,7 +770,9 @@
     <section class="content-page">
 
       
-      <article>
+      
+        <article class="code/mixins/AddHasValueAttributeMixin.js">
+      
                   
           <p>In some cases, elements will experience some change in state, like the value
 in an input field or focus, and it would be convenient to have styling
@@ -832,7 +834,9 @@ cases implemented currently, <code>has-focus</code> and <code>has-value</code>.<
 }</pre></div>
           
         
+      
       </article>
+      
 
         
     </section>
@@ -1078,7 +1082,9 @@ cases implemented currently, <code>has-focus</code> and <code>has-value</code>.<
   header.menu = (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 800)
   this.addEventListener('click', () => {
     const toc = document.querySelector('.toc')
-    sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    if (toc) {
+      sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    }
   })
   this.addEventListener('load', () => {
     const toc = document.querySelector('.toc')

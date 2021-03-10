@@ -770,7 +770,9 @@
     <section class="content-page">
 
       
-      <article>
+      
+        <article class="code/mixins/StyleableMixin.js">
+      
                   
           <p>This mixin adds the capability to use common <em><style></em> tags. Our goal is to
 reduce friction for anyone not used to custom elements, shadow DOM and
@@ -827,7 +829,9 @@ So, any <style slot="style"> will be cloned over</p>
 }</pre></div>
           
         
+      
       </article>
+      
 
         
     </section>
@@ -1073,7 +1077,9 @@ So, any <style slot="style"> will be cloned over</p>
   header.menu = (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 800)
   this.addEventListener('click', () => {
     const toc = document.querySelector('.toc')
-    sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    if (toc) {
+      sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    }
   })
   this.addEventListener('load', () => {
     const toc = document.querySelector('.toc')

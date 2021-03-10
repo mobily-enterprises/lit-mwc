@@ -266,7 +266,9 @@
     <section class="content-page">
 
       
-      <article>
+      
+        <article class="codelabs.md">
+      
                   
           <ul>
 <li><a href="codelabs/how-to/index.html">how to</a></li>
@@ -274,7 +276,9 @@
 
           
         
+      
       </article>
+      
 
         
     </section>
@@ -520,7 +524,9 @@
   header.menu = (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 800)
   this.addEventListener('click', () => {
     const toc = document.querySelector('.toc')
-    sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    if (toc) {
+      sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    }
   })
   this.addEventListener('load', () => {
     const toc = document.querySelector('.toc')

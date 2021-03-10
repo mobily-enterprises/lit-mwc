@@ -770,7 +770,9 @@
     <section class="content-page">
 
       
-      <article>
+      
+        <article class="code/elements/tpe.js">
+      
                   
           
           
@@ -820,7 +822,9 @@
 <span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./nn-textarea.js&#x27;</span></pre></div>
           
         
+      
       </article>
+      
 
         
     </section>
@@ -1066,7 +1070,9 @@
   header.menu = (Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 800)
   this.addEventListener('click', () => {
     const toc = document.querySelector('.toc')
-    sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    if (toc) {
+      sessionStorage.setItem(`${location.pathname.split('/')[1]}_toc`, String(toc.scrollTop))
+    }
   })
   this.addEventListener('load', () => {
     const toc = document.querySelector('.toc')
