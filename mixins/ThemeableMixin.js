@@ -6,7 +6,7 @@
 // TPE. There's a simple interface to be implemented by the theme developers.
 // The theme is defined with an object containing these keys:
 
-//   - common: A mixin that will be applied to all tpe elements. If the theme
+//   - shared: A mixin that will be applied to all tpe elements. If the theme
 //     doesn't use any shared code, this key can be ommitted.
 //   - [`name`]: in which `name` matches each element that will be modified in
 //     the TPE collection. For example, the styles for **nn-input-text** should
@@ -19,14 +19,14 @@
 
 // ```
 //     window.TP_THEME = {
-//       common: MyCommonThemeMixin,
+//       shared: MySharedThemeMixin,
 //       "nn-input-text": MyInputTextThemeMixin,
 //       "nn-button": MyButtonThemeMixin,
 //       "ee-tabs": MyTabsThemeMixin
 //     }
 // ```
 //
-// The actual mixin is relatively simple. It will check for `common` and for a
+// The actual mixin is relatively simple. It will check for `shared` and for a
 // specific value corresponding to the element name, expect as the functiona
 // parameter. If they are present, they will be applied to the target element,
 // along with two mixins defined below, CustomThemeMixin and LitBits.
@@ -34,9 +34,9 @@
 import { LitElement, css, html, unsafeCSS } from 'lit-element'
 
 export const ThemeableMixin = (name) => (base) => {
-  const common = (window.TP_THEME && window.TP_THEME.common) || (p => p)
+  const shared = (window.TP_THEME && window.TP_THEME.shared) || (p => p)
   const elementTheme = (window.TP_THEME && window.TP_THEME[name]) || (p => p)
-  return elementTheme(common(CustomThemeMixin(LitBits(base))))
+  return elementTheme(shared(CustomThemeMixin(LitBits(base))))
 }
 
 // In addition to applying the imported theme, ThemeableMixin adds a
