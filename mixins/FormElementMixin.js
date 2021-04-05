@@ -1,3 +1,8 @@
+
+if (!window.ElementInternals) {
+  import('element-internals-polyfill').then(() => { console.log('Loaded ElementInternal polyfill') })
+}
+
 // FormElementMixin
 // ================
 //
