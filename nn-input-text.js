@@ -43,21 +43,29 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
     `
   }
 
+  constructor () {
+    super()
+    this._boundKeyEventListener = this._eventListener.bind(this)
+  }
+
   static get properties () {
     return {
       submitOnEnter: { type: Boolean, attribute: 'submit-on-enter' }
     }
   }
 
-  constructor () {
-    super()
-    this._boundKeyEventListener = this._eventListener.bind(this)
-  }
-
   // Submit on enter with forms with only one element
   _eventListener (e) {
     if (this.form && e.keyCode === 13 && (this.form.elements.length === 1 || this.submitOnEnter)) {
       this.form.submit()
+    }
+  }
+
+  afterSettingProperty (prop, newValue) {
+    super.afterSettingProperty(prop, newValue)
+    // Update the form parent value if `prop` is `value`
+    if (prop === 'value' && this.internals) {
+      this.internals.setFormValue(this.value)
     }
   }
 

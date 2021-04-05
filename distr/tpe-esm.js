@@ -2684,12 +2684,12 @@ const SyntheticValidatorMixin = (base) => {
 // StyleableMixin
 // ==============
 //
-// This mixin adds the capability to use common _<style>_ tags.
-// Our goal is to reduce friction for anyone not used to custom elements, shadow DOM
-// and prefers to create and style their projects using plain HTML markup.
+// This mixin adds the capability to use common _<style>_ tags. Our goal is to
+// reduce friction for anyone not used to custom elements, shadow DOM and
+// prefers to create and style their projects using plain HTML markup.
 //
-// Usage is simple. Any TPE elements accepts plain CSS code added as <style slot="style"></style>,
-// nested in the elements markup, like so:
+// Usage is simple. Any TPE elements accepts plain CSS code added as <style
+// slot="style"></style>, nested in the elements markup, like so:
 //
 // ```
 // <nn-input-text>
@@ -2701,8 +2701,8 @@ const SyntheticValidatorMixin = (base) => {
 // </nn-input-text>
 // ```
 //
-// That allows developers to pierce the shadow DOM and override all of the elements styles
-// using familiar syntax.
+// That allows developers to pierce the shadow DOM and override all of the
+// elements styles using familiar syntax.
 //
 
 const StyleableMixin = (base) => {
@@ -2739,17 +2739,19 @@ const StyleableMixin = (base) => {
 /* eslint-disable new-cap */
 
 const ThemeableMixin = (name) => (base) => {
-  const common = (window.TP_THEME && window.TP_THEME.common) || (p => p);
+  const shared = (window.TP_THEME && window.TP_THEME.shared) || (p => p);
   const elementTheme = (window.TP_THEME && window.TP_THEME[name]) || (p => p);
-  return elementTheme(common(CustomThemeMixin(LitBits(base))))
+  return elementTheme(shared(CustomThemeMixin(LitBits(base))))
 };
 
-// In addition to applying the imported theme, ThemeableMixin adds a non-standard LitElement property: _customStyles_.
-// Using _customStyles_ allows developers to completely bypass the shadowRoot scope and redefine any part or all of the elements CSS
-// using a stylesheet string or a CSSTemplateResult object.
-// The principle behind this mechanism is that if a new style is added using this property, the adopteStylesheet of the element is
-// updated in realtime. This approach can be costly for performance if abused, but for the main purpose of overriding scoped CSS, it won't
-// have any side effects.
+// In addition to applying the imported theme, ThemeableMixin adds a
+// non-standard LitElement property: _customStyles_. Using _customStyles_ allows
+// developers to completely bypass the shadowRoot scope and redefine any part or
+// all of the elements CSS using a stylesheet string or a CSSTemplateResult
+// object. The principle behind this mechanism is that if a new style is added
+// using this property, the adopteStylesheet of the element is updated in
+// realtime. This approach can be costly for performance if abused, but for the
+// main purpose of overriding scoped CSS, it won't have any side effects.
 
 const CustomThemeMixin = (base) => {
   return class Theme extends base {
@@ -2769,9 +2771,11 @@ const CustomThemeMixin = (base) => {
   }
 };
 
-// LitBits is a workaround developed to address this [issue](https://github.com/Polymer/lit-html/issues/1015#issuecomment-577903812).
-// This makes sure the same instance of lit-html is used in the entire mixin chain. That issue should be revolved by lit-html's
-// next [version update](https://www.polymer-project.org/blog/2020-09-22-lit-element-and-lit-html-next-preview).
+// LitBits is a workaround developed to address this
+// [issue](https://github.com/Polymer/lit-html/issues/1015#issuecomment-577903812).
+// This makes sure the same instance of lit-html is used in the entire mixin
+// chain. That issue should be revolved by lit-html's next [version
+// update](https://www.polymer-project.org/blog/2020-09-22-lit-element-and-lit-html-next-preview).
 
 const LitBits = (base) => {
   return class Base extends base {
@@ -3738,7 +3742,7 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
   _keydownEvent (e) {
     switch (e.key) {
     case 'Escape':
-      this._dismissSuggestions();
+      this.dismissSuggestions();
       break
     case 'KeyDown':
       if (this.suggestions.length) {
@@ -3777,7 +3781,7 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
         this.pickedData = e.target.data;
       }
     }
-    this._dismissSuggestions();
+    this.dismissSuggestions();
     this.targetElement.focus();
 
     // Dispatch input event since input happened
@@ -3840,7 +3844,7 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
           this.picked = true;
           this.pickedData = firstOption.data;
           if (!this.displaySingleSuggestion) {
-            this._dismissSuggestions();
+            this.dismissSuggestions();
             this._dispatchPickedEvent();
           }
         }
@@ -3892,7 +3896,21 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
     return out
   }
 
-  _dismissSuggestions () {
+  toggleSuggestions () {
+    if (this.suggestions.length) {
+      this.dismissSuggestions();
+      this.targetElement.value = '';
+    } else {
+      this.openSuggestions();
+    }
+  }
+
+  openSuggestions () {
+    this.targetElement.value = ' ';
+    this._inputEvent({});
+  }
+
+  dismissSuggestions () {
     const suggestionsDiv = this.shadowRoot.querySelector('#suggestions');
     suggestionsDiv.toggleAttribute('populated', false);
     this.suggestions = [];
@@ -3923,7 +3941,7 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
       this.targetElement.focus();
       break
     case 'Escape':
-      this._dismissSuggestions();
+      this.dismissSuggestions();
       this.targetElement.focus();
       break
     }
@@ -3940,7 +3958,7 @@ class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableMixin(Li
 
     // There is more input: a new query will be made,
     // so the list is now stale
-    this._dismissSuggestions();
+    this.dismissSuggestions();
 
     // If the target element is not valid, don't take off at all
     // TAKEN OUT as autocomplete might be necessary to actually make
@@ -5415,7 +5433,7 @@ class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
           border-bottom: 1px solid var(--ee-tabs-lines-color, #bbb);
           display: flex;
           height: var(--ee-tabs-height, 32px);
-          z-index: var(--ee-tabs-z-index);
+          z-index: var(--ee-tabs-z-index, 1);
           overflow: var(--ee-tabs-nav-overflow);
         }
 
@@ -5423,13 +5441,12 @@ class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)) {
           height: 100%;
         }
 
-        /* TODO: Why don't these selectors work? */
-        :host #contentContainer ::slotted(*) {
+        #contentContainer ::slotted(*) {
           display: none;
         }
 
-        :host #contentContainer ::slotted(*[active]) {
-          display: initial;
+        #contentContainer ::slotted(*[active]) {
+          display: block;
         }
 
         :host nav ::slotted(*) .icon {
@@ -5642,7 +5659,8 @@ customElements.define('ee-tabs', EeTabs);
 
 // DraggableListMixin
 
-// These are declared outside the mixin to make sure diffrent instances access the same data
+// These are declared outside the mixin to make sure different instances access the same data.
+// This is important in order to support dragging items between separate lists.
 window.moving = null;
 window.originContainer = null;
 window.targetContainer = null;
@@ -5746,8 +5764,6 @@ const DraggableListMixin = (base) => {
           }
 
           ::slotted(.target), ::slotted(.moving) {
-            /* visibility: hidden; */
-            /* height: 0; */
             box-sizing: border-box;
             outline: 6px solid orange;
             background-color: papayawhip;
@@ -5758,23 +5774,7 @@ const DraggableListMixin = (base) => {
             position: relative;
             box-sizing: border-box;
             background-color: white;
-            /* margin-top: 40px; */
           }
-/*
-          ::slotted(.target)::before {
-            content: attr(drop-label);
-            font-weight: bold;
-            color: white;
-            text-align: center;
-            vertical-align: middle;
-            position: absolute;
-            top: -100%;
-            bottom: 100%;
-            left: 0;
-            width: 100%;
-            background-color: purple;
-            /* animation: fadeIn 0.3s ease-in;*/
-          } */
         `
       ]
     }
@@ -6105,6 +6105,17 @@ customElements.define('ee-cell', EeCell);
 
 // DraggableElement
 // ===============
+//
+// This mixin should be applied to LitElement based elements meant to be
+// compatible with _DraggableListMixin_. It will dispatch an event when the
+// enable-dnd attribute is added, which allows for consistent fucntionality of
+// the the _DraggableListMixin_. This is a solution to an issue that can occur
+// if the list children are rendered with a _map_ function or the lit-html
+// _repeat_ directive, which causes _DraggableListMixin_ to not find the
+// children at the right time, because they are not rendered yet. The event
+// makes sure the mixin is able to find and modify the children accordingly to
+// enable drag and drop features.
+//
 const DraggableElementMixin = (base) => {
   return class Base extends base {
     // Necessary styles to be added to the litElement based target element:
@@ -6124,9 +6135,6 @@ const DraggableElementMixin = (base) => {
     constructor () {
       super();
       this.dragData = {};
-      this.addEventListener('drop', function(e) {
-        console.log('DROP EVENT HAPPENED HERE');
-      });
     }
 
     firstUpdated () {
@@ -6311,7 +6319,7 @@ class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeReflectorMix
       if (this._radioElement(el)) {
         el[valueSource] = el.getAttribute(valueSource) !== null;
       } else if (this._checkboxElement(el)) {
-        el[valueSource] = el.getAttribute(valueSource) !== null;
+        el[valueSource] = el.hasAttribute(valueSource);
       } else {
         el[valueSource] = el.getAttribute(valueSource);
       }
@@ -6327,7 +6335,7 @@ class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeReflectorMix
 
       // Radio will only happen once thanks to checking for undefined
       if (typeof r[elName] !== 'undefined') continue
-      if (el.getAttribute('no-submit') !== null) continue
+      if (el.hasAttribute('no-submit')) continue
       // Checkboxes are special: they might be handled as native ones,
       // (NOTHING set if unchecked, and their value set if checked) or
       // as booleans (true for checked, or false for unchecked)
@@ -6341,7 +6349,7 @@ class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeReflectorMix
           r[elName] = !!this.getFormElementValue(elName);
         }
       // For "file" types (uploads), it will
-      } else if (el.type === 'file' || el.getAttribute('as-file')) {
+      } else if (el.getAttribute('type') === 'file' || el.getAttribute('as-file')) {
         r[elName] = el;
       } else {
         r[elName] = this.getFormElementValue(elName);
@@ -6429,24 +6437,30 @@ class NnForm extends ThemeableMixin('nn-form')(StyleableMixin(NativeReflectorMix
   }
 
   _selectElement (el) {
-    if (typeof el.selectedIndex !== 'undefined' || el.getAttribute('as-select') !== null) return true
+    if (typeof el.selectedIndex !== 'undefined' || el.hasAttribute('as-select')) return true
     return false
   }
 
   _checkboxElement (el) {
-    if (el.type === 'checkbox') return true
-    if (el.getAttribute('as-checkbox') !== null) return true
+    if (el.getAttribute('type') === 'checkbox') return true
+    if (el.hasAttribute('as-checkbox')) return true
     return false
   }
 
   _radioElement (el) {
-    if (el.type === 'radio') return true
-    if (el.getAttribute('as-radio') !== null) return true
+    if (el.getAttribute('type') === 'radio') return true
+    if (el.hasAttribute('as-radio')) return true
     return false
   }
 
   _getElementValueSource (el) {
-    if (el.type === 'checkbox' || el.type === 'radio') return 'checked'
+    if (
+      el.getAttribute('type') === 'checkbox' ||
+      el.getAttribute('type') === 'radio' ||
+      el.hasAttribute('as-checkbox') ||
+      el.hasAttribute('as-radio')
+    ) return 'checked'
+
     if (el.getAttribute('value-source')) return el.getAttribute('value-source')
     return 'value'
   }
@@ -6533,7 +6547,6 @@ class EnForm extends ThemeableMixin('en-form')(NnForm) {
     this.fetchingElement = null;
     this.submitCheckboxesAsNative = false;
     this._boundRealtimeSubmitter = this._realTimeSubmitter.bind(this);
-    this.inFlight = false;
     this.attemptedFlight = false;
     this.inFlightMap = new WeakMap();
     this.attemptedFlightMap = new WeakMap();
@@ -6990,6 +7003,10 @@ const InputMixin = (base) => {
   }
 };
 
+// FormElementMixin
+// ================
+//
+
 const FormElementMixin = (base) => {
   return class Base extends base {
     get skipAttributes () {
@@ -7002,9 +7019,41 @@ const FormElementMixin = (base) => {
       return [...super.skipProperties, 'form']
     }
 
+    /**
+     * Returning `true` for the formAssociated property allows the element to be
+     * detected and participate as a form control element in native forms. It is
+     * also necessary to add the lifecycle hooks related to that behavior.
+    */
+    static get formAssociated () { return true }
+
+    constructor () {
+      super();
+      // Check if the `attachInternals` method is available and call it to enable
+      // the ElementInternals API.
+      if (this.attachInternals) {
+        this.internals = this.attachInternals();
+      }
+    }
+
+    firstUpdated () {
+      super.firstUpdated();
+      if (this.internals) {
+        // Update form with current value on firstUpdate
+        this._updateAssociatedForm();
+        this.native.addEventListener('input', (e) => {
+          // Update form value at every input change
+          this._updateAssociatedForm();
+        });
+      }
+    }
+
     connectedCallback () {
       super.connectedCallback();
       this.assignFormProperty();
+    }
+
+    _updateAssociatedForm () {
+      this.internals.setFormValue(this.value);
     }
 
     assignFormProperty () {
@@ -7323,10 +7372,14 @@ class NnInputCheckbox extends ThemeableMixin('nn-input-checkbox')(FormElementMix
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input type="checkbox" as-checkbox value-source="checked" id="native"  real-time-event="click">
+      <input type="checkbox" as-checkbox value-source="checked" id="native" real-time-event="click">
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
+  }
+
+  _updateAssociatedForm () {
+    this.internals.setFormValue(this.checked ? this.value : null);
   }
 }
 customElements.define('nn-input-checkbox', NnInputCheckbox);
@@ -7360,21 +7413,29 @@ class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixin(Nativ
     `
   }
 
+  constructor () {
+    super();
+    this._boundKeyEventListener = this._eventListener.bind(this);
+  }
+
   static get properties () {
     return {
       submitOnEnter: { type: Boolean, attribute: 'submit-on-enter' }
     }
   }
 
-  constructor () {
-    super();
-    this._boundKeyEventListener = this._eventListener.bind(this);
-  }
-
   // Submit on enter with forms with only one element
   _eventListener (e) {
     if (this.form && e.keyCode === 13 && (this.form.elements.length === 1 || this.submitOnEnter)) {
       this.form.submit();
+    }
+  }
+
+  afterSettingProperty (prop, newValue) {
+    super.afterSettingProperty(prop, newValue);
+    // Update the form parent value if `prop` is `value`
+    if (prop === 'value' && this.internals) {
+      this.internals.setFormValue(this.value);
     }
   }
 
@@ -7553,11 +7614,13 @@ class NnInputRadio extends ThemeableMixin('nn-input-radio')(FormElementMixin(Nat
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input as-radio value-source="checked" @change="${this._excludeOthers}" type="radio" id="native"  real-time-event="input">
+      <input as-radio value-source="checked" @change="${this._excludeOthers}" type="radio" id="native" real-time-event="input">
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }
+
+  _updateAssociatedForm () {}
 
   _excludeOthers (e) {
     // All other elements with the same name, marked as `as-radio`
@@ -7570,6 +7633,10 @@ class NnInputRadio extends ThemeableMixin('nn-input-radio')(FormElementMixin(Nat
     for (const el of others) {
       const prop = el.getAttribute('value-source') || 'checked';
       el[prop] = false;
+    }
+
+    if (this.internals) {
+      this.internals.setFormValue(this.checked ? this.value : null);
     }
   }
 }

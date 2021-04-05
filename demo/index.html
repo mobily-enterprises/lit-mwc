@@ -11,13 +11,13 @@
   <style>
     /* This should not be necessary */
     ee-tabs [slot="content"] {
-      display: none;
+      padding: 40px;
     }
 
     /* This should not be necessary */
-    ee-tabs [slot="content"][active] {
+    /* ee-tabs [slot="content"][active] {
       display: initial;
-    }
+    } */
 
     ee-table {
       box-sizing: border-box;
@@ -43,50 +43,53 @@
     </ee-drawer>
     <ee-header menu header-title="TPE demo"></ee-header>
 
-    <ee-tabs default="tab2" >
+    <ee-tabs default="tab1" >
       <span name="tab1">Form</span>
       <span name="tab2">Table</span>
       <span name="tab3">Tab 3</span>
       <span name="tab4">Tab 4</span>
       <div name="tab1" slot="content">
-        <nn-form>
-          <h2>Meter</h2>
-          <nn-meter id="meter" min=10 max=20 value=15></nn-meter>
-      
-          <h2>Submit</h2>
-          <nn-input-submit id="input-submit" label="Submit"></nn-input-submit>
-      
-          <h2>File</h2>
-          <nn-input-file id="input-file" label="Upload file" multiple></nn-input-file>
-      
-          <h2>Color</h2>
-          <nn-input-color id="input-color" label="Input color"></nn-input-color>
-      
-          <h2>Input Button</h2>
-          <nn-input-button id="input-button" value="Input button"></nn-input-button>
-      
-          <h2>Range</h2>
-          <nn-input-range value=10 id="input-range" label="Range" min=10 max=100></nn-input-range>
-      
+        <nn-form id="form" action="#">
           <h2>Checkbox</h2>
           <nn-input-checkbox id="input-checkbox" label="Checkbox"></nn-input-checkbox>
-      
+
           <h2>Radio</h2>
-          <nn-input-radio id="input-radio-1" label="Radio 1" name="some"></nn-input-radio>
-          <nn-input-radio id="input-radio-2" label="Radio 2" name="some"></nn-input-radio>
-      
-          <h2>Text label before</h2>
+          <nn-input-radio id="input-radio-1" label="Radio 1" name="some" value="radio1"></nn-input-radio>
+          <nn-input-radio id="input-radio-2" label="Radio 2" name="some" value="radio2"></nn-input-radio>
+
+          <h2>Text input</h2>
           <nn-input-text id="input-text" label="Text" label-position="before"></nn-input-text>
-      
-          <h2>Text label after</h2>
-          <nn-input-text required id="input-text" label="Text" label-position="after"></nn-input-text>
-      
-          <h2>Native input</h2>
-          <label for="native-test">Native</label>
-          <input id="native-text" type="text">
+
           <h2>Button</h2>
-          <nn-button id="button" me1="me" me2="me2">Button</nn-button>
+          <nn-button id="button" type="submit">Send</nn-button>
         </nn-form>
+
+        <h2>Native Form</h2>
+        <form id="native-form">
+          <label for="native-text">
+            Native Input
+            <input id="native-text" name="native-text"/>
+          </label>
+          
+          <nn-input-text id="input-text" name="tpe-text" label="Custom TPE Input"></nn-input-text>
+
+          <h3>Checkbox</h3>
+          <input type="checkbox" id="native-checkbox" name="native-checkbox"/>
+          <label for="native-checkbox">Native checkbox</label>
+          <br>
+          <input type="checkbox" id="native-checkbox2" name="native-checkbox2"/>
+          <label for="native-checkbox">Native checkbox 2</label>
+
+          <br>
+          <nn-input-checkbox id="input-checkbox" name="tpe-checkbox" label="Checkbox"></nn-input-checkbox>
+
+
+          <h3>Radio</h3>
+          <nn-input-radio id="input-radio-1" label="Radio 1" name="choose-one" value="radio1"></nn-input-radio>
+          <nn-input-radio id="input-radio-2" label="Radio 2" name="choose-one" value="radio2"></nn-input-radio>
+          <br>
+          <button type="submit">Send it</button>
+        </form>
       </div>
       <div name="tab2" slot="content">
         <h3>Simple table</h3>
@@ -151,6 +154,22 @@
       drawer.toggle()
     }
 
+    const enform = document.getElementById('native-form')
+    const form = document.getElementById('native-form')
+    enform.presubmit = fetchOptions => {
+      // Use a hook to manipulate the payload before submitting.`fetchOptions` contains:
+      fetchOptions.body.submissionTimestamp = Date.now()
+      console.log(fetchOptions.body)
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      const formData = new FormData(form)
+      const data = {}
+      formData.forEach((value, key) => { data[key] = value })
+      console.log(data)
+    })
+
     document.addEventListener('DOMContentLoaded', (event) => {
       console.log('ready')
     
@@ -174,4 +193,3 @@
     // const table = document.getElementById('drag-example-table')
   </script>
 </html>
-  

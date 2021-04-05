@@ -13,10 +13,14 @@ class NnInputCheckbox extends ThemeableMixin('nn-input-checkbox')(FormElementMix
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input type="checkbox" as-checkbox value-source="checked" id="native"  real-time-event="click">
+      <input type="checkbox" as-checkbox value-source="checked" id="native" real-time-event="click">
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
+  }
+
+  _updateAssociatedForm () {
+    this.internals.setFormValue(this.checked ? this.value : null)
   }
 }
 customElements.define('nn-input-checkbox', NnInputCheckbox)

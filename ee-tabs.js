@@ -19,7 +19,7 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           border-bottom: 1px solid var(--ee-tabs-lines-color, #bbb);
           display: flex;
           height: var(--ee-tabs-height, 32px);
-          z-index: var(--ee-tabs-z-index);
+          z-index: var(--ee-tabs-z-index, 1);
           overflow: var(--ee-tabs-nav-overflow);
         }
 
@@ -27,13 +27,12 @@ export class EeTabs extends ThemeableMixin('ee-tabs')(StyleableMixin(LitElement)
           height: 100%;
         }
 
-        /* TODO: Why don't these selectors work? */
-        :host #contentContainer ::slotted(*) {
+        #contentContainer ::slotted(*) {
           display: none;
         }
 
-        :host #contentContainer ::slotted(*[active]) {
-          display: initial;
+        #contentContainer ::slotted(*[active]) {
+          display: block;
         }
 
         :host nav ::slotted(*) .icon {

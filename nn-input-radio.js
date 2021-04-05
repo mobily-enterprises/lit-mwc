@@ -13,11 +13,13 @@ class NnInputRadio extends ThemeableMixin('nn-input-radio')(FormElementMixin(Nat
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input as-radio value-source="checked" @change="${this._excludeOthers}" type="radio" id="native"  real-time-event="input">
+      <input as-radio value-source="checked" @change="${this._excludeOthers}" type="radio" id="native" real-time-event="input">
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
     `
   }
+
+  _updateAssociatedForm () {}
 
   _excludeOthers (e) {
     // All other elements with the same name, marked as `as-radio`
@@ -30,6 +32,10 @@ class NnInputRadio extends ThemeableMixin('nn-input-radio')(FormElementMixin(Nat
     for (const el of others) {
       const prop = el.getAttribute('value-source') || 'checked'
       el[prop] = false
+    }
+
+    if (this.internals) {
+      this.internals.setFormValue(this.checked ? this.value : null)
     }
   }
 }
