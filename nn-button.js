@@ -39,7 +39,10 @@ class NnButton extends ThemeableMixin('nn-button')(FormElementMixin(NativeValida
   }
 
   _clicked (e) {
-    if (this.getAttribute('type') === 'submit') this.form.submit()
+    // trigger submit on the parent form. Use requestSubmit if available
+    if (this.getAttribute('type') === 'submit') {
+      this.form.requestSubmit ? this.form.requestSubmit() : this.form.submit()
+    }
   }
 }
 customElements.define('nn-button', NnButton)
