@@ -58,6 +58,14 @@
           
           <nn-input-text id="input-text" name="tpe-text" label="Custom TPE Input" placeholder="tpe-text"></nn-input-text>
 
+          <h3>Password</h3>
+
+          <label for="native-pw">
+            Native Password
+            <input id="native-pw" type="password" name="native-password" />
+          </label>
+          <nn-input-password name="tpe-password" label="TPE Password"></nn-input-password>
+
           <h3>Checkbox</h3>
           <input type="checkbox" id="native-checkbox" name="native-checkbox"/>
           <label for="native-checkbox">Native checkbox</label>
@@ -70,6 +78,12 @@
           <nn-input-checkbox id="input-checkbox" name="tpe-checkbox" label="TPE Checkbox"></nn-input-checkbox>
 
           <h3>Radio</h3>
+          <input type="radio" name="choose-one" id="input-radio" value="radio-native">
+          <label for="input-radio">Native Radio</label>
+          &nbsp;&nbsp;
+          <input type="radio" name="choose-one" id="input-radio2" value="radio-native2">
+          <label for="input-radio">Native Radio 2</label>
+          &nbsp;&nbsp;
           <nn-input-radio id="input-radio-1" label="Radio 1" name="choose-one" value="radio1"></nn-input-radio>
           &nbsp;&nbsp;
           <nn-input-radio id="input-radio-2" label="Radio 2" name="choose-one" value="radio2"></nn-input-radio>

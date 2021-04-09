@@ -19,15 +19,20 @@ class NnInputRadio extends ThemeableMixin('nn-input-radio')(FormElementMixin(Nat
     `
   }
 
-  _updateAssociatedForm () {}
+  // _updateAssociatedForm () {}
+  firstUpdated () {
+    super.firstUpdated()
+    this.setAttribute('type', 'radio')
+  }
 
   _excludeOthers (e) {
-    // All other elements with the same name, marked as `as-radio`
-    const others = [...this.form.elements].filter(el =>
+    // Uncheck all other radio elements in the same form, with the same name, marked as `as-radio` or with type="radio"
+    const others = [...this.form.children].filter(el =>
       el !== this &&
+      !!el.form &&
       el.getAttribute('name') &&
       el.getAttribute('name') === this.getAttribute('name') &&
-      el.getAttribute('as-radio') !== null
+      (el.getAttribute('type') === 'radio' || el.getAttribute('as-radio') !== null)
     )
     for (const el of others) {
       const prop = el.getAttribute('value-source') || 'checked'
