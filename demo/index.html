@@ -49,46 +49,32 @@
       <span name="tab3">Tab 3</span>
       <span name="tab4">Tab 4</span>
       <div name="tab1" slot="content">
-        <nn-form id="form" action="#">
-          <h2>Checkbox</h2>
-          <nn-input-checkbox id="input-checkbox" label="Checkbox"></nn-input-checkbox>
-
-          <h2>Radio</h2>
-          <nn-input-radio id="input-radio-1" label="Radio 1" name="some" value="radio1"></nn-input-radio>
-          <nn-input-radio id="input-radio-2" label="Radio 2" name="some" value="radio2"></nn-input-radio>
-
-          <h2>Text input</h2>
-          <nn-input-text id="input-text" label="Text" label-position="before"></nn-input-text>
-
-          <h2>Button</h2>
-          <nn-button id="button" type="submit">Send</nn-button>
-        </nn-form>
-
         <h2>Native Form</h2>
         <form id="native-form">
           <label for="native-text">
             Native Input
-            <input id="native-text" name="native-text"/>
+            <input id="native-text" name="native-text" placeholder="native-text" />
           </label>
           
-          <nn-input-text id="input-text" name="tpe-text" label="Custom TPE Input"></nn-input-text>
+          <nn-input-text id="input-text" name="tpe-text" label="Custom TPE Input" placeholder="tpe-text"></nn-input-text>
 
           <h3>Checkbox</h3>
           <input type="checkbox" id="native-checkbox" name="native-checkbox"/>
           <label for="native-checkbox">Native checkbox</label>
           <br>
+          <br>
           <input type="checkbox" id="native-checkbox2" name="native-checkbox2"/>
           <label for="native-checkbox">Native checkbox 2</label>
-
           <br>
-          <nn-input-checkbox id="input-checkbox" name="tpe-checkbox" label="Checkbox"></nn-input-checkbox>
-
+          <br>
+          <nn-input-checkbox id="input-checkbox" name="tpe-checkbox" label="TPE Checkbox"></nn-input-checkbox>
 
           <h3>Radio</h3>
           <nn-input-radio id="input-radio-1" label="Radio 1" name="choose-one" value="radio1"></nn-input-radio>
+          &nbsp;&nbsp;
           <nn-input-radio id="input-radio-2" label="Radio 2" name="choose-one" value="radio2"></nn-input-radio>
           <br>
-          <button type="submit">Send it</button>
+          <nn-button type="submit">Send it</nn-button>
         </form>
       </div>
       <div name="tab2" slot="content">
@@ -154,13 +140,7 @@
       drawer.toggle()
     }
 
-    const enform = document.getElementById('native-form')
     const form = document.getElementById('native-form')
-    enform.presubmit = fetchOptions => {
-      // Use a hook to manipulate the payload before submitting.`fetchOptions` contains:
-      fetchOptions.body.submissionTimestamp = Date.now()
-      console.log(fetchOptions.body)
-    }
 
     form.addEventListener('submit', e => {
       e.preventDefault()
