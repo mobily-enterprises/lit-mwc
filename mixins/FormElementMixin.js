@@ -1,7 +1,5 @@
 
-if (!window.ElementInternals) {
-  import('element-internals-polyfill').then(() => { console.log('Loaded ElementInternal polyfill') })
-}
+import 'element-internals-polyfill'
 
 // FormElementMixin
 // ================
@@ -49,18 +47,32 @@ export const FormElementMixin = (base) => {
 
     connectedCallback () {
       super.connectedCallback()
-      this.assignFormProperty()
+      this._assignFormProperty()
     }
 
     _updateAssociatedForm () {
       this.internals.setFormValue(this.value)
     }
 
-    assignFormProperty () {
+    // From [web.dev article](https://web.dev/more-capable-form-controls/):
+    // The following properties and methods aren't strictly required,
+    // but browser-level form controls provide them. Providing them helps
+    // ensure consistency with browser-provided controls.
+    get form () { return this.internals.form || this._assignFormProperty() }
+    get name () { return this.getAttribute('name') }
+    get type () { return this.localName }
+    get validity () { return this.internals.validity }
+    get validationMessage () { return this.internals.validationMessage }
+    get willValidate () { return this.internals.willValidate }
+
+    checkValidity () { return this.internals.checkValidity() }
+    reportValidity () { return this.internals.reportValidity() }
+
+    _assignFormProperty () {
       // if (this.tagName === 'NN-FORM' || this.tagName === 'EN-FORM') return
       let el = this
       while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM' && el.tagName !== 'EN-FORM' && !el.hasAttribute('as-form'))) { } // eslint-disable-line no-empty
-      this.form = el
+      return el
     }
   }
 }
