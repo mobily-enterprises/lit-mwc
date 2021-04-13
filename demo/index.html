@@ -35,9 +35,9 @@
   <body>
     <ee-drawer backdrop>
       <a href="/demo">Demo</a>
-      <a href="/demo#tab1">Tab 1</a>
-      <a href="/demo#tab2">Tab 2</a>
-      <a href="/demo#tab3">Tab 3</a>
+      <a href="/demo#tab1">Form</a>
+      <a href="/demo#tab2">Ee-Form</a>
+      <a href="/demo#tab3">Table</a>
       <a href="/demo#tab4">Tab 4</a>
 
     </ee-drawer>
@@ -45,8 +45,8 @@
 
     <ee-tabs default="tab1" >
       <span name="tab1">Form</span>
-      <span name="tab2">Table</span>
-      <span name="tab3">Tab 3</span>
+      <span name="tab2">En-Form</span>
+      <span name="tab3">Table</span>
       <span name="tab4">Tab 4</span>
       <div name="tab1" slot="content">
         <h2>Native Form</h2>
@@ -62,9 +62,9 @@
 
           <label for="native-pw">
             Native Password
-            <input id="native-pw" type="password" name="native-password" />
+            <input id="native-pw" type="password" minlength="6" name="native-password" />
           </label>
-          <nn-input-password name="tpe-password" label="TPE Password"></nn-input-password>
+          <nn-input-password required minlength="6" name="tpe-password" label="TPE Password"></nn-input-password>
 
           <h3>Checkbox</h3>
           <input type="checkbox" id="native-checkbox" name="native-checkbox"/>
@@ -92,6 +92,16 @@
         </form>
       </div>
       <div name="tab2" slot="content">
+        <en-form id="en-form" action="#">
+          <label for="native-input">
+            A Native Input
+            <input id="native-input" required minlength="6" name="native-text" placeholder="native-text" />
+          </label>
+          <nn-input-text required minlength="6" name="tpe-input" label="Another input"></nn-input-text>
+          <nn-button type="submit">Send it</nn-button>
+        </en-form>
+      </div>
+      <div name="tab3" slot="content">
         <h3>Simple table</h3>
         <ee-table>
           <ee-row header>
@@ -143,7 +153,6 @@
         <h3>With Drag and Drop in a LitElement</h3>
         <dnd-example></dnd-example>
       </div>
-      <div name="tab3" slot="content"></div>
       <div name="tab4" slot="content"></div>
     </ee-tabs>
   </body>
@@ -157,12 +166,21 @@
     const form = document.getElementById('native-form')
 
     form.addEventListener('submit', e => {
-      e.preventDefault()
       const formData = new FormData(form)
       const data = {}
       formData.forEach((value, key) => { data[key] = value })
       console.log(data)
+      e.preventDefault()
     })
+
+    const enform = document.getElementById('en-form')
+    enform.presubmit = (fetchOptions) => {
+      console.log(fetchOptions.body)
+    }
+
+    // enform.addEventListener('submit', (e) => {
+    //   e.preventDefault()
+    // })
 
     document.addEventListener('DOMContentLoaded', (event) => {
       console.log('ready')

@@ -24,6 +24,13 @@ export const FormElementMixin = (base) => {
     */
     static get formAssociated () { return true }
 
+    static get properties () {
+      return {
+        disabled: { type: Boolean },
+        required: { type: Boolean }
+      }
+    }
+
     constructor () {
       super()
       // Check if the `attachInternals` method is available and call it to enable
@@ -51,7 +58,9 @@ export const FormElementMixin = (base) => {
     }
 
     _updateAssociatedForm () {
-      this.internals.setFormValue(this.value)
+      const data = new FormData()
+      data.append(this.name, this.value)
+      this.internals.setFormValue(data)
     }
 
     // From [web.dev article](https://web.dev/more-capable-form-controls/):
@@ -61,12 +70,17 @@ export const FormElementMixin = (base) => {
     get form () { return this.internals.form || this._assignFormProperty() }
     get name () { return this.getAttribute('name') }
     get type () { return this.localName }
-    get validity () { return this.internals.validity }
-    get validationMessage () { return this.internals.validationMessage }
-    get willValidate () { return this.internals.willValidate }
 
-    checkValidity () { return this.internals.checkValidity() }
-    reportValidity () { return this.internals.reportValidity() }
+    // These validity related callbacks are optional, and are already
+    // implemented in the NativeValidatorMixin, so we are not going to use the
+    // ElementInternals API methods, except for **willValidate**.
+    //
+    //
+    get willValidate () { return this.internals.willValidate }
+    // get validity () { return this.internals.validity }
+    // get validationMessage () { return this.internals.validationMessage }
+    checkValidity () { console.log('check validity called'); return this.internals.checkValidity() }
+    reportValidity () { console.log('report validity called'); return this.internals.reportValidity() }
 
     _assignFormProperty () {
       // if (this.tagName === 'NN-FORM' || this.tagName === 'EN-FORM') return
