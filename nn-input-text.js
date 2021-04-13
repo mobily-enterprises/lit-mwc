@@ -36,7 +36,7 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input type="text" id="native" real-time-event="input" .disabled=${this.disabled} .required=${this.required}>
+      <input type="text" id="native" real-time-event="input" >
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
       <slot id="datalist-slot" name="datalist"></slot>
@@ -50,7 +50,7 @@ export class NnInputText extends ThemeableMixin('nn-input-text')(FormElementMixi
 
   static get properties () {
     return {
-      submitOnEnter: { type: Boolean, attribute: 'submit-on-enter' },
+      submitOnEnter: { type: Boolean, attribute: 'submit-on-enter' }
     }
   }
 
