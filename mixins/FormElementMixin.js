@@ -79,8 +79,8 @@ export const FormElementMixin = (base) => {
     get willValidate () { return this.internals.willValidate }
     // get validity () { return this.internals.validity }
     // get validationMessage () { return this.internals.validationMessage }
-    checkValidity () { console.log('check validity called'); return this.internals.checkValidity() }
-    reportValidity () { console.log('report validity called'); return this.internals.reportValidity() }
+    // checkValidity () { return this.internals.checkValidity() }
+    // reportValidity () { return this.internals.reportValidity() }
 
     _assignFormProperty () {
       // if (this.tagName === 'NN-FORM' || this.tagName === 'EN-FORM') return
