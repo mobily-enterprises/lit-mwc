@@ -42,7 +42,7 @@ export const FormElementMixin = (base) => {
 
     firstUpdated () {
       super.firstUpdated()
-      if (this.internals) {
+      if (this.internals && this.native) {
         // Update form with current value on firstUpdate
         this._updateAssociatedForm()
         this.native.addEventListener('input', (e) => {
