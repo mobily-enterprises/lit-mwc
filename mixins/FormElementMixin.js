@@ -67,7 +67,7 @@ export const FormElementMixin = (base) => {
     // The following properties and methods aren't strictly required,
     // but browser-level form controls provide them. Providing them helps
     // ensure consistency with browser-provided controls.
-    get form () { return this.internals.form || this._assignFormProperty() }
+    get form () { return this._assignFormProperty() }
     get name () { return this.getAttribute('name') }
     get type () { return this.localName }
 
@@ -79,11 +79,14 @@ export const FormElementMixin = (base) => {
     get willValidate () { return this.internals.willValidate }
     // get validity () { return this.internals.validity }
     // get validationMessage () { return this.internals.validationMessage }
-    // checkValidity () { return this.internals.checkValidity() }
-    // reportValidity () { return this.internals.reportValidity() }
+    // checkValidity () { console.log('check validity called'); return this.internals.checkValidity() }
+    // reportValidity () { console.log('report validity called'); return this.internals.reportValidity() }
 
     _assignFormProperty () {
       // if (this.tagName === 'NN-FORM' || this.tagName === 'EN-FORM') return
+      if (this.internals && this.internals.form) {
+        return this.internals.form
+      }
       let el = this
       while ((el = el.parentElement) && (el.tagName !== 'FORM' && el.tagName !== 'NN-FORM' && el.tagName !== 'EN-FORM' && !el.hasAttribute('as-form'))) { } // eslint-disable-line no-empty
       return el
