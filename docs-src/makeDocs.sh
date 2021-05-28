@@ -1,4 +1,5 @@
 rm -rf ../docs/*;
+# SHOULD CHANGE
 echo "tpelements.com" > ../docs/CNAME
 
 # Actually fully generate docs-src/codelabs/[id] directories by
@@ -33,9 +34,11 @@ cd ..
 
 # Copy TPE and TPE-material to the output folder
 mkdir -p ../docs/lib
+# SHOULD CHANGE
 cp -pr ../distr/tpe-esm.js ../docs/lib/ 
 cp -pr ../../tpe-material/distr/material-esm.js ../docs/lib/ 
 
+# SHOULD CHANGE
 # node --inspect-brk ../node_modules/docco-next/bin/docco \
 ../node_modules/docco-next/bin/docco \
   -p ./plugin.js\
@@ -51,4 +54,5 @@ cp -pr ../../tpe-material/distr/material-esm.js ../docs/lib/
   code/elements/*js
 
 cp -r ./images ../docs/
+# SHOULD CHANGE
 cp -r ../distr/tpe-esm.js ../docs/lib

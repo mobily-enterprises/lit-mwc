@@ -108,7 +108,7 @@ function tocClasses(s, source) {
             <% if (!s.startsWith('code/')) continue %>
               <li>
                 <a class="source <%= tocClasses(s, source) %>" href="<%= relativeToThisFile(finalPath(s)) %>">
-                    <%- s %>
+                    <%- s.split('/').join(' &#8627; ') %>
                 </a>
               </li>
           <% } %>
