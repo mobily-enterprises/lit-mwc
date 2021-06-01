@@ -230,7 +230,8 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   }
 
   _picked (e) {
-    if (this.informational || !this.targetElement) return
+    console.log(e.currentTarget, e.target)
+    if (this.informational || !this.targetElement || e.target.tagName.toLowerCase() !== this.itemElement) return
 
     if (this.targetElement.multiInputApi) {
       this.targetElement.pickedElement(e.target.data)
@@ -270,7 +271,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     if (this._autocompleteInFlight) return
 
     if (this.targetElement.multiInputApi) {
-      if (this.targetElement.textInputValue === '') {
+      if (this.targetElement.autocompleteValue === '') {
         suggestionsDiv.toggleAttribute('populated', false)
         return
       }
@@ -409,10 +410,10 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   }
 
   async _inputEvent (e) {
-    debugger
+    console.log(e, this._autocompleteInFlight)
     // This is a synthetic event triggered by autocomplete itself
     // once a selection was made: ignore
-    if (e.detail && e.detail.synthetic) return
+    if (e.detail !== 0 && e.detail && e.detail.synthetic) return
 
     // Nothing can nor should happen without a target
     const target = this.targetElement
@@ -450,7 +451,11 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
     const value = target.autocompleteValue || target.value
     
     // No input: do not run a wide search
-    if (!value) return
+    if (!value) {
+      this._autocompleteInFlight = false
+      this.dismissSuggestions()
+      return
+    }
 
     const url = this.url + value
 

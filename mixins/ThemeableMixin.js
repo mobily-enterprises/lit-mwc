@@ -55,6 +55,7 @@ export const CustomThemeMixin = (base) => {
     }
 
     set customStyles (cssTemplate) {
+      if (!cssTemplate) return
       if (typeof cssTemplate === 'string') {
         cssTemplate = super.lit.unsafeCSS`${cssTemplate}`
       }

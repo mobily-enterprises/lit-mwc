@@ -17,6 +17,9 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       valueSeparator: {
         type: String,
         attribute: 'value-separator'
+      },
+      dense: {
+        type: Boolean
       }
     }
   }
@@ -37,15 +40,20 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       super.styles,
       css`
         :host {
-          display: inline;
+          /* display: inline; */
         }
         :host(:focus) {
           outline: none;
         }
 
+        #list {
+          white-space: normal;
+        }
+
         #list > span {
           position: relative;
           display: inline-block;
+          font-size: 0.8em;
         }
 
         #list > span > *:not(button) {
@@ -102,6 +110,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           fill: #555;
         }
 
+        #ta {
+          margin: 0;
+        }
+/* 
         input {
           box-sizing: border-box;
           display: inline-block;
@@ -115,7 +127,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
         input:focus, input:hover {
           outline: none
-        }
+        } */
 
         span.error-message {
           color: red;
@@ -135,7 +147,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <div id="list" @click="${this._listClicked}">
-        <input @keydown="${this._handleKeyEvents}" @input="${this._inputReceived}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" dir="ltr" role="combobox" aria-autocomplete="list">
+        <nn-input-text ?dense=${this.dense} @keydown="${this._handleKeyEvents}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" dir="ltr" role="combobox" aria-autocomplete="list"></nn-input-text>
       </div>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
@@ -143,12 +155,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     `
   }
 
- _inputReceived (e) {
-   debugger
-   if (e.detail.reEmitting) return
-   const inputEvent = new CustomEvent('input', { composed: false, bubbles: true, cancelable: false, detail: { reEmitting: true } });
-   this.shadowRoot.querySelector('#ta').dispatchEvent(inputEvent);
- }
+  _inputReceived (e) {
+    const inputEvent = new CustomEvent('input', { composed: false, bubbles: true, cancelable: false });
+    this.dispatchEvent(inputEvent);
+  }
 
   connectedCallback () {
     super.connectedCallback()
@@ -379,13 +389,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       this.setCustomValidity('')
       this.reportValidity()
     }
-  }
-
-  get textInputValue () {
-    const targetElementTextArea = this.shadowRoot.querySelector('#ta')
-    return targetElementTextArea
-      ? targetElementTextArea.value
-      : ''
   }
 
   setPickedElement (itemElement, itemElementConfig, itemElementAttributes) {
