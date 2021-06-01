@@ -449,7 +449,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
 
     // Set the url, which will also depend on recordId
     const value = target.autocompleteValue || target.value
-    
+
     // No input: do not run a wide search
     if (!value) {
       this._autocompleteInFlight = false
