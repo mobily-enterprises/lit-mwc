@@ -155,11 +155,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     `
   }
 
-  _inputReceived (e) {
-    const inputEvent = new CustomEvent('input', { composed: false, bubbles: true, cancelable: false });
-    this.dispatchEvent(inputEvent);
-  }
-
   connectedCallback () {
     super.connectedCallback()
     this.addEventListener('click', this.focus)
