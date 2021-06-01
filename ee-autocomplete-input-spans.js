@@ -196,6 +196,8 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   set value (v) {
     const list = this.shadowRoot.querySelector('#list')
+    
+    if (!list) return
 
     // Remove all children
     while (list.firstChild) {
