@@ -409,6 +409,7 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
   }
 
   async _inputEvent (e) {
+    debugger
     // This is a synthetic event triggered by autocomplete itself
     // once a selection was made: ignore
     if (e.detail && e.detail.synthetic) return
@@ -442,14 +443,15 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
       this.pickedData = null
     }
 
-    // No input: do not run a wide search
-    if (!this.targetElement.value) return
-
     // IN FLIGHT!
     this._autocompleteInFlight = true
 
     // Set the url, which will also depend on recordId
     const value = target.autocompleteValue || target.value
+    
+    // No input: do not run a wide search
+    if (!value) return
+
     const url = this.url + value
 
     const fetchOptions = {

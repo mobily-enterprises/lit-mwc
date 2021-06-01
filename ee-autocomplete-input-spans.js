@@ -143,6 +143,13 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     `
   }
 
+ _inputReceived (e) {
+   debugger
+   if (e.detail.reEmitting) return
+   const inputEvent = new CustomEvent('input', { composed: false, bubbles: true, cancelable: false, detail: { reEmitting: true } });
+   this.shadowRoot.querySelector('#ta').dispatchEvent(inputEvent);
+ }
+
   connectedCallback () {
     super.connectedCallback()
     this.addEventListener('click', this.focus)
@@ -196,7 +203,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   set value (v) {
     const list = this.shadowRoot.querySelector('#list')
-    
+
     if (!list) return
 
     // Remove all children
