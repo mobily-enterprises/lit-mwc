@@ -23,13 +23,13 @@ export class EeAutocomplete extends ThemeableMixin('ee-autocomplete')(StyleableM
           overflow-y: scroll;
           top: 90%;
           left: 17px;
-          box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.2), 0 0 2px 2px rgba(0, 0, 0, 0.05);
           visibility: hidden;
         }
 
         #suggestions-elements[populated] {
           width: auto;
           min-width: var(--ee-autocomplete-suggestions-min-width, 400px);
+          box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.2), 0 0 2px 2px rgba(0, 0, 0, 0.05);
           padding: 10px;
         }
 

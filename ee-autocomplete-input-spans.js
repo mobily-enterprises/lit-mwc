@@ -37,7 +37,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       super.styles,
       css`
         :host {
-          display: inline;
+          /* display: inline; */
         }
         :host(:focus) {
           outline: none;
@@ -161,6 +161,9 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   }
 
   firstUpdated () {
+    if (this._tempValue) {
+      this.value = this._tempValue
+    }
     this._updateNativeInputValue()
   }
 
@@ -204,8 +207,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
   set value (v) {
     const list = this.shadowRoot.querySelector('#list')
 
-    if (!list) return
-
+    if (!list) {
+      this._tempValue = v
+      return
+    }
     // Remove all children
     while (list.firstChild) {
       if (list.firstChild.id === 'ta') break
@@ -227,6 +232,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         this.pickedElement(s, false, true)
       }
     }
+    this._tempValue = null
     // Sets the native input
     this._updateNativeInputValue()
 
