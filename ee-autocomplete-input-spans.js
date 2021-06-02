@@ -17,9 +17,6 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       valueSeparator: {
         type: String,
         attribute: 'value-separator'
-      },
-      dense: {
-        type: Boolean
       }
     }
   }
@@ -40,25 +37,26 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       super.styles,
       css`
         :host {
-          /* display: inline; */
+          display: inline;
         }
         :host(:focus) {
           outline: none;
         }
 
         #list {
-          white-space: normal;
+          display: flex;
         }
 
         #list > span {
           position: relative;
-          display: inline-block;
+          display: flex;
           font-size: 0.8em;
+          width: max-content;
         }
 
         #list > span > *:not(button) {
           position: relative;
-          display: inline-block;
+          /* display: inline-block; */
           padding: 3px 6px;
           padding-right: 24px;
           border: 1px solid #ddd;
@@ -89,13 +87,12 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           fill: #999;
           border: none;
           padding: 0;
-          display: inline-block;
+          /* display: inline-block; */
           position: absolute;
           top: 55%;
-          right: 4px;
+          right: 6px;
           transform: translateY(-50%);
           background: none;
-          z-index:0;
         }
 
         #list > *:focus, #list > span *:active {
@@ -113,7 +110,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         #ta {
           margin: 0;
         }
-/* 
+
         input {
           box-sizing: border-box;
           display: inline-block;
@@ -122,12 +119,13 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           height: 1.5em;
           border: none;
           font-size: 0.9em;
-          width: 120px;
+          min-width: 120px;
+          width: 100%;
         }
 
         input:focus, input:hover {
           outline: none
-        } */
+        }
 
         span.error-message {
           color: red;
@@ -147,7 +145,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
       <div id="list" @click="${this._listClicked}">
-        <nn-input-text ?dense=${this.dense} @keydown="${this._handleKeyEvents}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" dir="ltr" role="combobox" aria-autocomplete="list"></nn-input-text>
+        <input @keydown="${this._handleKeyEvents}" rows="1" id="ta" spellcheck="false" autocomplete="false" autocapitalize="off" autocorrect="off" dir="ltr" role="combobox" aria-autocomplete="list"/>
       </div>
       ${this.ifValidationMessageAfter}
       ${this.ifLabelAfter}
@@ -263,7 +261,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
   _askToRemove (e) {
     const target = e.currentTarget
-    this._removeItem(target.parentElement.parentElement)
+    this._removeItem(target.parentElement)
   }
 
   _updateNativeInputValue () {
@@ -372,7 +370,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
     // in tab list by default
     removeBtn.setAttribute('tabindex', -1)
     span.appendChild(el)
-    el.appendChild(removeBtn)
+    span.appendChild(removeBtn)
 
     list.insertBefore(span, ta)
     ta.value = ''
