@@ -45,6 +45,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
 
         #list {
           display: flex;
+          flex-wrap: wrap;
         }
 
         #list > span {
@@ -107,20 +108,16 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
           fill: #555;
         }
 
-        #ta {
-          margin: 0;
-        }
-
         input {
           box-sizing: border-box;
-          display: inline-block;
+          margin: 0;
           outline: none;
           vertical-align: middle;
           height: 1.5em;
           border: none;
           font-size: 0.9em;
           min-width: 120px;
-          width: 100%;
+          flex: 1;
         }
 
         input:focus, input:hover {
