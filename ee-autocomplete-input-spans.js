@@ -17,6 +17,10 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       valueSeparator: {
         type: String,
         attribute: 'value-separator'
+      },
+      clearOnSetValue: {
+        type: Boolean,
+        attribute: 'clear-on-set-value'
       }
     }
   }
@@ -212,7 +216,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       return
     }
     // Remove all children
-    while (list.firstChild) {
+    while (this.clearOnSetValue &&list.firstChild) {
       if (list.firstChild.id === 'ta') break
       list.removeChild(list.firstChild)
     }
