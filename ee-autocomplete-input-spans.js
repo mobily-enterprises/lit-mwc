@@ -216,7 +216,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
       return
     }
     // Remove all children
-    while (this.clearOnSetValue &&list.firstChild) {
+    while ((this.clearOnSetValue || v === '' || v === null || v === undefined) && list.firstChild) {
       if (list.firstChild.id === 'ta') break
       list.removeChild(list.firstChild)
     }
@@ -231,7 +231,7 @@ class EeAutocompleteInputSpans extends ThemeableMixin('ee-autocomplete-input-spa
         const $o = v[k]
         this.pickedElement($o, false, true)
       }
-    } else if (typeof v === 'string') {
+    } else if (typeof v === 'string' && v !== '') {
       for (const s of v.split(this.valueSeparator)) {
         this.pickedElement(s, false, true)
       }
