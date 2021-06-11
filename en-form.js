@@ -530,7 +530,8 @@ class EnForm extends ThemeableMixin('en-form')(StyleableMixin(LitElement)) {
           const filesInEl = body[k].files
           for (const f of filesInEl) formData.append(k, f)
         } else {
-          formData.append(k, body[k])
+          if (typeof body[k] === 'undefined' || body[k] === null) formData.append(k, '')
+          else formData.append(k, body[k])
         }
       }
       fetchOptions.body = formData
