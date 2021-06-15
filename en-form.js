@@ -176,7 +176,7 @@ class EnForm extends ThemeableMixin('en-form')(StyleableMixin(LitElement)) {
           r[elName] = !!this.getFormElementValue(elName)
         }
       // For "file" types (uploads), it will
-      } else if (el.getAttribute('type') === 'file' || el.getAttribute('as-file')) {
+      } else if (el.getAttribute('type') === 'file' || el.getAttribute('as-file') !== null) {
         r[elName] = el
       } else {
         r[elName] = this.getFormElementValue(elName)
