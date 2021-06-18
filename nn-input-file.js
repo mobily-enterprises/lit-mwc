@@ -39,13 +39,15 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
       manyFilesText: {
         type: String,
         attribute: 'many-files-text'
-      }
+      },
+      title: { type: String }
     }
   }
 
   constructor () {
     super()
-    this.manyFilesText = 'Many'
+    this.manyFilesText = 'Multiple'
+    this.title = ''
     this.toggleAttribute('as-file', true)
   }
 
@@ -55,7 +57,7 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
     return html`
       ${this.ifLabelBefore}
       ${this.ifValidationMessageBefore}
-      <input type="file" id="native" @change="${this.fileNameChanged}" ?hidden=${this.hideNative}>
+      <input type="file" id="native" @change="${this.fileNameChanged}" ?hidden=${this.hideNative} title=${this.title}>
       ${this.ifValidationMessageAfter}
       ${this.fileName}
       ${this.ifLabelAfter}
@@ -65,7 +67,16 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
   fileNameChanged (e) {
     const native = this.shadowRoot.querySelector('#native')
     const v = native.value
-    this.fileName = native.files.length > 1 ? this.manyFilesText : v.slice(v.lastIndexOf('\\') + 1)
+    if (native.files.length > 1) {
+      this.fileName = this.manyFilesText + ` (${native.files.length})`
+      this.title = Array.from(native.files).map(file => file.name).join('\n')
+    } else if (native.files.length === 1) { 
+      this.fileName = v.slice(v.lastIndexOf('\\') + 1)
+      this.title = this.fileName
+    } else {
+      this.fileName = ''
+      this.title = ''
+    }
   }
 }
 customElements.define('nn-input-file', NnInputFile)
