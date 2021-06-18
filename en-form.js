@@ -176,7 +176,7 @@ class EnForm extends ThemeableMixin('en-form')(StyleableMixin(LitElement)) {
           r[elName] = !!this.getFormElementValue(elName)
         }
       // For "file" types (uploads), it will
-      } else if (el.getAttribute('type') === 'file' || el.getAttribute('as-file')) {
+      } else if (el.getAttribute('type') === 'file' || el.getAttribute('as-file') !== null) {
         r[elName] = el
       } else {
         r[elName] = this.getFormElementValue(elName)
@@ -534,7 +534,8 @@ class EnForm extends ThemeableMixin('en-form')(StyleableMixin(LitElement)) {
           const filesInEl = body[k].files
           for (const f of filesInEl) formData.append(k, f)
         } else {
-          formData.append(k, body[k])
+          if (typeof body[k] === 'undefined' || body[k] === null) formData.append(k, '')
+          else formData.append(k, body[k])
         }
       }
       fetchOptions.body = formData

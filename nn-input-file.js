@@ -25,7 +25,7 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
           white-space: nowrap; /* 1 */
         }
 
-        nn-button { 
+        nn-button {
           margin: auto
         }
       `
@@ -46,6 +46,7 @@ export class NnInputFile extends ThemeableMixin('nn-input-file')(FormElementMixi
   constructor () {
     super()
     this.manyFilesText = 'Many'
+    this.toggleAttribute('as-file', true)
   }
 
   render () {
