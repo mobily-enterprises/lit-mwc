@@ -256,7 +256,11 @@ class EnForm extends ThemeableMixin('en-form')(StyleableMixin(LitElement)) {
     } else if (this._selectElement(el)) {
       if (!value) el.selectedIndex = 0
       else el[valueSource] = value
-
+    
+    // FILE INPUT
+    } else if (el.getAttribute('type') === 'file' || el.getAttribute('as-file') !== null) {
+      el.fileName = value
+      
     // Any other case
     } else {
       el[valueSource] = value
